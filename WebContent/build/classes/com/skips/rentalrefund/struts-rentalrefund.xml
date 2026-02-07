@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+	
+
+	<package name="rentalRefund" extends="struts-default">
+			<action name="saveRentalRefund" class="com.skips.rentalrefund.ClsRentalRefundAction" method="saveAction">
+				<interceptor-ref name="params"/>
+				<result name="success" >rentalRefund.jsp</result>
+				<result name="fail">rentalRefund.jsp</result>
+			</action>
+			
+			<action name="printRentalRefund" class="com.skips.rentalrefund.ClsRentalRefundAction" method="printAction">
+				<interceptor-ref name="params"/>
+				<!-- <result name="print">rentalRefundPrint.jsp</result> -->
+				<result name="print">${url}</result>
+			</action>
+			
+			<action name="printRefundCheque" class="com.skips.rentalrefund.ClsRentalRefundAction" method="printChequeAction">
+				<interceptor-ref name="params"/>
+				<result name="print">../../../../com/operations/chequePrintingFormat.jsp</result>
+			</action>
+			
+			<action name="rentalRefundDetails" class="com.skips.rentalrefund.ClsRentalRefundAction" method="saveAction">
+			    <interceptor-ref name="params"/>
+			    <result name="success" >../../../../com/skips/rentalrefund/rentalRefund.jsp</result>
+			    <result name="fail">../../../../com/skips/rentalrefund/rentalRefund.jsp</result>
+   			</action>
+			
+		</package>	
+</struts>

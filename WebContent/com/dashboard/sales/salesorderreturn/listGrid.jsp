@@ -1,0 +1,239 @@
+ 
+
+  	 <%@page import="com.dashboard.sales.salesorderreturn.ClssalesorderReturnDAO"%>
+  	 <% ClssalesorderReturnDAO searchDAO = new ClssalesorderReturnDAO(); 
+  	 
+  	    String barchval = request.getParameter("barchval")==null?"NA":request.getParameter("barchval").trim();
+  		String fromdate = request.getParameter("fromdate")==null?"0":request.getParameter("fromdate").trim();
+  	  	String todate = request.getParameter("todate")==null?"0":request.getParameter("todate").trim();
+  	  
+  	  	String acno = request.getParameter("acno")==null?"NA":request.getParameter("acno").trim();
+  	  	
+  	  	String statusselect = request.getParameter("statusselect")==null?"0":request.getParameter("statusselect").trim();
+  	 %> 
+  	       
+  	   <style type="text/css">
+  	  .advanceClass
+  	  {
+  	      color: #FF0000;
+  	  }
+  	  .yellowClass
+  	        {
+  	        
+  	       
+  	       background-color: #ffc0cb; 
+  	        
+  	        }
+  	</style>
+  	 
+  	<script type="text/javascript">
+  	 var temp4='<%=barchval%>';
+  	var datas;
+
+  	 if(temp4!='NA')
+  	{ 
+  		
+  		 datas='<%=searchDAO.orderlistsearch(barchval,fromdate,todate,statusselect,acno)%>'; 
+  		 
+  	} 
+  	else
+  	{ 
+  		
+  		datas;
+  		
+  		}  
+
+  	$(document).ready(function () {
+  		  var rendererstring1=function (aggregates){
+  	         	var value=aggregates['sum1'];
+  	         	return '<div style="float: right; margin: 4px;font-size:12px; overflow: hidden;">' + " Total" + '</div>';
+  	         }    
+  	      
+  	   var rendererstring=function (aggregates){
+  	   	var value=aggregates['sum'];
+  	   	return '<div style="float: right; margin: 4px;font-size:12px; overflow: hidden;"> ' + value + '</div>';
+  	   }
+  	      
+  	    var source =
+  	    {
+  	        datatype: "json",
+  	        datafields: [   
+  	                     
+  	 
+  	                        {name : 'voc_no', type: 'int'  },
+  							{name : 'date', type: 'date'  },
+  						 
+  						/* 	{name : 'qty', type: 'number'  },
+  							
+  							{name : 'productid', type: 'String'  },
+  							{name : 'productname', type: 'String'  },
+  							{name : 'unit', type: 'String'  }, */
+  							{name : 'refno', type: 'String'  },
+  							
+  							
+  						/* 	{name : 'dtype', type: 'String'  },
+  							
+  							{name : 'out_qty', type: 'number'  },
+  							
+  							{name : 'balqty', type: 'number'  },
+  							
+  							{name : 'amount', type: 'number'  },
+  							
+  							{name : 'total', type: 'number'  },
+  							
+  							{name : 'disper', type: 'number'  },
+  							{name : 'discount', type: 'number'  },
+  							{name : 'nettotal', type: 'number'  }, */
+  							
+  							{name : 'account', type: 'String'  },      
+  							{name : 'acname', type: 'String'  }, 
+  							
+  							{name : 'description', type: 'String'  }, 
+  							
+  							{name : 'doc_no', type: 'String'  }, 
+  							
+
+  							
+  							{name : 'status', type: 'Int'  }, 
+  							
+  							{name : 'clstatus', type: 'Int'  }, 
+  							{name : 'branchvals', type: 'String'  }, 
+  							
+  							 
+  				 
+  							
+  							],
+  					    localdata: datas,
+  	        
+  	        
+  	        pager: function (pagenum, pagesize, oldpagenum) {
+  	            // callback called when a page or page size is changed.
+  	        }
+  	    };
+  	  
+  	    var cellclassname =  function (row, column, value, data) {
+
+ 
+  	   	  var ss= $('#salorderlistgrid').jqxGrid('getcellvalue', row, "status");
+  	   		          if(parseInt(ss)!=3)
+  	   		  		{
+  	   		  		
+  	   		  		return "yellowClass";
+  	   		  	
+  	   		  		}
+  	   	    
+  	   	    	/* return "greyClass";
+  	   	    	
+  	   		        var element = $(defaultHtml);
+  	   		        element.css({ 'background-color': '#F3F297', 'width': '100%', 'height': '100%', 'margin': '0px' });
+  	   		        return element[0].outerHTML;
+  	   	*/
+
+  	   		}
+
+  	    
+  	    var dataAdapter = new $.jqx.dataAdapter(source,
+  	    		 {
+  	        		loadError: function (xhr, status, error) {
+  	                alert(error);    
+  	                }
+  			            
+  		            }		
+  	    );
+  	    
+  	    
+  	   
+  	   
+  	    
+  	    $("#salorderlistgrid").jqxGrid(
+  	    {
+  	  		width: '99.5%',
+  	        height: 250,
+  	        source: dataAdapter,
+  	         
+  	        enableAnimations: true,
+  	        filtermode:'excel',
+  	        filterable: true,
+  	        sortable:true,
+  	        
+  	     
+  	       
+  	        
+  	        selectionmode: 'singlerow',
+  	        pagermode: 'default',
+  	        editable:false,
+  	        columns: [   
+  	                  { text: 'SL#', sortable: false, filterable: false, editable: false,cellclassname: cellclassname,
+  	                      groupable: false, draggable: false, resizable: false,
+  	                      datafield: 'sl', columntype: 'number', width: '5%',
+  	                      cellsrenderer: function (row, column, value) {
+  	                          return "<center><div style='margin:4px;'>" + (value + 1) + "</div></center>";
+  	                      }  
+  	                    },	
+  	          
+  	              
+  	                     { text: 'Doc No',datafield: 'voc_no', width: '8%' ,cellclassname: cellclassname},
+  	                   { text: 'doc No',datafield: 'doc_no', width: '5%' ,cellclassname: cellclassname,hidden:true},
+  	                   
+  	         			 { text: 'Date', datafield: 'date', width: '10%',cellsformat:'dd.MM.yyyy',cellclassname: cellclassname},
+  	         			 { text: 'Ref No',datafield: 'ref_no', width: '12%',cellclassname: cellclassname },
+  	   /*       			 { text: 'Type',datafield: 'dtype', width: '9%',cellclassname: cellclassname }, */
+  	         		     { text: 'Account', datafield: 'account',  width: '15%' ,cellclassname: cellclassname },
+  	                     { text: 'Account Name', datafield: 'acname',  width: '20%' ,cellclassname: cellclassname },
+  	                      { text: 'Description', datafield: 'description',  width: '30%' ,cellclassname: cellclassname },
+	                     
+  	                    { text: 'branchvals', datafield: 'branchvals',  width: '30%' ,cellclassname: cellclassname,hidden:true },
+  	                    
+  	                   
+  	           	      /*    { text: 'Product Id', datafield: 'productid',  width: '13%',cellclassname: cellclassname }, 
+  	           	         { text: 'Product Name', datafield: 'productname',  width: '25%',cellclassname: cellclassname },
+  	           	         { text: 'Unit', datafield: 'unit',  width: '5%' ,cellclassname: cellclassname},
+  	           	         { text: 'Total Qty', datafield: 'qty',  width: '6%' ,cellsformat:'d2',cellclassname: cellclassname},
+  	           	         { text: 'Out Qty', datafield: 'out_qty',  width: '6%' ,cellsformat:'d2',cellclassname: cellclassname},
+  			           	 { text: 'Balance Qty', datafield: 'balqty',  width: '6%' ,cellsformat:'d2',cellclassname: cellclassname},
+  			           	 { text: 'Unit Price', datafield: 'amount',  width: '10%' ,cellsformat:'d2',cellsalign: 'right', align:'right',aggregates: ['sum'],aggregatesrenderer:rendererstring,cellclassname: cellclassname},
+  			           	 { text: 'Total', datafield: 'total',  width: '10%' ,cellsformat:'d2',cellsalign: 'right', align:'right',aggregates: ['sum'],aggregatesrenderer:rendererstring,cellclassname: cellclassname},
+  			           	 { text: 'Discount %', datafield: 'disper',  width: '10%' ,cellsformat:'d2',cellsalign: 'right', align:'right',aggregates: ['sum'],aggregatesrenderer:rendererstring,cellclassname: cellclassname},
+  			           	 { text: 'Discount', datafield: 'discount',  width: '10%' ,cellsformat:'d2',cellsalign: 'right', align:'right',aggregates: ['sum'],aggregatesrenderer:rendererstring,cellclassname: cellclassname},
+  			             { text: 'Net Total', datafield: 'nettotal',  width: '10%' ,cellsformat:'d2',cellsalign: 'right', align:'right',aggregates: ['sum'],aggregatesrenderer:rendererstring,cellclassname: cellclassname},
+  								
+  	  */
+  						
+  						]
+  	   
+  	    });
+  	    $("#overlay, #PleaseWait").hide();
+  	    
+  	    $('#salorderlistgrid').on('cellclick', function (event) 
+  	    		{ 
+  	    
+  			  var rowindex1=event.args.rowindex;
+   
+  			   document.getElementById("masterdoc_no").value=$('#salorderlistgrid').jqxGrid('getcellvalue', rowindex1, "doc_no");
+  			   
+  			 document.getElementById("branchvals").value=$('#salorderlistgrid').jqxGrid('getcellvalue', rowindex1, "branchvals");
+  			   
+  			   
+  			 
+  			   
+  			   
+  		       $("#detaildiv").load("detailgrid.jsp?rdoc="+$('#salorderlistgrid').jqxGrid('getcellvalue', rowindex1, "doc_no"));
+  		    
+  		 
+/*   		       
+  		     $("#txtlocation").attr("disabled",false); 
+  			 $("#refnos").attr("disabled",false); 
+  			 $("#description").attr("disabled",false);  */
+  			 $("#updatdata").attr("disabled",false); 
+  			/*  $('#date').jqxDateTimeInput({disabled: false}); */
+  		       
+  		       
+  	    	
+  	    		});
+  	    
+  	   
+  	});
+
+
+  	</script>
+  	<div id="salorderlistgrid"></div>

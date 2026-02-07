@@ -1,0 +1,410 @@
+package com.dashboard.skips.advinvoiceproessing;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import com.common.ClsCommon;
+import com.connection.ClsConnection;
+import net.sf.json.JSONArray;
+import java.util.*;
+import com.skips.invoice.ClsManualInvoiceDAO1;   
+
+public class ClsInvoiceProcessingDAO {
+
+	ClsConnection objconn=new ClsConnection();
+	ClsCommon objcommon=new ClsCommon();
+	ClsManualInvoiceDAO1 InvoiceDAO=new ClsManualInvoiceDAO1();   
+	Connection conn;
+	public JSONArray countData(String todate,String brhid,String id,String cldocno) throws SQLException{  
+		JSONArray data=new JSONArray();
+		if(!id.equalsIgnoreCase("1")){
+			return data;
+		}
+		Connection conn=null;
+		try{
+			java.sql.Date sqlfromdate=null,sqltodate=null;
+			String sqlfilters="";
+			if(!todate.equalsIgnoreCase("")){
+				sqltodate=objcommon.changeStringtoSqlDate(todate);
+			}
+			if(!brhid.equalsIgnoreCase("") && !brhid.equalsIgnoreCase("a")){
+				sqlfilters+=" and brhid="+brhid; 
+			}
+			if(!cldocno.equalsIgnoreCase("") && !cldocno.equalsIgnoreCase("0")){
+				sqlfilters+=" and cldocno="+cldocno;       
+			} 
+			conn=objconn.getMyConnection();
+			String strsql="select count(*) count,'Advance Yearly' name,2 val from sk_srvcontrm m inner join sk_srvcontrdet d on m.tr_no=d.rdocno where advinvmethod=1 and status<=3 and billingmethod=2 and coalesce(invdate,startdt)<='"+sqltodate+"' and '"+sqltodate+"' between m.startdt and m.enddt "+sqlfilters+" union all select count(*) count,'Advance Monthly' name,1 val from sk_srvcontrm  m inner join sk_srvcontrdet d on m.tr_no=d.rdocno  where advinvmethod=1 and status<=3 and  billingmethod=1 and coalesce(invdate,startdt)<='"+sqltodate+"' and '"+sqltodate+"' between m.startdt and m.enddt "+sqlfilters+"";
+			//System.out.println("Count ="+strsql);                         
+			ResultSet rs=conn.createStatement().executeQuery(strsql); 
+			data=objcommon.convertToJSON(rs);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		finally{
+			conn.close();
+		}
+		return data;
+	}
+	public JSONArray invoiceData(String todate,String brhid,String id,String cldocno,String type) throws SQLException{       
+		JSONArray data=new JSONArray();
+		if(!id.equalsIgnoreCase("1")){
+			return data;
+		}
+		Connection conn=null;
+		try{
+			java.sql.Date sqlfromdate=null,sqltodate=null;
+			String sqlfilters="",sqltest="";
+			if(!todate.equalsIgnoreCase("")){
+				sqltodate=objcommon.changeStringtoSqlDate(todate);
+			}
+			if(!brhid.equalsIgnoreCase("") && !brhid.equalsIgnoreCase("a")){
+				sqlfilters+=" and m.brhid="+brhid;
+			}
+			if(!cldocno.equalsIgnoreCase("") && !cldocno.equalsIgnoreCase("0")){
+				sqlfilters+=" and m.cldocno="+cldocno;       
+			}
+			String strsql="";
+			conn=objconn.getMyConnection();
+			
+			strsql="select a.*,coalesce(rpcrate*totaltrips,0) rpctotal,coalesce(tfrate*totaltrips,0) tftotal,coalesce(gfrate*totaltrips,0) gftotal,coalesce(rpcrate*totaltrips,0)+coalesce(tfrate*totaltrips,0)+coalesce(gfrate*totaltrips,0) nettotal from(select m.manualinv,d.rate rpcrate, if(m.inctipfee=0,0,d.tippingfee) tfrate,if(m.inctipfee=0,0,d.gatefee) gfrate,m.advinvvalue,r3.tripsinmonth,d.nos,d.scheduledays,round(cast(round(coalesce(m.advinvvalue*r3.tripsinmonth*d.nos*d.scheduledays,0),2) as decimal),0) totaltrips,0 invoicetrip,0 chargedtrip,0 tottrips,0 executedtrip, s.site,d.siteid,ac.refname,m.cldocno,d.rowno,m.tr_no,m.doc_no,m.date,d.wastetype wastedoc,d.skiptype skipdoc,sk.name skiptype, ds.name wastetype,m.brhid,coalesce(m.mergedinvoice,'') mergedinvoice,m.remarks,m.refno,coalesce(a1.name,'') groupcompanies from sk_srvcontrm m left join sk_srvcontrdet d  on d.rdocno=m.tr_no left join sk_skiptype sk on sk.doc_no=d.skiptype left join sk_dumptype ds on ds.doc_no=d.wastetype left join sk_srvcsited s on s.rowno=d.siteid left join my_acbook ac on ac.cldocno=m.cldocno and ac.dtype='crm' left join gl_enqm em on em.doc_no=m.refdocno left join sk_clgroup a1 on if(ac.grpcmp=0,em.grpcmpid,ac.grpcmp)=a1.docno left join sk_enqrelated r3 on (r3.srno=d.servicetermid and r3.type='SCHEDULE') where m.advinvmethod=1 and m.billingmethod='"+type+"' and m.status<=3 and coalesce(d.invdate,m.startdt)<='"+sqltodate+"' and '"+sqltodate+"' between m.startdt and m.enddt "+sqlfilters+" ORDER BY M.DOC_NO)a";
+			//System.out.println(strsql);           
+			ResultSet rs=conn.createStatement().executeQuery(strsql);
+			data=objcommon.convertToJSON(rs);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		finally{
+			conn.close();
+		}
+		return data;
+	}
+	 public JSONArray clentdetails() throws SQLException {
+
+	        JSONArray RESULTDATA=new JSONArray();
+	        
+	        Connection conn =null;
+	        try {
+				 conn = objconn.getMyConnection();
+				 Statement stmtVeh = conn.createStatement ();
+				
+				String sql="select cldocno,refname from my_acbook where status=3 and dtype='CRM'";  
+				 ResultSet resultSet = stmtVeh.executeQuery(sql);
+	        	
+				RESULTDATA=objcommon.convertToJSON(resultSet);  
+	 			
+				stmtVeh.close();
+	 			conn.close();
+	       
+		} catch(Exception e){
+				e.printStackTrace();
+				conn.close();
+			}
+			//System.out.println(RESULTDATA);
+	        return RESULTDATA;
+	    }
+	 public int insert(Date sqlStartDate, HttpSession session, HttpServletRequest request, String rowno, String type, String servchargechk, String tippingfeechk, String gatefeechk) throws SQLException {       
+		 try{      
+			int docno=0;  
+			conn=objconn.getMyConnection(); 
+			Statement stmt =conn.createStatement();  
+			Statement stmt2 =conn.createStatement();
+			Statement stmttip =conn.createStatement(); 
+			ArrayList<String> invoiceList=new ArrayList<String>();  
+			conn.setAutoCommit(false);        
+			//System.out.println("===IN ADV INV===");  
+			String strsql="",descsql1="",descsql2="",doctype="SINV";  
+			int cnt=0,advinvmethod=0;  
+			String strsql1="select msg from sk_msgsettings where dtype='SINV' and status=3";  
+			ResultSet rs1=stmt.executeQuery(strsql1);      
+			while(rs1.next()) {
+				descsql1=rs1.getString("msg");    
+			}
+			String invno="0",tripsrno="0",drowno="",description="",cldocno="0",tr_no="0",doc_no="0",periodfrom="",periodto="",periodto1="",rpcacno="0",tfacno="0",gfacno="0",rpcdesc="",tfdesc="",gfdesc="",vocnos="";
+			Double rpctax=0.0,tftax=0.0,gftax=0.0,rpcrate=0.0,tfrate=0.0,gfrate=0.0,rpctotal=0.0,tftotal=0.0,gftotal=0.0,rpctaxper=0.0,tftaxper=0.0,gftaxper=0.0,rpctaxamt=0.0,tftaxamt=0.0,gftaxamt=0.0,rpcnet=0.0,tfnet=0.0,gfnet=0.0,tottrips=0.0,executedtrip=0.0,chargeabletrips=0.0,invoicedtrips=0.0;
+			double qty=0,qty2=0,qty3=0;  
+			int skipsizeid=0, siteid=0, atsiteqty=0;   
+			//strsql="select 0 invoicetrip,0 chargedtrip,0 tottrips, 0 executedtrip,0 qty2,0 qty3,a.*,coalesce(rpcrate*qty,0) rpctotal,coalesce(tfrate*qty,0) tftotal,coalesce(gfrate*qty,0) gftotal, if(rpctax=1,5,0) rpctaxper,if(tftax=1,5,0) tftaxper,if(gftax=1,5,0) gftaxper,if(rpctax=1,(5*coalesce(rpcrate*qty,0))/100,0) rpctaxamt,if(tftax=1,(5*coalesce(tfrate*qty,0))/100,0) tftaxamt,if(gftax=1,(5*coalesce(gfrate*qty,0))/100,0) gftaxamt,if(rpctax=1,(5*coalesce(rpcrate*qty,0))/100,0)+coalesce(rpcrate*qty,0) rpcnet,if(tftax=1,(5*coalesce(tfrate*qty,0))/100,0)+coalesce(tfrate*qty,0) tfnet,if(gftax=1,(5*coalesce(gfrate*qty,0))/100,0)+coalesce(gfrate*qty,0) gfnet from(select 0 srno,d.rowno,m.cldocno,m.tr_no, m.doc_no, date_format(if(d.invdate is null,m.startdt,d.invdate),'%d.%m.%Y') periodfrom, date_format(DATE_ADD(if(d.invdate is null,m.startdt,d.invdate), INTERVAL coalesce(advinvvalue,0) MONTH),'%d.%m.%Y') periodto, (select advance from sk_invmode where idno=1) rpcacno, (select tax from sk_invmode where idno=1) rpctax, (select advance from sk_invmode where idno=2) tfacno, (select tax from sk_invmode where idno=2) tftax,(select advance from sk_invmode where idno=3) gfacno, (select tax from sk_invmode where idno=3) gftax,(select description from sk_invmode where idno=1) rpcdesc,(select description from sk_invmode where idno=2) tfdesc,(select description from sk_invmode where idno=3) gfdesc, round(cast(round(coalesce(m.advinvvalue*r3.tripsinmonth*d.nos*d.scheduledays,0),2) as decimal),0) qty, d.rate rpcrate, if(m.inctipfee=0,0,d.tippingfee) tfrate, if(m.inctipfee=0,0,d.gatefee) gfrate,m.advinvmethod from sk_srvcontrm m left join sk_srvcontrdet d on d.rdocno=m.tr_no left join sk_enqrelated r3 on (r3.srno=d.servicetermid and r3.type='SCHEDULE') where m.status<=3 and d.rowno in ("+rowno.substring(0, rowno.length()-1)+") order by m.tr_no)a";
+			strsql="select 0 invoicetrip,0 chargedtrip,0 tottrips, 0 executedtrip,0 qty2,0 qty3,a.*,round(coalesce(rpcrate*qty,0),2) rpctotal,round(coalesce(tfrate*qty,0),2) tftotal,round(coalesce(gfrate*qty,0),2) gftotal, if(rpctax=1,5,0) rpctaxper,if(tftax=1,5,0) tftaxper,if(gftax=1,5,0) gftaxper,round(if(rpctax=1,(5*coalesce(rpcrate*qty,0))/100,0),2) rpctaxamt,round(if(tftax=1,(5*coalesce(tfrate*qty,0))/100,0),2) tftaxamt,round(if(gftax=1,(5*coalesce(gfrate*qty,0))/100,0),2) gftaxamt,round(if(rpctax=1,(5*coalesce(rpcrate*qty,0))/100,0)+coalesce(rpcrate*qty,0),2) rpcnet,round(if(tftax=1,(5*coalesce(tfrate*qty,0))/100,0)+coalesce(tfrate*qty,0),2) tfnet,round(if(gftax=1,(5*coalesce(gfrate*qty,0))/100,0)+coalesce(gfrate*qty,0),2) gfnet from(select d.skiptype, d.siteid, coalesce(dd.skipatsiteqty,0) skipatsiteqty,0 srno,d.rowno,m.cldocno,m.tr_no, m.doc_no, date_format(if(d.invdate is null,m.startdt,d.invdate),'%d.%m.%Y') periodfrom, date_format(DATE_SUB(DATE_ADD(if(d.invdate is null,m.startdt,d.invdate), INTERVAL coalesce(advinvvalue,0) MONTH), INTERVAL 1 DAY),'%d.%m.%Y') periodto, date_format(DATE_ADD(if(d.invdate is null,m.startdt,d.invdate), INTERVAL coalesce(advinvvalue,0) MONTH),'%d.%m.%Y') periodto1,(select advance from sk_invmode where idno=1) rpcacno, (select tax from sk_invmode where idno=1) rpctax, (select advance from sk_invmode where idno=2) tfacno, (select tax from sk_invmode where idno=2) tftax,(select advance from sk_invmode where idno=3) gfacno, (select tax from sk_invmode where idno=3) gftax,(select description from sk_invmode where idno=1) rpcdesc,(select description from sk_invmode where idno=2) tfdesc,(select description from sk_invmode where idno=3) gfdesc, round(cast(round(coalesce(m.advinvvalue*r3.tripsinmonth*d.nos*d.scheduledays,0),2) as decimal),0) qty, round(d.rate,2) rpcrate, round(if(m.inctipfee=0,0,d.tippingfee),2) tfrate, round(if(m.inctipfee=0,0,d.gatefee),2) gfrate,m.advinvmethod from sk_srvcontrm m left join sk_srvcontrdet d on d.rdocno=m.tr_no left join (select count(*) skipatsiteqty, rdocno, srno from sk_srvcontrdel del where type='N' group by del.rdocno,del.srno) dd on dd.rdocno=m.tr_no left join sk_enqrelated r3 on (r3.srno=d.servicetermid and r3.type='SCHEDULE') where m.status<=3 and d.rowno in ("+rowno.substring(0, rowno.length()-1)+") order by m.tr_no)a";
+			//System.out.println("strsql==="+strsql);                                
+			ResultSet rs=stmt.executeQuery(strsql);        
+			while(rs.next()) {     
+				cnt++;
+				advinvmethod=rs.getInt("advinvmethod");  
+				invoicedtrips=rs.getDouble("invoicetrip");   
+				chargeabletrips=rs.getDouble("chargedtrip");  
+				executedtrip=rs.getDouble("executedtrip");     
+				tottrips=rs.getDouble("tottrips");  
+				tripsrno=rs.getString("srno");   
+				drowno=rs.getString("rowno");
+				rpcdesc=rs.getString("rpcdesc");
+				tfdesc=rs.getString("tfdesc");
+				gfdesc=rs.getString("gfdesc");  
+				cldocno=rs.getString("cldocno");
+				tr_no=rs.getString("tr_no");
+				doc_no=rs.getString("doc_no");
+				periodfrom=rs.getString("periodfrom");  
+				periodto=rs.getString("periodto");
+				periodto1=rs.getString("periodto1");            
+				rpcacno=rs.getString("rpcacno");
+				tfacno=rs.getString("tfacno");
+				gfacno=rs.getString("gfacno");
+				qty=rs.getDouble("qty");  
+				qty2=rs.getDouble("qty2");   
+				qty3=rs.getDouble("qty3");   
+				rpctax=rs.getDouble("rpctax");
+				tftax=rs.getDouble("tftax");
+				gftax=rs.getDouble("gftax");
+				rpcrate=rs.getDouble("rpcrate");
+				tfrate=rs.getDouble("tfrate");
+				gfrate=rs.getDouble("gfrate");
+				rpctotal=rs.getDouble("rpctotal");
+				tftotal=rs.getDouble("tftotal");
+				gftotal=rs.getDouble("gftotal");
+				rpctaxper=rs.getDouble("rpctaxper");
+				tftaxper=rs.getDouble("tftaxper");
+				gftaxper=rs.getDouble("gftaxper");
+				rpctaxamt=rs.getDouble("rpctaxamt");
+				tftaxamt=rs.getDouble("tftaxamt");
+				gftaxamt=rs.getDouble("gftaxamt");
+				rpcnet=rs.getDouble("rpcnet");
+				tfnet=rs.getDouble("tfnet");
+				gfnet=rs.getDouble("gfnet"); 
+				
+				skipsizeid = rs.getInt("skiptype");  
+				siteid = rs.getInt("siteid");   
+				atsiteqty = rs.getInt("skipatsiteqty");                
+				  
+				java.sql.Date sqlperiodfrom=objcommon.changeStringtoSqlDate(periodfrom);  
+				java.sql.Date sqlperiodto=objcommon.changeStringtoSqlDate(periodto);
+				java.sql.Date sqlperiodto1=objcommon.changeStringtoSqlDate(periodto1);    
+				
+				if(!descsql1.equalsIgnoreCase("")) {
+					descsql2=descsql1.replace("documentno",drowno); 
+					//System.out.println("descsql2="+descsql2);
+					ResultSet rs2=stmt2.executeQuery(descsql2);      
+					while(rs2.next()) {
+						description=rs2.getString("remarks");     
+					}
+				}    
+				
+                rpcdesc="YEARLY WASTE COLLECTION CHARGES";       
+				invoiceList.add(1+" :: "+rpcacno+" :: "+rpcdesc+" :: "+qty+" :: "+rpcrate+" :: "+rpctotal+" :: "+rpctaxper+" :: "+rpctaxamt+" :: "+rpcnet+" :: "+0);
+				invoiceList.add(2+" :: "+tfacno+" :: "+tfdesc+" :: "+qty+" :: "+tfrate+" :: "+tftotal+" :: "+tftaxper+" :: "+tftaxamt+" :: "+tfnet+" :: "+0);
+				invoiceList.add(3+" :: "+gfacno+" :: "+gfdesc+" :: "+qty+" :: "+gfrate+" :: "+gftotal+" :: "+gftaxper+" :: "+gftaxamt+" :: "+gfnet+" :: "+0);
+				
+				//System.out.println("invoiceList==="+invoiceList);  
+				docno=InvoiceDAO.insert(conn, sqlStartDate,sqlperiodfrom,sqlperiodto, "AMC", tr_no, cldocno, description, description, invoiceList, session, "A", doctype, request,"");   
+				if(docno>0) {
+					String upsql3="update sk_srvcontrm set invoiced=1 where tr_no='"+tr_no+"'";       
+					stmt2.executeUpdate(upsql3);
+					
+					String upsqls1="update sk_invm set manual=1, skiptype='"+skipsizeid+"', siteid='"+siteid+"', atsiteqty='"+atsiteqty+"' where doc_no='"+docno+"'";        
+					stmt2.executeUpdate(upsqls1);  
+					 
+					String upsql="update sk_invm set advance=1 where doc_no='"+docno+"'";  
+					stmt2.executeUpdate(upsql); 
+						
+					String upsql1="update sk_srvcontrdet set invdate='"+sqlperiodto1+"' where rowno='"+drowno+"'";               
+					stmt2.executeUpdate(upsql1);    
+				}            
+				
+				if (docno <= 0) {  
+					stmt.close();  
+					conn.close();
+					return 0;
+				} 
+				if(cnt==1){    
+					vocnos=vocnos+request.getAttribute("vocno").toString()+", ";
+				}
+				invno=request.getAttribute("vocno").toString();
+				invoiceList=new ArrayList<String>();    
+			}  
+			if(cnt>1){
+				vocnos=vocnos+"-"+invno;
+				}
+			request.setAttribute("vocnos", vocnos); 
+			if (docno > 0) {
+				conn.commit();
+				stmt.close();  
+				conn.close();
+				return 1; 
+			}
+		}catch(Exception e){	
+			e.printStackTrace();
+			conn.close();	
+		}
+		return 0;
+	}
+	 
+	 public int getTotalTrips(String date,String enddate,String noofvisit,String serviceterm,int days,String rowno,String brhid,String srno,String scheduledays) throws SQLException {               
+		 int val=0,invoiced=0,tottrips=0;     
+		 try{	
+		 	conn= objconn.getMyConnection();      
+		 	Statement stmtmain = conn.createStatement ();     
+		 	java.sql.Date xdate=null;
+		 	java.sql.Date fdate=null;
+		 	java.sql.Date endsdate=null;
+		     String day="",dates="";
+		 	int xsrno=0;
+		 	date.trim();
+
+		 	if(!(date.equalsIgnoreCase("undefined"))&&!(date.equalsIgnoreCase(""))&&!(date.equalsIgnoreCase("0"))){
+		 		xdate = objcommon.changeStringtoSqlDate(date);
+		 		fdate = objcommon.changeStringtoSqlDate(date);  
+		 	}
+
+		 	enddate.trim();
+		 	if(!(enddate.equalsIgnoreCase("undefined"))&&!(enddate.equalsIgnoreCase(""))&&!(enddate.equalsIgnoreCase("0"))){
+		 		endsdate = objcommon.changeStringtoSqlDate(enddate);
+		 	}
+		 	//System.out.println(xdate+"=="+endsdate);
+		 	String xsql="";
+
+		 	Statement stmt = conn.createStatement();  
+		 	Statement stmt2 = conn.createStatement();  
+		     int duelen=0;
+		     String type=serviceterm.equalsIgnoreCase("DAILY")?" Day ":serviceterm.equalsIgnoreCase("MONTHLY")?" Month ":serviceterm.equalsIgnoreCase("WEEKLY")?" Week ":" Day "; 
+		 	String strsql1="SELECT TIMESTAMPDIFF("+type+", '"+fdate+"', '"+endsdate+"') duelen";   
+		 	//System.out.println("strsql1==="+strsql1);
+		 	ResultSet rs1 = stmt.executeQuery(strsql1);  
+		 	while(rs1.next()) {
+		 		duelen=rs1.getInt("duelen");
+		 	}
+		 	//System.out.println("days==="+days); 
+		 	if(!serviceterm.equalsIgnoreCase("MONTHLY")){
+		 	do							
+		 	{	
+		 		if (Integer.parseInt(noofvisit)>0 && xsrno>duelen) break;
+		 		if(xsrno>duelen) break; 
+		 		if(days!=0) {    
+		 	    String sqltst="";   
+		 	    if(days!=8) {  
+		 		 	sqltst=" AND DAYOFWEEK(DATE) in("+days+")";  
+		 	    }
+		 	    int alternative=0,weekly=0, interval=0,month=0;
+		 	    String sql="SELECT  * FROM (SELECT  if(convert(n4.num*1000+n3.num*100+n2.num*10+n1.num ,UNSIGNED)%2,1,0) alternative,if(convert(n4.num*1000+n3.num*100+n2.num*10+n1.num ,UNSIGNED)%7,1,0) weekly,DATE_ADD('"+fdate+"',INTERVAL n4.num*1000+n3.num*100+n2.num*10+n1.num DAY ) AS DATE FROM  ( SELECT 0 AS num UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 ) AS n1,(SELECT 0 AS num UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS n2,(SELECT 0 AS num UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS n3,(SELECT 0 AS num UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS n4) AS a WHERE DATE >= '"+fdate+"' AND DATE <= '"+endsdate+"' "+sqltst+" ORDER BY DATE";   
+		 	    //System.out.println("sql="+sql);      
+		 	    ResultSet rs = stmt.executeQuery(sql);
+		 	    while(rs.next()) {
+		 		xdate=rs.getDate("date");  
+		 		alternative=rs.getInt("alternative");
+		 		weekly=rs.getInt("weekly"); 
+		 		if(!(xdate==null) || !(endsdate.after(xdate))){
+		 			String sql1="";
+		 			
+		 			sql1="Select DAYNAME('"+xdate+"') day,date_format('"+xdate+"','%d.%m.%Y') date, 0 month";  
+		 			//System.out.println("sql1="+sql1);    
+		 	                ResultSet rs2 = stmt2.executeQuery(sql1);
+		 			if(rs2.next()) {
+		 				day=rs2.getString("day"); 
+		 				dates=rs2.getString("date"); 
+		 				month=rs2.getInt("month");
+		 				if(month==1){interval++;}
+		 			}
+		 			//System.out.println(serviceterm+"alternative : "+alternative +" day : "+day+" scheduledays: "+scheduledays);
+		 						if (serviceterm.equalsIgnoreCase("DAILY")
+		 								|| (serviceterm.equalsIgnoreCase("ALTERNATIVE") && alternative == 0)
+		 								|| (serviceterm.equalsIgnoreCase("WEEKLY") && scheduledays.equalsIgnoreCase("1") && weekly == 0)
+		 								|| (serviceterm.equalsIgnoreCase("WEEKLY") && scheduledays.equalsIgnoreCase("4") && (day.equalsIgnoreCase("Monday")||day.equalsIgnoreCase("Tuesday")||day.equalsIgnoreCase("Thursday")||day.equalsIgnoreCase("Saturday")))
+		 								|| (serviceterm.equalsIgnoreCase("Daily (Except Holiday)") && (!day.equalsIgnoreCase("Sunday")))
+		 							//	|| (serviceterm.equalsIgnoreCase("MONTHLY") && scheduledays.equalsIgnoreCase("26") && (!day.equalsIgnoreCase("Sunday")))
+		 								) {
+		 							        tottrips++;         
+		 									}
+		 								}
+		 							}
+		 							rs.close();  
+		 							break;
+		 						}
+		 						xsrno++;
+		 					} while (true);
+		 					// System.out.println();
+		 	} else if (serviceterm.equalsIgnoreCase("MONTHLY")) {
+		 					String sqlmon="";
+		 					Date sqldate=fdate;
+		 					int end=0;
+		 					if(scheduledays.equalsIgnoreCase("1")){
+		 					do{
+		 						//System.out.println(xdate+"===="+endsdate+"===="+sqldate+"============="+endsdate.after(sqldate));
+		 					if(!(xdate==null) || !(endsdate.after(sqldate))){
+		 					
+		 				
+		 					if(endsdate.before(sqldate)){
+		 						end=1;
+		 						break;
+		 					}else{
+		 						 tottrips++;      
+		 					}
+		 					if(scheduledays.equalsIgnoreCase("1")){
+		 						sqlmon=" select date_add('"+fdate+"' , interval 1 month) calcdate , DAYNAME('"+xdate+"') day; ";
+		 					}
+		 					
+		 					ResultSet rsmon=stmt.executeQuery(sqlmon);
+		 					while(rsmon.next()){
+		 						sqldate=rsmon.getDate("calcdate");
+		 						day=rsmon.getString("day");
+		 					}
+		 					fdate=sqldate;
+		 					}} while(end==0);
+		 	}else{
+		 					do{
+		 						int cnt=0,diff=0,noofdays=Integer.parseInt(scheduledays);
+		 						TreeMap<Date,String> s = new TreeMap<Date, String>();
+		 						do{
+		 						sqlmon=" SELECT last_day('"+fdate+"') - INTERVAL FLOOR(RAND() * datediff(last_day('"+fdate+"'),'"+fdate+"')+1) day calcdate ," 
+		 								+" dayname(last_day('"+fdate+"') - INTERVAL FLOOR(RAND() * datediff(last_day('"+fdate+"'),'"+fdate+"')) day) DAY , datediff(last_day('"+fdate+"'),'"+fdate+"')+1 diff "  ;
+		 						//System.out.println("=="+sqlmon);
+		 						ResultSet rsmon=stmt.executeQuery(sqlmon);
+		 						while(rsmon.next()){
+		 							sqldate=rsmon.getDate("calcdate");
+		 							//day=rsmon.getString("day");
+		 							diff=rsmon.getInt("diff");
+		 							s.put(rsmon.getDate("calcdate"),day);
+		 							cnt=s.size();
+		 							if(diff<=noofdays){
+			 							cnt=diff;
+			 							tottrips=diff;
+			 							s = new TreeMap<Date, String>();
+		 							}    
+		 						} 
+		 						//System.out.println(noofdays+"=="+diff+"=="+s.size()+"===="+s);
+		 						//System.out.println(diff+"=="+cnt+"=="+noofdays+"===="+s.size());    
+		 						}while(diff>cnt && noofdays>s.size());
+		 						
+		 						 for (Map.Entry<Date,String> entry : s.entrySet()){
+		 							 tottrips++;        
+		 						 }
+		 							
+		 						 sqlmon=" select date_add(last_day('"+fdate+"') , interval 1 day) calcdate  ";
+		 							ResultSet rsmon=stmt.executeQuery(sqlmon);
+		 							while(rsmon.next()){
+		 								fdate=rsmon.getDate("calcdate");
+		 							}
+		 					         
+		 					}while(endsdate.after(fdate));  
+		 					}
+		 		}
+			 	if(tottrips>0) {   
+					conn.close();
+					return tottrips;
+				}    
+		 		stmtmain.close();
+		 		conn.close();
+
+		 	} catch (Exception e) {
+		 		e.printStackTrace();
+		 		conn.close();
+		 	}finally {
+ 				conn.close();
+ 			}
+		 	return tottrips;  
+     } 
+} 

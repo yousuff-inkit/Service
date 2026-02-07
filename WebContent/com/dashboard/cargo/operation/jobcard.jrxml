@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2021-01-24T11:14:19 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="jobcard" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a38b399b-116a-43a0-9185-7948deaf6b2c">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Dataset1" uuid="a486285b-436e-49d0-91e4-27efbe1bade3">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="quotation"/>
+		<parameter name="enqdocno" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[select qty pack,wight weight,wight volume,volume chvolume from cr_enqd where rdocno=$P{enqdocno};]]>
+		</queryString>
+		<field name="pack" class="java.lang.String"/>
+		<field name="weight" class="java.lang.String"/>
+		<field name="volume" class="java.lang.String"/>
+		<field name="chvolume" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="jobno" class="java.lang.String"/>
+	<parameter name="forwarder" class="java.lang.String"/>
+	<parameter name="shipper" class="java.lang.String"/>
+	<parameter name="fnp" class="java.lang.String"/>
+	<parameter name="bcustomer" class="java.lang.String"/>
+	<parameter name="flight" class="java.lang.String"/>
+	<parameter name="carrier" class="java.lang.String"/>
+	<parameter name="carrierno" class="java.lang.String"/>
+	<parameter name="fdc" class="java.lang.String"/>
+	<parameter name="frieght" class="java.lang.String"/>
+	<parameter name="tos" class="java.lang.String"/>
+	<parameter name="descptn" class="java.lang.String"/>
+	<parameter name="salesman" class="java.lang.String"/>
+	<parameter name="oagent" class="java.lang.String"/>
+	<parameter name="hremark" class="java.lang.String"/>
+	<parameter name="mremark" class="java.lang.String"/>
+	<parameter name="cusrefno" class="java.lang.String"/>
+	<parameter name="shprefno" class="java.lang.String"/>
+	<parameter name="printedby" class="java.lang.String"/>
+	<parameter name="mawb" class="java.lang.String"/>
+	<parameter name="mawbdate" class="java.lang.String"/>
+	<parameter name="hawb" class="java.lang.String"/>
+	<parameter name="etd" class="java.sql.Date"/>
+	<parameter name="eta" class="java.sql.Date"/>
+	<parameter name="img" class="java.lang.String"/>
+	<parameter name="jobdate" class="java.sql.Date"/>
+	<parameter name="enqdocno" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select 'name' as name;]]>
+	</queryString>
+	<field name="name" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="58" splitType="Stretch">
+			<staticText>
+				<reportElement x="244" y="26" width="71" height="15" uuid="0a0550f9-87f5-40ae-80b5-612904590374"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="10" isBold="true"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Job Card]]></text>
+			</staticText>
+			<image scaleImage="FillFrame" hAlign="Right">
+				<reportElement x="2" y="3" width="135" height="55" uuid="d81a67cf-07d3-486c-85a5-cbf907657afe"/>
+				<graphicElement fill="Solid"/>
+				<imageExpression><![CDATA[$P{img}]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="314" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="71" height="15" uuid="025b7031-a6f7-4918-be6c-d95146fdbc3b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Job No             ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="71" y="1" width="149" height="15" uuid="effc8013-1fbb-41c8-a676-6a8ac8279ff6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{jobno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="16" width="70" height="15" uuid="83966e9c-25f4-48e1-9e89-901004361b7b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Forwarder]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="71" y="16" width="149" height="15" uuid="329cb0b8-b52a-4720-a342-3e17f85e8686"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{forwarder}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="225" y="1" width="57" height="15" uuid="063e128d-e558-4736-ac9b-18168f4f226f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Job Date]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="d-MMM-yyyy" isBlankWhenNull="true">
+				<reportElement x="282" y="1" width="66" height="15" uuid="5e1b1aae-6e36-4263-bfa8-ded31fd273ff"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{jobdate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="365" y="1" width="71" height="15" uuid="e4b1cf8d-7c18-42c3-8fe9-1514248dcade"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[MAWB]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="436" y="1" width="117" height="15" uuid="9058b32f-292f-4d84-9f07-53e3d513cd6d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mawb}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="31" width="71" height="15" uuid="30fa4795-bd97-48e8-a6ae-636a8d5e5711"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Shipper]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="71" y="31" width="277" height="15" uuid="c6365403-1f94-4470-8621-a5fcb11eb68d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{shipper}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="365" y="16" width="71" height="15" uuid="d9707a5d-c813-43a2-a085-444d1e7f9e0f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[MAWB Date]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="d-MMM-yyyy" isBlankWhenNull="true">
+				<reportElement x="436" y="16" width="117" height="15" uuid="5788cc97-76fa-4d68-8626-4897b1a3687a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{jobdate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="365" y="31" width="70" height="15" uuid="703faca9-23b1-4bcc-8b4a-bd70cab2821a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[HAWB]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="436" y="31" width="117" height="15" uuid="2a686115-a307-4358-a6d1-409007dbaeb4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hawb}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="46" width="71" height="15" uuid="677674ca-4281-410c-9f6e-613a98f2ad96"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[First Notify Party]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="46" width="276" height="15" uuid="5f03e256-2588-4ecf-b948-81c78b5355c3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fnp}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="61" width="71" height="15" uuid="cb634f9b-1463-48fd-930d-67866fbe5f23"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Billing Customer]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="61" width="276" height="15" uuid="b06a282f-2e04-4041-835f-f6703a4f98a6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bcustomer}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="365" y="46" width="70" height="15" uuid="881bd08d-456b-4aac-9ea2-0b86555e897b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[ETD]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="d-MMM-yyyy" isBlankWhenNull="true">
+				<reportElement x="436" y="46" width="117" height="15" uuid="df031ce3-0019-44b1-a136-f08f25cfda86"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{etd}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="365" y="61" width="70" height="15" uuid="d3c22d3e-12d4-4028-9774-d2755f4a4d3b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[ETA]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="d-MMM-yyyy" isBlankWhenNull="true">
+				<reportElement x="436" y="61" width="117" height="15" uuid="dec938a4-e4da-4a66-ba8e-d22b1c3724f9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{eta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="76" width="71" height="15" uuid="1f7d2699-6d77-45f4-9191-34f335e7a54e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Flight/Date]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="76" width="276" height="15" uuid="ad421755-d5ee-4872-b640-3d50411236b2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{flight}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="91" width="71" height="15" uuid="eedb3748-78ce-4709-81b8-519fc8273a4f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Carrier]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="91" width="276" height="15" uuid="6b506c86-a38b-47b9-8f29-fa5e0ba1377f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{carrier}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="106" width="71" height="15" uuid="6ba0dad9-d669-4c3e-930c-0914144173bc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Carrier Number]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="106" width="276" height="15" uuid="9b02019d-c411-4d57-ba7f-896eca0d121e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{carrierno}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="121" width="276" height="15" uuid="eaa94747-2bc2-4049-8310-b731856ad4ce"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fdc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="121" width="71" height="15" uuid="24405db4-95da-448a-9501-297591d73053"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[POR/FDC]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="136" width="276" height="15" uuid="fb09da02-8d41-43a2-ae8c-da3e5a461425"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{frieght}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="136" width="71" height="15" uuid="eca52d30-2c2f-4af4-a643-44efe782901b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Freight]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="151" width="71" height="15" uuid="73362c8c-ce6c-4dfd-877f-d9944beaa643"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[TOS]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="151" width="276" height="15" uuid="aa4d3731-2c39-4cb6-91bf-9a1f325a75e7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="166" width="71" height="15" uuid="11989d33-b5b6-4358-8c18-ed342c647390"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="166" width="276" height="15" uuid="1a14d361-ea7f-4064-8127-52f826bc54c9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{descptn}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="181" width="71" height="15" uuid="ac7600df-fbb2-45d3-90e8-05a734dc5aa0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Salesman]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="181" width="276" height="15" uuid="460da93f-c390-4c91-8212-988d052ed4ba"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{salesman}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="196" width="71" height="15" uuid="b277b850-03a7-44ea-86e7-5465ebd797d2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Origin Agent]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="196" width="276" height="15" uuid="ca62de3e-1f69-4f31-bdb3-67093308eedd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{oagent}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="211" width="71" height="15" uuid="f8d43f04-ff0b-48ee-800b-57a2616be24b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[House Remark]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="211" width="276" height="15" uuid="b93b996d-be3d-4d93-8ed5-32dfcb636898"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hremark}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="226" width="71" height="15" uuid="b6f27335-c471-4f09-910a-618b4eaa94b7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Master Remark]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="226" width="276" height="15" uuid="c2f5a273-0e1c-4566-a82c-c29821ce0f5f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mremark}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="241" width="71" height="15" uuid="e0a86576-6019-43b2-8b0c-9a0fede90b33"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Customer Ref No]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="241" width="276" height="15" uuid="80b00439-d3f1-4db7-8861-2aa921e3b7d9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cusrefno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="256" width="71" height="15" uuid="0a67907d-0aaf-4e8b-b169-a4f4fa5204f4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[Shipper Ref No]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="72" y="256" width="276" height="15" uuid="fb95778f-3663-49af-bf55-420961fad442"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{shprefno}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="65" y="274" width="400" height="40" uuid="ec1c06f8-e241-474b-9042-6875d0f210db">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Dataset1" uuid="fcf04618-9efa-4854-8fa1-8bc23394c5b2">
+						<datasetParameter name="enqdocno">
+							<datasetParameterExpression><![CDATA[$P{enqdocno}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="110" uuid="83549e81-a968-4f43-b5dd-a3228e3844d9">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:columnHeader style="Table_CH" height="20">
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="20" uuid="61889d57-3870-42c9-a482-44ae196fcbc7"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Tahoma" size="9"/>
+									<paragraph leftIndent="3" rightIndent="3"/>
+								</textElement>
+								<text><![CDATA[No Of Packs]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="110" height="20" uuid="aa97d696-acd7-455c-8da3-e0a0af317ab1"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Tahoma" size="8"/>
+									<paragraph leftIndent="3" rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{pack}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="c4f7459b-5ea1-43d6-85d2-67fa3c72517d">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:columnHeader style="Table_CH" height="20">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="20" uuid="654d5a1d-4925-420e-bdc6-2eff0b1296c3"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Tahoma" size="9"/>
+									<paragraph leftIndent="3" rightIndent="3"/>
+								</textElement>
+								<text><![CDATA[Gross Weight]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="90" height="20" uuid="11d61173-5a0d-4d72-849e-0e2ca8db5820"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Tahoma" size="8"/>
+									<paragraph leftIndent="3" rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{weight}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="9f7eba06-d1e1-44de-bfa8-255a2829c38e">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_CH" height="20">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="20" uuid="0478205d-c117-4b2c-9c06-b43728a67a3d"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Tahoma" size="9"/>
+									<paragraph leftIndent="3" rightIndent="3"/>
+								</textElement>
+								<text><![CDATA[Volume Weight]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="90" height="20" uuid="3ff6ffc5-72c5-4963-b780-e51f0d9ac011"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Tahoma" size="8"/>
+									<paragraph leftIndent="3" rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{volume}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="110" uuid="5f4cd213-02b3-4252-9539-3caa016b4132">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader style="Table_CH" height="20">
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="20" uuid="09782512-805b-420b-986d-ae1a08cf3d80"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Tahoma" size="9"/>
+									<paragraph leftIndent="3" rightIndent="3"/>
+								</textElement>
+								<text><![CDATA[Chargeable Volume]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="20">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="110" height="20" uuid="78ed41e8-182f-4b58-bb34-9ed385f73523"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Tahoma" size="8"/>
+									<paragraph leftIndent="3" rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{chvolume}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="2" y="3" width="45" height="12" forecolor="#858585" uuid="5ea4a785-fae7-45dc-8767-9228a9890478"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<text><![CDATA[Printed By]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="48" y="3" width="100" height="12" forecolor="#858585" uuid="38c29650-2ce0-4767-8b77-b9f955531826"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph leftIndent="3" rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{printedby}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="EEEEE dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement x="198" y="3" width="110" height="12" forecolor="#858585" uuid="855e9766-4649-4adf-8c67-2ad165e67bde"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="5" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="443" y="3" width="71" height="20" forecolor="#858585" uuid="b6aa0960-514b-4b72-8a68-e34051bd8cd7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement x="516" y="3" width="30" height="20" forecolor="#858585" uuid="bf906d14-7f13-4091-898c-58ba15a258b9"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

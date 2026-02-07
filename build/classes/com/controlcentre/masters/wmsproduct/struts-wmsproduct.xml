@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<constant name="struts.custom.i18n.resources" value="global" />
+ 
+	
+	<package name="wmsproduct" extends="struts-default">
+			<action name="saveWmsproduct" class="com.controlcentre.masters.wmsproduct.ClsWmsproductAction" method="saveWmsproductAction">
+				<interceptor-ref name="params"/>
+					
+              
+			  <result name="success" >wmsproduct.jsp</result>
+				<result name="fail">wmsproduct.jsp</result>  
+				
+			 
+			</action>
+			
+			
+			<action name="saveWmsproduct1" class="com.controlcentre.masters.wmsproduct.ClsWmsproductAction" method="saveWmsproductAction">
+				<interceptor-ref name="params"/>
+					
+              
+			  <result name="success" >wmsproductarabic.jsp</result>
+				<result name="fail">wmsproductarabic.jsp</result>  
+				
+			 
+			</action>
+					</package>	
+</struts>

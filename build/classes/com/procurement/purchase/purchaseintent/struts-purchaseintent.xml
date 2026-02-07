@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+	
+
+	<package name="purchaseIntent" extends="struts-default">
+			<action name="saveActionpurIntents" class="com.procurement.purchase.purchaseintent.ClspurchaseintentAction" method="saveAction">
+				<interceptor-ref name="params"/>
+				<result name="success">purchaseIntent.jsp</result>
+				<result name="fail">purchaseIntent.jsp</result>
+			</action>
+			
+			<action name="jasperprintpurchaseintent" class="com.procurement.purchase.purchaseintent.ClspurchaseintentAction" method="jasperprintAction">
+			    <interceptor-ref name="params"/>   
+			</action>
+<!-- printpurchaseintent1 -->
+		<action name="printpurchaseintent1" class="com.procurement.purchase.purchaseintent.ClspurchaseintentAction" method="printAction">
+			    <interceptor-ref name="params"/>
+			    <result name="print" >${url}</result> 
+			</action>
+		</package>	
+</struts>
+

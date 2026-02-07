@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+	
+
+	<package name="callregisternew" extends="struts-default">
+			<action name="saveCallRegisterLogin" class="callregisternew.ClsCallRegisterNewAction" method="saveAction">
+				<interceptor-ref name="params"/>
+				<result name="success" >dashboard.jsp</result>
+				<result name="fail">index.jsp</result>
+			</action>
+		</package>	
+</struts>

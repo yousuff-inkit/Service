@@ -1,0 +1,589 @@
+package com.callibration.quotation;
+
+public class ClsQuotationBean {
+	private String date,url,clienttrno,address,mob,lbltrno,lbltax,cmbvatype,hidcmbvatype,cpersonid,txttel,txtmob,txtemail,txtcontact;
+	public String getCpersonid() {
+		return cpersonid;
+	}
+	public void setCpersonid(String cpersonid) {
+		this.cpersonid = cpersonid;
+	}
+	public String getTxttel() {
+		return txttel;
+	}
+	public void setTxttel(String txttel) {
+		this.txttel = txttel;
+	}
+	public String getTxtmob() {
+		return txtmob;
+	}
+	public void setTxtmob(String txtmob) {
+		this.txtmob = txtmob;
+	}
+	public String getTxtemail() {
+		return txtemail;
+	}
+	public void setTxtemail(String txtemail) {
+		this.txtemail = txtemail;
+	}
+	public String getTxtcontact() {
+		return txtcontact;
+	}
+	public void setTxtcontact(String txtcontact) {
+		this.txtcontact = txtcontact;
+	}
+
+	private String hiddate,lblddoc;
+	private String txtrefno;
+	private String docno;
+	private String txtclient;
+	private int clientid,servicelen;
+	private String txtclientdet;
+	public String getClienttrno() {
+		return clienttrno;
+	}
+	public void setClienttrno(String clienttrno) {
+		this.clienttrno = clienttrno;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getMob() {
+		return mob;
+	}
+	public void setMob(String mob) {
+		this.mob = mob;
+	}
+	public String getLbltrno() {
+		return lbltrno;
+	}
+	public void setLbltrno(String lbltrno) {
+		this.lbltrno = lbltrno;
+	}
+	public String getLbltax() {
+		return lbltax;
+	}
+	public void setLbltax(String lbltax) {
+		this.lbltax = lbltax;
+	}
+
+	private String txtsalesperson;
+	private int salespersonid;
+	private String cmbcurr;
+	private String currate;
+	private String hidcmbcurrency;
+	private String cmbreftype;
+	private String hidcmbreftype;
+	private String rrefno;
+	private String txtpaymentterms;
+	private String txtdescription;
+	private String txtproductamt;
+	private String txtdiscount;
+	private String txtnettotal;
+	private String formdetailcode;
+	private String mode;
+	private String msg;
+	private String deleted;
+	private int gridlength;
+	private int termsgridlength;
+	private int masterdoc_no;
+	private String enqmasterdocno;
+	private String prodsearchtype;
+	private String descPercentage;
+    private String nettotal;
+	private String roundOf;
+	private String orderValue,delterms;
+    
+	private double st,taxontax1,taxontax2,taxontax3,taxtotal;
+	
+	
+	private int cmbbilltype,hidcmbbilltype;
+	private String lblcutoffvalue;
+	
+	
+	
+	
+	
+	public String getLblcutoffvalue() {
+		return lblcutoffvalue;
+	}
+	public void setLblcutoffvalue(String lblcutoffvalue) {
+		this.lblcutoffvalue = lblcutoffvalue;
+	}
+	
+	
+	
+	public double getSt() {
+		return st;
+	}
+	public void setSt(double st) {
+		this.st = st;
+	}
+	public double getTaxontax1() {
+		return taxontax1;
+	}
+	public void setTaxontax1(double taxontax1) {
+		this.taxontax1 = taxontax1;
+	}
+	public double getTaxontax2() {
+		return taxontax2;
+	}
+	public void setTaxontax2(double taxontax2) {
+		this.taxontax2 = taxontax2;
+	}
+	public double getTaxontax3() {
+		return taxontax3;
+	}
+	public void setTaxontax3(double taxontax3) {
+		this.taxontax3 = taxontax3;
+	}
+	public double getTaxtotal() {
+		return taxtotal;
+	}
+	public void setTaxtotal(double taxtotal) {
+		this.taxtotal = taxtotal;
+	}
+	public int getCmbbilltype() {
+		return cmbbilltype;
+	}
+	public void setCmbbilltype(int cmbbilltype) {
+		this.cmbbilltype = cmbbilltype;
+	}
+	public int getHidcmbbilltype() {
+		return hidcmbbilltype;
+	}
+	public void setHidcmbbilltype(int hidcmbbilltype) {
+		this.hidcmbbilltype = hidcmbbilltype;
+	}
+	public String getDelterms() {
+		return delterms;
+	}
+	public void setDelterms(String delterms) {
+		this.delterms = delterms;
+	}
+	public String getOrderValue() {
+		return orderValue;
+	}
+	public void setOrderValue(String orderValue) {
+		this.orderValue = orderValue;
+	}
+	public String getRoundOf() {
+		return roundOf;
+	}
+	public void setRoundOf(String roundOf) {
+		this.roundOf = roundOf;
+	}
+	public String getNettotal() {
+		return nettotal;
+	}
+	public void setNettotal(String nettotal) {
+		this.nettotal = nettotal;
+	}
+
+	public String getDescPercentage() {
+		return descPercentage;
+	}
+	public void setDescPercentage(String descPercentage) {
+		this.descPercentage = descPercentage;
+	}
+	
+	
+	public String getHidcmbcurrency() {
+		return hidcmbcurrency;
+	}
+	public void setHidcmbcurrency(String hidcmbcurrency) {
+		this.hidcmbcurrency = hidcmbcurrency;
+	}
+	public String getProdsearchtype() {
+		return prodsearchtype;
+	}
+	public void setProdsearchtype(String prodsearchtype) {
+		this.prodsearchtype = prodsearchtype;
+	}
+
+
+	public String getEnqmasterdocno() {
+		return enqmasterdocno;
+	}
+	public void setEnqmasterdocno(String enqmasterdocno) {
+		this.enqmasterdocno = enqmasterdocno;
+	}
+	public int getMasterdoc_no() {
+		return masterdoc_no;
+	}
+	public void setMasterdoc_no(int masterdoc_no) {
+		this.masterdoc_no = masterdoc_no;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getHiddate() {
+		return hiddate;
+	}
+	public void setHiddate(String hiddate) {
+		this.hiddate = hiddate;
+	}
+
+	public String getDocno() {
+		return docno;
+	}
+	public void setDocno(String docno) {
+		this.docno = docno;
+	}
+
+	public String getFormdetailcode() {
+		return formdetailcode;
+	}
+	public void setFormdetailcode(String formdetailcode) {
+		this.formdetailcode = formdetailcode;
+	}
+	public String getTxtclient() {
+		return txtclient;
+	}
+	public void setTxtclient(String txtclient) {
+		this.txtclient = txtclient;
+	}
+	public int getClientid() {
+		return clientid;
+	}
+	public void setClientid(int clientid) {
+		this.clientid = clientid;
+	}
+	public String getTxtclientdet() {
+		return txtclientdet;
+	}
+	public void setTxtclientdet(String txtclientdet) {
+		this.txtclientdet = txtclientdet;
+	}
+	public String getCmbcurr() {
+		return cmbcurr;
+	}
+	public void setCmbcurr(String cmbcurr) {
+		this.cmbcurr = cmbcurr;
+	}
+	public String getCurrate() {
+		return currate;
+	}
+	public void setCurrate(String currate) {
+		this.currate = currate;
+	}
+	public String getCmbreftype() {
+		return cmbreftype;
+	}
+	public void setCmbreftype(String cmbreftype) {
+		this.cmbreftype = cmbreftype;
+	}
+	public String getHidcmbreftype() {
+		return hidcmbreftype;
+	}
+	public void setHidcmbreftype(String hidcmbreftype) {
+		this.hidcmbreftype = hidcmbreftype;
+	}
+
+	public String getTxtrefno() {
+		return txtrefno;
+	}
+	public void setTxtrefno(String txtrefno) {
+		this.txtrefno = txtrefno;
+	}
+	public String getTxtsalesperson() {
+		return txtsalesperson;
+	}
+	public void setTxtsalesperson(String txtsalesperson) {
+		this.txtsalesperson = txtsalesperson;
+	}
+	public int getSalespersonid() {
+		return salespersonid;
+	}
+	public void setSalespersonid(int salespersonid) {
+		this.salespersonid = salespersonid;
+	}
+	public String getRrefno() {
+		return rrefno;
+	}
+	public void setRrefno(String rrefno) {
+		this.rrefno = rrefno;
+	}
+	public String getTxtpaymentterms() {
+		return txtpaymentterms;
+	}
+	public void setTxtpaymentterms(String txtpaymentterms) {
+		this.txtpaymentterms = txtpaymentterms;
+	}
+	public String getTxtdescription() {
+		return txtdescription;
+	}
+	public void setTxtdescription(String txtdescription) {
+		this.txtdescription = txtdescription;
+	}
+	public String getTxtproductamt() {
+		return txtproductamt;
+	}
+	public void setTxtproductamt(String txtproductamt) {
+		this.txtproductamt = txtproductamt;
+	}
+	public String getTxtdiscount() {
+		return txtdiscount;
+	}
+	public void setTxtdiscount(String txtdiscount) {
+		this.txtdiscount = txtdiscount;
+	}
+	public String getTxtnettotal() {
+		return txtnettotal;
+	}
+	public void setTxtnettotal(String txtnettotal) {
+		this.txtnettotal = txtnettotal;
+	}
+	public String getMode() {
+		return mode;
+	}
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+	public String getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
+	}
+	public int getGridlength() {
+		return gridlength;
+	}
+	public void setGridlength(int gridlength) {
+		this.gridlength = gridlength;
+	}
+	public int getTermsgridlength() {
+		return termsgridlength;
+	}
+	public void setTermsgridlength(int termsgridlength) {
+		this.termsgridlength = termsgridlength;
+	}
+	
+	private String lbldoc,lbldate,lbltype,lblvendoeacc,lblvendoeaccName, expdeldate,lbldelterms ,lblpaytems, lbldesc1,lblrefno,lblsubtotal,lbltotal,lblordervalue,lblordervaluewords;
+	private String lblclient,lblclntmail,lblcperson,lblcprsrtel,lblenqno;
+	
+	public String getLblclient() {
+		return lblclient;
+	}
+	public void setLblclient(String lblclient) {
+		this.lblclient = lblclient;
+	}
+	public String getLblclntmail() {
+		return lblclntmail;
+	}
+	public void setLblclntmail(String lblclntmail) {
+		this.lblclntmail = lblclntmail;
+	}
+	public String getLblcperson() {
+		return lblcperson;
+	}
+	public void setLblcperson(String lblcperson) {
+		this.lblcperson = lblcperson;
+	}
+	public String getLblcprsrtel() {
+		return lblcprsrtel;
+	}
+	public void setLblcprsrtel(String lblcprsrtel) {
+		this.lblcprsrtel = lblcprsrtel;
+	}
+
+	private int firstarray,secarray;
+
+
+	private String  lblcompname,lblcompaddress,lblcomptel,lblcompfax,lblbranch,lbllocation,lblprintname,lblsalesPerson;
+
+
+	public String getLblsalesPerson() {
+		return lblsalesPerson;
+	}
+	public void setLblsalesPerson(String lblsalesPerson) {
+		this.lblsalesPerson = lblsalesPerson;
+	}
+	public String getLbldate() {
+		return lbldate;
+	}
+	public void setLbldate(String lbldate) {
+		this.lbldate = lbldate;
+	}
+	public String getLbltype() {
+		return lbltype;
+	}
+	public void setLbltype(String lbltype) {
+		this.lbltype = lbltype;
+	}
+	public String getLblvendoeacc() {
+		return lblvendoeacc;
+	}
+	public void setLblvendoeacc(String lblvendoeacc) {
+		this.lblvendoeacc = lblvendoeacc;
+	}
+	public String getLblvendoeaccName() {
+		return lblvendoeaccName;
+	}
+	public void setLblvendoeaccName(String lblvendoeaccName) {
+		this.lblvendoeaccName = lblvendoeaccName;
+	}
+	public String getExpdeldate() {
+		return expdeldate;
+	}
+	public void setExpdeldate(String expdeldate) {
+		this.expdeldate = expdeldate;
+	}
+	public String getLbldelterms() {
+		return lbldelterms;
+	}
+	public void setLbldelterms(String lbldelterms) {
+		this.lbldelterms = lbldelterms;
+	}
+	public String getLblpaytems() {
+		return lblpaytems;
+	}
+	public void setLblpaytems(String lblpaytems) {
+		this.lblpaytems = lblpaytems;
+	}
+	public String getLbldesc1() {
+		return lbldesc1;
+	}
+	public void setLbldesc1(String lbldesc1) {
+		this.lbldesc1 = lbldesc1;
+	}
+	public String getLblrefno() {
+		return lblrefno;
+	}
+	public void setLblrefno(String lblrefno) {
+		this.lblrefno = lblrefno;
+	}
+	public String getLblsubtotal() {
+		return lblsubtotal;
+	}
+	public void setLblsubtotal(String lblsubtotal) {
+		this.lblsubtotal = lblsubtotal;
+	}
+	public String getLbltotal() {
+		return lbltotal;
+	}
+	public void setLbltotal(String lbltotal) {
+		this.lbltotal = lbltotal;
+	}
+	public String getLblordervalue() {
+		return lblordervalue;
+	}
+	public void setLblordervalue(String lblordervalue) {
+		this.lblordervalue = lblordervalue;
+	}
+	public String getLblordervaluewords() {
+		return lblordervaluewords;
+	}
+	public void setLblordervaluewords(String lblordervaluewords) {
+		this.lblordervaluewords = lblordervaluewords;
+	}
+	public String getLbldoc() {
+		return lbldoc;
+	}
+	public void setLbldoc(String lbldoc) {
+		this.lbldoc = lbldoc;
+	}
+	public int getFirstarray() {
+		return firstarray;
+	}
+	public void setFirstarray(int firstarray) {
+		this.firstarray = firstarray;
+	}
+	public int getSecarray() {
+		return secarray;
+	}
+	public void setSecarray(int secarray) {
+		this.secarray = secarray;
+	}
+	public String getLblcompname() {
+		return lblcompname;
+	}
+	public void setLblcompname(String lblcompname) {
+		this.lblcompname = lblcompname;
+	}
+	public String getLblcompaddress() {
+		return lblcompaddress;
+	}
+	public void setLblcompaddress(String lblcompaddress) {
+		this.lblcompaddress = lblcompaddress;
+	}
+	public String getLblcomptel() {
+		return lblcomptel;
+	}
+	public void setLblcomptel(String lblcomptel) {
+		this.lblcomptel = lblcomptel;
+	}
+	public String getLblcompfax() {
+		return lblcompfax;
+	}
+	public void setLblcompfax(String lblcompfax) {
+		this.lblcompfax = lblcompfax;
+	}
+	public String getLblbranch() {
+		return lblbranch;
+	}
+	public void setLblbranch(String lblbranch) {
+		this.lblbranch = lblbranch;
+	}
+	public String getLbllocation() {
+		return lbllocation;
+	}
+	public void setLbllocation(String lbllocation) {
+		this.lbllocation = lbllocation;
+	}
+	public String getLblprintname() {
+		return lblprintname;
+	}
+	public void setLblprintname(String lblprintname) {
+		this.lblprintname = lblprintname;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public String getCmbvatype() {
+		return cmbvatype;
+	}
+	public void setCmbvatype(String cmbvatype) {
+		this.cmbvatype = cmbvatype;
+	}
+	public String getHidcmbvatype() {
+		return hidcmbvatype;
+	}
+	public void setHidcmbvatype(String hidcmbvatype) {
+		this.hidcmbvatype = hidcmbvatype;
+	}
+	public int getServicelen() {
+		return servicelen;
+	}
+	public void setServicelen(int servicelen) {
+		this.servicelen = servicelen;
+	}
+	public String getLblenqno() {
+		return lblenqno;
+	}
+	public void setLblenqno(String lblenqno) {
+		this.lblenqno = lblenqno;
+	}
+	public String getLblddoc() {
+		return lblddoc;
+	}
+	public void setLblddoc(String lblddoc) {
+		this.lblddoc = lblddoc;
+	}	
+	
+}

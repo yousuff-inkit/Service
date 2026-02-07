@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2022-05-31T14:13:00 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="contract" pageWidth="595" pageHeight="842" columnWidth="565" leftMargin="15" rightMargin="15" topMargin="3" bottomMargin="3" uuid="7b87e134-347f-4cba-b012-628dfbb5a427">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Table_TH" mode="Transparent" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TH" mode="Transparent" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 2_TH" mode="Transparent" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 3_TH" mode="Transparent" backcolor="#3E7AB3">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 3_TD" mode="Transparent" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 3_CH" mode="Transparent" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 4_TH" mode="Transparent" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 5_TH" mode="Transparent" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="Table 5_CH" mode="Transparent" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="Table 5_TD" mode="Transparent" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="Table 6_TH" mode="Transparent" backcolor="#FCFEFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 6_CH" mode="Transparent" backcolor="#FCFEFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 6_TD" mode="Transparent" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="sitedetail" uuid="af581bd2-bd68-4872-b866-5c0d7e84844c">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Duca"/>
+		<queryString>
+			<![CDATA[select 'name' as name;]]>
+		</queryString>
+		<field name="name" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="siteDetail" uuid="6f9feb3c-cffb-4ecf-acb3-4bd0af24590b">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="aitsDataAdapter"/>
+		<parameter name="siteQry" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[$P!{siteQry}]]>
+		</queryString>
+		<field name="srno" class="java.lang.Long"/>
+		<field name="site" class="java.lang.String"/>
+		<field name="areaid" class="java.lang.Long"/>
+		<field name="area" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="paymentTerms" uuid="ff06c781-4669-45d0-970a-729d988f4f58">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="aitsDataAdapter"/>
+		<parameter name="payAITSQry" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[$P!{payAITSQry}]]>
+		</queryString>
+		<field name="srno" class="java.lang.Long"/>
+		<field name="dueDate" class="java.lang.String"/>
+		<field name="amount" class="java.math.BigDecimal"/>
+		<field name="desc1" class="java.lang.String"/>
+		<field name="dueser" class="java.lang.Long"/>
+		<field name="runtotal" class="java.math.BigDecimal"/>
+		<field name="terms" class="java.lang.String"/>
+		<field name="termsid" class="java.lang.Long"/>
+		<field name="service" class="java.math.BigDecimal"/>
+	</subDataset>
+	<subDataset name="Terms" uuid="cafb19e9-9c55-40e0-9722-28cf1e0975ec">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="aitsDataAdapter"/>
+		<parameter name="termsQry" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[$P!{termsQry}]]>
+		</queryString>
+		<field name="sr_no" class="java.lang.String"/>
+		<field name="rdocno" class="java.lang.Integer"/>
+		<field name="terms" class="java.lang.String"/>
+		<field name="doc_no" class="java.lang.Integer"/>
+		<field name="priorno" class="java.lang.Integer"/>
+	</subDataset>
+	<subDataset name="PPMfrqTabl" uuid="03740fd6-aa8e-4ccb-9786-917083b4c0ac">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="aits"/>
+		<parameter name="ppmqry" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[$P!{ppmqry}]]>
+		</queryString>
+		<field name="srno" class="java.lang.Long"/>
+		<field name="stype" class="java.lang.String"/>
+		<field name="maintfreq" class="java.lang.String"/>
+		<field name="yrlyvst" class="java.lang.String"/>
+		<field name="stypeid" class="java.lang.Long"/>
+		<field name="item" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="Dataset1" uuid="19c41859-58f7-48df-a1c0-5a569e406023">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (10)"/>
+		<parameter name="trno" class="java.lang.String"/>
+		<parameter name="val" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[select @i:=@i+1 srno,r.* from(select distinct g.groupname item,g.doc_no,$P{val} routine,coalesce(d1.desc1,'') desc1 from (select distinct servid,description from cm_srvcontrd d where tr_no=$P{trno})a left join my_groupvals g on a.servid=g.doc_no  and grptype='service' left join my_groupdesc d1 on (d1.grpno=g.doc_no) where d1.grpno is not null)r,(select @i:=0)t]]>
+		</queryString>
+		<field name="srno" class="java.lang.String"/>
+		<field name="doc_no" class="java.lang.Long"/>
+		<field name="item" class="java.lang.String"/>
+		<field name="routine" class="java.lang.String"/>
+		<field name="desc1" class="java.lang.String"/>
+		<group name="item">
+			<groupExpression><![CDATA[$F{item}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="Dataset2" uuid="2d1d865e-5011-4a24-8cf0-b4c7b6e338f8">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (11)"/>
+		<parameter name="trno" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[select @i:=@i+1 srno, a.* from(select distinct coalesce(groupname,'') stype from cm_srvcontrd d left join my_groupvals g on(d.servid=g.doc_no and grptype='service') left join my_groupdesc d1 on (d1.grpno=g.doc_no) where tr_no=$P{trno} and d1.grpno is not null)a,(select @i:=0)r]]>
+		</queryString>
+		<field name="stype" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="preparedby" class="java.lang.String"/>
+	<parameter name="docno" class="java.lang.String"/>
+	<parameter name="docdate" class="java.lang.String"/>
+	<parameter name="client" class="java.lang.String"/>
+	<parameter name="address" class="java.lang.String"/>
+	<parameter name="area" class="java.lang.String"/>
+	<parameter name="startdate" class="java.lang.String"/>
+	<parameter name="enddate" class="java.lang.String"/>
+	<parameter name="contrctamount" class="java.lang.String"/>
+	<parameter name="siteQry" class="java.lang.String"/>
+	<parameter name="termsQry" class="java.lang.String"/>
+	<parameter name="payAITSQry" class="java.lang.String"/>
+	<parameter name="dtype" class="java.lang.String"/>
+	<parameter name="ppmqry" class="java.lang.String"/>
+	<parameter name="legalchrg" class="java.lang.String"/>
+	<parameter name="charge" class="java.lang.Integer"/>
+	<parameter name="trno" class="java.lang.String"/>
+	<parameter name="imgpathfooter" class="java.lang.String"/>
+	<parameter name="header" class="java.lang.String"/>
+	<parameter name="remarks" class="java.lang.String"/>
+	<parameter name="watermark" class="java.lang.String"/>
+	<parameter name="subject" class="java.lang.String"/>
+	<parameter name="imgfooter" class="java.lang.String"/>
+	<parameter name="val" class="java.lang.String"/>
+	<parameter name="compyfs" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select 'user name']]>
+	</queryString>
+	<field name="user name" class="java.lang.String"/>
+	<background>
+		<band height="554">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<image scaleImage="FillFrame" onErrorType="Blank">
+				<reportElement x="153" y="300" width="290" height="240" uuid="09b2b9f5-16c7-4392-b501-dec6f88f6384">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{watermark}]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<pageHeader>
+		<band height="19" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="724">
+			<frame>
+				<reportElement x="9" y="2" width="548" height="548" uuid="d25c558c-4dfe-473d-a236-1c3117ab5612"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="3" y="105" width="542" height="18" uuid="c59d6227-ebe7-44b4-82a2-e2caec369b0c"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{docdate}==null?"This agreement is made on ":"This agreement is made on "+$P{docdate}+" between,"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="3" y="350" width="543" height="18" uuid="aa50db88-7014-41e5-a60d-cfbb58248f10"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{client}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="3" y="395" width="543" height="18" uuid="97c160b6-de48-40da-a49d-d7d5f5e66a00"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{address}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="0" y="508" width="540" height="21" uuid="d7d75355-b210-4634-9d9a-d356d8df7595"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{area}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="4" y="210" width="542" height="18" uuid="15b1c6c8-15a9-4fc6-bead-a83b3475bbec"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["U.A.E."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="8" y="38" width="536" height="18" uuid="1b41af4f-e5bc-49f2-a277-1c6747f5f971"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["ANNUAL MAINTENANCE CONTRACT"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="6" y="152" width="542" height="18" uuid="04a73200-3112-456f-aae7-f3bf055e6a97"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["FIRE INTERNATIONAL TECHNICAL SERVICES LLC"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="1" y="280" width="547" height="29" uuid="97cfd280-1666-4c97-a3ab-a5f5cb043448">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["(Being the 1st party and herein after called 'FIRE INTERNATIONAL TECHNICAL SERVICES LLC')"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="340" y="446" width="202" height="18" uuid="cf0c5249-d5cb-49a8-9b26-524c5fcd669e"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" 'CLIENT')"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="62" y="446" width="278" height="18" uuid="c6ac1327-e3dc-4298-9d11-82b52dacff1d"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="12" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["(Being the 2nd Party and herein after called "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="58" y="475" width="482" height="18" uuid="e6193cb9-6513-46d9-ad8d-abe738cf88a2"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Subject:  Annual Maintenance of Fire Protection Systems"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="5" y="321" width="540" height="18" uuid="91593766-e337-4dfc-8bf8-308d5bc001ff"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["&"]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+		<band height="656" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="10" y="256" width="548" height="22" uuid="6ea27331-a334-4e46-8436-d402f59cd2f6"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" The call outs will be attended with in a maximum period of 24*7 from Sunday to Saturday, All emergency calls will be attended 24/7 hours at telephone number 04 2593330. "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="10" y="148" width="162" height="14" uuid="b50a1638-e3e8-4b8e-86a1-048a7deadab0"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["3. COMMENCEMENT OF CONTRACT :"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="10" y="192" width="162" height="14" uuid="c9b6e60e-226c-438b-bcc6-053c0440ff5e"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["4. SPECIAL VISIT (CALL OUT) :"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="9" y="208" width="550" height="30" uuid="d8f95dd1-f070-4b1e-9207-e3f508ed8d7a"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["When notified by the Client of a defect in the equipment/system, FIRE INTERNATIONAL TECHNICAL SERVICES LLC will arrange for the visit of technical team to investigate and remedy such defect."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="10" y="240" width="163" height="14" uuid="13114cb8-a974-4883-b011-6b3db4ccf99b"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["5. RESPONSE TIME: "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="10" y="280" width="164" height="14" uuid="7e3fd079-2ee3-4e64-adec-9e0596cf5daf"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["6.NOTIFICATION TO CLIENT :"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="10" y="296" width="548" height="24" uuid="fb02d3a8-27ff-42bb-9b83-87ad9740a505"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["FIRE INTERNATIONAL TECHNICAL SERVICES LLC shall notify the Client the date and time of their visit to the site to enable the Client representative to be present in the site during the visit."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="10" y="164" width="550" height="26" uuid="e7bca6b7-71a1-4076-ae1d-8115ef48906d"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["This contract shall commence on the date of signing by both parties and signed copies are exchanged against acknowledgment and will continue for a period of one year unless terminated or renewed under clause 10.."]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement positionType="Float" x="13" y="126" width="200" height="20" uuid="c6017303-939a-4506-a1ad-7b6a3beeebf5">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 6_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 6_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table 6_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Dataset2" uuid="c0f976a9-a4f0-45f3-9f0b-28e56cb26b90">
+						<datasetParameter name="trno">
+							<datasetParameterExpression><![CDATA[$P{trno}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="200" uuid="7f62ee40-21cc-4577-997e-ca86576cbef3">
+						<jr:tableHeader style="Table 6_TH" height="0">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</jr:tableHeader>
+						<jr:tableFooter style="Table 6_TH" height="0">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</jr:tableFooter>
+						<jr:columnHeader style="Table 6_CH" height="0">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table 6_CH" height="0">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</jr:columnFooter>
+						<jr:detailCell style="Table 6_TD" height="20">
+							<box>
+								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="200" height="20" uuid="57f8df34-88b3-4624-ab45-4906760a7332"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="3" rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{stype}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<textField>
+				<reportElement positionType="Float" x="12" y="80" width="541" height="14" uuid="58a0a7f1-792f-4d4c-ad7c-b08f18b252e2">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2. PERIODIC VISIT:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="11" y="95" width="542" height="29" uuid="e6a9dd9b-0cf3-4f73-812c-c8ad87edb19e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["FIRE INTERNATIONAL TECHNICAL SERVICES LLC Engineers will visit the above site and check the below mentioned devices and equipment’s: "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="13" y="43" width="548" height="35" uuid="061ec6c2-19a6-40e8-adcb-ccb02cdbebb3"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["FIRE INTERNATIONAL TECHNICAL SERVICES LLC agrees to carry out periodic maintenance of the fire detection/ protection systems as per attached schedule. The equipment is owned by the client and already installed in the premises. The maintenance contract is subject to the following terms and conditions:-"]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement positionType="Float" mode="Transparent" x="13" y="21" width="200" height="20" backcolor="#FFFFFF" uuid="321fca11-fc43-48c1-9cf4-e6476f23c17d">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 6_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 6_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table 6_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Dataset2" uuid="0e221db6-732d-4d84-be9c-e61ec476e09b">
+						<datasetParameter name="trno">
+							<datasetParameterExpression><![CDATA[$P{trno}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="200" uuid="8f3b712a-df7a-4321-b3cd-e6221aeb3e2d">
+						<jr:tableHeader style="Table 6_TH" height="0">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</jr:tableHeader>
+						<jr:tableFooter style="Table 6_TH" height="0">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</jr:tableFooter>
+						<jr:columnHeader style="Table 6_CH" height="0">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table 6_CH" height="0">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</jr:columnFooter>
+						<jr:detailCell style="Table 6_TD" height="20">
+							<box>
+								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="200" height="20" uuid="4d291f78-6e54-4e5c-b482-fc5c3b0e2636"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+									<paragraph leftIndent="3" rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{stype}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="10" y="4" width="180" height="14" uuid="88d10748-a026-4ce9-9269-27c272bfba43"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1. The following system will be maintained :"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="9" y="322" width="162" height="14" uuid="392d732e-5e41-44d5-ad36-d472987a41de"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["7.MAINTENANCE CHARGES :"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="9" y="337" width="548" height="12" uuid="e5d82176-e1d6-4973-9cb8-74965367524b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total charges for the annual maintenance services for Fire Protection Systems without spares AED. "+$P{contrctamount}+" ."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="10" y="367" width="548" height="32" uuid="dc438468-4815-41ba-abd1-e9beca355e5c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["⦁	25% 1st Service\n\n  ⦁	25% 2nd Service\n\n  ⦁	25% 3rd Service\n\n  ⦁	25% 4th Service\n\n   ⦁ If any part of the work is cancelled or withdrawn or if any scope of work could not be achieved by the contractor due to reasons attributable to the client, 50% of the value of the work so cancelled or withdrawn will be charged to the client towards administration and service charges.\n\n"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="9" y="351" width="164" height="14" uuid="b45a3419-dfaa-4174-a83b-aedc711381a6"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["8. TERMS  OF PAYMENT "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="9" y="401" width="162" height="14" uuid="43902a72-7d14-4b57-9f42-879d8ee685ff"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["9. MATERIALS & SPARES"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="10" y="419" width="550" height="29" uuid="f9b19f92-ccb2-4f2b-a842-06587a4dc865"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["If any examination reveals the need for new supply or replacement of any parts to the systems except those needed to perform the maintenance, the parts involved will be subject to a separate quotation at a current standard prices and would only be supplied upon receipt of an instruction and payment from the Client."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="11" y="450" width="162" height="14" uuid="07b2ce97-05aa-4b9d-aff6-bb72b801d466"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["10. TERMS "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="10" y="465" width="550" height="54" uuid="bbb21b19-21f4-4f5f-af05-03f0db45a759"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["This agreement shall remain in force for a period of 12 months from the date of commencement and shall be renewed every year for a period of one year on mutually accepted terms unless terminated by either party by giving 30 days prior notice to the expiry of the original period or extension thereto. Either party shall have the right to terminate this agreement for breach of the terms, if breach is not remedied within 15 days of receipt of the notice by the breaching party. Nonpayment of service charge or approved rectification charges will be deemed to be a breach.\n Termination of this agreement, however, caused shall be without prejudice to the rights and liabilities available under this agreement to both parties as on the date of termination."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="10" y="521" width="164" height="14" uuid="7aaa9487-eb67-4012-aba7-4feb73df17d8"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["11. LIMITATION OF LIABILITY "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="9" y="537" width="552" height="53" uuid="2a9f0a02-5d61-45dd-8f2d-f35655cc299e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Both parties agree that the total liability in the aggregate of FIRE INTERNATIONAL TECHNICAL SERVICES LLC , its employees, agents, and subcontractors to the Client and anyone claiming under the Client for any claims, losses, costs, or damages whatsoever arising out of, resulting from or in any way related to this Project/job or Agreement from any cause or causes, including but not limited to negligence, professional errors and omissions, strict liability, breach of contract, or breach of warranty, shall not exceed the total compensation received by FIRE INTERNATIONAL TECHNICAL SERVICES LLC under this contract."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="12" y="593" width="169" height="14" uuid="9324d3f0-83c6-489c-b660-d5bd541f5c8a"/>
+				<textElement>
+					<font size="8" isUnderline="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["12. EXCLUSION OF LIABILITY :"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="12" y="610" width="549" height="45" uuid="8358cc02-1f29-4b90-b764-d434e42f1de6"/>
+				<textElement>
+					<font size="8"/>
+					<paragraph leftIndent="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA["FIRE INTERNATIONAL TECHNICAL SERVICES LLC shall have no liability whatsoever to the client or to any third party for injury, damage or loss to persons or property including but not limited to claims in respect of accidental operation resulting directly from the operation or failure of the equipment during any survey/ service unless the accident occurred, due to a fault caused by the negligence or default of the Fire workers."]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="217" splitType="Stretch">
+			<frame>
+				<reportElement positionType="Float" x="12" y="4" width="547" height="209" uuid="a2619a03-622c-4af7-ba49-4a1aa60cc55d"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="331" y="106" width="210" height="14" uuid="035cf3d2-16a6-4382-b096-d30aa91535dd">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{client}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="91" y="187" width="103" height="1" uuid="1f23d5cf-8218-4523-a99a-d2c41b70bab9"/>
+				</line>
+				<line>
+					<reportElement x="380" y="186" width="103" height="1" uuid="acace5ed-d97c-4f68-b733-aabd229b3130">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="2" y="6" width="162" height="14" uuid="e1629bd9-3ffb-48fa-b84c-1bfed3f32c15"/>
+					<textElement>
+						<font size="8" isUnderline="true"/>
+						<paragraph leftIndent="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA["13. AGREEMENT :"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="1" y="22" width="535" height="68" uuid="e44362af-64b2-42fe-b602-0cd1a234fafa"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Any fire incidents resulting from non-approval of mandatory rectification which leaves the site unprotected will not be the liability or responsibility of FIRE INTERNATIONAL TECHNICAL SERVICES LLC. The contract price is not inclusive of Value Added Tax chargeable in respect of the services undertaken by the Contractor and the same shall be charged from the date of its enforcement, in addition to the service charges agreed to be paid by the client under this contract.\n\nThis agreement shall be subject to, with respect to the enforcement in interpretation thereof; the laws of the United Arab Emirates and in case of disputes shall be settled before Dubai Courts."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="13" y="106" width="267" height="14" uuid="1169c908-5618-43e4-a7d0-11beefc0c00a"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true" isUnderline="false"/>
+						<paragraph leftIndent="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA["FIRE INTERNATIONAL TECHNICAL SERVICES LLC "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="358" y="90" width="178" height="14" uuid="c3ccaf8d-dab5-488a-892b-e6898645bd12">
+						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true" isUnderline="false"/>
+						<paragraph leftIndent="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Accepted on behalf of: 		"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="72" y="90" width="162" height="14" uuid="ae901fa1-fa98-4393-80d6-972ea3da95e5"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true" isUnderline="false"/>
+						<paragraph leftIndent="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Accepted on behalf of: 		"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="61" y="192" width="172" height="14" uuid="c043f21a-9ad5-4b1f-adea-a71466d5c122"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="false" isUnderline="false"/>
+						<paragraph leftIndent="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Signature & Stamp"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="63" y="121" width="172" height="14" uuid="70e01059-8ab8-45de-9dda-9780b60a60c1"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="false" isUnderline="false"/>
+						<paragraph leftIndent="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" DUBAI , UAE   "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="348" y="192" width="172" height="14" uuid="70202303-9300-48fe-bb19-3bc9df0ce7bd"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="false" isUnderline="false"/>
+						<paragraph leftIndent="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Signature & Stamp"]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="88" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="6" width="555" height="74" uuid="58a7ec37-dad5-4c92-a67d-08cc7ec65740">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{imgfooter}]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="false" />
+	 <constant name="struts.custom.i18n.resources" value="nafithdownload" />
+
+	<package name="nafithdownload" extends="struts-default">
+			<action name="saveNafithDownload" class="com.skips.nafithdownload.ClsNafithDownloadAction" method="process">
+				<interceptor-ref name="params"/>
+				<result name="success" >nafithDownload.jsp</result>
+				<result name="fail">nafithDownload.jsp</result>
+			</action>
+			
+			
+		</package>	
+</struts>
+

@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+<constant name="struts.devMode" value="false" />
+<package name="default1" namespace="/" extends="struts-default">
+</package>
+
+<include file="com/operations/marketing/leasequotation/struts-leasequotation.xml"></include>
+ 
+<include file="com/operations/clientrelations/clientsubcategory/struts-clientsubcategory.xml"></include>
+<include file="com/operations/marketing/enquirymarbles/struts-enquirymarbles.xml"></include>
+
+<include file="com/dashboard/procurment/purchaseorderprocess/struts-purchaseorderprocess.xml"></include>
+
+<!--GW Internal-->
+<include file="com/project/execution/serviceContract/struts-servicecontract.xml"></include>
+<include file="com/project/execution/industry/struts-industry.xml"></include>
+
+<include file="com/common/struts-GWAttach.xml"></include>
+<include file="customerlogin/struts-customerlogin.xml"></include>
+
+ <!-- seal advisory -->
+ 
+ <include file="com/dashboard/accounts/profitlossv2/struts-profitlossv2.xml"></include>
+ <include file="com/dashboard/analysis/profitlossanalysispalnew/struts-profitlossanalysisnew.xml"></include>
+ 
+ <include file="com/seal/forexchange/struts-forexchange.xml"></include>  
+<include file="com/seal/service/struts-service.xml"></include>
+<include file="com/seal/servicecontract/struts-servicecontractseal.xml"></include>   
+<include file="com/project/execution/proformaInvoice/struts-ProformaInvoice.xml"></include>  
+					<!-- SKIP Master forms -->     
+<include file="com/skips/invoice/struts-manualinvoice.xml"></include>
+<include file="com/skips/clientskip/struts-clientskip.xml"></include>
+<include file="com/skips/rentalrefund/struts-rentalrefund.xml"></include>
+<include file="com/skips/rentalreceipts/struts-rentalreceipts.xml"></include>					
+<include file="com/skips/enquiry/struts-enquiry.xml"></include>
+<include file="com/skips/servicecontract/struts-servicecontract.xml"></include> 
+<include file="com/skips/quotation/struts-quotation.xml"></include> 
+<include file="com/skips/nafithdownload/struts-nafithdownload.xml"></include>
+                      <!-- SKIP BI forms -->
+<include file="com/dashboard/skips/invoiceproessing/struts-invoiceprocess.xml"></include>
+<include file="com/dashboard/skips/contractmanagement/struts-contractmanagement.xml"></include>
+<include file="com/dashboard/skips/invoiceproessingnew/struts-invoiceprocess.xml"></include>
+<include file="com/dashboard/skips/advinvoiceproessing/struts-invoiceprocess.xml"></include>
+<include file="com/dashboard/skips/serviceexecution/struts-serviceexecution.xml"></include>	
+<include file="com/dashboard/skips/serviceschedule/struts-serviceschedule.xml"></include>	
+<include file="com/dashboard/skips/clientreview/struts-clientreview.xml"></include>		
+<include file="com/dashboard/skips/presalesmanagement/struts-presalesmanagement.xml"></include>	 
+
+<include file="webapp/struts-webapp.xml"></include>
+<include file="com/dashboard/procurment/barcodegeneratorgrn/struts-barcodegrn.xml"></include>
+<include file="com/dashboard/procurment/barcodegenerator/struts-barcode.xml"></include>
+<include file="creditinvlogin/struts-creditinvlogin.xml"></include>
+<include file="com/finance/nipurchase/nipurchaseorderuom/struts-nipurchaseorderuom.xml"></include>
+<include file="com/finance/nipurchase/nipurchaseuom/struts-nipurchaseuom.xml"></include> 
+<include file="com/sales/Sales/salesExpenses/struts-saleExpence.xml"></include>
+<include file="com/callibration/enquiry/struts-enquiry.xml"></include>
+<include file="com/callibration/quotation/struts-quotation.xml"></include>
+<include file="com/finance/transactions/multiplecashpurchase/struts-multiplecashpurchase.xml"></include>
+<include file="userlogin/struts-userlogin.xml"></include>
+<include file="callregisternew/struts-callregisternew.xml"></include>
+<include file="com/login/struts-login.xml"></include>
+<include file="com/common/struts-Attachmaster.xml"></include>
+<include file="com/common/struts-Attach.xml"></include>
+<include file="com/common/struts-multiattach.xml"></include>
+<include file="com/common/struts-Approve.xml"></include>
+<include file="com/dashboard/audit/approvalRemove/struts-approvalRemove.xml"></include>
+<include file="com/support/struts-Support.xml"></include>
+<include file="com/guideline/struts-guideline.xml"></include>
+<include file="com/controlcentre/legacydata/accountsopening/struts-accountsopening.xml"></include>
+<include file="com/SATdownload/struts-satDownload.xml"></include>
+<include file="com/NewSatDownload/struts-satDownload.xml"></include>
+<include file="com/email/Struts-Email.xml"></include>
+<include file="com/controlcentre/settings/companysettings/company/struts-company.xml"></include>
+<include file="com/controlcentre/settings/companysettings/branch/struts-branch.xml"></include>
+<include file="com/controlcentre/settings/companysettings/location/struts-location.xml"></include>
+<include file="com/controlcentre/settings/companysettings/currency/struts-currency.xml"></include>
+<include file="com/controlcentre/settings/companysettings/province/struts-province1.xml"></include>
+<include file="com/controlcentre/settings/usermaster/struts-userMaster.xml"></include>
+<include file="com/controlcentre/settings/productsettings/productmaster/struts-ProductMaster.xml"></include>
+<include file="com/controlcentre/legacydata/productopening/struts-productopening.xml"></include> 
+
+<include file="com/controlcentre/settings/termsnconditions/struts-termsnconditions.xml"></include>
+<include file="com/controlcentre/masters/product/struts-product.xml"></include>
+<include file="com/dashboard/audit/costupdate/struts-costupdate.xml"></include>
+
+<include file="com/controlcentre/settings/subdivision/struts-subdivision.xml"></include>
+<include file="com/controlcentre/settings/approvalmaster/struts-approvalmaster.xml"></include>
+<include file="com/controlcentre/settings/usermaster/struts-userMaster.xml"></include>
+<include file="com/controlcentre/settings/userrolemaster/struts-userRoleMaster.xml"></include>
+<include file="com/controlcentre/settings/userrolebi/struts-userRoleBI.xml"></include>
+<include file="com/controlcentre/settings/costcentermaster/struts-costmaster.xml"></include>
+<include file="com/controlcentre/settings/chequeprintingsetup/struts-chequeprintingsetup.xml"></include>
+<include file="com/controlcentre/settings/fuelcharge/struts-fuelCharge.xml"></include>
+<include file="com/controlcentre/settings/currencybook/struts-currencybook.xml"></include>
+<include file="com/controlcentre/settings/monthclose/struts-monthClose.xml"></include>
+<include file="com/controlcentre/settings/taxclose/struct-tacClose.xml"></include>
+<include file="com/controlcentre/settings/subservicetype/struts-SubServicetype.xml"></include>
+
+<include file="com/controlcentre/masters/classificationmaster/struts-classificationMaster.xml"></include>
+<include file="com/controlcentre/masters/classificationsetup/struts-classificationSetup.xml"></include>
+<include file="com/controlcentre/masters/taxMaster/struts-taxMaster.xml"></include>
+<include file="com/controlcentre/masters/taxMasterSub/struts-taxSub.xml"></include>
+<include file="com/controlcentre/masters/vehiclemaster/brand/struts-brand.xml"></include>
+<include file="com/controlcentre/masters/vehiclemaster/model/struts-model.xml"></include>
+<include file="com/controlcentre/masters/vehiclemaster/authority/struts-authority.xml"></include>
+<include file="com/controlcentre/masters/vehiclemaster/group/struts-group.xml"></include>
+<include file="com/controlcentre/masters/vehiclemaster/dealer/struts-dealer.xml"></include>
+<include file="com/controlcentre/masters/vehiclemaster/financier/struts-financier.xml"></include>
+<include file="com/controlcentre/masters/vehiclemaster/insurance/struts-insurance.xml"></include>
+<include file="com/controlcentre/masters/vehiclemaster/color/struts-color.xml"></include>
+<include file="com/controlcentre/masters/vehiclemaster/vehicle/struts-vehicle.xml"></include>
+<include file="com/controlcentre/masters/vehiclemaster/unit/struts-unit.xml"></include>
+<include file="com/controlcentre/masters/vehiclemaster/project/struts-project.xml"></include>
+<include file="com/controlcentre/masters/salesmanmaster/helper/struts-helper.xml"></include>
+<include file="com/controlcentre/masters/clientskip/struts-clientskip.xml"></include>
+
+
+<include file="com/controlcentre/masters/floormaster/floor/struts-floor.xml"></include>
+<include file="com/controlcentre/masters/floormaster/rack/struts-rack.xml"></include>
+<include file="com/controlcentre/masters/floormaster/bin/struts-bin.xml"></include>
+
+<include file="com/controlcentre/settings/areamaster/region/struts-region.xml"></include>
+<include file="com/controlcentre/settings/areamaster/country/struts-country.xml"></include>
+<include file="com/controlcentre/settings/areamaster/city/struts-city.xml"></include>
+<include file="com/controlcentre/settings/areamaster/area/struts-area.xml"></include>
+<include file="com/controlcentre/settings/activity/struts-activity.xml"></include>
+
+<include file="com/controlcentre/masters/vehiclemaster/specification/struts-specification.xml"></include>
+
+
+
+<include file="com/controlcentre/masters/salesmanmaster/salesagent/struts-salesAgent.xml"></include>
+<include file="com/controlcentre/masters/salesmanmaster/rentalagent/struts-rentalAgent.xml"></include>
+<include file="com/controlcentre/masters/salesmanmaster/driver/struts-driver.xml"></include>
+<include file="com/controlcentre/masters/salesmanmaster/salesman/struts-salesman.xml"></include>
+<include file="com/controlcentre/masters/salesmanmaster/checkin/struts-ckeckin.xml"></include>
+<include file="com/controlcentre/masters/salesmanmaster/staff/struts-staff.xml"></include> 
+ <include file="com/controlcentre/masters/salesmanmaster/checkin/struts-checkin.xml"></include>
+<include file="com/controlcentre/masters/salesmanmaster/telesales/struts-telesales.xml"></include> 
+
+ <include file="com/controlcentre/masters/tarifmgmt/struts-tarifmgmt.xml"></include>
+ <include file="com/controlcentre/masters/wmsproduct/struts-wmsproduct.xml"></include>
+<include file="com/controlcentre/masters/dumpmaster/dump/struts-dump.xml"></include>
+<include file="com/controlcentre/masters/dumpmaster/skip/struts-skip.xml"></include>
+<include file="com/controlcentre/masters/dumpmaster/skipmaster/struts-skipmaster.xml"></include>
+<include file="com/controlcentre/masters/dumpmaster/waste/struts-waste.xml"></include>
+<include file="com/controlcentre/masters/dumpmaster/spec/struts-spec.xml"></include>
+<include file="com/controlcentre/masters/dumpmaster/route/struts-route.xml"></include>
+
+
+ 
+<include file="com/finance/transactions/cashpayment/struts-cashpayment.xml"></include>
+<include file="com/finance/transactions/cashreceipt/struts-cashreceipt.xml"></include>
+<include file="com/finance/transactions/bankpayment/struts-bankpayment.xml"></include>
+<include file="com/finance/transactions/bankreceipt/struts-bankreceipt.xml"></include>
+<include file="com/finance/transactions/journalvouchers/struts-journalvouchers.xml"></include>
+<include file="com/finance/transactions/creditnote/struts-creditnote.xml"></include>
+<include file="com/finance/transactions/debitnote/struts-debitnote.xml"></include>
+<include file="com/finance/transactions/pettycash/struts-pettycash.xml"></include>
+<include file="com/finance/transactions/contratrans/struts-contratrans.xml"></include>
+<include file="com/finance/transactions/unclearedchequepayment/struts-unclearedchequepayment.xml"></include>
+<include file="com/finance/transactions/unclearedchequereceipt/struts-unclearedchequereceipt.xml"></include>
+<include file="com/finance/transactions/securitycheque/struts-securitycheque.xml"></include>
+<include file="com/finance/transactions/fuelcardreimbursement/struts-fuelcardreimbursement.xml"></include>
+<include file="com/finance/transactions/taxdbtnote/struts-taxdebitnote.xml"></include>
+ <include file="com/finance/transactions/taxcrdtnote/struts-taxcreditnote.xml"></include>
+
+<include file="com/finance/interbranchtransactions/ibcashpayment/struts-ibcashpayment.xml"></include>
+<include file="com/finance/interbranchtransactions/ibcashreceipt/struts-ibcashreceipt.xml"></include>
+<include file="com/finance/interbranchtransactions/ibbankpayment/struts-ibbankpayment.xml"></include>
+<include file="com/finance/interbranchtransactions/ibbankreceipt/struts-ibbankreceipt.xml"></include>
+<include file="com/finance/interbranchtransactions/ibjournalvouchers/struts-ibjournalvouchers.xml"></include>
+
+<include file="com/finance/accountssetup/accountsMaster/struts-accountmaster.xml"></include>
+<include file="com/finance/accountssetup/clustermaster/struts-clustermaster.xml"></include>
+<include file="com/finance/nipurchase/nipurchaserequest/struts-nipurchaserequest.xml"></include> 
+<include file="com/finance/nipurchase/nipurchaseorder/struts-purchaseorder.xml"></include> 
+<include file="com/finance/nipurchase/nipurchase/struts-purchase.xml"></include>
+<include file="com/finance/nipurchase/nipurchasereturn/struts-nipurchasereturn.xml"></include>
+
+<include file="com/project/execution/ServiceSale3dcom/struts-ServiceSale3d.xml"></include>
+<include file="com/project/execution/ServiceSale/struts-ServiceSale.xml"></include>
+
+<include file="com/project/execution/completioncertificate/struts-completioncertificate.xml"></include>
+<include file="com/project/execution/completioncertificatefs/struts-completioncertificatefs.xml"></include>  
+<include file="com/project/execution/quotationmbl/struts-quotationmbl.xml"></include>
+<include file="com/project/setup/employeemaster/struts-empmaster.xml"></include>
+
+<include file="com/realestate/propertyowner/struts-propertyowner.xml"></include>
+
+<include file="com/finance/nipurchase/suppliers/struts-vendor.xml"></include>
+
+<include file="com/finance/posting/pdcpostingpayment/struts-pdcpostingpayment.xml"></include>
+<include file="com/finance/posting/pdcpostingreceipt/struts-pdcpostingreceipt.xml"></include>
+<include file="com/finance/posting/manualapplying/struts-manualapplying.xml"></include>
+<include file="com/finance/posting/bankreconciliation/struts-bankreconciliation.xml"></include>
+<include file="com/finance/posting/prePayment/struts-prepayment.xml"></include>
+<include file="com/finance/posting/unclearedchequeprocessing/struts-unclearedchequeprocessing.xml"></include>
+<include file="com/finance/posting/vehicledepreciationposting/struts-vehicledepreciationposting.xml"></include>
+
+
+<include file="com/operations/marketing/enquiry/struts-enquiry.xml"></include>
+<include file="com/operations/marketing/enquirynew/struts-enquirynew.xml"></include>
+<include file="com/operations/vehicletransactions/movement/struts-movement.xml"></include>
+<include file="com/operations/vehicletransactions/vehicleinspection/struts-vehcileinspection.xml"></include>
+<include file="com/operations/commercialreceipt/struts-commercialreceipt.xml"></include>
+
+						<!-- EASY LEASE -->
+<include file="com/operations/crm/callregister/struts-callregisterss.xml"></include>
+
+<include file="com/procurement/purchase/purchaseintent/struts-purchaseintent.xml"></include>
+<include file="com/procurement/purchase/purchaseorder/struts-purchaseorder.xml"></include>    
+<include file="com/procurement/purchase/purchaserequest/struts-purchaserequest.xml"></include> 
+<include file="com/procurement/purchase/goodsreceiptnote/struts-goodsreceiptnote.xml"></include>   
+<include file="com/procurement/purchase/goodsreceiptnotereturn/struts-goodsreceiptnotereturn.xml"></include> 
+<include file="com/procurement/purchase/purchaseinvoice/struts-purchaseinvoice.xml"></include> 
+<include file="com/procurement/purchase/purchaseexpenses/struts-purchaseexpence.xml"></include> 
+<include file="com/procurement/purchase/purchaseinvoicereturn/struts-purchaseinvoicereturn.xml"></include>   
+<include file="com/operations/vehicletransactions/maintenanceworkorder/struts-maintworkorder.xml"></include> 
+<include file="com/procurement/purchase/purchaserequestforquote/struts-purchaserequestforquote.xml"></include>   
+
+<include file="com/controlcentre/masters/client/struts-client.xml"></include>
+<include file="com/operations/clientrelations/clientcategory/struts-clientcategory.xml"></include>
+<include file="com/operations/clientrelations/clientreview/struts-clientReview.xml"></include>
+
+ <include file="com/fixedassets/assets/assetmaster/struts-assetmaster.xml"></include> 
+ <include file="com/fixedassets/masters/groupmaster/struts-fgm.xml"></include>
+ <include file="com/fixedassets/masters/locationmaster/struts-flm.xml"></include>
+ <include file="com/fixedassets/assetposting/fixedassetposting/struts-fixedassetdepreciationposting.xml"></include>
+ <include file="com/fixedassets/assets/assetssalesinvoice/struts-assetsales.xml"></include>
+
+ <include file="com/dashboard/struts-dashboard.xml"></include>
+ 
+ <include file="com/dashboard/vehicle/tobereleased/struts-dashboardrelease.xml"></include>
+ <include file="com/dashboard/invoices/rental/struts-dashboardinvoice.xml"></include>
+ <include file="com/dashboard/invoices/lease/struts-leaseInvoice.xml"></include>
+ <include file="com/dashboard/accounts/accountsstatement/struts-accountsstatement.xml"></include>
+ <include file="com/dashboard/accounts/mainaccountstatement/struts-mainaccountsstatement.xml"></include>
+ <include file="com/dashboard/accounts/ageingstatement/struts-ageingstatement.xml"></include>
+ <include file="com/dashboard/accounts/ageingstatementduedate/struts-ageingduedatestatement.xml"></include>
+ <include file="com/dashboard/accounts/currentageingstatement/struts-currentageing.xml"></include>
+ <include file="com/dashboard/accounts/posting/struts-dashboardposting.xml"></include>
+<include file="com/dashboard/accounts/chequeupdate/struts-chequeupdate.xml"></include>
+<include file="com/dashboard/accounts/bankledger/struts-bankledger.xml"></include>
+<include file="com/dashboard/accounts/cashledger/struts-cashledger.xml"></include>
+<include file="com/dashboard/client/clientfollowuplog/struts-clientfollowup.xml"></include>
+<include file="com/dashboard/client/paymentfollowup/struts-paymentfollowup.xml"></include>
+<include file="com/dashboard/operations/struts-operations.xml"></include>
+<include file="com/dashboard/audit/contractservicescheduleupdate/struts-contractservicescheduleupdate.xml"></include>
+<include file="com/dashboard/audit/contractservicesiteupdate/struts-contractservicesiteupdate.xml"></include>
+
+<include file="com/dashboard/projectexecution/proformaInvoice/struts-proformainvoice.xml"></include>
+<include file="com/dashboard/marketing/quotationdetail/struts-qutdetails.xml"></include>
+<include file="com/workdetails/struts-workdetails.xml"></include>
+<include file="com/supportdetails/struts-supportdetails.xml"></include>
+<include file="com/dashboard/procurment/stockLedger/struts-stockLedger.xml"></include>
+
+ 								<!-- Serivces -->
+
+<include file="com/dashboard/projectexecution/serviceScheduler/struts-servicescheduler.xml"></include>
+<include file="com/dashboard/projectexecution/assignjobfollowup/struts-assignjobfollowup.xml"></include>
+<include file="com/dashboard/projectexecution/deploytechnician/struts-deploytechnician.xml"></include>
+<include file="com/dashboard/projectexecution/engineeringconfirmationrevision/struts-ECRevisiondetails.xml"></include>
+<include file="com/dashboard/projectexecution/engineeringconfirmation/struts-pfdetails.xml"></include>
+<include file="com/dashboard/projectexecution/assignjobfollowupnew/struts-assignjobfollowupnew.xml"></include>
+<include file="com/dashboard/projectexecution/serviceSchedulernew/struts-serviceschedulernew.xml"></include>  
+
+<include file="com/controlcentre/settings/servicetype/struts-servicetype.xml"></include>
+<include file="com/controlcentre/settings/serviceteam/struts-serviceteam.xml"></include>
+<include file="com/controlcentre/settings/enquirysource/struts-enquirysource.xml"></include>
+<include file="com/controlcentre/settings/servicesettings/struts-servicesetting.xml"></include>
+<include file="com/project/execution/surveyDetails/struts-surveydetails.xml"></include>
+
+
+<include file="com/project/execution/templates/struts-template.xml"></include>
+<include file="com/project/execution/estimation/struts-estimate.xml"></include>
+<include file="com/project/execution/estimationnew/struts-estimate.xml"></include>
+<include file="com/project/execution/quotation/struts-quotation.xml"></include>
+<include file="com/project/execution/callRegister/struts-callregister.xml"></include>
+<include file="com/project/execution/serviceReport/struts-servicereport.xml"></include>
+
+<include file="com/project/execution/templatemaster/templatemaster.xml"></include>
+
+<include file="com/project/leadmanagement/prospectiveclient/struts-prospectiveclient.xml"></include>
+<include file="com/project/leadmanagement/activityreport/struts-activityreport.xml"></include>
+
+<include file="com/dashboard/projectexecution/proformaInvoice/struts-proformainvoice.xml"></include>
+<include file="com/project/execution/projectproInvoice/struts-projectproinvoice.xml"></include>
+<include file="com/project/execution/projectInvoice/struts-projectinvoice.xml"></include>
+<include file="com/project/execution/projectInvoicereturn/struts-projectinvoicereturn.xml"></include>
+<include file="com/dashboard/projectexecution/invoiceProcessing/struts-invoiceprocess.xml"></include>
+<include file="com/dashboard/projectexecution/invoiceProcessingnew/struts-invoiceprocessnew.xml"></include>    
+<include file="com/common/struts-Terms.xml"></include>
+<include file="com/dashboard/marketing/enquiryScheduler/struts-surveyschedulerprint.xml"></include>
+<include file="com/nisales/outsourcejob/struts-outsourcejob.xml"></include>
+<include file="com/project/execution/quotationnew/struts-quotationnew.xml"></include>
+<include file="com/project/execution/jobContract/struts-jobcontract.xml"></include>
+  								<!-- HUMAN RESOURCE -->
+ 	<!-- 
+		
+ <include file="com/humanresource/setup/employeemaster/struts-employeemaster.xml"></include>
+ <include file="com/humanresource/setup/hrsetup/designation/struts-designation.xml"></include>               
+ <include file="com/humanresource/setup/hrsetup/document/struts-document.xml"></include>            
+ <include file="com/humanresource/setup/hrsetup/department/struts-department.xml"></include>            
+ <include file="com/humanresource/setup/hrsetup/payrollcategory/struts-payrollcategory.xml"></include>    
+ <include file="com/humanresource/setup/hrsetup/leave/struts-leave.xml"></include>       
+ <include file="com/humanresource/setup/hrsetup/allowances/struts-allowances.xml"></include>          
+ <include file="com/humanresource/setup/hrsetup/statutorydeductions/struts-statutorydeductions.xml"></include>       
+ <include file="com/humanresource/setup/hrsetup/agent/struts-agent.xml"></include> 
+ <include file="com/humanresource/setup/hrsetup/hrsetupgeneral/struts-general.xml"></include>  
+ <include file="com/humanresource/setup/hrsetup/leavesetup/struts-leavesetup.xml"></include>  
+
+ <include file="com/humanresource/transactions/deductionschedule/struts-deductionschedule.xml"></include>
+ <include file="com/humanresource/transactions/appraisal/struts-appraisal.xml"></include>  
+ <include file="com/humanresource/transactions/additionanddeduction/struts-additionanddeduction.xml"></include>
+ <include file="com/humanresource/transactions/monthlypayroll/struts-monthlypayroll.xml"></include> 
+ <include file="com/humanresource/transactions/leaveopening/struts-leaveopening.xml"></include>
+ <include file="com/humanresource/transactions/leaverequest/struts-leaverequest.xml"></include>
+ 
+ <include file="com/dashboard/humanresource/monthlypayrollposting/struts-dashboardmonthlypayrollposting.xml"></include> 
+
+ -->
+<include file="com/sales/marketing/salesenquiry/struts-salesenquiry.xml"></include>
+<include file="com/sales/marketing/salesquotation/struts-salesquotation.xml"></include> 
+<include file="com/sales/marketing/salesorder/struts-salesorder.xml"></include>
+
+<include file="com/sales/Sales/deliverynote/struts-deliverynote.xml"></include>
+<include file="com/sales/Sales/deliverynotereturn/struts-deliverynotereturn.xml"></include>
+<include file="com/sales/Sales/salesInvoice/struts-salesinvoice.xml"></include>
+<include file="com/sales/Sales/salesInvoiceReturn/struts-salesinvoicereturn.xml"></include> 
+<include file="com/sales/Sales/deliverynotewithprice/struts-deliverynotewithprice.xml"></include>
+  
+<include file="com/sales/InventoryTransfer/goodsissuenote/struts-goodsissuenote.xml"></include> 
+<include file="com/sales/InventoryTransfer/goodsissuenotereturn/struts-goodsissuenotereturn.xml"></include> 
+<include file="com/sales/InventoryTransfer/materialrequest/struts-materialrequest.xml"></include> 
+<include file="com/sales/InventoryTransfer/InventoryTransferIssue/struts-transferIssue.xml"></include>
+<include file="com/sales/InventoryTransfer/InventoryTransferRecept/struts-transferRecept.xml"></include>
+<include file="com/sales/InventoryTransfer/physicalstockadjustment/struts-physicalStockadjustment.xml"></include> 
+ 
+  
+<include file="com/gwinternal/operations/changesdone/struts-changesdone.xml"></include>
+     
+<include file="com/realestate/propertyrelated/propertyrelatedmaster/struts-propertyrelatedmaster.xml"></include>
+<include file="com/realestate/propertymaster/struts-propertymaster.xml"></include>
+<include file="com/realestate/tenancycontract/struts-tenancycontract.xml"></include>
+		    		
+<include file="com/nisales/cuttinginvoice/struts-cuttinginvoice.xml"></include>
+<include file="com/nisales/cuttingorder/struts-cuttingorder.xml"></include>
+<include file="com/nisales/deliverynote/struts-delnote.xml"></include>
+
+<include file="com/nisalesnew/cuttingorder/struts-cuttingorder.xml"></include>
+<include file="com/nisalesnew/deliverynote/struts-delnote.xml"></include>
+<include file="com/nisalesnew/cuttinginvoice/struts-cuttinginvoice.xml"></include>
+
+<include file="com/project/execution/servicesalereturn/struts-ServiceSalereturn.xml"></include>
+
+  								<!-- CARGO -->
+  								
+<include file="com/cargo/enquiry/struts-enquiry.xml"></include>
+<include file="com/cargo/transportmasters/servicetype/struts-servicetype.xml"></include>
+<include file="com/cargo/transportmasters/terms/struts-terms.xml"></include>
+<include file="com/cargo/estimation/struts-estimation.xml"></include>
+
+
+<include file="com/cargo/transportmasters/shipment/struts-shipment.xml"></include>
+<include file="com/cargo/transportmasters/submode/struts-submode.xml"></include>
+<include file="com/cargo/transportmasters/mode/struts-mode.xml"></include>
+<include file="com/cargo/costingforinvoicing/struts-costingforinvoicing.xml"></include>
+<include file="com/dashboard/cargo/invoiceprocessing/struts-invoiceprocessing.xml"></include>
+<include file="com/cargo/place/struts-place.xml"></include>
+
+<include file="com/dashboard/cargo/operation/struts-operation.xml"></include>  
+<include file="com/dashboard/cargo/operationmanagement/struts-operationmanagement.xml"></include>
+<include file="com/dashboard/cargo/operationstatistics/struts-operationstatistics.xml"></include> 
+<include file="com/project/execution/servicesalecargo/struts-servicesalecargo.xml"></include>
+								<!-- AVIATION -->
+
+<include file="com/aviation/fuelinginformation/struts-fuelinginformation.xml"/>
+<include file="com/aviation/pricemanagement/struts-pricemanagement.xml"></include>
+<include file="com/aviation/taxmaster/struts-TaxMaster.xml"></include>
+<include file="com/aviation/aviationinvoice/struts-aviationinvoice.xml"></include>
+<include file="com/aviation/port/struts-port.xml"></include>
+<include file="com/dashboard/aviation/trademarginreport/struts-trademarginreport.xml"></include>
+
+								<!-- EMAIL -->
+<include file="com/emailnew/Struts-EmailNew.xml"></include>
+
+                                <!-- INKIT -->
+<include file="com/it/callRegisterit/struts-callregisterit.xml"></include>  								
+<include file="com/it/enquiryit/struts-enquiryit.xml"></include>
+<include file="com/it/quotationit/struts-quotationit.xml"></include>
+<include file="com/it/jobcontractit/struts-jobcontractit.xml"></include>
+<include file="com/it/staffingcontract/struts-staffingcontract.xml"></include>
+<include file="com/it/amscontract/struts-amscontract.xml"></include>
+
+
+<include file="com/dashboard/projectexecution/invoiceProcessing/struts-invoiceprocess.xml"></include>
+
+
+</struts>       
+
+
+
+
+
+
+
+
+
+
+
+

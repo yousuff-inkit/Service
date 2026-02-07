@@ -1,0 +1,117 @@
+<%@page import="com.dashboard.project.proformalist.ClsProformaListDAO"%>
+<%ClsProformaListDAO DAO= new ClsProformaListDAO(); %>
+    
+ <%@page import="javax.servlet.http.HttpServletRequest" %>
+<%@page import="javax.servlet.http.HttpSession" %>
+
+
+ <% String fromdate =request.getParameter("froms")==null?"0":request.getParameter("froms").toString();%>
+ <% String todate =request.getParameter("tos")==null?"0":request.getParameter("tos").toString();%>
+ <% String rds =request.getParameter("rds")==null?"0":request.getParameter("rds").toString();%>
+ <% String barchval =request.getParameter("barchval")==null?"0":request.getParameter("barchval").toString();%>
+ <% String contrctid =request.getParameter("contrctid")==null?"0":request.getParameter("contrctid").toString();%>
+  <% String clientid =request.getParameter("clientid")==null?"0":request.getParameter("clientid").toString();%>
+  <% String zoneid =request.getParameter("zoneid")==null?"0":request.getParameter("zoneid").toString();%>
+
+ <script type="text/javascript">
+ var data2; 
+ 
+ var rendererstring=function (aggregates){
+	  	var value=aggregates['sum'];
+	  	
+	  	if(typeof(value)=='undefined'){
+	  		value=0;
+	  	}
+	  	return '<div style="float: right; margin: 4px;font-size:12px; overflow: hidden;">' + "" + ' ' + value + '</div>';
+		}
+	  	var rendererstring1=function (aggregates){
+	  	var value1=aggregates['sum1'];
+	  	return '<div style="float: right; margin: 4px;font-size:12px; overflow: hidden;">' + " Total" + '</div>';
+	  }
+ 
+ 
+    //alert("==================loadSalikData");
+        $(document).ready(function () { 	
+        	 data2= '<%= DAO.loadSummaryData(fromdate,todate,clientid,barchval,zoneid)%>';
+             var num = 0; 
+            var source =
+            {
+                datatype: "json",
+                datafields: [
+                            {name : 'slno', type: 'number'  },
+							{name : 'voc_no', type: 'String'  },
+     						{name : 'client', type: 'String' },
+     						{name : 'invno', type: 'number' },
+     						{name : 'date', type: 'date' },
+     						{name : 'total', type: 'number' },
+     						{name : 'nettotal', type: 'number' },
+     						{name : 'desc1', type: 'String' },
+     						{name : 'currency', type: 'String' },
+     						{name : 'rate', type: 'number' },
+     						{name : 'brhid', type: 'String' },
+     						{name :'salesperson', type:'String' }, 
+    	                     
+     					     						
+                 ],
+                 localdata: data2,
+                
+                
+                pager: function (pagenum, pagesize, oldpagenum) {
+                    // callback called when a page or page size is changed.
+                }
+            };
+            
+            var dataAdapter = new $.jqx.dataAdapter(source,
+            		 {
+                		loadError: function (xhr, status, error) {
+	                    alert(error);    
+	                    }
+		            }		
+            );
+            $("#jqxloaddataGrid").jqxGrid(
+            {
+                width: '99%',
+                height: 480,
+                source: dataAdapter,
+                columnsresize: true,
+                //pageable: true,
+                altRows: true,
+                sortable: true,
+                selectionmode: 'singlerow',
+                showfilterrow:true,
+                enabletooltips:true,
+                filterable: true,
+                showaggregates:true,
+                showstatusbar:true,
+                statusbarheight: 25,
+                
+                //Add row method
+                columns: [
+                     /* { text: 'SL#', sortable: false, filterable: false, editable: false,
+                      groupable: false, draggable: false, resizable: false,
+                      datafield: 'sl', columntype: 'number', width: '4%',
+                      cellsrenderer: function (row, column, value) {
+                          return "<center><div style='margin:4px;'>" + (value + 1) + "</div></center>";
+                      }  
+                    }, */
+                    { text: 'Sr No', datafield: 'slno', editable:false, width: '5%',cellsformat:'d0' },
+					{ text: 'Doc No', datafield: 'voc_no', width: '5%' },
+					{ text: 'Date', datafield: 'date', width: '8%',cellsformat:'dd.MM.yyyy' },
+					{ text: 'Branch', datafield: 'brhid', width: '5%' },
+					{ text: 'Po No', datafield: 'invno', width: '5%' },
+					{ text: 'Client', datafield: 'client', width: '20%' },
+					{ text: 'Sales person', datafield: 'salesperson',  width: '10%' }, 
+	           	    { text: 'Description', datafield: 'desc1', },
+					{ text: 'Currency', datafield: 'currency', width: '6%' },
+					{ text: 'Rate', datafield: 'rate',width: '6%' ,cellsalign:'right',align:'right',cellsformat:'d4'}, 
+					{ text: 'Total',  datafield: 'total', width: '8%',cellsalign:'right',align:'right',cellsformat:'d2',aggregates: ['sum'],aggregatesrenderer:rendererstring  },
+					{ text: 'Total(B)',  datafield: 'nettotal', width: '8%',cellsalign:'right',align:'right',cellsformat:'d2',aggregates: ['sum'],aggregatesrenderer:rendererstring  },
+					
+					
+	              ]
+            });
+
+                 $("#overlay, #PleaseWait").hide();
+        });
+    </script>
+    <div id="jqxloaddataGrid"></div>

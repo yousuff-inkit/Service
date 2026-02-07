@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+	
+
+	<package name="clientreview" extends="struts-default" namespace="/" >
+			
+			<action name="printOutstandingsStatementCR" class="com.dashboard.skips.clientreview.ClsClientReviewAction" method="printAction">
+				<interceptor-ref name="params"/>  
+			</action>
+			
+		</package>	
+</struts>

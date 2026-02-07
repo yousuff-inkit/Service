@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+	
+
+	<package name="enquiry" extends="struts-default">
+			<action name="saveEnquiryskip" class="com.skips.enquiry.ClsEnquiryAction" method="saveActionskip">
+				<interceptor-ref name="params"/>
+				<result name="success" >enquiry.jsp</result>
+				<result name="fail">enquiry.jsp</result>
+			</action>
+			<action name="saveCQskip" class="com.skips.enquiry.ClsEnquiryAction" method="saveCQActionskip">
+				<interceptor-ref name="params"/>
+				<result name="success" >c_questype.jsp</result>
+				<result name="fail">c_questype.jsp</result>
+			</action>
+			<action name="saveKQskip" class="com.skips.enquiry.ClsEnquiryAction" method="saveKQActionskip">
+				<interceptor-ref name="params"/>
+				<result name="success" >k_questype.jsp</result>
+				<result name="fail">k_questype.jsp</result>
+			</action>
+			<action name="printEnqnew" class="com.skips.enquiry.ClsEnquiryAction" method="printAction">
+			    <interceptor-ref name="params"/>
+		    <result name="print">${url}</result>
+			</action>
+		</package>	
+</struts>

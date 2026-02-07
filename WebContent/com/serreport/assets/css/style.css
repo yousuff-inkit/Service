@@ -1,0 +1,221 @@
+
+body { font-family: 'Open Sans', sans-serif; font-size: 15px; font-weight: 400; color: #888; line-height: 30px; text-align: center; }
+
+strong { font-weight: 600; }
+
+a { color: #db5d50; border-bottom: 1px dashed #db5d50; text-decoration: none; transition: all .3s; }
+a:hover, a:focus { color: #db5d50; border: 0; text-decoration: none; }
+
+h1, h2 { margin-top: 10px; font-size: 38px; font-weight: 300; color: #555; line-height: 50px; font-style: italic; }
+h3 { font-size: 22px; font-weight: 300; color: #555; line-height: 30px; font-style: italic; }
+
+img { max-width: 100%; }
+
+.medium-paragraph { font-size: 17px; line-height: 32px; }
+
+::-moz-selection { background: #db5d50; color: #fff; text-shadow: none; }
+::selection { background: #db5d50; color: #fff; text-shadow: none; }
+
+
+/***** General style, all sections *****/
+
+.section-container { margin: 0 auto; padding-bottom: 80px; }
+
+.section-container-gray-bg { background: #f8f8f8; }
+
+.section-container-image-bg, 
+.section-container-image-bg h2, 
+.section-container-image-bg h3 { color: #fff; }
+
+.section-container-image-bg .divider-1 span { border-color: #fff; border-color: rgba(255, 255, 255, 0.8); }
+
+.section-description { margin-top: 60px; padding-bottom: 10px; }
+
+.section-description p { margin-top: 20px; padding: 0 120px; }
+.section-container-image-bg .section-description p { opacity: 0.8; }
+
+
+/***** Divider *****/
+
+.divider-1 span { display: inline-block; width: 200px; border-bottom: 1px dotted #aaa; }
+
+
+/***** Top menu *****/
+
+.navbar { background: #444; transition: all .6s; backface-visibility: hidden; }
+
+.navbar.navbar-no-bg { background: #444; background: rgba(0, 0, 0, 0.2); }
+
+.navbar-dark .navbar-nav { font-size: 15px; color: #fff; text-transform: uppercase; }
+.navbar-dark .navbar-nav .nav-link { color: #fff; color: rgba(255, 255, 255, 0.8); border: 0; }
+.navbar-dark .navbar-nav .nav-link:hover { color: #fff; }
+.navbar-dark .navbar-nav .nav-link:focus { color: #fff; outline: 0; }
+
+.navbar-expand-md .navbar-nav .nav-link { padding-right: 1rem; padding-left: 1rem; }
+
+.navbar-brand {
+	padding-top: .45rem; padding-bottom: .45rem; 
+	width: 115px;
+	background: url(../img/logo.png) left center no-repeat;
+	border: 0;
+	text-indent: -99999px;
+}
+
+
+/***** Top content *****/
+
+.inner-bg { padding: 120px 0 80px 0; }
+
+.top-content .text { color: #fff; }
+.top-content .text h1 { margin-top: 25px; color: #fff; }
+.top-content .description { margin: 30px 0 10px 0; }
+.top-content .description p { opacity: 0.8; }
+
+
+/***** Form 1 *****/
+
+.form-1-box { padding-top: 30px; text-align: left; }
+
+.form-1-box legend.col-form-label { line-height: 30px; font-weight: 600; text-transform: uppercase; color: #555; }
+.form-1-box .form-check-label { line-height: 1.5; vertical-align: top; }
+
+.form-1-box input[type="text"],
+.form-1-box input[type="email"],
+.form-1-box input[type="password"] {
+    background: none; border: 1px solid #ddd; 
+    font-family: 'Open Sans', sans-serif; font-size: 15px; font-weight: 400; color: #888; 
+    box-shadow: none;
+}
+.form-1-box input[type="text"]:focus,
+.form-1-box input[type="email"]:focus,
+.form-1-box input[type="password"]:focus { outline: 0; background: none; border: 1px solid #db5d50; box-shadow: none; }
+
+.form-1-box input[type="text"]::-moz-placeholder,
+.form-1-box input[type="email"]::-moz-placeholder,
+.form-1-box input[type="password"]::-moz-placeholder { color: #bbb; font-style: italic; }
+
+.form-1-box input[type="text"]:-ms-input-placeholder,
+.form-1-box input[type="email"]:-ms-input-placeholder,
+.form-1-box input[type="password"]:-ms-input-placeholder { color: #bbb; font-style: italic; }
+
+.form-1-box input[type="text"]::-webkit-input-placeholder,
+.form-1-box input[type="email"]::-webkit-input-placeholder,
+.form-1-box input[type="password"]::-webkit-input-placeholder { color: #bbb; font-style: italic; }
+
+.form-1-box button.btn-customized {
+	margin-top: 1rem; padding: .75rem 1.5rem; 
+	background: #db5d50; border: 0; 
+	font-family: 'Open Sans', sans-serif; font-size: 15px; font-weight: 400; color: #fff; 
+    box-shadow: none;
+}
+
+.form-1-box button.btn-customized:hover, 
+.form-1-box button.btn-customized:active, 
+.form-1-box button.btn-customized:focus, 
+.form-1-box button.btn-customized:active:focus, 
+.form-1-box button.btn-customized.active:focus,
+.form-1-box button.btn.btn-primary:not(:disabled):not(.disabled):active,
+.form-1-box button.btn.btn-primary:not(:disabled):not(.disabled):active:focus {
+	outline: 0; background: #ca594d; border: 0; color: #fff; box-shadow: none;
+}
+
+
+/***** Form 2 *****/
+
+.form-2-box { padding-top: 30px; text-align: left; }
+
+.form-2-box legend.col-form-label { line-height: 30px; font-weight: 600; text-transform: uppercase; color: #555; text-align: center; }
+.form-2-box .form-check-label { line-height: 1.5; vertical-align: top; }
+
+.form-2-box input[type="text"],
+.form-2-box textarea {
+    background: #fff; border: 2px solid #ddd; 
+    font-family: 'Open Sans', sans-serif; font-size: 15px; font-weight: 400; color: #888; 
+    box-shadow: none;
+}
+
+.form-2-box textarea { height: 120px; }
+
+.form-2-box input[type="text"]:focus,
+.form-2-box textarea:focus { outline: 0; background: #fff; border: 2px solid #db5d50; box-shadow: none; }
+
+.form-2-box input[type="text"]::-moz-placeholder,
+.form-2-box textarea::-moz-placeholder { color: #bbb; font-style: italic; }
+
+.form-2-box input[type="text"]:-ms-input-placeholder,
+.form-2-box textarea:-ms-input-placeholder { color: #bbb; font-style: italic; }
+
+.form-2-box input[type="text"]::-webkit-input-placeholder,
+.form-2-box textarea::-webkit-input-placeholder { color: #bbb; font-style: italic; }
+
+.form-2-box button.btn-customized {
+	margin-top: 1rem; padding: .75rem 1.5rem; 
+	background: #db5d50; border: 0; 
+	font-family: 'Open Sans', sans-serif; font-size: 15px; font-weight: 400; color: #fff; 
+    box-shadow: none;
+}
+
+.form-2-box button.btn-customized:hover, 
+.form-2-box button.btn-customized:active, 
+.form-2-box button.btn-customized:focus, 
+.form-2-box button.btn-customized:active:focus, 
+.form-2-box button.btn-customized.active:focus,
+.form-2-box button.btn.btn-primary:not(:disabled):not(.disabled):active,
+.form-2-box button.btn.btn-primary:not(:disabled):not(.disabled):active:focus {
+	outline: 0; background: #ca594d; border: 0; color: #fff; box-shadow: none;
+}
+
+.submit-button { text-align: center; }
+
+
+/***** Form 3 *****/
+
+.form-3-box { padding-top: 30px; text-align: left; }
+.form-3-box p { opacity: 0.8; }
+
+.form-3-box legend.col-form-label { line-height: 30px; font-weight: 600; text-transform: uppercase; color: #fff; }
+.form-3-box label { color: #fff; color: rgba(255, 255, 255, 0.8); }
+
+.form-3-box input[type="text"],
+.form-3-box textarea {
+    background: #fff; border: 2px solid #fff; 
+    font-family: 'Open Sans', sans-serif; font-size: 15px; font-weight: 400; color: #888; 
+    box-shadow: none;
+}
+
+.form-3-box textarea { height: 120px; }
+
+.form-3-box input[type="text"]:focus,
+.form-3-box textarea:focus { outline: 0; background: #fff; border: 2px solid #db5d50; box-shadow: none; }
+
+.form-3-box input[type="text"]::-moz-placeholder,
+.form-3-box textarea::-moz-placeholder { color: #bbb; font-style: italic; }
+
+.form-3-box input[type="text"]:-ms-input-placeholder,
+.form-3-box textarea:-ms-input-placeholder { color: #bbb; font-style: italic; }
+
+.form-3-box input[type="text"]::-webkit-input-placeholder,
+.form-3-box textarea::-webkit-input-placeholder { color: #bbb; font-style: italic; }
+
+.form-3-box button.btn-customized {
+	margin-top: 1rem; padding: .75rem 1.5rem; 
+	background: #db5d50; border: 0; 
+	font-family: 'Open Sans', sans-serif; font-size: 15px; font-weight: 400; color: #fff; 
+    box-shadow: none;
+}
+
+.form-3-box button.btn-customized:hover, 
+.form-3-box button.btn-customized:active, 
+.form-3-box button.btn-customized:focus, 
+.form-3-box button.btn-customized:active:focus, 
+.form-3-box button.btn-customized.active:focus,
+.form-3-box button.btn.btn-primary:not(:disabled):not(.disabled):active,
+.form-3-box button.btn.btn-primary:not(:disabled):not(.disabled):active:focus {
+	outline: 0; background: #ca594d; border: 0; color: #fff; box-shadow: none;
+}
+
+
+/***** Footer *****/
+
+footer { padding: 40px 0; }
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+			
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<constant name="struts.custom.i18n.resources" value="global" />
+ 
+	
+	<package name="classificationmaster" extends="struts-default">
+			<action name="saveclassificationMasterAction" class="com.controlcentre.masters.classificationmaster.ClsclassificationMasterAction" method="saveclassificationMasterAction">
+				<interceptor-ref name="params"/>
+				<result name="success" >classificationMaster.jsp</result>
+				<result name="fail">classificationMaster.jsp</result>
+			</action>	
+	</package>	
+</struts>

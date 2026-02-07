@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+	
+
+	<package name="skipinvoice" extends="struts-default">
+			<action name="saveSkipInvoice" class="com.skips.invoice.ClsManualInvoiceAction" method="saveAction">
+				<interceptor-ref name="params"/>
+				<result name="success" >invoice.jsp</result>
+				<result name="fail">invoice.jsp</result>
+			</action>
+			<action name="printManualInvoice" class="com.skips.invoice.ClsManualInvoiceAction" method="printAction">  
+				<interceptor-ref name="params"/>
+				<result name="print" >${url}</result>    
+			</action>
+				<action name="printmultipageInvoice" class="com.skips.invoice.ClsManualInvoiceAction" method="multipageprintAction">  
+				<interceptor-ref name="params"/>
+				<result name="print" >${url}</result>    
+			</action>
+			<action name="printManualInvoiceJasper" class="com.skips.invoice.ClsManualInvoiceAction" method="printActionJasper">  
+				<interceptor-ref name="params"/>  
+			</action>
+			<action name="printManualInvoiceContractJasper" class="com.skips.invoice.ClsManualInvoiceAction" method="printActionContractJasper">      
+				<interceptor-ref name="params"/>  
+			</action>
+		</package>	  
+</struts>

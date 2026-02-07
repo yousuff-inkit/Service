@@ -1,0 +1,147 @@
+package com.controlcentre.settings.subdivision;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
+
+import com.common.ClsCommon;
+import com.connection.ClsConnection;
+
+
+public class ClsSubDivisionAction {
+
+	ClsConnection conobj=new ClsConnection();
+	ClsCommon com=new ClsCommon();
+	ClsSubDivisionDAO DAO = new ClsSubDivisionDAO();
+	
+	private String date;
+	private String hidendate;
+	private int    docno;
+	private String txtname;
+	private String mode;
+	private String msg;
+	private String deleted;
+	private String formdetailcode;
+	
+	public String getFormdetailcode() {
+		return formdetailcode;
+	}
+	public void setFormdetailcode(String formdetailcode) {
+		this.formdetailcode = formdetailcode;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getHidendate() {
+		return hidendate;
+	}
+	public void setHidendate(String hidendate) {
+		this.hidendate = hidendate;
+	}
+	public int getDocno() {
+		return docno;
+	}
+	public void setDocno(int docno) {
+		this.docno = docno;
+	}
+	public String getTxtname() {
+		return txtname;
+	}
+	public void setTxtname(String txtname) {
+		this.txtname = txtname;
+	}
+	
+	public String getMode() {
+		return mode;
+	}
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+	public String getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
+	}
+	
+	public String saveAction(){
+		
+		HttpServletRequest request=ServletActionContext.getRequest();
+		HttpSession session=request.getSession();
+		String mode=getMode();
+		int val=0;
+		java.sql.Date sqlStartDate = com.changeStringtoSqlDate(getDate());
+		
+		if(mode.equalsIgnoreCase("A")){
+		
+			val=DAO.insert(sqlStartDate,getTxtname(),getMode(),getFormdetailcode(),session,request);
+			
+			if(val>0){
+				setDocno(val);
+				setDate(sqlStartDate+"");
+				setTxtname(getTxtname());
+			setMsg("Successfully Saved");
+
+			return "success";
+		}
+		else{
+			setMsg("Not Saved");
+			return "fail";
+		}	
+			
+			
+		}
+		
+		if(mode.equalsIgnoreCase("E")){
+			
+			val=DAO.edit(getDocno(),sqlStartDate,getTxtname(),getMode(),getFormdetailcode(),session,request);
+			
+			if(val>0){
+				setDate(sqlStartDate+"");
+				setTxtname(getTxtname());
+			setMsg("Updated Successfully");
+
+			return "success";
+		}
+		else{
+			setMsg("Not Updated");
+			return "fail";
+		}	
+			
+			
+		}
+		
+		if(mode.equalsIgnoreCase("D")){
+			
+			val=DAO.delete(getDocno(),sqlStartDate,getTxtname(),getMode(),getFormdetailcode(),session,request);
+			
+			if(val>0){
+				setDate(sqlStartDate+"");
+				setTxtname(getTxtname());
+			setMsg("Successfully Deleted");
+
+			return "success";
+		}
+		else{
+			setMsg("Not Deelted");
+			return "fail";
+		}	    
+			
+			
+		}
+			
+		return "fail";
+		
+	}
+	
+}

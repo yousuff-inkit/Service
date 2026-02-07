@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+
+	<package name="serviceSchedulernew" extends="struts-default" namespace="/">  
+			<action name="printserviceschedulernew" class="com.dashboard.projectexecution.serviceScheduler.ServiceSchedulerAction" method="printAction">
+				<interceptor-ref name="params"/>
+				<result name="print">serviceschedulerprint.jsp</result>
+			</action>
+			<action name="printserviceschedulerAMCnew" class="com.dashboard.projectexecution.serviceScheduler.ServiceSchedulerAction" method="printAction1">
+				<interceptor-ref name="params"/>
+				<result name="print">assignjobfollowupprintAMC.jsp</result>
+			</action>
+			<action name="printserviceschedulerSjobnew" class="com.dashboard.projectexecution.serviceScheduler.ServiceSchedulerAction" method="printAction1">
+				<interceptor-ref name="params"/>
+				<result name="print">assignjobfollowupprintSjob.jsp</result>
+			</action>
+		</package>	
+</struts>

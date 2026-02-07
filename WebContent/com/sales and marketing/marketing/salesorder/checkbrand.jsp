@@ -1,0 +1,50 @@
+
+
+
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.sql.*"%>
+<%@page import="javax.sql.*"%>
+<%@page import="com.connection.*" %>
+
+
+<%	
+int method=0;	ClsConnection ClsConnection=new ClsConnection();
+Connection conn = null;
+try{
+
+conn=ClsConnection.getMyConnection();
+
+Statement stmt=conn.createStatement();
+
+String chk="select method  from gl_prdconfig where field_nme='brand'";
+ResultSet rs=stmt.executeQuery(chk); 
+if(rs.next())
+{
+	
+	method=rs.getInt("method");
+}
+}
+catch(Exception e){
+	e.printStackTrace();
+}
+finally{
+	conn.close();
+}
+//System.out.println("-----method----"+method);
+	response.getWriter().print(method);
+  %>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+					

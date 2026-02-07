@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />  
+    <package name="serviceexecution" extends="struts-default" namespace="/">     
+			<action name="saveScheduleSE" class="com.dashboard.skips.serviceexecution.ClsServiceExecutionAction" method="saveSchAction">       
+				<result name="success">serviceexecution.jsp</result>     
+				<result name="fail">serviceexecution.jsp</result>  
+			</action>
+		</package>	  
+</struts>

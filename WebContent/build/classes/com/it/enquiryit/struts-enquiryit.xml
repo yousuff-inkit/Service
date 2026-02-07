@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+	
+
+	<package name="enquiryit" extends="struts-default">
+			<action name="saveEnquiryit" class="com.it.enquiryit.ClsEnquiryAction" method="saveAction">
+				<interceptor-ref name="params"/>
+				<result name="success" >enquiry.jsp</result>
+				<result name="fail">enquiry.jsp</result>
+			</action>
+			<action name="saveCQit" class="com.it.enquiryit.ClsEnquiryAction" method="saveCQAction">
+				<interceptor-ref name="params"/>
+				<result name="success" >c_questype.jsp</result>
+				<result name="fail">c_questype.jsp</result>
+			</action>
+			<action name="saveKQit" class="com.it.enquiryit.ClsEnquiryAction" method="saveKQAction">
+				<interceptor-ref name="params"/>
+				<result name="success" >k_questype.jsp</result>
+				<result name="fail">k_questype.jsp</result>
+			</action>
+		</package>	
+</struts>
