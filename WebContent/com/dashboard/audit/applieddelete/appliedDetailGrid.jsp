@@ -49,8 +49,8 @@
 	            });
          
             $("#appliedDetailsGrid").jqxGrid({ 
-            	width: '98%',
-                height: 152,
+            	width: '100%',
+                height: 250,
                 source: dataAdapter,
                 selectionmode: 'singlerow',
                 filtermode:'excel',

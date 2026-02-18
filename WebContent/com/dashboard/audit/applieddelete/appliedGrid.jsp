@@ -61,7 +61,7 @@
             );
             $("#appliedDelete").jqxGrid(
             {
-                width: '98%',
+                width: '100%',
                 height: 350,
                 source: dataAdapter,
                 rowsheight:25,
