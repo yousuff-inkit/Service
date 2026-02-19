@@ -13,43 +13,115 @@
 <script type="text/javascript" src="<%=contextPath%>/js/resample.js"></script>
 <style type="text/css">
 
-.myButtons {
-	-moz-box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	-webkit-box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87), color-stop(1, #6c7c7c));
-	background:-moz-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-webkit-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-o-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-ms-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#768d87', endColorstr='#6c7c7c',GradientType=0);
-	background-color:#768d87;
-	border:1px solid #566963;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-size:8pt;
-	padding:3px 17px;
-	text-decoration:none;
-	text-shadow:0px -1px 0px #2b665e;
+/* ===== MASTER LAYOUT ===== */
+.master-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f4f7f9;
 }
-.myButtons:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6c7c7c), color-stop(1, #768d87));
-	background:-moz-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-webkit-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-o-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-ms-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#768d87',GradientType=0);
-	background-color:#6c7c7c;
+
+/* Sidebar */
+.sidebar-filters {
+    width: 330px;
+    flex: 0 0 330px;
+    background: #fff;
+    border-right: 1px solid #e1e8ed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-shadow: 2px 0 8px rgba(0,0,0,.05);
 }
-.myButtons:active {
-	position:relative;
-	top:1px;
+
+.sidebar-fixed-top {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f4f8;
+}
+
+.sidebar-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 20px 25px;
+}
+
+/* Cards */
+.filter-card {
+    background: #f8fafc;
+    border: 1px solid #e3e8ee;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+/* Tables */
+.filter-table {
+    width: 100%;
+    border-spacing: 0 10px;
+}
+
+.label-cell {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4e5e71;
+    width: 90px;
+}
+
+/* Inputs */
+input[type="text"], select {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+/* Buttons */
+.btn-submit {
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1d4ed8;
+}
+
+/* Page height fix */
+html, body, #mainBG, .hidden-scrollbar {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+td[width="80%"] {
+    height: 100vh;
+    vertical-align: top;
+    background: #fff;
+}
+input[type="text"],
+select {
+    width: 100%;
+    height: 28px !important;   /* Slightly smaller */
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #ffffff;
 }
 
 </style>
+
 <script type="text/javascript">
 
 	$(document).ready(function () {
@@ -371,80 +443,234 @@
 </script>
 </head>
 <body onload="getBranch();disable();">
+
 <div id="mainBG" class="homeContent" data-type="background"> 
-<form id="frmcontractPaymentScheduleUpdate" action="saveContractPaymentScheduleUpdate" method="post" autocomplete="off">
-<div class='hidden-scrollbar'>
-<table width="100%" >
+
+<form id="frmcontractPaymentScheduleUpdate"
+      action="saveContractPaymentScheduleUpdate"
+      method="post"
+      autocomplete="off">
+
+<div class="hidden-scrollbar">
+
+<table width="100%">
 <tr>
-<td width="20%" >
-    <fieldset style="background: #ECF8E0;">
-	<table width="100%"  >
-	<jsp:include page="../../heading.jsp"></jsp:include>
-		
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr>
-	 <td align="right"><label class="branch">From</label></td>
-     <td align="left"><div id="fromdate" name="fromdate" value='<s:property value="fromdate"/>'></div></td></tr> 
-	<tr>
-	<td align="right"><label class="branch">To</label></td>
-    <td align="left"><div id="todate" name="todate" value='<s:property value="todate"/>'></div></td>
-	</tr>  
-	<tr><td align="right"><label class="branch">Client</label></td>
-	<td align="left"><input type="text" id="txtclientname" name="txtclientname" style="width:96%;height:20px;" readonly="readonly" placeholder="Press F3 to Search" value='<s:property value="txtclientname"/>' onkeydown="getClientAccount(event);"/>
-	<input type="hidden" id="txtclientaccountdocno" name="txtclientaccountdocno" value='<s:property value="txtclientaccountdocno"/>'/></td></tr>
-	<tr><td align="right"><label class="branch">Type</label></td>
-    <td align="left"><select id="cmbcontracttype" name="cmbcontracttype" value='<s:property value="cmbcontracttype"/>'>
-    <option value="ALL">ALL</option><option value="AMC">AMC</option><option value="SJOB">SJOB</option>
-    </select></td></tr>
-	<tr><td align="right"><label class="branch">Contract</label></td>
-	<td align="left"><input type="text" id="txtcontract" name="txtcontract" style="width:96%;height:20px;" readonly="readonly" placeholder="Press F3 to Search" value='<s:property value="txtcontract"/>' onkeydown="getContract(event);"/>
-	<input type="hidden" id="txtcontracttrno" name="txtcontracttrno" value='<s:property value="txtcontracttrno"/>'/></td></tr>
-	<tr><td colspan="2"><fieldset><legend><b><label class="branch">Payment Details</label></b></legend>
-	<table width="100%">
-    <tr><td align="right"><label class="branch">Installments</label></td>
-	<td align="left"><input type="text" id="installments" name="installments" style="width:96%;height:20px;" value='<s:property value="installments"/>'/></td></tr>
-	<tr><td align="right"><label class="branch">Due After</label></td>
-	<td align="left"><input type="text" id="paydueafter" name="paydueafter" style="width:96%;height:20px;" value='<s:property value="paydueafter"/>'/></td></tr>
-	<tr><td align="right"><label class="branch">First Inst.On</label></td>
-	<td align="left"><div id="finsdate" name="finsdate" onchange="firstdatechange();" value='<s:property value="finsdate" />'></div></td></tr>
-	<tr><td align="right"><label class="branch">Frequency</label></td>
-	<td align="left"><select name="cmbpaytype" id="cmbpaytype" style="width:98%;" value='<s:property value="cmbpaytype"/>'>
-    <option value="1">DAYS</option><option value="2">MONTHS</option><option value="3">YEAR</option>
-    </select></td></tr>
-	<tr><td align="right"><label class="branch">Start Date</label></td>
-	<td align="left"><div id="stdate" name="stdate" value='<s:property value="stdate" />'></div></td></tr>
-	<tr><td align="right"><label class="branch">End Date</label></td>
-	<td align="left"><div id="enddate" name="enddate" value='<s:property value="enddate" />'></div></td></tr>
-	<tr><td colspan="2"><input type="hidden" id="txtcntrval" name="txtcntrval" style="width:96%;height:20px;" value='<s:property value="txtcntrval"/>'/>
-	<input type="hidden" id="txtselectedcontract" name="txtselectedcontract" style="width:96%;height:20px;" value='<s:property value="txtselectedcontract"/>'/>
-	<input type="hidden" id="isproformainv" name="isproformainv"  value='<s:property value="isproformainv"/>'/></td></tr>
-	<tr><td colspan="2" align="center"><button class="myButton" type="button" id="btnAdd" name="btnAdd" onclick="funPaymentFill();">Fill</button></td></tr>
-    </table></fieldset>
-	</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2" align="center"><input type="button" class="myButtons" name="clear" id="clear"  value="Clear" onclick="funClearData();">
-	<button class="myButton" type="button" id="btnPaymentUpdate" name="btnPaymentUpdate" onclick="funPaymentUpdate();">Update</button></td></tr> 
-	<tr><td colspan="2">&nbsp;</td></tr>
-	</table>
-	</fieldset>
+
+<!-- ================= LEFT SIDEBAR ================= -->
+<td width="20%">
+    <div class="master-container">
+        <div class="sidebar-filters">
+
+            <!-- Fixed Heading -->
+            <div class="sidebar-fixed-top">
+                <div class="filter-card">
+                    <jsp:include page="../../heading.jsp"></jsp:include>
+                </div>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="sidebar-scroll-content">
+
+                <!-- Date & Contract Section -->
+                <div class="filter-card">
+                    <table class="filter-table">
+
+                        <tr>
+                            <td class="label-cell">From</td>
+                            <td><div id="fromdate"
+                                     value='<s:property value="fromdate"/>'></div></td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">To</td>
+                            <td><div id="todate"
+                                     value='<s:property value="todate"/>'></div></td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Client</td>
+                            <td>
+                                <input type="text"
+                                       id="txtclientname"
+                                       name="txtclientname"
+                                       readonly
+                                       placeholder="Press F3 to Search"
+                                       value='<s:property value="txtclientname"/>'
+                                       onkeydown="getClientAccount(event);" />
+
+                                <input type="hidden"
+                                       id="txtclientaccountdocno"
+                                       name="txtclientaccountdocno"
+                                       value='<s:property value="txtclientaccountdocno"/>'/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Type</td>
+                            <td>
+                                <select id="cmbcontracttype"
+                                        name="cmbcontracttype">
+                                    <option value="ALL">ALL</option>
+                                    <option value="AMC">AMC</option>
+                                    <option value="SJOB">SJOB</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Contract</td>
+                            <td>
+                                <input type="text"
+                                       id="txtcontract"
+                                       name="txtcontract"
+                                       readonly
+                                       placeholder="Press F3 to Search"
+                                       value='<s:property value="txtcontract"/>'
+                                       onkeydown="getContract(event);" />
+
+                                <input type="hidden"
+                                       id="txtcontracttrno"
+                                       name="txtcontracttrno"
+                                       value='<s:property value="txtcontracttrno"/>'/>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+
+                <!-- ================= PAYMENT DETAILS ================= -->
+                <div class="filter-card">
+                    <strong style="color:#1a3a5f;">Payment Details</strong>
+                    <br><br>
+
+                    <table class="filter-table">
+
+                        <tr>
+                            <td class="label-cell">Installments</td>
+                            <td><input type="text"
+                                       id="installments"
+                                       name="installments"
+                                       value='<s:property value="installments"/>'/></td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Due After</td>
+                            <td><input type="text"
+                                       id="paydueafter"
+                                       name="paydueafter"
+                                       value='<s:property value="paydueafter"/>'/></td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">First Inst. On</td>
+                            <td><div id="finsdate"
+                                     onchange="firstdatechange();"
+                                     value='<s:property value="finsdate"/>'></div></td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Frequency</td>
+                            <td>
+                                <select name="cmbpaytype"
+                                        id="cmbpaytype">
+                                    <option value="1">DAYS</option>
+                                    <option value="2">MONTHS</option>
+                                    <option value="3">YEAR</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Start Date</td>
+                            <td><div id="stdate"
+                                     value='<s:property value="stdate"/>'></div></td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">End Date</td>
+                            <td><div id="enddate"
+                                     value='<s:property value="enddate"/>'></div></td>
+                        </tr>
+
+                    </table>
+
+                    <button class="btn-submit"
+                            type="button"
+                            onclick="funPaymentFill();">
+                        Fill
+                    </button>
+                </div>
+
+
+                <!-- Buttons -->
+                <button class="btn-submit"
+                        type="button"
+                        onclick="funClearData();">
+                    Clear
+                </button>
+
+                <button class="btn-submit"
+                        type="button"
+                        onclick="funPaymentUpdate();">
+                    Update
+                </button>
+
+
+                <!-- Hidden Fields -->
+                <input type="hidden" id="txtcntrval" name="txtcntrval"
+                       value='<s:property value="txtcntrval"/>'/>
+
+                <input type="hidden" id="txtselectedcontract" name="txtselectedcontract"
+                       value='<s:property value="txtselectedcontract"/>'/>
+
+                <input type="hidden" id="isproformainv" name="isproformainv"
+                       value='<s:property value="isproformainv"/>'/>
+
+            </div>
+        </div>
+    </div>
 </td>
+
+
+<!-- ================= RIGHT GRID AREA ================= -->
 <td width="80%">
-	<table width="100%">
-		<tr><td><div id="contractPaymentScheduleUpdateDiv"><jsp:include page="contractPaymentScheduleUpdateGrid.jsp"></jsp:include></div></td></tr>
-		<tr><td><div id="paymentDetailDiv"><jsp:include page="paymentDetailsGrid.jsp"></jsp:include></div>
-		<input type="hidden" id="hiddesc" name="hiddesc"  value='<s:property value="hiddesc"/>'/></td></tr>
-	</table>
+    <table width="100%">
+
+        <tr>
+            <td>
+                <div id="contractPaymentScheduleUpdateDiv">
+                    <jsp:include page="contractPaymentScheduleUpdateGrid.jsp"></jsp:include>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div id="paymentDetailDiv">
+                    <jsp:include page="paymentDetailsGrid.jsp"></jsp:include>
+                </div>
+
+                <input type="hidden"
+                       id="hiddesc"
+                       name="hiddesc"
+                       value='<s:property value="hiddesc"/>'/>
+            </td>
+        </tr>
+
+    </table>
+</td>
+
 </tr>
 </table>
 
 </div>
 </form>
-<div id="accountDetailsWindow">
-	<div></div><div></div>
+
+<!-- Popup Windows -->
+<div id="accountDetailsWindow"><div></div><div></div></div>
+<div id="contractDetailsWindow"><div></div><div></div></div>
+
 </div>
-<div id="contractDetailsWindow">
-	<div></div><div></div>
-</div>
-</div> 
 </body>
 </html>
