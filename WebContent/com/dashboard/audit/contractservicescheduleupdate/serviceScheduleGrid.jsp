@@ -129,8 +129,8 @@
               
             $("#serviceScheduleGridID").jqxGrid(
             {
-                width: '98%',
-                height: 190,
+                width: '100%',
+                height: 250,
                 source: dataAdapter,
                 columnsresize: true,
                 sortable: true,
