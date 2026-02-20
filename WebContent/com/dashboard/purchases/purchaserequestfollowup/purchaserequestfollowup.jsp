@@ -14,46 +14,108 @@
 <%-- <script type="text/javascript" src="../../js/dashboard.js"></script> --%> 
 
 <style type="text/css">
- 
-.myButtons {
-	-moz-box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	-webkit-box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87), color-stop(1, #6c7c7c));
-	background:-moz-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-webkit-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-o-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-ms-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#768d87', endColorstr='#6c7c7c',GradientType=0);
-	background-color:#768d87;
-	border:1px solid #566963;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	
-	font-size:8pt;
-	
-	padding:3px 17px;
-	text-decoration:none;
-	text-shadow:0px -1px 0px #2b665e;
+
+.master-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f4f7f9;
 }
-.myButtons:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6c7c7c), color-stop(1, #768d87));
-	background:-moz-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-webkit-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-o-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-ms-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#768d87',GradientType=0);
-	background-color:#6c7c7c;
+.sidebar-filters {
+    width: 330px;
+    flex: 0 0 330px;
+    background: #fff;
+    border-right: 1px solid #e1e8ed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-shadow: 2px 0 8px rgba(0,0,0,.05);
 }
-.myButtons:active {
-	position:relative;
-	top:1px;
+
+.sidebar-fixed-top {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f4f8;
+}
+
+.sidebar-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 20px 25px;
+}
+
+
+.filter-card {
+    background: #f8fafc;
+    border: 1px solid #e3e8ee;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+
+.filter-table {
+    width: 100%;
+    border-spacing: 0 10px;
+}
+
+.label-cell {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4e5e71;
+    width: 90px;
+}
+input[type="text"], select {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1d4ed8;
+}
+html, body, #mainBG, .hidden-scrollbar {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+td[width="80%"] {
+    height: 100vh;
+    vertical-align: top;
+    background: #fff;
+}
+input[type="text"],
+select {
+    width: 100%;
+    height: 28px !important;   /* Slightly smaller */
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #ffffff;
 }
 
 </style>
+
 
 <script type="text/javascript">
 
@@ -306,70 +368,157 @@ function disitems(val)
 </script>
 </head>
 <body onload="getBranch();getinfo();disitems(0);">
-<div id="mainBG" class="homeContent" data-type="background"> 
-<div class='hidden-scrollbar'>
-<table width="100%" >
-<tr>
-<td width="20%" >
-    <fieldset style="background: #ECF8E0;">
-	<table width="100%"  >
-	<jsp:include page="../../heading.jsp"></jsp:include>
-	 
-    <tr><td colspan="2">&nbsp;</td></tr> 
-    <tr><td align="right"><label class="branch">Doc No</label></td>
-    <td><input type="text" name="docnosss" id="docnosss" value='<s:property value="docnosss"/>' readonly="readonly" placeholder="Press F3 To Search"   style="height:20px;width:70%;" onKeyDown="getdetails(event);" >  </td></tr>
-    <tr><td colspan="2">&nbsp;</td></tr> 
-    <tr><td colspan="2" align="center"><input type="button" class="myButtons" name="clear" id="clear"  value="Clear" onclick="funcleardata()"></td></tr> 
-             <tr><td colspan="2">&nbsp;</td></tr> 
-    	             
-    	                   <tr><td colspan="2">&nbsp;</td></tr>  
-    	               <tr><td colspan="2">&nbsp;</td></tr> 
-    <tr> <td  align="right"><label class="branch">Process</label></td><td align="left">
-    <select name="cmbinfo" id="cmbinfo" style="width:70%;" value='<s:property value="cmbinfo"/>'   > </select></td></tr>
-     <tr><td  align="right" ><label class="branch">Date</label></td><td align="left"><div id='date' name='date' value='<s:property value="date"/>'></div> </td></tr>
-    <tr><td align="right"><label class="branch">Remarks</label></td><td align="left"><input type="text" id="remarks" style="height:20px;width:88%;" name="remarks"  value='<s:property value="remarks"/>'> </td></tr>
-    <tr><td  align="center" colspan="2"><input type="Button" name="Update" id="Update" class="myButton" value="Update" onclick="funupdate()"> </td> </tr>
-    	<tr><td colspan="2">&nbsp;</td></tr> 
-    	   <tr><td colspan="2">&nbsp;</td></tr> 
-    	   
-       <tr><td colspan="2">&nbsp;</td></tr> 
-    	
-	<tr>
-	<td colspan="2"><div id='paychaaaaa' style="width: 100% ; align:right; height:90px;"></div></td>
-	</tr>	
-	</table>
-	</fieldset>
-   <input type="hidden" id="acno" name="acno" value='<s:property value="acno"/>'>
-      <input type="hidden" id="brhid" name="brhid" value='<s:property value="brhid"/>'>
-      
-        <input type="hidden" id="reftype" name="reftype" value='<s:property value="reftype"/>'>
-           <input type="hidden" id="reqdocno" name="reqdocno" value='<s:property value="reqdocno"/>'>
-      
-      
 
-      
-   
+<div id="mainBG" class="homeContent" data-type="background"> 
+<div class="hidden-scrollbar">
+
+<table width="100%">
+<tr>
+
+<!-- ================= LEFT SIDEBAR ================= -->
+<td width="20%">
+    <div class="master-container">
+        <div class="sidebar-filters">
+
+            <!-- Fixed Heading -->
+            <div class="sidebar-fixed-top">
+                <div class="filter-card">
+                    <jsp:include page="../../heading.jsp"></jsp:include>
+                </div>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="sidebar-scroll-content">
+
+                <!-- Document Section -->
+                <div class="filter-card">
+                    <table class="filter-table">
+
+                        <tr>
+                            <td class="label-cell">Doc No</td>
+                            <td>
+                                <input type="text"
+                                       id="docnosss"
+                                       name="docnosss"
+                                       readonly
+                                       placeholder="Press F3 To Search"
+                                       onkeydown="getdetails(event);"
+                                       value='<s:property value="docnosss"/>'/>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <!-- Clear Button -->
+                <button class="btn-submit"
+                        type="button"
+                        onclick="funcleardata();">
+                    Clear
+                </button>
+
+                <!-- Process Section -->
+                <div class="filter-card">
+                    <table class="filter-table">
+
+                        <tr>
+                            <td class="label-cell">Process</td>
+                            <td>
+                                <select id="cmbinfo"
+                                        name="cmbinfo">
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Date</td>
+                            <td>
+                                <div id="date"
+                                     value='<s:property value="date"/>'>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Remarks</td>
+                            <td>
+                                <input type="text"
+                                       id="remarks"
+                                       name="remarks"
+                                       value='<s:property value="remarks"/>'/>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <!-- Update Button -->
+                <button class="btn-submit"
+                        type="button"
+                        onclick="funupdate();">
+                    Update
+                </button>
+
+                <!-- Hidden Fields -->
+                <input type="hidden" id="acno" name="acno"
+                       value='<s:property value="acno"/>'/>
+                <input type="hidden" id="brhid" name="brhid"
+                       value='<s:property value="brhid"/>'/>
+                <input type="hidden" id="reftype" name="reftype"
+                       value='<s:property value="reftype"/>'/>
+                <input type="hidden" id="reqdocno" name="reqdocno"
+                       value='<s:property value="reqdocno"/>'/>
+
+            </div>
+        </div>
+    </div>
 </td>
+
+
+<!-- ================= RIGHT GRID AREA ================= -->
 <td width="80%">
-	<table width="100%">
-		<tr><td><div id="listdiv"><jsp:include page="mainGrid.jsp"></jsp:include></div></td></tr>
-	    <tr><td><div id="listdiv1"><jsp:include page="subGrid.jsp"></jsp:include></div></td></tr>
-		<tr><td><div id="detaildiv"><jsp:include page="detailgrid.jsp"></jsp:include></div></td></tr>
-	</table>
+    <table width="100%">
+        <tr>
+            <td>
+                <div id="listdiv">
+                    <jsp:include page="mainGrid.jsp"></jsp:include>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div id="listdiv1">
+                    <jsp:include page="subGrid.jsp"></jsp:include>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div id="detaildiv">
+                    <jsp:include page="detailgrid.jsp"></jsp:include>
+                </div>
+            </td>
+        </tr>
+    </table>
+</td>
+
 </tr>
 </table>
-<input type="hidden" id="masterdocno" name="masterdocno" value='<s:property value="masterdocno"/>'>
 
-
+<!-- Global Hidden -->
+<input type="hidden"
+       id="masterdocno"
+       name="masterdocno"
+       value='<s:property value="masterdocno"/>'>
 
 </div>
-	  <div id="locationwindow">
-	   <div ></div>
-	</div>
 
-<div id="Searchwindow">
-   <div ></div>
-</div> 
+<!-- Popups -->
+<div id="locationwindow"><div></div></div>
+<div id="Searchwindow"><div></div></div>
+
 </div>
 </body>
 </html>
