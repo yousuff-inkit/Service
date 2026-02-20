@@ -7,7 +7,117 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GatewayERP(i)</title>
-<link href="../../../../css/dashboard.css" media="screen" rel="stylesheet" type="text/css" />  
+<link href="../../../../css/dashboard.css" media="screen" rel="stylesheet" type="text/css" />
+<style>
+/* ===== MASTER LAYOUT ===== */
+.master-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f4f7f9;
+}
+
+/* Sidebar */
+.sidebar-filters {
+    width: 330px;
+    flex: 0 0 330px;
+    background: #fff;
+    border-right: 1px solid #e1e8ed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-shadow: 2px 0 8px rgba(0,0,0,.05);
+}
+
+.sidebar-fixed-top {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f4f8;
+}
+
+.sidebar-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 20px 25px;
+}
+
+/* Cards */
+.filter-card {
+    background: #f8fafc;
+    border: 1px solid #e3e8ee;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+/* Tables */
+.filter-table {
+    width: 100%;
+    border-spacing: 0 10px;
+}
+
+.label-cell {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4e5e71;
+    width: 90px;
+}
+
+/* Inputs */
+input[type="text"], select {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+/* Buttons */
+.btn-submit {
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1d4ed8;
+}
+
+/* Page height fix */
+html, body, #mainBG, .hidden-scrollbar {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+td[width="80%"] {
+    height: 100vh;
+    vertical-align: top;
+    background: #fff;
+}
+input[type="text"],
+select {
+    width: 100%;
+    height: 28px !important;   /* Slightly smaller */
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
+</style>
+  
 
 <script type="text/javascript">
 
@@ -97,49 +207,122 @@
 </script>
 </head>
 <body onload="getBranch();">
+
 <div id="mainBG" class="homeContent" data-type="background"> 
-<div class='hidden-scrollbar'>
-<table width="100%" >
+<div class="hidden-scrollbar">
+
+<table width="100%">
 <tr>
-<td width="20%" >
-    <fieldset style="background: #ECF8E0;">
-	<table width="100%"  >
-	<jsp:include page="../../heading.jsp"></jsp:include>
-		
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td align="right"><label class="branch">Up To</label></td>
-     <td align="left"><div id="uptodate" name="uptodate" value='<s:property value="uptodate"/>'></div></td></tr> 
-	<tr><td colspan="2">&nbsp;</td></tr> 
-	<tr><td colspan="2" align="center"><textarea id="txtinfo" style="height:80px;width:200px;font: 10px Tahoma;resize:none" name="txtinfo"  readonly="readonly"  ><s:property value="txtinfo" ></s:property></textarea></td></tr>
-    <tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td align="right"><label class="branch">Remarks</label></td>
-	<td align="left"><input type="text" id="txtremarks" name="txtremarks" style="width:100%;height:20px;" value='<s:property value="txtremarks"/>'/></td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2" align="center"><button class="myButton" type="button" id="btnupdate" name="btnupdate" onclick="funUpdate(event);">Close</button></td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr> 
-    <tr><td colspan="2">&nbsp;</td></tr>  
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2"><input type="hidden" id="txtchequeno" name="txtchequeno" style="width:60%;height:20px;" readonly="readonly" value='<s:property value="txtchequeno"/>'/>
-	<div hidden="true" id='chequeDate' name='chequeDate' value='<s:property value="chequeDate"/>'></div>
-	<div hidden="true" id='date' name='date' value='<s:property value="date"/>'></div>
-	<input type="hidden" name="txtbrhid" id="txtbrhid" style="height:20px;width:70%;" value='<s:property value="txtbrhid"/>'>
-	<input type="hidden" id="txtdocno" name="txtdocno" style="width:60%;height:20px;" readonly="readonly" value='<s:property value="txtdocno"/>'/></td></tr>
-	</table>
-	</fieldset>
+
+<!-- ================= LEFT SIDEBAR ================= -->
+<td width="20%">
+    <div class="master-container">
+        <div class="sidebar-filters">
+
+            <!-- Fixed Heading -->
+            <div class="sidebar-fixed-top">
+                <div class="filter-card">
+                    <jsp:include page="../../heading.jsp"></jsp:include>
+                </div>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="sidebar-scroll-content">
+
+                <!-- Up To Section -->
+                <div class="filter-card">
+                    <table class="filter-table">
+
+                        <tr>
+                            <td class="label-cell">Up To</td>
+                            <td>
+                                <div id="uptodate"
+                                     value='<s:property value="uptodate"/>'>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <textarea id="txtinfo"
+                                          name="txtinfo"
+                                          rows="4"
+                                          readonly
+                                          style="resize:none;width:100%;">
+                                    <s:property value="txtinfo"/>
+                                </textarea>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Remarks</td>
+                            <td>
+                                <input type="text"
+                                       id="txtremarks"
+                                       name="txtremarks"
+                                       value='<s:property value="txtremarks"/>' />
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <!-- Close Button -->
+                <button class="btn-submit"
+                        type="button"
+                        onclick="funUpdate(event);">
+                    Close
+                </button>
+
+                <!-- Hidden Fields -->
+                <input type="hidden"
+                       id="txtchequeno"
+                       name="txtchequeno"
+                       value='<s:property value="txtchequeno"/>'/>
+
+                <div hidden="true"
+                     id="chequeDate"
+                     value='<s:property value="chequeDate"/>'></div>
+
+                <div hidden="true"
+                     id="date"
+                     value='<s:property value="date"/>'></div>
+
+                <input type="hidden"
+                       name="txtbrhid"
+                       id="txtbrhid"
+                       value='<s:property value="txtbrhid"/>'>
+
+                <input type="hidden"
+                       id="txtdocno"
+                       name="txtdocno"
+                       value='<s:property value="txtdocno"/>'/>
+
+            </div>
+        </div>
+    </div>
 </td>
+
+
+<!-- ================= RIGHT GRID AREA ================= -->
 <td width="80%">
-	<table width="100%">
-		<tr>
-			 <td><div id="securityChequeListDiv"><jsp:include page="securityChequeListGrid.jsp"></jsp:include></div></td>
-		</tr>
-	</table>
+    <table width="100%">
+        <tr>
+            <td>
+                <div id="securityChequeListDiv">
+                    <jsp:include page="securityChequeListGrid.jsp"></jsp:include>
+                </div>
+            </td>
+        </tr>
+    </table>
+</td>
+
 </tr>
 </table>
+
+</div>
 </div>
 
-</div> 
 </body>
+
 </html>
