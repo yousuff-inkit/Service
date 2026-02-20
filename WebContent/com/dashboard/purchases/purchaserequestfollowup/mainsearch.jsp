@@ -11,6 +11,149 @@
 <%--   <jsp:include page="../../../../includes.jsp"></jsp:include>   --%> 
 <style>
 <link href="<%=contextPath%>/css/body.css" media="screen" rel="stylesheet" type="text/css" />
+
+#search {
+    background-color: #ffffff;
+    padding: 8px;
+}
+
+
+#search table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 15px 12px;
+}
+
+
+#search td[align="right"] {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #222;
+    white-space: nowrap;
+}
+
+
+#search input[type="text"] {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+
+    padding: 6px 10px;
+    height: 34px;
+    width: 100%;
+
+    box-sizing: border-box;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+#search input[type="text"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+
+#search .myButton {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+
+    background-color: #007bff;
+    color: #ffffff;
+
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#search .myButton:hover {
+    background-color: #007bff;
+}
+
+/* Result grid spacing */
+#refreshdiv {
+    margin-top: 10px;
+}
+.search-popup {
+    padding: 14px;
+}
+
+
+.search-form {
+    width: 100%;
+    border-spacing: 18px 12px;
+}
+
+
+.search-form .label {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #222;
+    white-space: nowrap;
+    text-align: right;
+}
+
+
+.search-form .field {
+    width: 28%;
+}
+
+
+.search-form .action {
+    text-align: center;
+    width: 12%;
+}
+
+.search-grid {
+    margin-top: 14px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    background: #ffffff;
+    padding: 6px;
+}
+.myButtons {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    background-color: #007bff;   /* BLUE */
+    color: #ffffff;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+
+.myButtons:hover {
+    background-color: #007bff;
+}
+.blueButton {
+    background: linear-gradient(to bottom, #2196F3, #1976D2);
+    color: #ffffff;
+    border: 1px solid #1565C0;
+    padding: 6px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.blueButton:hover {
+    background: linear-gradient(to bottom, #42A5F5, #1E88E5);
+}
+
+.blueButton:active {
+    background: #1565C0;
+    transform: scale(0.98);
+}
 </style>
 	<script type="text/javascript">
 
@@ -45,43 +188,73 @@
 
 	</script>
 <body bgcolor="#E0ECF8">
-<div id=search>
-<table width="100%" >
-  <tr >
-   <td>
-   <table width="100%" >
-   <tr>
-    <td align="right" width="9%"><label style="font-size:9px;">Doc No</label></td>
-    <td align="left" width="20%"><input type="text" name="docnoss" id="docnoss"  style="width:90%;height:20px;" value='<s:property value="docnoss"/>'></td>
-    <td align="right" width="10%"><label style="font-size:9px;">Ref No</label></td>
-    <td align="left"  width="20%"><input type="text" name="refnoss" id="refnoss" style="width:100%;height:20px;"  value='<s:property value="refnoss"/>'></td>
-     <td align="right" width="6%"><label style="font-size:9px;">Date</label> </td>
-    <td align="left" width="20%"><div id="datess1" name="datess1"  value='<s:property value="datess1"/>'></div></td>
-    <tr>
-     
-        <tr> 
-        <td align="right"  width="9%"><label style="font-size:9px;">Description</label></td>
-    <td align="left" colspan="4" width="30%"><input type="text" name="descriptionss" style="width:89%;height:20px;" id="descriptionss" value='<s:property value="descriptionss"/>'></td>  
-    
-   
-     <td  width="20%"><input type="button" name="searchs" id="searchs" class="myButton" value="Search"  onclick="loadSearchs()">
-</td>
-    
-    <tr>
-    </table>
-  </td>
 
+<div id="search">
+
+<table width="100%" cellspacing="10">
+
+  <!-- ROW 1 -->
   <tr>
-    <td colspan="8" align="right">
-    
-    <div id="refreshdivs">
-      
-   <jsp:include  page="Subsearch.jsp"></jsp:include> 
-   
-   </div>
+    <td width="10%" align="right" class="label">Doc No</td>
+    <td width="20%">
+      <input type="text"
+             name="docnoss"
+             id="docnoss"
+             value='<s:property value="docnoss"/>'
+             style="width:100%;">
+    </td>
+
+    <td width="10%" align="right" class="label">Ref No</td>
+    <td width="20%">
+      <input type="text"
+             name="refnoss"
+             id="refnoss"
+             value='<s:property value="refnoss"/>'
+             style="width:100%;">
+    </td>
+
+    <td width="8%" align="right" class="label">Date</td>
+    <td width="18%">
+      <div id="datess1"
+           name="datess1"
+           value='<s:property value="datess1"/>'>
+      </div>
     </td>
   </tr>
+
+  <!-- ROW 2 -->
+  <tr>
+    <td align="right" class="label">Description</td>
+    <td colspan="3">
+      <input type="text"
+             name="descriptionss"
+             id="descriptionss"
+             value='<s:property value="descriptionss"/>'
+             style="width:100%;">
+    </td>
+
+    <td colspan="2" align="center">
+      <input type="button"
+             name="searchs"
+             id="searchs"
+             class="blueButton"
+             value="Search"
+             onclick="loadSearchs()">
+    </td>
+  </tr>
+
+  <!-- GRID -->
+  <tr>
+    <td colspan="6">
+      <div id="refreshdivs">
+        <jsp:include page="Subsearch.jsp"></jsp:include>
+      </div>
+    </td>
+  </tr>
+
 </table>
-  </div>
+
+</div>
+
 </body>
 </html>
