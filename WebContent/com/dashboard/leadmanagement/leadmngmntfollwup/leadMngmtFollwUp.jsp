@@ -7,7 +7,117 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GatewayERP(i)</title>
-<link href="../../../../css/dashboard.css" media="screen" rel="stylesheet" type="text/css" />  
+<link href="../../../../css/dashboard.css" media="screen" rel="stylesheet" type="text/css" />
+<style>
+
+.master-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f4f7f9;
+}
+
+
+.sidebar-filters {
+    width: 330px;
+    flex: 0 0 330px;
+    background: #fff;
+    border-right: 1px solid #e1e8ed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-shadow: 2px 0 8px rgba(0,0,0,.05);
+}
+
+.sidebar-fixed-top {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f4f8;
+}
+
+.sidebar-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 20px 25px;
+}
+
+
+.filter-card {
+    background: #f8fafc;
+    border: 1px solid #e3e8ee;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+
+.filter-table {
+    width: 100%;
+    border-spacing: 0 10px;
+}
+
+.label-cell {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4e5e71;
+    width: 90px;
+}
+
+
+input[type="text"], select {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+
+.btn-submit {
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1d4ed8;
+}
+
+
+html, body, #mainBG, .hidden-scrollbar {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+td[width="80%"] {
+    height: 100vh;
+    vertical-align: top;
+    background: #fff;
+}
+input[type="text"],
+select {
+    width: 100%;
+    height: 28px !important;   
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
+</style>
+  
 
 <script type="text/javascript">
 
@@ -409,91 +519,233 @@ if(remarks==''){
 </script>
 </head>
 <body onload="getBranch();getProcess();disable();followupcheck();getSalesman();">
+
 <div id="mainBG" class="homeContent" data-type="background"> 
-<div class='hidden-scrollbar'>
-<table width="100%" >
+<div class="hidden-scrollbar">
+
+<table width="100%">
 <tr>
-<td width="20%" >
-    <fieldset style="background: #ECF8E0;">
-	<table width="100%"  >
-	<jsp:include page="../../heading.jsp"></jsp:include>
-	 <tr><td colspan="2"></td></tr>
-	 <tr><td  align="right" ><label class="branch">From</label></td><td align="left"><div id='fromdate' name='fromdate' value='<s:property value="fromdate"/>'></div>
-                    </td></tr>
-                     <tr><td  align="right" ><label class="branch">To</label></td><td align="left"><div id='todate' name='todate' value='<s:property value="todate"/>'></div>
-                    </td></tr>                 
-	 
-      <tr><td colspan="2" > <input type="hidden" id="hidchckfollowup" name="hidchckfollowup" value='<s:property value="hidchckfollowup"/>'/></td></tr>
-     <tr><td align="left"><input type="checkbox" id="chckfollowup" name="chckfollowup" value="" onchange="followupcheck();" onclick="$(this).attr('value', this.checked ? 1 : 0)" /> 
-                           <label class="branch">FollowUp</label></td>
-     <td align="left"><div id="followupdate" name="followupdate" value='<s:property value="followupdate"/>'></div></td></tr>
-    <tr><td colspan="2"></td></tr>
-    <tr><td align="right"><label class="branch">Salesman</label></td>
-	<td><select id="cmbsalesman" name="cmbsalesman" style="width:100%;" value='<s:property value="cmbsalesman"/>'>
-      <option value="">--Select--</option></select></td>
-      <input type="hidden" id="hidcmbsalesman" name="hidcmbsalesman" value='<s:property value="hidcmbsalesman"/>'/></td></tr>
-    </td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr> 
-	 <tr><td align="right"><label class="branch">Process</label></td>
-	  <td align="left"><select name="cmbprocess" id="cmbprocess" style="width:60%;" name="cmbprocess" onchange="funtxtenable(value);"  value='<s:property value="cmbprocess"/>'></select></td></tr>
-	 
-	 <tr>
-	 	<td align="right"><label class="branch">Salesman</label></td>
-	 	<td align="left">
-	 		<input type="text" name="txtsalesman" id="txtsalesman" placeholder="Press F3 To Search"  onKeyDown="getsalesman(event);"   style="height:20px;width:100%;" value='<s:property value="txtsalesman"/>'>
-	 	</td>
-	 </tr>
-	 <tr><td align="right"><label class="branch">Status</label></td>
-	  <td align="left"><select name="cmbpriority" id="cmbpriority" style="width:60%;" name="cmbpriority"   value='<s:property value="cmbpriority"/>'>
 
-	   <option value="">--Select--</option>
-	   <option value="1">Cold</option>
-	   <option value="2">Warm</option>
-	   <option value="3">Hot</option>
-	   </select></td></tr>
-	<tr>
-	<tr><td align="right"><label class="branch">Category</label></td>
-	  <td align="left"><select id="cmbcategory" name="cmbcategory" style="width:100%;" onchange="getCategoryAccountGroup(this.value);" value='<s:property value="cmbcategory"/>'>
-	  <option value="">--Select--</option>
-	  </select>
-      <input type="hidden" id="hidcmbcategory" name="hidcmbcategory" value='<s:property value="hidcmbcategory"/>'/>
-       <input type="hidden" id="hidcatid" name="hidcatid" value='<s:property value="hidcatid"/>'/>
-      <input type="hidden" id="hidcmbacgroup" name="hidcmbacgroup" value='<s:property value="hidcmbacgroup"/>'/>
-	  </td></tr>
+<!-- ================= LEFT SIDEBAR ================= -->
+<td width="20%">
+    <div class="master-container">
+        <div class="sidebar-filters">
 
-	 <tr><td align="right"><label class="branch">Date</label></td>
-     <td align="left"><div id="date" name="date" value='<s:property value="date"/>'></div></td></tr>
-     <tr><td align="right"><label class="branch">Remarks</label></td>
-	 <td align="left"><input type="text" id="txtremarks" name="txtremarks" style="width:100%;height:20px;" value='<s:property value="txtremarks"/>'/></td></tr>
-	 <tr><td colspan="2"></td></tr>
-	 <tr><td colspan="2" align="center"><button class="myButton" type="button" id="btnupdate" name="btnupdate" onclick="funUpdate(event);">Update</button></td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 
-	 <tr><td colspan="2">
-	 <input type="hidden" id="txtdocno" name="txtdocno" style="width:100%;height:20px;" value='<s:property value="txtdocno"/>'/>
-     <input type="hidden" id="txtbranch" name="txtbranch" style="width:100%;height:20px;" value='<s:property value="txtbranch"/>'/>
-     <input type="hidden" id="txtsalid" name="txtsalid" style="width:100%;height:20px;" value='<s:property value="txtsalid"/>'/>
-     <input type="hidden" id="txtrdocno" name="txtrdocno" style="width:100%;height:20px;" value='<s:property value="txtrdocno"/>'/>
-     <input type="hidden" id="txtbrchid" name="txtbrchid" style="width:100%;height:20px;" value='<s:property value="txtbrchid"/>'/>
-     <input type="hidden" id="txtuserid" name="txtuserid" style="width:100%;height:20px;" value='<s:property value="txtuserid"/>'/>
-     </td></tr> 
-	 </table>
-	</fieldset>
+            <!-- Fixed Heading -->
+            <div class="sidebar-fixed-top">
+                <div class="filter-card">
+                    <jsp:include page="../../heading.jsp"></jsp:include>
+                </div>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="sidebar-scroll-content">
+
+                <!-- Date Section -->
+                <div class="filter-card">
+                    <table class="filter-table">
+
+                        <tr>
+                            <td class="label-cell">From</td>
+                            <td>
+                                <div id="fromdate"
+                                     value='<s:property value="fromdate"/>'>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">To</td>
+                            <td>
+                                <div id="todate"
+                                     value='<s:property value="todate"/>'>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <input type="hidden"
+                                       id="hidchckfollowup"
+                                       name="hidchckfollowup"
+                                       value='<s:property value="hidchckfollowup"/>'/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <input type="checkbox"
+                                       id="chckfollowup"
+                                       name="chckfollowup"
+                                       onchange="followupcheck();"
+                                       onclick="$(this).attr('value', this.checked ? 1 : 0)" />
+                                <label>FollowUp</label>
+                            </td>
+                            <td>
+                                <div id="followupdate"
+                                     value='<s:property value="followupdate"/>'>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+
+                <!-- Salesman & Process Section -->
+                <div class="filter-card">
+                    <table class="filter-table">
+
+                        <tr>
+                            <td class="label-cell">Salesman</td>
+                            <td>
+                                <select id="cmbsalesman"
+                                        name="cmbsalesman">
+                                    <option value="">--Select--</option>
+                                </select>
+
+                                <input type="hidden"
+                                       id="hidcmbsalesman"
+                                       name="hidcmbsalesman"
+                                       value='<s:property value="hidcmbsalesman"/>'/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Process</td>
+                            <td>
+                                <select id="cmbprocess"
+                                        name="cmbprocess"
+                                        onchange="funtxtenable(value);">
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Salesman</td>
+                            <td>
+                                <input type="text"
+                                       name="txtsalesman"
+                                       id="txtsalesman"
+                                       placeholder="Press F3 To Search"
+                                       onkeydown="getsalesman(event);"
+                                       value='<s:property value="txtsalesman"/>' />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Status</td>
+                            <td>
+                                <select name="cmbpriority"
+                                        id="cmbpriority">
+                                    <option value="">--Select--</option>
+                                    <option value="1">Cold</option>
+                                    <option value="2">Warm</option>
+                                    <option value="3">Hot</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Category</td>
+                            <td>
+                                <select id="cmbcategory"
+                                        name="cmbcategory"
+                                        onchange="getCategoryAccountGroup(this.value);">
+                                    <option value="">--Select--</option>
+                                </select>
+
+                                <input type="hidden" id="hidcmbcategory" name="hidcmbcategory"
+                                       value='<s:property value="hidcmbcategory"/>'/>
+                                <input type="hidden" id="hidcatid" name="hidcatid"
+                                       value='<s:property value="hidcatid"/>'/>
+                                <input type="hidden" id="hidcmbacgroup" name="hidcmbacgroup"
+                                       value='<s:property value="hidcmbacgroup"/>'/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Date</td>
+                            <td>
+                                <div id="date"
+                                     value='<s:property value="date"/>'>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Remarks</td>
+                            <td>
+                                <input type="text"
+                                       id="txtremarks"
+                                       name="txtremarks"
+                                       value='<s:property value="txtremarks"/>' />
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <!-- Update Button -->
+                <button class="btn-submit"
+                        type="button"
+                        onclick="funUpdate(event);">
+                    Update
+                </button>
+
+                <!-- Hidden Fields -->
+                <input type="hidden" id="txtdocno" name="txtdocno"
+                       value='<s:property value="txtdocno"/>'/>
+                <input type="hidden" id="txtbranch" name="txtbranch"
+                       value='<s:property value="txtbranch"/>'/>
+                <input type="hidden" id="txtsalid" name="txtsalid"
+                       value='<s:property value="txtsalid"/>'/>
+                <input type="hidden" id="txtrdocno" name="txtrdocno"
+                       value='<s:property value="txtrdocno"/>'/>
+                <input type="hidden" id="txtbrchid" name="txtbrchid"
+                       value='<s:property value="txtbrchid"/>'/>
+                <input type="hidden" id="txtuserid" name="txtuserid"
+                       value='<s:property value="txtuserid"/>'/>
+
+            </div>
+        </div>
+    </div>
 </td>
+
+
+<!-- ================= RIGHT GRID AREA ================= -->
 <td width="80%">
-	<table width="100%">
-		<tr><td><div id="leadFollowupDiv"><jsp:include page="leadMngmtFollowupGrid.jsp"></jsp:include></div><br/></td></tr>
-		<tr><td><div id="detailDiv"><jsp:include page="leadMngmtDetailGrid.jsp"></jsp:include></div></td></tr>
-	</table>
-	</td>
+    <table width="100%">
+
+        <tr>
+            <td>
+                <div id="leadFollowupDiv">
+                    <jsp:include page="leadMngmtFollowupGrid.jsp"></jsp:include>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div id="detailDiv">
+                    <jsp:include page="leadMngmtDetailGrid.jsp"></jsp:include>
+                </div>
+            </td>
+        </tr>
+
+    </table>
+</td>
+
 </tr>
 </table>
+
 </div>
+
+<!-- Popup -->
 <div id="salesmanwindow">
-   <div></div>
+    <div></div>
 </div>
-</div> 
+
+</div>
 </body>
 </html>
