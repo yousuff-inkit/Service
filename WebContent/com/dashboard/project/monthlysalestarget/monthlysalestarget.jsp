@@ -1,4 +1,3 @@
-<link href="../../../../css/dashboard.css" media="screen" rel="stylesheet" type="text/css" />  
 <jsp:include page="../../../../includes.jsp"></jsp:include>  
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
@@ -8,6 +7,108 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GatewayERP(i)</title>
+<link href="../../../../css/dashboard.css" media="screen" rel="stylesheet" type="text/css" />
+<style>
+.master-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f4f7f9;
+}
+.sidebar-filters {
+    width: 330px;
+    flex: 0 0 330px;
+    background: #fff;
+    border-right: 1px solid #e1e8ed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-shadow: 2px 0 8px rgba(0,0,0,.05);
+}
+
+.sidebar-fixed-top {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f4f8;
+}
+
+.sidebar-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 20px 25px;
+}
+
+
+.filter-card {
+    background: #f8fafc;
+    border: 1px solid #e3e8ee;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+
+.filter-table {
+    width: 100%;
+    border-spacing: 0 10px;
+}
+
+.label-cell {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4e5e71;
+    width: 90px;
+}
+input[type="text"], select {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1d4ed8;
+}
+html, body, #mainBG, .hidden-scrollbar {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+td[width="80%"] {
+    height: 100vh;
+    vertical-align: top;
+    background: #fff;
+}
+input[type="text"],
+select {
+    width: 100%;
+    height: 28px !important;   /* Slightly smaller */
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
+</style>  
 <%-- <script type="text/javascript" src="../../js/dashboard.js"></script> --%> 
 <script type="text/javascript">
 $(document).ready(function () {
@@ -206,76 +307,180 @@ x.send();
 	</script>
 </head>
 <body onload="getBranchs();setValues();getsalesman();">
+
 <form id="frmFAList" action="frmFAList" method="post">
-<div id="mainBG" class="homeContent" data-type="background"> 
-<div class='hidden-scrollbar'>
+
+<div id="mainBG" class="homeContent" data-type="background">
+<div class="hidden-scrollbar">
+
 <table width="100%">
 <tr>
-<td width="20%">
-    <fieldset style="background: #ECF8E0;">
-	<table width="100%">
-	<jsp:include page="../../heading.jsp"></jsp:include>
 
-  <tr><td colspan="2" align="center"><input type="radio" id="rsumm" name="stkled" onchange="fundisable();" value="rsumm"><label for="rsumm" class="branch">Branch</label>&nbsp;&nbsp;
-	 <input type="radio" id="rdet" name="stkled" onchange="fundisable();" value="rdet"><label for="rdet" class="branch">Salesman</label></td></tr>      
-	 <tr>
-    <td width="29%" align="right"><label class="branch">Year</label></td>
-    <td width="71%"><select id="cmbyear" name="cmbyear" style="width:80%;" value='<s:property value="cmbyear"/>'>
-      <option value="">--Select--</option></select>
-      <input type="hidden" id="hidcmbyear" name="hidcmbyear" value='<s:property value="hidcmbyear"/>'/></td>
-  </tr>
-  <tr>
-    <td align="right"><label class="branch">Month</label></td>
-    <td><select id="cmbmonth" name="cmbmonth" style="width:80%;" value='<s:property value="cmbmonth"/>'>
-      <option value="">--Select--</option><option value="01">January</option><option value="02">February</option><option value="03">March</option>
-      <option value="04">April</option><option value="05">May</option><option value="06">June</option><option value="07">July</option>
-      <option value="08">August</option><option value="09">September</option><option value="10">October</option><option value="11">November</option>
-      <option value="12">December</option></select>
-      <input type="hidden" id="hidcmbmonth" name="hidcmbmonth" value='<s:property value="hidcmbmonth"/>'/></td>
-  </tr> 
-   <tr id="bhhider">
-    <td width="29%" align="right"><label class="branch">Branch</label></td>   
-    <td width="71%"><select id="cmbbranchs" name="cmbbranchs" style="width:80%;" value='<s:property value="cmbbranchs"/>'>
-      <option value="">--Select--</option></select></td>
-  </tr>  
-   <tr id="smhider">       
-    <td width="29%" align="right"><label class="branch">Salesman</label></td>   
-    <td width="71%"><select id="cmbsalesman" name="cmbsalesman" style="width:80%;" value='<s:property value="cmbsalesman"/>'>  
-      <option value="">--Select--</option></select></td>           
-  </tr>   
-  <tr>
-    <td width="29%" align="right"><label class="branch">Target Value</label></td>
-    <td width="71%"><input type="text" id="targetval" name="targetval" style="width:80%;height:20%;text-align:right" value='<s:property value="targetval"/>'/>
-  </tr>  
-  <tr>
-    <td width="29%" align="right"><label class="branch">GP%</label></td>
-    <td width="71%"><input type="text" id="percentval" name="percentval" style="width:80%;height:20%;text-align:right" value='<s:property value="percentval"/>'/>
-  </tr>  
-  <tr><td colspan="2" align="center"><input type="button" class="myButtons" name="clear" id="clear"  value="Clear" onclick="funClearData();">
-	<button class="myButton" type="button" id="btnUpdate" name="btnUpdate" onclick="funSave();">Save</button></td></tr>
-	<tr style="height:239px"><td colspan="2">&nbsp;</td></tr> 
-	 <tr><td colspan="2">
-     <input type="hidden" id="rowno" name="rowno" style="width:100%;height:20px;" value='<s:property value="rowno"/>'/>  
-     <input type="hidden" id="differentiater" name="differentiater" style="width:100%;height:20px;" value='<s:property value="differentiater"/>'/>       
-     </td></tr> 
-	</table>
-	</fieldset>
+<!-- ================= LEFT SIDEBAR ================= -->
+<td width="20%" valign="top">
+
+<div class="master-container">
+<div class="sidebar-filters">
+
+<!-- ===== Fixed Header ===== -->
+<div class="sidebar-fixed-top">
+    <div class="filter-card">
+        <jsp:include page="../../heading.jsp"></jsp:include>
+    </div>
+</div>
+
+<!-- ===== Scrollable Filters ===== -->
+<div class="sidebar-scroll-content">
+
+    <div class="filter-card">
+        <table class="filter-table">
+
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="radio" id="rsumm" name="stkled"
+                           value="rsumm" onchange="fundisable();">
+                    <label for="rsumm" class="branch">Branch</label>
+
+                    &nbsp;&nbsp;
+
+                    <input type="radio" id="rdet" name="stkled"
+                           value="rdet" onchange="fundisable();">
+                    <label for="rdet" class="branch">Salesman</label>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label-cell">Year</td>
+                <td>
+                    <select id="cmbyear" name="cmbyear">
+                        <option value="">--Select--</option>
+                    </select>
+                    <input type="hidden" id="hidcmbyear" name="hidcmbyear"
+                           value='<s:property value="hidcmbyear"/>'/>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label-cell">Month</td>
+                <td>
+                    <select id="cmbmonth" name="cmbmonth">
+                        <option value="">--Select--</option>
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <input type="hidden" id="hidcmbmonth" name="hidcmbmonth"
+                           value='<s:property value="hidcmbmonth"/>'/>
+                </td>
+            </tr>
+
+            <tr id="bhhider">
+                <td class="label-cell">Branch</td>
+                <td>
+                    <select id="cmbbranchs" name="cmbbranchs">
+                        <option value="">--Select--</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr id="smhider">
+                <td class="label-cell">Salesman</td>
+                <td>
+                    <select id="cmbsalesman" name="cmbsalesman">
+                        <option value="">--Select--</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label-cell">Target Value</td>
+                <td>
+                    <input type="text" id="targetval" name="targetval"
+                           style="text-align:right;"
+                           value='<s:property value="targetval"/>'/>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label-cell">GP%</td>
+                <td>
+                    <input type="text" id="percentval" name="percentval"
+                           style="text-align:right;"
+                           value='<s:property value="percentval"/>'/>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+    <!-- ===== Buttons ===== -->
+    <div class="button-group">
+        <button type="button"
+                class="btn-submit"
+                onclick="funClearData();">
+            Clear
+        </button>
+
+        <button type="button"
+                class="btn-submit"
+                onclick="funSave();">
+            Save
+        </button>
+    </div>
+
+    <!-- Hidden Fields -->
+    <input type="hidden" id="rowno" name="rowno"
+           value='<s:property value="rowno"/>'/>
+    <input type="hidden" id="differentiater" name="differentiater"
+           value='<s:property value="differentiater"/>'/>
+
+</div>
+</div>
+</div>
+
 </td>
-<td width="80%">
-	<table width="100%">
-		<tr id="msrbrhDiv1">    
-			 <td>  <div id="msrbrhDiv"><jsp:include page="msrBranchGrid.jsp"></jsp:include></div> </td>
-		</tr>
-		<tr id="msrsmDiv2">
-		     <td><div id="msrsmDiv"><jsp:include page="msrSalesmanGrid.jsp"></jsp:include></div><br/></td>
-		</tr> 
-	</table>
+
+<!-- ================= RIGHT SIDE ================= -->
+<td width="80%" valign="top">
+
+<table width="100%">
+    <tr id="msrbrhDiv1">
+        <td>
+            <div id="msrbrhDiv">
+                <jsp:include page="msrBranchGrid.jsp"></jsp:include>
+            </div>
+        </td>
+    </tr>
+
+    <tr id="msrsmDiv2">
+        <td>
+            <div id="msrsmDiv">
+                <jsp:include page="msrSalesmanGrid.jsp"></jsp:include>
+            </div>
+        </td>
+    </tr>
+</table>
+
+</td>
+
 </tr>
 </table>
+
 </div>
+
 <div id="assetwindow">
-<div></div>
+    <div></div>
 </div>
+
 </div>
 </form>
 </body>
