@@ -10,125 +10,108 @@
 <link href="../../../../css/dashboard.css" media="screen" rel="stylesheet" type="text/css" /> 
 
 <style type="text/css">
-.myButtons {
-	-moz-box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	-webkit-box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87), color-stop(1, #6c7c7c));
-	background:-moz-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-webkit-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-o-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-ms-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#768d87', endColorstr='#6c7c7c',GradientType=0);
-	background-color:#768d87;
-	border:1px solid #566963;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	
-	font-size:8pt;
-	
-	padding:3px 17px;
-	text-decoration:none;
-	text-shadow:0px -1px 0px #2b665e;
+
+.master-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f4f7f9;
 }
-.myButtons:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6c7c7c), color-stop(1, #768d87));
-	background:-moz-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-webkit-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-o-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-ms-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#768d87',GradientType=0);
-	background-color:#6c7c7c;
-}
-.myButtons:active {
-	position:relative;
-	top:1px;
+.sidebar-filters {
+    width: 330px;
+    flex: 0 0 330px;
+    background: #fff;
+    border-right: 1px solid #e1e8ed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-shadow: 2px 0 8px rgba(0,0,0,.05);
 }
 
-.myConfirmButton {
-	-moz-box-shadow: 0px 1px 0px 0px #fff6af;
-	-webkit-box-shadow: 0px 1px 0px 0px #fff6af;
-	box-shadow: 0px 1px 0px 0px #fff6af;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
-	background:-moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-	background:-webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-	background:-o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-	background:-ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23',GradientType=0);
-	background-color:#ffec64;
-	-moz-border-radius:6px;
-	-webkit-border-radius:6px;
-	border-radius:6px;
-	border:1px solid #ffaa22;
-	display:inline-block;
-	cursor:pointer;
-	font-family:Verdana;
-	font-size:10px;
-	font-weight:bold;
-	padding:4px 8px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ffee66;
-}
-.myConfirmButton:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
-	background:-moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-	background:-webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-	background:-o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-	background:-ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-	background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64',GradientType=0);
-	background-color:#ffab23;
-}
-.myConfirmButton:active {
-	position:relative;
-	top:1px;
+.sidebar-fixed-top {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f4f8;
 }
 
-.myButtonReCheck {
-	-moz-box-shadow:inset 0px 1px 0px 0px #3dc21b;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #3dc21b;
-	box-shadow:inset 0px 1px 0px 0px #3dc21b;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #44c767), color-stop(1, #5cbf2a));
-	background:-moz-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
-	background:-webkit-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
-	background:-o-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
-	background:-ms-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
-	background:linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#44c767', endColorstr='#5cbf2a',GradientType=0);
-	background-color:#44c767;
-	-moz-border-radius:42px;
-	-webkit-border-radius:42px;
-	border-radius:42px;
-	border:6px solid #18ab29;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:10px;
-	font-weight:bold;
-	padding:3px 8px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #2f6627;
+.sidebar-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 20px 25px;
 }
-.myButtonReCheck:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #5cbf2a), color-stop(1, #44c767));
-	background:-moz-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
-	background:-webkit-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
-	background:-o-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
-	background:-ms-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
-	background:linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5cbf2a', endColorstr='#44c767',GradientType=0);
-	background-color:#5cbf2a;
+
+
+.filter-card {
+    background: #f8fafc;
+    border: 1px solid #e3e8ee;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
 }
-.myButtonReCheck:active {
-	position:relative;
-	top:1px;
+
+
+.filter-table {
+    width: 100%;
+    border-spacing: 0 10px;
 }
+
+.label-cell {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4e5e71;
+    width: 90px;
+}
+input[type="text"], select {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1d4ed8;
+}
+html, body, #mainBG, .hidden-scrollbar {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+td[width="80%"] {
+    height: 100vh;
+    vertical-align: top;
+    background: #fff;
+}
+input[type="text"],
+select {
+    width: 100%;
+    height: 28px !important;   /* Slightly smaller */
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
 </style>
+
 
 <script type="text/javascript">
 
@@ -597,102 +580,275 @@
 </script>
 </head>
 <body onload="getBranch();setValues();getYear();getPayrollCategory();orderbycheck();">
-<form id="frmDashboardTimeSheetReview" action="saveDashboardTimeSheetReview" method="post">
-<div id="mainBG" class="homeContent" data-type="background"> 
-<div class='hidden-scrollbar'>
-<table width="100%" >
+
+<form id="frmDashboardTimeSheetReview"
+      action="saveDashboardTimeSheetReview"
+      method="post">
+
+<div id="mainBG" class="homeContent" data-type="background">
+<div class="hidden-scrollbar">
+
+<table width="100%">
 <tr>
-<td width="20%" >
-    <fieldset style="background: #ECF8E0;">
-	<table width="100%">
-	<jsp:include page="../../heading.jsp"></jsp:include>
 
-	 <tr><td align="right"><label class="branch">Year</label></td>
-     <td align="left"><select id="cmbyear" name="cmbyear" style="width:80%;" value='<s:property value="cmbyear"/>'>
-      <option value="">--Select--</option></select>
-      <input type="hidden" id="hidcmbyear" name="hidcmbyear" value='<s:property value="hidcmbyear"/>'/></td></tr>
-	 <tr><td align="right"><label class="branch">Month</label></td>
-     <td align="left"><select id="cmbmonth" name="cmbmonth" style="width:80%;" value='<s:property value="cmbmonth"/>'>
-      <option value="">--Select--</option><option value="01">January</option><option value="02">February</option><option value="03">March</option>
-      <option value="04">April</option><option value="05">May</option><option value="06">June</option><option value="07">July</option>
-      <option value="08">August</option><option value="09">September</option><option value="10">October</option><option value="11">November</option>
-      <option value="12">December</option></select>
-      <input type="hidden" id="hidcmbmonth" name="hidcmbmonth" value='<s:property value="hidcmbmonth"/>'/></td></tr>
-     <tr><td align="right"><label class="branch">Date</label></td>
-     <td align="left"><div id="date" name="date" onchange="funRestrictDate();" value='<s:property value="date"/>'></div>
-     <input type="hidden" id="hiddate" name="hiddate" style="width:60%;height:20px;" readonly="readonly" value='<s:property value="hiddate"/>'/></td></tr>
-	 <tr><td align="right"><label class="branch">Category</label></td>
-	 <td align="left"><select id="cmbempcategory" style="width:80%;" name="cmbempcategory"  value='<s:property value="cmbempcategory"/>'></select></td></tr>
-	 <tr><td align="right"><label class="branch">Employee</label></td>
-     <td align="left"><input type="text" id="txtemployeeid" name="txtemployeeid" style="width:80%;height:20;" readonly="readonly" placeholder="Press F3 to Search" value='<s:property value="txtemployeeid"/>'  onkeydown="getEmployeeId(event);"/>
-     <input type="hidden" id="txtemployeedocno" name="txtemployeedocno" value='<s:property value="txtemployeedocno"/>'/></td></tr>
-     <tr><td colspan="2"><input type="text" id="txtemployeename" name="txtemployeename" readonly="readonly" placeholder="Employee Name" style="width:95%;height:20;" tabindex="-1" value='<s:property value="txtemployeename"/>'/></td></tr>
-     <tr><td align="right"><label class="branch">Cost_Type</label></td>
-     <td align="left"><input type="text" id="txtprojecttype" name="txtprojecttype" style="width:95%;height:20;" readonly="readonly" placeholder="Press F3 to Search" value='<s:property value="txtprojecttype"/>' onkeydown="getProjectType(event);"/>
-     <input type="hidden" id="txtprojecttypeid" name="txtprojecttypeid" value='<s:property value="txtprojecttypeid"/>'/></td></tr>
-     <tr><td align="right"><label class="branch">Cost_Id</label></td>
-     <td align="left"><input type="text" id="txtprojectidname" name="txtprojectidname" style="width:95%;height:20;" readonly="readonly" placeholder="Press F3 to Search" value='<s:property value="txtprojectidname"/>' onkeydown="getProjectId(event);"/>
-     <input type="hidden" id="txtprojectid" name="txtprojectid" value='<s:property value="txtprojectid"/>'/></td></tr>
-     <tr><td colspan="2">
-	  <fieldset><legend><b><label class="branch">Report Type</label></b></legend>
-	   <table width="100%">
-       <tr>
-       <td width="48%" align="center"><input type="radio" id="rdsummary" name="rdo" onchange="reportTypeChange();" value="rdsummary"><label for="rdsummary" class="branch">Summary</label></td>
-       <td width="52%" align="center"><input type="radio" id="rddetailed" name="rdo" onchange="reportTypeChange();" value="rddetailed"><label for="rddetailed" class="branch">Detail</label></td>
-       </tr>
-       </table>
-	  </fieldset>
-	</td></tr>
-	<tr><td colspan="2">
-	  <fieldset><legend><b><label class="branch">Order by</label></b></legend>
-	   <table width="100%">
-       <tr>
-       <td width="48%" align="center"><input type="checkbox" id="chckorderbydate" name="chckorderbydate" value="" onchange="orderbycheck();" onclick="$(this).attr('value', this.checked ? 1 : 0)" /><label class="branch">Date</label> 
-                                 <input type="hidden" id="hidchckorderbydate" name="hidchckorderbydate" value='<s:property value="hidchckorderbydate"/>'/></td>
-       <td width="52%" align="center"><input type="checkbox" id="chckorderbyemployee" name="chckorderbyemployee" value="" onchange="orderbycheck();" onclick="$(this).attr('value', this.checked ? 1 : 0)" /><label class="branch">Employee</label> 
-                                 <input type="hidden" id="hidchckorderbyemployee" name="hidchckorderbyemployee" value='<s:property value="hidchckorderbyemployee"/>'/></td>
-       </tr>
-       
-       <tr>
-       <td align="center"><input type="checkbox" id="chckorderbycosttype" name="chckorderbycosttype" value="" onchange="orderbycheck();" onclick="$(this).attr('value', this.checked ? 1 : 0)" /><label class="branch">Cost_Type</label> 
-                                 <input type="hidden" id="hidchckorderbycosttype" name="hidchckorderbycosttype" value='<s:property value="hidchckorderbycosttype"/>'/></td>
-       <td align="center"><input type="checkbox" id="chckorderbycostid" name="chckorderbycostid" value="" onchange="orderbycheck();" onclick="$(this).attr('value', this.checked ? 1 : 0)" /><label class="branch">Cost_Id</label> 
-                                 <input type="hidden" id="hidchckorderbycostid" name="hidchckorderbycostid" value='<s:property value="hidchckorderbycostid"/>'/></td>
-       </tr>
-       </table>
-	  </fieldset>
-	</td></tr>
-	 <tr><td colspan="2" align="center"><input type="button" class="myButtons" name="clear" id="clear"  value="Clear" onclick="funClearInfo();">
-	 <input type="button" class="myButtonReCheck" name="btnRecheck" id="btnRecheck"  value="Re-Check" onclick="funReCheck();"></td></tr>
-	 <tr><td colspan="2" align="center">
-	 	<input type="button" class="myConfirmButton" id="btnConfirmed" name="btnConfirmed" value="Confirm" onclick="funNotify();">
-	    <input type="button" class="myConfirmButton" id="btnUnConfirmed" name="btnUnConfirmed" value="Un-Confirm" onclick="funUnconfirm();">
-	 </td></tr>
-     <tr><td colspan="2">&nbsp;<input type="hidden" id="gridlength" name="gridlength" style="width:100%;height:20px;" value='<s:property value="gridlength"/>'/>
-     <input type="hidden" name="mode" id="mode" style="width:100%;height:20px;" value='<s:property value="mode"/>'>
-     <input type="hidden" name="msg" id="msg" style="width:100%;height:20px;" value='<s:property value="msg"/>'>
-     <input type="hidden" name="txtorgridclick" id="txtorgridclick" style="width:100%;height:20px;" value='<s:property value="txtorgridclick"/>'>
-     <input type="hidden" name="txtgridconfirm" id="txtgridconfirm" style="width:100%;height:20px;" value='<s:property value="txtgridconfirm"/>'>
-     <input type="hidden" name="txtgridconfirmed" id="txtgridconfirmed" style="width:100%;height:20px;" value='<s:property value="txtgridconfirmed"/>'></td></tr>
-	 </table>
-	 </fieldset>
+<!-- ================= LEFT SIDEBAR ================= -->
+<td width="20%">
+<div class="master-container">
+<div class="sidebar-filters">
+
+<!-- Heading -->
+<div class="sidebar-fixed-top">
+<div class="filter-card">
+<jsp:include page="../../heading.jsp"></jsp:include>
+</div>
+</div>
+
+<!-- Scrollable Content -->
+<div class="sidebar-scroll-content">
+
+<!-- Period Section -->
+<div class="filter-card">
+<table class="filter-table">
+
+<tr>
+<td class="label-cell">Year</td>
+<td>
+<select id="cmbyear" name="cmbyear">
+<option value="">--Select--</option>
+</select>
+<input type="hidden" id="hidcmbyear" name="hidcmbyear"
+value='<s:property value="hidcmbyear"/>'/>
 </td>
-<td width="80%">
-	<table width="100%">
-		<tr><td><div id="timeSheetReviewDetailsDiv"><jsp:include page="timeSheetReviewGrid.jsp"></jsp:include></div></td></tr>
-	</table>
-</td></tr></table>
+</tr>
+
+<tr>
+<td class="label-cell">Month</td>
+<td>
+<select id="cmbmonth" name="cmbmonth">
+<option value="">--Select--</option>
+<option value="01">January</option>
+<option value="02">February</option>
+<option value="03">March</option>
+<option value="04">April</option>
+<option value="05">May</option>
+<option value="06">June</option>
+<option value="07">July</option>
+<option value="08">August</option>
+<option value="09">September</option>
+<option value="10">October</option>
+<option value="11">November</option>
+<option value="12">December</option>
+</select>
+<input type="hidden" id="hidcmbmonth" name="hidcmbmonth"
+value='<s:property value="hidcmbmonth"/>'/>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Date</td>
+<td>
+<div id="date"
+onchange="funRestrictDate();"
+value='<s:property value="date"/>'></div>
+<input type="hidden" id="hiddate" name="hiddate"
+value='<s:property value="hiddate"/>'/>
+</td>
+</tr>
+
+</table>
+</div>
+
+<!-- Employee & Cost -->
+<div class="filter-card">
+<table class="filter-table">
+
+<tr>
+<td class="label-cell">Category</td>
+<td>
+<select id="cmbempcategory"
+name="cmbempcategory"></select>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Employee</td>
+<td>
+<input type="text"
+id="txtemployeeid"
+name="txtemployeeid"
+readonly
+placeholder="Press F3 to Search"
+onkeydown="getEmployeeId(event);"
+value='<s:property value="txtemployeeid"/>'/>
+<input type="hidden"
+id="txtemployeedocno"
+name="txtemployeedocno"
+value='<s:property value="txtemployeedocno"/>'/>
+</td>
+</tr>
+
+<tr>
+<td></td>
+<td>
+<input type="text"
+id="txtemployeename"
+name="txtemployeename"
+readonly
+placeholder="Employee Name"
+value='<s:property value="txtemployeename"/>'/>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Cost Type</td>
+<td>
+<input type="text"
+id="txtprojecttype"
+name="txtprojecttype"
+readonly
+placeholder="Press F3 to Search"
+onkeydown="getProjectType(event);"
+value='<s:property value="txtprojecttype"/>'/>
+<input type="hidden"
+id="txtprojecttypeid"
+name="txtprojecttypeid"
+value='<s:property value="txtprojecttypeid"/>'/>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Cost ID</td>
+<td>
+<input type="text"
+id="txtprojectidname"
+name="txtprojectidname"
+readonly
+placeholder="Press F3 to Search"
+onkeydown="getProjectId(event);"
+value='<s:property value="txtprojectidname"/>'/>
+<input type="hidden"
+id="txtprojectid"
+name="txtprojectid"
+value='<s:property value="txtprojectid"/>'/>
+</td>
+</tr>
+
+</table>
+</div>
+
+<!-- Report Type -->
+<div class="filter-card">
+<div class="section-title">Report Type</div>
+<div class="radio-row">
+<label><input type="radio" name="rdo"
+id="rdsummary"
+onchange="reportTypeChange();"
+value="rdsummary"> Summary</label>
+
+<label><input type="radio" name="rdo"
+id="rddetailed"
+onchange="reportTypeChange();"
+value="rddetailed"> Detail</label>
+</div>
+</div>
+
+<!-- Order By -->
+<div class="filter-card">
+<div class="section-title">Order By</div>
+
+<div class="checkbox-grid">
+<label><input type="checkbox" id="chckorderbydate"
+onchange="orderbycheck();"> Date</label>
+
+<label><input type="checkbox" id="chckorderbyemployee"
+onchange="orderbycheck();"> Employee</label>
+
+<label><input type="checkbox" id="chckorderbycosttype"
+onchange="orderbycheck();"> Cost Type</label>
+
+<label><input type="checkbox" id="chckorderbycostid"
+onchange="orderbycheck();"> Cost ID</label>
+</div>
+
+<input type="hidden" id="hidchckorderbydate" name="hidchckorderbydate"
+value='<s:property value="hidchckorderbydate"/>'/>
+
+<input type="hidden" id="hidchckorderbyemployee" name="hidchckorderbyemployee"
+value='<s:property value="hidchckorderbyemployee"/>'/>
+
+<input type="hidden" id="hidchckorderbycosttype" name="hidchckorderbycosttype"
+value='<s:property value="hidchckorderbycosttype"/>'/>
+
+<input type="hidden" id="hidchckorderbycostid" name="hidchckorderbycostid"
+value='<s:property value="hidchckorderbycostid"/>'/>
+</div>
+
+<!-- Action Buttons -->
+<div class="button-group">
+<button type="button"
+class="myButtons"
+onclick="funClearInfo();">Clear</button>
+
+<button type="button"
+class="myButtonReCheck"
+onclick="funReCheck();">Re-Check</button>
+
+<button type="button"
+class="myConfirmButton"
+onclick="funNotify();">Confirm</button>
+
+<button type="button"
+class="myConfirmButton"
+onclick="funUnconfirm();">Un-Confirm</button>
+</div>
+
+<!-- Hidden Fields -->
+<input type="hidden" id="gridlength" name="gridlength"
+value='<s:property value="gridlength"/>'/>
+
+<input type="hidden" name="mode" id="mode"
+value='<s:property value="mode"/>'/>
+
+<input type="hidden" name="msg" id="msg"
+value='<s:property value="msg"/>'/>
+
+<input type="hidden" name="txtorgridclick" id="txtorgridclick"
+value='<s:property value="txtorgridclick"/>'/>
+
+<input type="hidden" name="txtgridconfirm" id="txtgridconfirm"
+value='<s:property value="txtgridconfirm"/>'/>
+
+<input type="hidden" name="txtgridconfirmed" id="txtgridconfirmed"
+value='<s:property value="txtgridconfirmed"/>'/>
 
 </div>
-<div id="employeeDetailsWindow">
-   <div></div>
 </div>
-<div id="costTypeSearchGridWindow">
-	<div></div>
-</div> 
-<div id="costCodeSearchWindow">
-	<div></div>
-</div> 
-</div> 
+</div>
+</td>
+
+<!-- ================= RIGHT GRID ================= -->
+<td width="80%">
+<table width="100%">
+<tr>
+<td>
+<div id="timeSheetReviewDetailsDiv">
+<jsp:include page="timeSheetReviewGrid.jsp"></jsp:include>
+</div>
+</td>
+</tr>
+</table>
+</td>
+
+</tr>
+</table>
+
+</div>
+
+<!-- Popups -->
+<div id="employeeDetailsWindow"><div></div></div>
+<div id="costTypeSearchGridWindow"><div></div></div>
+<div id="costCodeSearchWindow"><div></div></div>
+
+</div>
 </form>
 </body>

@@ -11,11 +11,113 @@
 
 <style type="text/css">
 
-.hidden-scrollbar {
-    overflow: auto;
-    
-    height: 550px;
+/* ===== MASTER LAYOUT ===== */
+.master-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f4f7f9;
 }
+
+/* Sidebar */
+.sidebar-filters {
+    width: 330px;
+    flex: 0 0 330px;
+    background: #fff;
+    border-right: 1px solid #e1e8ed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-shadow: 2px 0 8px rgba(0,0,0,.05);
+}
+
+.sidebar-fixed-top {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f4f8;
+}
+
+.sidebar-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 20px 25px;
+}
+
+/* Cards */
+.filter-card {
+    background: #f8fafc;
+    border: 1px solid #e3e8ee;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+/* Tables */
+.filter-table {
+    width: 100%;
+    border-spacing: 0 10px;
+}
+
+.label-cell {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4e5e71;
+    width: 90px;
+}
+
+/* Inputs */
+input[type="text"], select {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+/* Buttons */
+.btn-submit {
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1d4ed8;
+}
+
+/* Page height fix */
+html, body, #mainBG, .hidden-scrollbar {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+td[width="80%"] {
+    height: 100vh;
+    vertical-align: top;
+    background: #fff;
+}
+input[type="text"],
+select {
+    width: 100%;
+    height: 28px !important;   /* Slightly smaller */
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -902,111 +1004,188 @@
 </script>
 </head>
 <body onload="getBranch();disable();">
+
 <div id="mainBG" class="homeContent" data-type="background"> 
-<div class='hidden-scrollbar'>
-<table width="100%" >
+<div class="hidden-scrollbar">
+
+<table width="100%">
 <tr>
-<td width="20%" >
-    <fieldset style="background: #ECF8E0;">
-	<table width="100%"  >
-	<jsp:include page="../../heading.jsp"></jsp:include>
-	<tr><td colspan="2"></td></tr>
-	 <tr><td  align="right" ><label class="branch">From</label></td><td align="left"><div id='fromdate' name='fromdate' value='<s:property value="fromdate"/>'></div>
-                    </td></tr>
-                     <tr><td  align="right" ><label class="branch">To</label></td><td align="left"><div id='todate' name='todate' value='<s:property value="todate"/>'></div>
-                    </td></tr>                 
-	
-	 
-	  <tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr> 
-	  <tr><td colspan="2">&nbsp;</td></tr>
-	 
-	 
-	 <tr><td colspan="2" align="center"><button class="myButton" type="button" id="btnreserve" name="btnreserve" onclick="funReserve(event);">Reserve</button>
-	</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr> 
-	 <tr><td colspan="2" align="center"><button class="myButton" type="button" id="btnpurchse" name="btnpurchse" onclick="funPurchaseReq(event);">Purchase Request</button>
-	 </td></tr>
-	 <tr><td>
-	 &nbsp;</td></tr>
-	  <tr><td align="right"><label class="branch">Vendor</label></td>
-	<td align="left"><input type="text" id="vendor" name="vendor" style="width:90%;height:20px;" readonly="readonly" placeholder="Press F3 to Search" value='<s:property value="vendor"/>' onKeyDown="getVendor(event);"/></td></tr>
-   
-	 
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	  <tr><td colspan="2" align="center"> <button class="myButton" type="button" id="btnpurchseorder" name="btnpurchseorder" onclick="funPurchaseOrder(event);">Purchase Order</button></td></tr>
-	   <tr>
-	      <td align="right">&nbsp;</td>
-	      <td ><input style="width:200px;height:19px;" type="hidden" name="txtvendor" id="txtvendor" value='<s:property value="txtvendor"/>' onKeyDown="getvendor(event);" readonly placeholder="Press F3 to Search">
-	      <input type="hidden" id="txtvendorid" name="txtvendorid" value='<s:property value="txtvendorid"/>'>
-	      </td></tr>
-	  <tr><td colspan="2"></td></tr>
-	
-	 
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 
-	 <tr><td colspan="2">
-	 <input type="hidden" id="txtdocno" name="txtdocno" style="width:100%;height:20px;" value='<s:property value="txtdocno"/>'/>
-     <input type="hidden" id="txtbranch" name="txtbranch" style="width:100%;height:20px;" value='<s:property value="txtbranch"/>'/>
-     <input type="hidden" id="txtsalid" name="txtsalid" style="width:100%;height:20px;" value='<s:property value="txtsalid"/>'/>
-     <input type="hidden" id="txtrdocno" name="txtrdocno" style="width:100%;height:20px;" value='<s:property value="txtrdocno"/>'/>
-     <input type="hidden" id="txtbrchid" name="txtbrchid" style="width:100%;height:20px;" value='<s:property value="txtbrchid"/>'/>
-     <input type="hidden" id="txtuserid" name="txtuserid" style="width:100%;height:20px;" value='<s:property value="txtuserid"/>'/>
-  
-         <input type="hidden" id="itemdocno" name="itemdocno" style="width:100%;height:20px;" value='<s:property value="itemdocno"/>'/>
-             <input type="hidden" id="costranno" name="costranno" style="width:100%;height:20px;" value='<s:property value="costranno"/>'/>
-                 <input type="hidden" id="prjname" name="prjname" style="width:100%;height:20px;" value='<s:property value="prjname"/>'/>
-                  <input type="hidden" id="contrtypes" name="contrtypes" style="width:100%;height:20px;" value='<s:property value="contrtypes"/>'/>
-     	 
-                 	 
-     
-      <input type="hidden" name="subgridlength" id="subgridlength" value='<s:property value="subgridlength"/>'>
-      <input type="hidden" name="contracttrno" id="contracttrno" value='<s:property value="contracttrno"/>'>
-      <input type="hidden" name="contractdocno" id="contractdocno" value='<s:property value="contractdocno"/>'>
-      
-        <input type="hidden" name="hideitemtype" id="hideitemtype" value='<s:property value="hideitemtype"/>'>
-       <input type="hidden" name="hidvendoracno" id="hidvendoracno">
-			  <input type="hidden" name="hidvendorcldocno" id="hidvendorcldocno">
-			  <input type="hidden" name="hidvendoraccount" id="hidvendoraccount">
-      
-      
-      <input type="hidden" id="puchasechk" name="puchasechk"/> 
-     </td></tr> 
-	 </table>
-	</fieldset>
+
+<!-- ================= LEFT SIDEBAR ================= -->
+<td width="20%">
+    <div class="master-container">
+        <div class="sidebar-filters">
+
+            <!-- Fixed Header -->
+            <div class="sidebar-fixed-top">
+                <div class="filter-card">
+                    <jsp:include page="../../heading.jsp"></jsp:include>
+                </div>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="sidebar-scroll-content">
+
+                <div class="filter-card">
+                    <table class="filter-table">
+
+                        <!-- From Date -->
+                        <tr>
+                            <td class="label-cell">From</td>
+                            <td>
+                                <div id="fromdate"
+                                     value='<s:property value="fromdate"/>'>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- To Date -->
+                        <tr>
+                            <td class="label-cell">To</td>
+                            <td>
+                                <div id="todate"
+                                     value='<s:property value="todate"/>'>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <!-- Action Buttons -->
+                <button class="btn-submit"
+                        type="button"
+                        onclick="funReserve(event);">
+                    Reserve
+                </button>
+
+                <button class="btn-submit"
+                        type="button"
+                        onclick="funPurchaseReq(event);">
+                    Purchase Request
+                </button>
+
+                <!-- Vendor Section -->
+                <div class="filter-card">
+                    <table class="filter-table">
+
+                        <tr>
+                            <td class="label-cell">Vendor</td>
+                            <td>
+                                <input type="text"
+                                       id="vendor"
+                                       name="vendor"
+                                       readonly
+                                       placeholder="Press F3 to Search"
+                                       value='<s:property value="vendor"/>'
+                                       onkeydown="getVendor(event);" />
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <button class="btn-submit"
+                        type="button"
+                        onclick="funPurchaseOrder(event);">
+                    Purchase Order
+                </button>
+
+                <!-- Hidden Fields -->
+                <input type="hidden" id="txtvendor" name="txtvendor"
+                       value='<s:property value="txtvendor"/>' />
+
+                <input type="hidden" id="txtvendorid" name="txtvendorid"
+                       value='<s:property value="txtvendorid"/>' />
+
+                <input type="hidden" id="txtdocno" name="txtdocno"
+                       value='<s:property value="txtdocno"/>' />
+
+                <input type="hidden" id="txtbranch" name="txtbranch"
+                       value='<s:property value="txtbranch"/>' />
+
+                <input type="hidden" id="txtsalid" name="txtsalid"
+                       value='<s:property value="txtsalid"/>' />
+
+                <input type="hidden" id="txtrdocno" name="txtrdocno"
+                       value='<s:property value="txtrdocno"/>' />
+
+                <input type="hidden" id="txtbrchid" name="txtbrchid"
+                       value='<s:property value="txtbrchid"/>' />
+
+                <input type="hidden" id="txtuserid" name="txtuserid"
+                       value='<s:property value="txtuserid"/>' />
+
+                <input type="hidden" id="itemdocno" name="itemdocno"
+                       value='<s:property value="itemdocno"/>' />
+
+                <input type="hidden" id="costranno" name="costranno"
+                       value='<s:property value="costranno"/>' />
+
+                <input type="hidden" id="prjname" name="prjname"
+                       value='<s:property value="prjname"/>' />
+
+                <input type="hidden" id="contrtypes" name="contrtypes"
+                       value='<s:property value="contrtypes"/>' />
+
+                <input type="hidden" name="subgridlength" id="subgridlength"
+                       value='<s:property value="subgridlength"/>' />
+
+                <input type="hidden" name="contracttrno" id="contracttrno"
+                       value='<s:property value="contracttrno"/>' />
+
+                <input type="hidden" name="contractdocno" id="contractdocno"
+                       value='<s:property value="contractdocno"/>' />
+
+                <input type="hidden" name="hideitemtype" id="hideitemtype"
+                       value='<s:property value="hideitemtype"/>' />
+
+                <input type="hidden" name="hidvendoracno" id="hidvendoracno">
+                <input type="hidden" name="hidvendorcldocno" id="hidvendorcldocno">
+                <input type="hidden" name="hidvendoraccount" id="hidvendoraccount">
+
+                <input type="hidden" id="puchasechk" name="puchasechk"/>
+
+            </div>
+        </div>
+    </div>
 </td>
-<td width="80%" class='hidden-scrollbar'>
-	<table width="100%" style=" vertical-align: top;">
-		<tr><td><div id="procFolDiv"><jsp:include page="procurementFollowupGrid.jsp"></jsp:include></div><br/></td></tr>
-		<tr><td><div id="detailDiv"><jsp:include page="procurementFollowupSubGrid.jsp"></jsp:include></div></td></tr>
-	</table>
-	</td>
+
+
+<!-- ================= RIGHT GRID AREA ================= -->
+<td width="80%">
+    <table width="100%" style="vertical-align: top;">
+
+        <tr>
+            <td>
+                <div id="procFolDiv">
+                    <jsp:include page="procurementFollowupGrid.jsp"></jsp:include>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div id="detailDiv">
+                    <jsp:include page="procurementFollowupSubGrid.jsp"></jsp:include>
+                </div>
+            </td>
+        </tr>
+
+    </table>
+</td>
+
 </tr>
 </table>
+
+<!-- Popup Windows -->
+<div id="sidesearchwndow"><div></div></div>
+<div id="servicetypewindow"><div></div></div>
+<div id="accountSearchwindow"><div></div></div>
+<div id="lastpurchasewindow"><div></div></div>
+<div id="pvendorwindow"><div></div></div>
+
 </div>
-<div id="sidesearchwndow">
-   <div ></div> 
 </div>
-<div id="servicetypewindow">
-   <div ></div>
-</div>
-  <div id="accountSearchwindow">
-	   <div ></div>
-	</div>
-	<div id="lastpurchasewindow">
-	   <div ></div>
-	</div>
-	<div id="pvendorwindow">
-	   <div ></div>
-	</div>
-</div> 
 </body>
 </html>
