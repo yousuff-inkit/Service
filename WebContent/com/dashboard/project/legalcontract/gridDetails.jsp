@@ -80,8 +80,8 @@ legalContractDAO sd=new legalContractDAO();
             );
             $("#jqxloaddataGrid").jqxGrid(
             {
-                width: '99%',
-                height: 520,
+                width: '100%',
+                height: 700,
                 source: dataAdapter,
                 columnsresize: true,
                 //pageable: true,

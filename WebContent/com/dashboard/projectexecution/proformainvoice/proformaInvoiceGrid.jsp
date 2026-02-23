@@ -62,7 +62,7 @@
             $("#jqxproinvGrid").jqxGrid(
             {
                 width: '100%',
-                height: 500,
+                height: 700,
                 source: dataAdapter,
                 columnsresize: true,
                 altRows: true,

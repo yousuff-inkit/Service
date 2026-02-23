@@ -17,7 +17,6 @@
 
 <style type="text/css">
 
-/* ===== MASTER LAYOUT ===== */
 .master-container {
     display: flex;
     width: 100%;
@@ -49,7 +48,7 @@
     padding: 15px 20px 25px;
 }
 
-/* Cards */
+
 .filter-card {
     background: #f8fafc;
     border: 1px solid #e3e8ee;
@@ -58,7 +57,7 @@
     margin-bottom: 12px;
 }
 
-/* Tables */
+
 .filter-table {
     width: 100%;
     border-spacing: 0 10px;
@@ -73,7 +72,7 @@
     width: 90px;
 }
 
-/* Inputs */
+
 input[type="text"], select {
     width: 100%;
     padding: 7px 10px;
@@ -82,7 +81,6 @@ input[type="text"], select {
     font-size: 13px;
 }
 
-/* Buttons */
 .btn-submit {
     width: 100%;
     padding: 11px;
@@ -100,7 +98,6 @@ input[type="text"], select {
     background: #1d4ed8;
 }
 
-/* Page height fix */
 html, body, #mainBG, .hidden-scrollbar {
     height: 100%;
     margin: 0;
@@ -271,134 +268,129 @@ function funreload(event)
 <div id="mainBG" class="homeContent" data-type="background">
 <div class="hidden-scrollbar">
 
-<table width="100%">
-<tr>
+<table width="100%" height="100%" style="table-layout:fixed;">
+<tr height="100%">
 
-<!-- ================= LEFT SIDEBAR (MASTER) ================= -->
+<!-- ================= LEFT SIDEBAR ================= -->
 <td width="20%" valign="top">
 
 <div class="master-container">
-    <div class="sidebar-filters">
+<div class="sidebar-filters">
 
-        <!-- Fixed Header -->
-        <div class="sidebar-fixed-top">
-            <div class="filter-card">
-                <jsp:include page="../../heading.jsp"></jsp:include>
-            </div>
-        </div>
+<!-- ===== Fixed Heading ===== -->
+<div class="sidebar-fixed-top">
+    <div class="filter-card">
+        <jsp:include page="../../heading.jsp"></jsp:include>
+    </div>
+</div>
 
-        <!-- Scrollable Filters -->
-        <div class="sidebar-scroll-content">
+<!-- ===== Scrollable Section ===== -->
+<div class="sidebar-scroll-content">
 
-            <div class="filter-card">
+    <!-- Main Filters -->
+    <div class="filter-card">
+        <table class="filter-table">
 
-                <table class="filter-table">
+            <tr>
+                <td class="label-cell">From</td>
+                <td>
+                    <div id="fromdate"
+                         value='<s:property value="fromdate"/>'></div>
+                </td>
+            </tr>
 
-                    <tr>
-                        <td class="label-cell">From</td>
-                        <td>
-                            <div id="fromdate"
-                                 name="fromdate"
-                                 value='<s:property value="fromdate"/>'>
-                            </div>
-                        </td>
-                    </tr>
+            <tr>
+                <td class="label-cell">To</td>
+                <td>
+                    <div id="todate"
+                         value='<s:property value="todate"/>'></div>
+                </td>
+            </tr>
 
-                    <tr>
-                        <td class="label-cell">To</td>
-                        <td>
-                            <div id="todate"
-                                 name="todate"
-                                 value='<s:property value="todate"/>'>
-                            </div>
-                        </td>
-                    </tr>
+            <tr>
+                <td class="label-cell">Client</td>
+                <td>
+                    <input type="text"
+                           id="client_name"
+                           name="client_name"
+                           class="filter-input"
+                           placeholder="Press F3 for Search"
+                           onkeydown="getclinfo(event);"
+                           value='<s:property value="client_name"/>'/>
+                </td>
+            </tr>
 
-                    <tr>
-                        <td class="label-cell">Client</td>
-                        <td>
-                            <input type="text"
-                                   name="client_name"
-                                   id="client_name"
-                                   style="width:100%;"
-                                   placeholder="Press F3 for Search"
-                                   onkeydown="getclinfo(event);"
-                                   value='<s:property value="client_name"/>'>
-                        </td>
-                    </tr>
+            <tr>
+                <td class="label-cell">Assign Group</td>
+                <td>
+                    <input type="text"
+                           id="txtassigngroup"
+                           name="txtassigngroup"
+                           class="filter-input"
+                           placeholder="Press F3 for Search"
+                           onkeydown="getassigngrp(event);"
+                           value='<s:property value="txtassigngroup"/>'/>
+                </td>
+            </tr>
 
-                    <tr>
-                        <td class="label-cell">Assign Group</td>
-                        <td>
-                            <input type="text"
-                                   name="txtassigngroup"
-                                   id="txtassigngroup"
-                                   style="width:100%;"
-                                   placeholder="Press F3 for Search"
-                                   onkeydown="getassigngrp(event);"
-                                   value='<s:property value="txtassigngroup"/>'>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="label-cell">Category</td>
-                        <td>
+            <tr>
+                <td class="label-cell">Category</td>
+                <td>
+                    <div class="radio-row">
+                        <label>
                             <input type="radio"
-                                   id="radio_amc"
                                    name="category"
                                    value="AMC"
-                                   checked="checked">
-                            <label>AMC</label>
+                                   checked="checked"> AMC
+                        </label>
 
-                            &nbsp;&nbsp;&nbsp;
-
+                        <label>
                             <input type="radio"
-                                   id="radio_sjob"
                                    name="category"
-                                   value="SJOB">
-                            <label>SJOB</label>
-                        </td>
-                    </tr>
+                                   value="SJOB"> SJOB
+                        </label>
+                    </div>
+                </td>
+            </tr>
 
-                </table>
+        </table>
+    </div>
 
-            </div>
-
-            <!-- Count Grid inside Sidebar -->
-            <div class="filter-card">
-                <div id="Countgrid">
-                    <jsp:include page="Countgrid.jsp"></jsp:include>
-                </div>
-            </div>
-
-            <!-- Hidden Fields -->
-            <input type="hidden" id="clientid" name="clientid"
-                   value='<s:property value="clientid"/>'>
-
-            <input type="hidden" id="assigngrpid" name="assigngrpid"
-                   value='<s:property value="assigngrpid"/>'>
-
-            <input type="hidden" id="acno" name="acno"
-                   value='<s:property value="acno"/>'>
-
+    <!-- Count Grid Section -->
+    <div class="filter-card">
+        <div id="Countgrid">
+            <jsp:include page="Countgrid.jsp"></jsp:include>
         </div>
     </div>
+
+    <!-- Hidden Fields -->
+    <input type="hidden" id="clientid" name="clientid"
+           value='<s:property value="clientid"/>'/>
+
+    <input type="hidden" id="assigngrpid" name="assigngrpid"
+           value='<s:property value="assigngrpid"/>'/>
+
+    <input type="hidden" id="acno" name="acno"
+           value='<s:property value="acno"/>'/>
+
+</div>
+</div>
 </div>
 
 </td>
 
-<!-- ================= RIGHT SIDE (UNCHANGED FULL WIDTH TABLE) ================= -->
+<!-- ================= RIGHT SIDE ================= -->
 <td width="80%" valign="top">
 
-<table width="100%">
-    <tr>
-        <td>
-            <div id="loadgriddata">
-                <jsp:include page="gridDetails.jsp"></jsp:include>
-            </div>
-        </td>
-    </tr>
-</table>
+<div class="grid-container">
+
+    <div class="filter-card">
+        <div id="loadgriddata">
+            <jsp:include page="gridDetails.jsp"></jsp:include>
+        </div>
+    </div>
+
+</div>
 
 </td>
 
@@ -407,7 +399,7 @@ function funreload(event)
 
 </div>
 
-<!-- Popups -->
+<!-- ================= POPUPS ================= -->
 <div id="clientsearch"><div></div></div>
 <div id="assigngrpwindow"><div></div></div>
 
