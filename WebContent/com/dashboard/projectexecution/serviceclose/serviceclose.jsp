@@ -1,4 +1,3 @@
-
 <jsp:include page="../../../../includes.jsp"></jsp:include>    
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%
@@ -16,61 +15,108 @@
 <%-- <script type="text/javascript" src="../../js/dashboard.js"></script> --%> 
 
 <style type="text/css">
- 
-.myButtons {
-	-moz-box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	-webkit-box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87), color-stop(1, #6c7c7c));
-	background:-moz-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-webkit-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-o-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-ms-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#768d87', endColorstr='#6c7c7c',GradientType=0);
-	background-color:#768d87;
-	border:1px solid #566963;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	
-	font-size:8pt;
-	
-	padding:3px 17px;
-	text-decoration:none;
-	text-shadow:0px -1px 0px #2b665e;
+
+.master-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f4f7f9;
 }
-.myButtons:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6c7c7c), color-stop(1, #768d87));
-	background:-moz-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-webkit-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-o-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-ms-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#768d87',GradientType=0);
-	background-color:#6c7c7c;
-}
-.myButtons:active {
-	position:relative;
-	top:1px;
+.sidebar-filters {
+    width: 330px;
+    flex: 0 0 330px;
+    background: #fff;
+    border-right: 1px solid #e1e8ed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-shadow: 2px 0 8px rgba(0,0,0,.05);
 }
 
-.bicon {
-    background-color: #ECF8E0;
-	width: 1em;
-	height: 1em;
-	border: none;
+.sidebar-fixed-top {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f4f8;
 }
 
-.branchs {
-	color: black;
-	background-color: #E0ECF8;
-	width: 100%;
-	font-family: Tahoma;
-	font-size: 10px;
+.sidebar-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 20px 25px;
+}
+
+
+.filter-card {
+    background: #f8fafc;
+    border: 1px solid #e3e8ee;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+
+.filter-table {
+    width: 100%;
+    border-spacing: 0 10px;
+}
+
+.label-cell {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4e5e71;
+    width: 90px;
+}
+input[type="text"], select {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1d4ed8;
+}
+html, body, #mainBG, .hidden-scrollbar {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+td[width="80%"] {
+    height: 100vh;
+    vertical-align: top;
+    background: #fff;
+}
+input[type="text"],
+select {
+    width: 100%;
+    height: 28px !important;   /* Slightly smaller */
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #ffffff;
 }
 
 </style>
+
 
 <script type="text/javascript">
 
@@ -285,115 +331,167 @@ $("#serCountgrid").load('serCountgrid.jsp?contracttype='+contractType+'&cldocno=
 </script>
 </head>
 <body onload="getBranch();">
-<div id="mainBG" class="homeContent" data-type="background"> 
-<div class='hidden-scrollbar'>
 
-<table width="100%" >
+<div id="mainBG" class="homeContent" data-type="background">
+<div class="hidden-scrollbar">
+
+<table width="100%">
 <tr>
-<td width="20%" >
-    <fieldset style="background: #ECF8E0;">
-	<table width="100%"  >
-	<jsp:include page="../../heading.jsp"></jsp:include>
-		
- <tr><td width="27%"  align="right" ><label class="branch">From Date</label></td><td width="73%" align="left"><div id='frmdate' name='frmdate' value='<s:property value="frmdate"/>'></div>
-                    </td></tr>
-	  <tr><td width="27%"  align="right" ><label class="branch">To Date</label></td><td width="73%" align="left"><div id='todate' name='todate' value='<s:property value="todate"/>'></div>
-                    </td></tr>
-   <tr>
-	      <td align="right"><label class="branch">Client</label></td>
-	      <td ><input style="height:19px;" type="text" name="txtclient" id="txtclient" value='<s:property value="txtclient"/>' onKeyDown="getclinfo(event);" readonly placeholder="Press F3 to Search">
-      <input type="hidden" id="clientid" name="clientid" value='<s:property value="clientid"/>'>
-      <button type="button" class="bicon" id="clear" title="clear" onclick="funClear()"> 
-							<img alt="clear" src="<%=contextPath%>/icons/clear.png">
-						</button></td>
-	      </tr>
-	      <tr><td align="right"><label class="branch">Contr.Type</label></td>
-<td ><select id="cmbreftype" name="cmbreftype" style="width:70%;"  value='<s:property value="cmbreftype"/>'>
-      <option value=""></option>
-      <option value="AMC">AMC</option>
-      <option value="SJOB">SJOB</option>
-       <option value="CREG">CREG</option>
-      </select></td></tr>
-	      <tr>
-	       <td align="right"><label class="branch">Contract No</label></td>
-    <td><input style="height:19px;" type="text" name="txtcontract" id="txtcontract" placeholder="Press F3 To Search"  onKeyDown="getcontract(event);" readonly value='<s:property value="txtcontract"/>'></td>
-	      </tr>
-	  <tr>
-	<td colspan="2" ><div id="serCountgrid"><jsp:include page="serCountgrid.jsp"></jsp:include>
-	</div></td>
-	</tr> 
-	 <tr>
-		<td colspan="2">
-		<!-- <fieldset> -->
-		<label id="test"  class="branch" style="font-family: comic sans ms;font-weight: bold;color:blue;"></label>
 
-		</td></tr>
-	</table>
-	<div id="btnid">
-	<table width="100%" >
-	      
-	       <tr>
-	     <td align="center"><input type="button" name="btnsave" class="myButton"
-						value="Update" style="width: 80px;" onclick="save();" />
-	      </td>
-	      
-	      </tr>    
-	
-	</table>
-	</div>
-	<table>
-	
-	       
-	       <tr>
-	      
-	      <td >
+<!-- ================= LEFT SIDEBAR ================= -->
+<td width="20%" valign="top">
 
-      <input type="hidden" id="trno" name="trno" value='<s:property value="trno"/>'>
-      <input type="hidden" id="schtrno" name="schtrno" value='<s:property value="schtrno"/>'>
-      <input type="hidden" id="rowindex" name="rowindex" value='<s:property value="rowindex"/>'>
-      
-      </td>
-	      </tr>  
-	      
-		
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	
-	
-	</table>
-	</fieldset>
+<div class="master-container">
+<div class="sidebar-filters">
+
+<!-- ===== Fixed Heading ===== -->
+<div class="sidebar-fixed-top">
+    <div class="filter-card">
+        <jsp:include page="../../heading.jsp"></jsp:include>
+    </div>
+</div>
+
+<!-- ===== Scrollable Section ===== -->
+<div class="sidebar-scroll-content">
+
+    <!-- Main Filters -->
+    <div class="filter-card">
+        <table class="filter-table">
+
+            <tr>
+                <td class="label-cell">From Date</td>
+                <td>
+                    <div id="frmdate"
+                         value='<s:property value="frmdate"/>'></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label-cell">To Date</td>
+                <td>
+                    <div id="todate"
+                         value='<s:property value="todate"/>'></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label-cell">Client</td>
+                <td style="display:flex; gap:5px;">
+                    <input type="text"
+                           id="txtclient"
+                           name="txtclient"
+                           class="filter-input"
+                           value='<s:property value="txtclient"/>'
+                           onkeydown="getclinfo(event);"
+                           readonly
+                           placeholder="Press F3 to Search">
+
+                    <button type="button"
+                            class="bicon"
+                            title="Clear"
+                            onclick="funClear();">
+                        <img alt="clear"
+                             src="<%=contextPath%>/icons/clear.png">
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label-cell">Contr. Type</td>
+                <td>
+                    <select id="cmbreftype"
+                            name="cmbreftype"
+                            class="filter-input">
+                        <option value=""></option>
+                        <option value="AMC">AMC</option>
+                        <option value="SJOB">SJOB</option>
+                        <option value="CREG">CREG</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label-cell">Contract No</td>
+                <td>
+                    <input type="text"
+                           id="txtcontract"
+                           name="txtcontract"
+                           class="filter-input"
+                           placeholder="Press F3 To Search"
+                           onkeydown="getcontract(event);"
+                           readonly
+                           value='<s:property value="txtcontract"/>'>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+    <!-- Count Grid -->
+    <div class="filter-card">
+        <div id="serCountgrid">
+            <jsp:include page="serCountgrid.jsp"></jsp:include>
+        </div>
+    </div>
+
+    <!-- Info Label -->
+    <div class="filter-card">
+        <label id="test"
+               class="branch"
+               style="font-weight:bold; color:blue;"></label>
+    </div>
+
+    <!-- Button Section -->
+    <div class="button-group">
+        <button type="button"
+                class="btn-submit"
+                onclick="save();">
+            Update
+        </button>
+    </div>
+
+    <!-- Hidden Fields -->
+    <input type="hidden" id="trno" name="trno"
+           value='<s:property value="trno"/>'>
+
+    <input type="hidden" id="schtrno" name="schtrno"
+           value='<s:property value="schtrno"/>'>
+
+    <input type="hidden" id="rowindex" name="rowindex"
+           value='<s:property value="rowindex"/>'>
+
+</div>
+</div>
+</div>
 
 </td>
-<td width="40">
-	<table width="100%">
-		<tr><td><div id="serschedulediv">
-				<jsp:include page="servicecloseDetails.jsp"></jsp:include> 
-			</div>
-			</td>
-			</tr>
-		
-	</table>
+
+<!-- ================= RIGHT GRID ================= -->
+<td width="80%" valign="top">
+
+<div class="grid-container">
+    <div class="filter-card">
+        <div id="serschedulediv">
+            <jsp:include page="servicecloseDetails.jsp"></jsp:include>
+        </div>
+    </div>
+</div>
+
+</td>
+
 </tr>
 </table>
+
 </div>
-<div id="clientsearch1">
-   <div ></div>
-</div> 
-<div id="grpinfowindow">
-   <div ></div>
-</div>
-<div id="teaminfowindow">
-   <div ></div>
-</div>
-<div id="assigninfowindow">
-   <div ></div>
-</div>
-<div id="areainfowindow">
-   <div ></div>
-</div>
-<div id="contractwindow">
-   <div ></div>
-</div>
+
+<!-- ================= POPUPS ================= -->
+<div id="clientsearch1"><div></div></div>
+<div id="grpinfowindow"><div></div></div>
+<div id="teaminfowindow"><div></div></div>
+<div id="assigninfowindow"><div></div></div>
+<div id="areainfowindow"><div></div></div>
+<div id="contractwindow"><div></div></div>
+
 </div>
 </body>
 </html>
