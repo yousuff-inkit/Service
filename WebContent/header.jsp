@@ -9,83 +9,101 @@
 <link rel="stylesheet" type="text/css" href="<%=contextPath%>/css/loading.css">
 <style>
 
+/* Page Reset */
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    background: #f6f8fa;
+    color: #253858;
+}
 
+/* Header Bar */
 .HeadIcons {
-    font: 12px Tahoma;
-    margin-top: 0px;
-	line-height: 30px;
-	background-color: #E0ECF8;
-	height: 27px;
-	width: 100%;
-}
-.icon {
-	width: 2.5em;
-	height: 2em;
-	border: none;
-	background-color: #E0ECF8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin: 6px;
 }
 
-label.branch{
-   font-size: 12px;
-   font-family: Tahoma;
-   font-style: normal; 
-   padding-left: 1%;
+/* Form Title */
+#formdet {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
 }
 
-label.currency{
-   font-size: 12px;
-   font-family: Tahoma;
-   font-style: normal;
-   padding-left: 1%;
+/* Action Buttons Container */
+.action-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 6px 20px;
+}
+
+/* Modern Button */
+.action-btn {
+    background: #e4e7ed;
+    border: none;
+    color: #000;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.action-btn:hover {
+    background: #cfd6e2;
+}
+
+.action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Branch & Currency Section */
+.branch-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.branch-section label {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.branch-section select,
+.branch-section input[type="text"] {
+    height: 34px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    font-size: 13px;
+}
+
+/* Messages */
+#savemsg {
+    color: #22c55e;
+    font-weight: bold;
 }
 
 #errormsg {
-  -moz-animation-duration: 1s;
-  -moz-animation-name: blink;
-  -moz-animation-iteration-count: infinite;
-  -moz-animation-direction: alternate;
-  
-  -webkit-animation-duration: 2s;
-  -webkit-animation-name: blink;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-direction: alternate;
-  
-  animation-duration: 1s;
-  animation-name: blink;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-@-moz-keyframes blink {
-  from {
-    opacity: 1;
-  }
-  
-  to {
-    opacity: 0;
-  }
-}
-
-@-webkit-keyframes blink {
-  from {
-    opacity: 1;
-  }
-  
-  to {
-    opacity: 0;
-  }
+    color: #e11d48;
+    font-weight: bold;
+    animation: blink 1s infinite alternate;
 }
 
 @keyframes blink {
-  from {
-    opacity: 1;
-  }
-  
-  to {
-    opacity: 0;
-  }
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
-button.icon:disabled { opacity: 0.5; };
+
 </style>
 <script type="text/javascript">
 var APP_PATH='<%=contextPath%>';
@@ -1468,86 +1486,131 @@ function setapprbrch(branchval){
 </script>
 
 </head>
-<body onload="funChkButton();"  onclick="getformbranch();getMessengerCount();">
-<div id="mainBG" class="homeContent" data-type="background">
-<div class="HeadIcons" id="full">
-	<font size=3px><label id="formdet" name="formdet" ></label></font> 
-						
-				<button type="button" class="icon" id="btnApproval" title="Document Status" onclick="funApproveBtn();getapprcount();" style="prop('disabled', true);" >
-							<img alt="statusDocument" src="<%=contextPath%>/icons/approve_new.png">
-</button>
-				    <button type="button" class="icon" id="btnClose" title="Close Form" onclick="funCloseBtn()">
-							<img alt="closeForm" src="<%=contextPath%>/icons/close_new.png">
-						</button>
-				    <button type="button" class="icon" id="btnCreate" title="Create a new Document" onclick="funCreateBtn()">
-							<img alt="newDocument" src="<%=contextPath%>/icons/add_new.png">
-						</button>
-					<button type="button" class="icon" id="btnEdit" title="Change current Document" onclick="funEditBtn()" >
-							<img alt="editDocument" src="<%=contextPath%>/icons/edit_new.png">
-						</button>
-					<button type="button" class="icon" id="btnPrint" title="Print current Document" onclick="funPrintBtn()">  
-							<img alt="printDocument" src="<%=contextPath%>/icons/print_new.png">
-						</button>
-					<button type="button" class="icon" id="btnExcel" title="Export current Document to Excel" onclick="funExcelBtn()">
-							<img alt="excelDocument" src="<%=contextPath%>/icons/excel_new.png">
-						</button>
-					<button class="icon" id="btnDelete" title="Delete current Document" >
-							<img alt="deleteDocument" src="<%=contextPath%>/icons/delete_new.png">
-						</button>
-						
-		 			<button class="icon" id="btnSave" title="Save Changes" hidden="true">
-							<img alt="saveChanges" src="<%=contextPath%>/icons/save_new.png">
-						</button>
-						
-					<button type="button" class="icon" id="btnCancel" title="Cancel Changes"  onclick="funCancelBtn()" hidden="true">
-							<img alt="cancelChanges" src="<%=contextPath%>/icons/cancel_new.png">
-						</button>
-						
-					<button type="button" class="icon" id="btnSearch" title="Search a Document" onclick="funSearchBtn()">
-							<img alt="searchDocument" src="<%=contextPath%>/icons/search_new.png">
-						</button>
-						
-					<button type="button" class="icon" type="button" id="btnAttach" title="Attachment" onclick="funAttachBtn()">
-							<img alt="Attachment" src="<%=contextPath%>/icons/attachment_new.png">
-						</button>
-					
-					<button type="button" class="icon" type="button" id="btnCosting" title="Costing" onclick="funCostingBtn()">
-							<img alt="Costing" src="<%=contextPath%>/icons/costtype.png">
-					</button>	
-					
-					<button type="button" class="icon" id="btnGuideLine" title="Guideline" onclick="funGuideLineBtn()">
-							<img alt="Guideline" src="<%=contextPath%>/icons/guideline.png">
-					</button>
+<body onload="funChkButton();" onclick="getformbranch();getMessengerCount();">
 
-					<button type="button" class="icon" id="btnSendmail" title="Send Document to Client" onclick="funSendMail()">
-							<img alt="Sendmail" src="<%=contextPath%>/icons/mail_new.png">
-					</button>
-					
-					<button type="button" class="icon" id="btnTerms" title="Terms and Conditions" onclick="funTermsCond()">
-							<img alt="Terms" src="<%=contextPath%>/icons/tndc.png">
-					</button>
-						
-			<label class="branch">Branch&nbsp;&nbsp;</label>
-			<select name="brchName" id="brchName" onChange="getCurr(this.value)">
-			</select>
-			<input type="text" name="brchNames" id="brchNames" readonly="readonly" value='<s:property value="brchNames"/>' />	
-       <label class="currency">Currency&nbsp;&nbsp;</label><select name="currency" id="currency" onchange="getCurrencyType(this.value);" >
-					</select>
-					<input type="text" name="currencys" id="currencys" readonly="readonly" value='<s:property value="currencys"/>' />
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<label id="savemsg" name="savemsg" style="color:green;font-weight:bold;"></label>
-					<label id="errormsg" name="errormsg" style="color:red;font-weight:bold;"><s:property value="errormsg"/></label>
-		<input type="hidden" id="status" />
-		<input type="hidden" id="apprstatus" />
-		<input type="hidden" id="isfirstappr" />
-		<input type="hidden" name="formdetail" id="formdetail" value='<s:property value="formdetail"/>' />
-		<input type="hidden" name="formdetailcode" id="formdetailcode" value='<s:property value="formdetailcode"/>' />
-		<input type="hidden" name="chkstatus" id="chkstatus" value='<s:property value="chkstatus"/>' />
-		<input type="hidden" id="termstatus" />
-	<!-- 	If Add=1,Edit=2 -->
-		</div>
-</div>	
-	
+<div id="mainBG" class="homeContent">
+
+    <!-- HEADER SECTION -->
+    <div class="HeadIcons" id="full">
+
+        <!-- FORM TITLE -->
+        <label id="formdet" name="formdet"></label>
+
+        <!-- BRANCH + CURRENCY SECTION -->
+        <div class="branch-section">
+
+            <label class="branch">Branch</label>
+            <select name="brchName" id="brchName" onChange="getCurr(this.value)"></select>
+            <input type="text" name="brchNames" id="brchNames"
+                   readonly value='<s:property value="brchNames"/>' />
+
+            <label class="currency">Currency</label>
+            <select name="currency" id="currency"
+                    onchange="getCurrencyType(this.value);"></select>
+            <input type="text" name="currencys" id="currencys"
+                   readonly value='<s:property value="currencys"/>' />
+
+            <label id="savemsg" style="color:#22c55e;font-weight:bold;"></label>
+            <label id="errormsg" style="color:#e11d48;font-weight:bold;">
+                <s:property value="errormsg"/>
+            </label>
+
+        </div>
+    </div>
+
+    <!-- ACTION BUTTON BAR -->
+    <div class="action-bar">
+
+        <button type="button" class="icon action-btn" id="btnApproval"
+                onclick="funApproveBtn();getapprcount();">
+            Approval
+        </button>
+
+        <button type="button" class="icon action-btn" id="btnClose"
+                onclick="funCloseBtn()">
+            Close
+        </button>
+
+        <button type="button" class="icon action-btn" id="btnCreate"
+                onclick="funCreateBtn()">
+            Create
+        </button>
+
+        <button type="button" class="icon action-btn" id="btnEdit"
+                onclick="funEditBtn()">
+            Edit
+        </button>
+
+        <button type="button" class="icon action-btn" id="btnPrint"
+                onclick="funPrintBtn()">
+            Print
+        </button>
+
+        <button type="button" class="icon action-btn" id="btnExcel"
+                onclick="funExcelBtn()">
+            Excel
+        </button>
+
+        <button type="button" class="icon action-btn" id="btnDelete"
+                onclick="funDeleteBtn()">
+            Delete
+        </button>
+
+        <button type="button" class="icon action-btn" id="btnSave"
+                onclick="funSaveBtn()" hidden>
+            Save
+        </button>
+
+        <button type="button" class="icon action-btn" id="btnCancel"
+                onclick="funCancelBtn()" hidden>
+            Cancel
+        </button>
+
+        <button type="button" class="icon action-btn" id="btnSearch"
+                onclick="funSearchBtn()">
+            Search
+        </button>
+
+        <button type="button" class="icon action-btn" id="btnAttach"
+                onclick="funAttachBtn()">
+            Attach
+        </button>
+
+        <button type="button" class="icon action-btn" id="btnCosting"
+                onclick="funCostingBtn()">
+            Costing
+        </button>
+
+        <button type="button" class="icon action-btn" id="btnGuideLine"
+                onclick="funGuideLineBtn()">
+            Guideline
+        </button>
+
+        <button type="button" class="icon action-btn" id="btnSendmail"
+                onclick="funSendMail()">
+            Send Mail
+        </button>
+
+        <button type="button" class="icon action-btn" id="btnTerms"
+                onclick="funTermsCond()">
+            Terms
+        </button>
+
+    </div>
+
+    <!-- HIDDEN FIELDS (UNCHANGED) -->
+    <input type="hidden" id="status" />
+    <input type="hidden" id="apprstatus" />
+    <input type="hidden" id="isfirstappr" />
+    <input type="hidden" name="formdetail" id="formdetail"
+           value='<s:property value="formdetail"/>' />
+    <input type="hidden" name="formdetailcode" id="formdetailcode"
+           value='<s:property value="formdetailcode"/>' />
+    <input type="hidden" name="chkstatus" id="chkstatus"
+           value='<s:property value="chkstatus"/>' />
+    <input type="hidden" id="termstatus" />
+
+</div>
 
 </body>
 </html>

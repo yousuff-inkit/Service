@@ -14,8 +14,7 @@
 <link href="../../../../css/dashboard.css" media="screen" rel="stylesheet" type="text/css" />  
 <%-- <script type="text/javascript" src="../../js/dashboard.js"></script> --%> 
 
-<style type="text/css">
-
+<style>
 .master-container {
     display: flex;
     width: 100%;
@@ -320,126 +319,112 @@ function funRadio()
 <div class="master-container">
 <div class="sidebar-filters">
 
-<!-- ===== Fixed Header ===== -->
+<!-- Fixed Heading -->
 <div class="sidebar-fixed-top">
     <div class="filter-card">
         <jsp:include page="../../heading.jsp"></jsp:include>
     </div>
 </div>
 
-<!-- ===== Scrollable Section ===== -->
+<!-- Scrollable Content -->
 <div class="sidebar-scroll-content">
 
-    <!-- Date Filters -->
-    <div class="filter-card">
-        <table class="filter-table">
+<!-- Filter Section -->
+<div class="filter-card">
+<table class="filter-table">
 
-            <tr>
-                <td class="label-cell">From</td>
-                <td>
-                    <div id="fromdate"
-                         value='<s:property value="fromdate"/>'></div>
-                </td>
-            </tr>
+<tr>
+<td class="label-cell">From</td>
+<td>
+<div id="fromdate" value='<s:property value="fromdate"/>'></div>
+</td>
+</tr>
 
-            <tr>
-                <td class="label-cell">To</td>
-                <td>
-                    <div id="todate"
-                         value='<s:property value="todate"/>'></div>
-                </td>
-            </tr>
+<tr>
+<td class="label-cell">To</td>
+<td>
+<div id="todate" value='<s:property value="todate"/>'></div>
+</td>
+</tr>
 
-            <tr>
-                <td class="label-cell">Category</td>
-                <td class="radio-row">
-                    <label>
-                        <input type="radio"
-                               id="radio_tobeclose"
-                               name="category"
-                               value="TC"
-                               onclick="funRadio(this);"
-                               checked> To Be Closed
-                    </label>
+<tr>
+<td class="label-cell">Close</td>
+<td>
+<label>
+<input type="radio" id="radio_tobeclose"
+       name="category"
+       value="TC"
+       onclick="funRadio(this);"
+       checked>
+To Be Closed
+</label>
+&nbsp;&nbsp;
+<label>
+<input type="radio" id="radio_closedlist"
+       name="category"
+       value="CL"
+       onclick="funRadio(this);">
+Closed List
+</label>
+</td>
+</tr>
 
-                    <label>
-                        <input type="radio"
-                               id="radio_closedlist"
-                               name="category"
-                               value="CL"
-                               onclick="funRadio(this);"> Closed List
-                    </label>
-                </td>
-            </tr>
+<tr>
+<td class="label-cell">Close On</td>
+<td>
+<div id="closedate" value='<s:property value="closedate"/>'></div>
+</td>
+</tr>
 
-        </table>
-    </div>
+<tr>
+<td class="label-cell">Info</td>
+<td>
+<textarea id="info"
+          name="info"
+          class="filter-input"
+          style="height:80px; resize:none;"
+          readonly><s:property value="info"/></textarea>
+</td>
+</tr>
 
-    <!-- Close Details -->
-    <div class="filter-card">
-        <table class="filter-table">
+<tr>
+<td class="label-cell">Remarks</td>
+<td>
+<input type="text"
+       id="remarks"
+       name="remarks"
+       class="filter-input"
+       value='<s:property value="remarks"/>'>
+</td>
+</tr>
 
-            <tr>
-                <td class="label-cell">Close On</td>
-                <td>
-                    <div id="closedate"
-                         value='<s:property value="closedate"/>'></div>
-                </td>
-            </tr>
+</table>
+</div>
 
-            <tr>
-                <td class="label-cell">Info</td>
-                <td>
-                    <textarea id="info"
-                              name="info"
-                              class="filter-input"
-                              style="height:80px; resize:none;"
-                              readonly>
-<s:property value="info"/>
-                    </textarea>
-                </td>
-            </tr>
+<!-- Buttons -->
+<div class="button-group">
+<button type="button"
+        class="btn-submit"
+        onclick="funClearData();">
+    Clear
+</button>
 
-            <tr>
-                <td class="label-cell">Remarks</td>
-                <td>
-                    <input type="text"
-                           id="remarks"
-                           name="remarks"
-                           class="filter-input"
-                           value='<s:property value="remarks"/>'>
-                </td>
-            </tr>
+<button type="button"
+        class="btn-submit"
+        onclick="funUpdate(event);">
+    Update
+</button>
+</div>
 
-        </table>
-    </div>
+<!-- Hidden Fields -->
+<input type="hidden" id="doc" name="doc"
+       value='<s:property value="doc"/>'>
 
-    <!-- Buttons -->
-    <div class="button-group">
+<input type="hidden" id="dtyp" name="dtyp"
+       value='<s:property value="dtyp"/>'>
 
-        <button type="button"
-                class="btn-submit"
-                onclick="funClearData();">
-            Clear
-        </button>
-
-        <button type="button"
-                class="btn-submit"
-                onclick="funUpdate(event);">
-            Update
-        </button>
-
-    </div>
-
-    <!-- Hidden Fields -->
-    <input type="hidden" id="doc" name="doc"
-           value='<s:property value="doc"/>'>
-
-    <input type="hidden" id="dtyp" name="dtyp"
-           value='<s:property value="dtyp"/>'>
-
-    <input type="hidden" id="trno" name="trno"
-           value='<s:property value="trno"/>'>
+<input type="hidden" id="trno" name="trno"
+       value='<s:property value="trno"/>'>
 
 </div>
 </div>
