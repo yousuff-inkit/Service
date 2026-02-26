@@ -12,8 +12,148 @@
 <style>
 <link href="<%=contextPath%>/css/body.css" media="screen" rel="stylesheet" type="text/css" />
 
+#search {
+    background-color: #ffffff;
+    padding: 8px;
+}
 
 
+#search table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 15px 12px;
+}
+
+
+#search td[align="right"] {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #222;
+    white-space: nowrap;
+}
+
+
+#search input[type="text"] {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+
+    padding: 6px 10px;
+    height: 34px;
+    width: 100%;
+
+    box-sizing: border-box;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+#search input[type="text"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+
+#search .myButton {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+
+    background-color: #007bff;
+    color: #ffffff;
+
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#search .myButton:hover {
+    background-color: #007bff;
+}
+
+/* Result grid spacing */
+#refreshdiv {
+    margin-top: 10px;
+}
+.search-popup {
+    padding: 14px;
+}
+
+
+.search-form {
+    width: 100%;
+    border-spacing: 18px 12px;
+}
+
+
+.search-form .label {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #222;
+    white-space: nowrap;
+    text-align: right;
+}
+
+
+.search-form .field {
+    width: 28%;
+}
+
+
+.search-form .action {
+    text-align: center;
+    width: 12%;
+}
+
+.search-grid {
+    margin-top: 14px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    background: #ffffff;
+    padding: 6px;
+}
+.myButtons {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    background-color: #007bff;   /* BLUE */
+    color: #ffffff;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+
+.myButtons:hover {
+    background-color: #007bff;
+}
+.blueButton {
+    background: linear-gradient(to bottom, #2196F3, #1976D2);
+    color: #ffffff;
+    border: 1px solid #1565C0;
+    padding: 6px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.blueButton:hover {
+    background: linear-gradient(to bottom, #42A5F5, #1E88E5);
+}
+
+.blueButton:active {
+    background: #1565C0;
+    transform: scale(0.98);
+}
 
 </style>
 
@@ -41,44 +181,85 @@
 		}
 
 	</script>
-<body bgcolor="#E0ECF8">
-<div id=search>
-<table width="100%" >
-  <tr>
-   <td>                         
-   <table>
-   <tr>
-   <td align="right"><label class="branchs">Contract No</label></td>
-    <td align="left" width="2%" ><input type="text" name="contno" id="contno" style="height:120%;" value='<s:property value="contno"/>'></td>
-    <td align="right" ><label class="branchs">Client</label></td>
-    <td align="left" width="55%" ><input type="text" name="Cl_names" id="Cl_names" style="height:120%;" style="width:96.5%;" value='<s:property value="Cl_names"/>'></td>
-    <td align="right" width="12%" ><label class="branchs">Contract Type</label></td>
-      <td align="left" width="35%" ><select  name="invtype" id="invtype" style="width:80%;" style="height:120%;"  value='<s:property value="invtype"/>' >
-  <option value="">----select----</option>
-  <option value="AMC">AMC</option>
-  <option value="SJOB">SJOB</option>
-   </select></td>
-      </tr>
-      
-       <tr>
-        <td><input type="button" name="invbtnrasearch" id="invbtnrasearch" class="myButton" value="Search"  onclick="invloadSearch1()"></td>
-    </tr>
-      
-    </table>
-    </td>
-</tr>
+<body style="background: transparent;">
+
+<div id="search">
+
+<table width="100%" cellpadding="8">
 
   <tr>
-    <td colspan="8" align="right">
-    
-    <div id="refreshdivmas">
-      
-   <jsp:include  page="contractsubMastersearch.jsp"></jsp:include> 
-   
-   </div>
+    <td>
+
+      <table width="100%" cellpadding="6">
+
+        <tr>
+          <!-- Contract No -->
+          <td width="12%" align="right">
+            <label class="branchs">Contract No</label>
+          </td>
+          <td width="18%">
+            <input type="text"
+                   name="contno"
+                   id="contno"
+                   style="width:100%; height:24px;"
+                   value='<s:property value="contno"/>'>
+          </td>
+
+          <!-- Client -->
+          <td width="10%" align="right">
+            <label class="branchs">Client</label>
+          </td>
+          <td width="30%">
+            <input type="text"
+                   name="Cl_names"
+                   id="Cl_names"
+                   style="width:100%; height:24px;"
+                   value='<s:property value="Cl_names"/>'>
+          </td>
+
+          <!-- Contract Type -->
+          <td width="12%" align="right">
+            <label class="branchs">Contract Type</label>
+          </td>
+          <td width="18%">
+            <select name="invtype"
+                    id="invtype"
+                    style="width:100%; height:26px;">
+              <option value="">----select----</option>
+              <option value="AMC">AMC</option>
+              <option value="SJOB">SJOB</option>
+            </select>
+          </td>
+
+          <!-- Search Button -->
+          <td width="10%" align="center">
+            <input type="button"
+                   name="invbtnrasearch"
+                   id="invbtnrasearch"
+                   class="blueButton"
+                   value="Search"
+                   onclick="invloadSearch1()">
+          </td>
+
+        </tr>
+
+      </table>
+
     </td>
   </tr>
+
+  <!-- Grid -->
+  <tr>
+    <td>
+      <div id="refreshdivmas">
+        <jsp:include page="contractsubMastersearch.jsp"></jsp:include>
+      </div>
+    </td>
+  </tr>
+
 </table>
-  </div>
+
+</div>
+
 </body>
 </html>

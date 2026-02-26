@@ -10,28 +10,108 @@
 <link href="../../../../css/dashboard.css" media="screen" rel="stylesheet" type="text/css" />  
 
 
-<style type="text/css">
+<style>
+.master-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f4f7f9;
+}
+.sidebar-filters {
+    width: 330px;
+    flex: 0 0 330px;
+    background: #fff;
+    border-right: 1px solid #e1e8ed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-shadow: 2px 0 8px rgba(0,0,0,.05);
+}
+
+.sidebar-fixed-top {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f4f8;
+}
+
+.sidebar-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 20px 25px;
+}
 
 
-.textbox {
-    border: 0;
-    height: 25px;
-    width: 20%;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    box-shadow: 1px 1px 0 0 #E0ECF8, 5px 5px 40px 2px #E0ECF8 inset;
-    -moz-box-shadow: 1px 1px 0 0 #E0ECF8, 5px 5px 40px 2px #E0ECF8 inset;
-    -webkit-box-shadow: 1px 1px 0 0 #E0ECF8, 5px 5px 40px 2px #E0ECF8 inset;
-    -webkit-background-clip: padding-box;
-    outline: 0;
+.filter-card {
+    background: #f8fafc;
+    border: 1px solid #e3e8ee;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
 }
-.hidden-scrollbar {
-    overflow: auto;
-    
-    height: 550px;
+
+
+.filter-table {
+    width: 100%;
+    border-spacing: 0 10px;
 }
+
+.label-cell {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4e5e71;
+    width: 90px;
+}
+input[type="text"], select {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1d4ed8;
+}
+html, body, #mainBG, .hidden-scrollbar {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+td[width="80%"] {
+    height: 100vh;
+    vertical-align: top;
+    background: #fff;
+}
+input[type="text"],
+select {
+    width: 100%;
+    height: 28px !important;   /* Slightly smaller */
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
 </style>
+
 
 <script type="text/javascript">
 
@@ -328,96 +408,196 @@
 </script>
 </head>
 <body onload="getBranch();getProcess();disable();followupcheck();setValues();">
+
 <form id="frmprocfol" action="savePFdetails" method="post" autocomplete="off">
-<div id="mainBG" class="homeContent" data-type="background"> 
-<div class='hidden-scrollbar'>
-<table width="100%" >
+
+<div id="mainBG" class="homeContent" data-type="background">
+<div class="hidden-scrollbar">
+
+<table width="100%">
 <tr>
-<td width="20%" >
-    <fieldset style="background: #ECF8E0;">
-	<table width="100%"  >
-	<jsp:include page="../../heading.jsp"></jsp:include>
-	<tr><td colspan="2"></td></tr>
-	 <tr><td  align="right" ><label class="branch">From</label></td><td align="left"><div id='fromdate' name='fromdate' value='<s:property value="fromdate"/>'></div>
-                    </td></tr>
-                     <tr><td  align="right" ><label class="branch">To</label></td><td align="left"><div id='todate' name='todate' value='<s:property value="todate"/>'></div>
-                    </td></tr>                 
-	 
-     <tr><td colspan="2"><input type="checkbox" id="chckfollowup" name="chckfollowup" value="" onchange="followupcheck();" onclick="$(this).attr('value', this.checked ? 1 : 0)" /> 
-                                 <input type="hidden" id="hidchckfollowup" name="hidchckfollowup" value='<s:property value="hidchckfollowup"/>'/></td></tr>
-     <tr><td align="right"><label class="branch">FollowUp</label></td>
-     <td align="left"><div id="followupdate" name="followupdate" value='<s:property value="followupdate"/>'></div></td></tr>
-     
-	 <tr><td colspan="2">&nbsp;</td></tr> 
-	  <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td align="right"><label class="branch">Process</label></td>
-	  <td align="left"><select name="cmbprocess" id="cmbprocess" style="width:40%;" name="cmbprocess"  value='<s:property value="cmbprocess"/>'></select></td></tr>
-	 
-	
-	 <tr><td align="right"><label class="branch">Date</label></td>
-     <td align="left"><div id="date" name="date" value='<s:property value="date"/>'></div></td></tr>
-     <tr><td align="right"><label class="branch">Remarks</label></td>
-	 <td align="left"><input type="text" id="txtremarks" name="txtremarks" style="width:100%;height:20px;" value='<s:property value="txtremarks"/>'/></td></tr>
-	 <tr><td colspan="2"></td></tr>
-	 <tr><td colspan="2" align="center"><button class="myButton" type="button" id="btnupdate" name="btnupdate" onclick="funUpdate(event);">Update</button></td></tr>
-	 <tr><td colspan="2">
-	 	<input type="text" name="gridtext" id="gridtext" style="width:0%;height:0%;"  class="textbox"  value='<s:property value="gridtext"/>'  />   
-  
-    <input type="text" name="gridtext1" id="gridtext1" style="width:0%;height:0%;"  class="textbox"  value='<s:property value="gridtext1"/>' />
-	 </td></tr>
-	<tr><td colspan="2"></td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	  <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	 <tr><td colspan="2"></td></tr>
-	 <tr><td colspan="2">
-	 <input type="hidden" id="txtdocno" name="txtdocno" style="width:100%;height:20px;" value='<s:property value="txtdocno"/>'/>
-     <input type="hidden" id="txtbranch" name="txtbranch" style="width:100%;height:20px;" value='<s:property value="txtbranch"/>'/>
-     <input type="hidden" id="txtsalid" name="txtsalid" style="width:100%;height:20px;" value='<s:property value="txtsalid"/>'/>
-     <input type="hidden" id="txtrdocno" name="txtrdocno" style="width:100%;height:20px;" value='<s:property value="txtrdocno"/>'/>
-     <input type="hidden" id="txtbrchid" name="txtbrchid" style="width:100%;height:20px;" value='<s:property value="txtbrchid"/>'/>
-     <input type="hidden" id="txtuserid" name="txtuserid" style="width:100%;height:20px;" value='<s:property value="txtuserid"/>'/>
-     <input type="hidden" id="txtnettotal" name="txtnettotal" style="width:100%;height:20px;" value='<s:property value="txtnettotal"/>'/> 
-     <input type="hidden" id="txtmatotal" name="txtmatotal" style="width:100%;height:20px;" value='<s:property value="txtmatotal"/>'/> 
-       <input type="hidden" id="hidsurtrno" name="hidsurtrno" value='<s:property value="hidsurtrno"/>' />
-  <input type="hidden" id="hidenqtrno" name="hidenqtrno" value='<s:property value="hidenqtrno"/>' />
-  <input type="hidden" id="estimationgrdlen" name="estimationgrdlen" style="width:100%;height:20px;" value='<s:property value="estimationgrdlen"/>'/>
-  
-  
-  <input type="hidden" id="hidcontracttrno" name="hidcontracttrno" value='<s:property value="hidcontracttrno"/>' />
-  <input type="hidden" id="productchk" name="productchk"  value='<s:property value="productchk"/>' />  
- 
-     </td></tr> 
-	 </table>
-	</fieldset>
+
+<!-- ================= LEFT SIDEBAR ================= -->
+<td width="20%" valign="top">
+
+<div class="master-container">
+<div class="sidebar-filters">
+
+<!-- ===== Fixed Header ===== -->
+<div class="sidebar-fixed-top">
+    <div class="filter-card">
+        <jsp:include page="../../heading.jsp"></jsp:include>
+    </div>
+</div>
+
+<!-- ===== Scrollable Filters ===== -->
+<div class="sidebar-scroll-content">
+
+<div class="filter-card">
+<table class="filter-table">
+
+<tr>
+<td class="label-cell">From</td>
+<td>
+    <div id="fromdate"
+         value='<s:property value="fromdate"/>'></div>
 </td>
-<td width="80%" class='hidden-scrollbar'> 
-	<table width="100%">
-		<tr><td><div id="engConfirmDiv"><jsp:include page="engineeringConfirmationGrid.jsp"></jsp:include></div><br/></td></tr>
-		<tr><td><div id="EstDiv"><jsp:include page="EstDetailGrid.jsp"></jsp:include></div><br/></td></tr>
-		<tr><td><div id="detailDiv"><jsp:include page="engineeringConfirmationSubGrid.jsp"></jsp:include></div></td></tr>
-	</table>
-	</td>
 </tr>
+
+<tr>
+<td class="label-cell">To</td>
+<td>
+    <div id="todate"
+         value='<s:property value="todate"/>'></div>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">
+    <input type="checkbox"
+           id="chckfollowup"
+           name="chckfollowup"
+           onchange="followupcheck();"
+           onclick="$(this).attr('value', this.checked ? 1 : 0)">
+</td>
+<td>
+    <div id="followupdate"
+         value='<s:property value="followupdate"/>'></div>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Process</td>
+<td>
+    <select id="cmbprocess"
+            name="cmbprocess"
+            class="filter-input">
+    </select>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Date</td>
+<td>
+    <div id="date"
+         value='<s:property value="date"/>'></div>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Remarks</td>
+<td>
+    <input type="text"
+           id="txtremarks"
+           name="txtremarks"
+           class="filter-input"
+           value='<s:property value="txtremarks"/>'/>
+</td>
+</tr>
+
 </table>
 </div>
-<div id="sidesearchwndow">
-   <div ></div> 
+
+<!-- ===== Update Button ===== -->
+<div class="button-group">
+    <button type="button"
+            class="btn-submit"
+            id="btnupdate"
+            onclick="funUpdate(event);">
+        Update
+    </button>
 </div>
-<div id="servicetypewindow">
-   <div ></div>
+
+<!-- ===== Hidden Fields ===== -->
+<input type="hidden" id="gridtext" name="gridtext"
+       value='<s:property value="gridtext"/>'/>
+
+<input type="hidden" id="gridtext1" name="gridtext1"
+       value='<s:property value="gridtext1"/>'/>
+
+<input type="hidden" id="txtdocno" name="txtdocno"
+       value='<s:property value="txtdocno"/>'/>
+
+<input type="hidden" id="txtbranch" name="txtbranch"
+       value='<s:property value="txtbranch"/>'/>
+
+<input type="hidden" id="txtsalid" name="txtsalid"
+       value='<s:property value="txtsalid"/>'/>
+
+<input type="hidden" id="txtrdocno" name="txtrdocno"
+       value='<s:property value="txtrdocno"/>'/>
+
+<input type="hidden" id="txtbrchid" name="txtbrchid"
+       value='<s:property value="txtbrchid"/>'/>
+
+<input type="hidden" id="txtuserid" name="txtuserid"
+       value='<s:property value="txtuserid"/>'/>
+
+<input type="hidden" id="txtnettotal" name="txtnettotal"
+       value='<s:property value="txtnettotal"/>'/>
+
+<input type="hidden" id="txtmatotal" name="txtmatotal"
+       value='<s:property value="txtmatotal"/>'/>
+
+<input type="hidden" id="hidsurtrno" name="hidsurtrno"
+       value='<s:property value="hidsurtrno"/>'/>
+
+<input type="hidden" id="hidenqtrno" name="hidenqtrno"
+       value='<s:property value="hidenqtrno"/>'/>
+
+<input type="hidden" id="estimationgrdlen" name="estimationgrdlen"
+       value='<s:property value="estimationgrdlen"/>'/>
+
+<input type="hidden" id="hidcontracttrno" name="hidcontracttrno"
+       value='<s:property value="hidcontracttrno"/>'/>
+
+<input type="hidden" id="productchk" name="productchk"
+       value='<s:property value="productchk"/>'/>
+
 </div>
-<div id="sitewindow">
-   <div ></div>
 </div>
-</div> 
+</div>
+
+</td>
+
+<!-- ================= RIGHT SIDE ================= -->
+<td width="80%" valign="top">
+
+<div class="grid-container">
+
+<div class="filter-card">
+    <div id="engConfirmDiv">
+        <jsp:include page="engineeringConfirmationGrid.jsp"></jsp:include>
+    </div>
+</div>
+
+<div class="filter-card">
+    <div id="EstDiv">
+        <jsp:include page="EstDetailGrid.jsp"></jsp:include>
+    </div>
+</div>
+
+<div class="filter-card">
+    <div id="detailDiv">
+        <jsp:include page="engineeringConfirmationSubGrid.jsp"></jsp:include>
+    </div>
+</div>
+
+</div>
+
+</td>
+
+</tr>
+</table>
+
+</div>
+
+<div id="sidesearchwndow"><div></div></div>
+<div id="servicetypewindow"><div></div></div>
+<div id="sitewindow"><div></div></div>
+
+</div>
+
 </form>
 </body>
 </html>
