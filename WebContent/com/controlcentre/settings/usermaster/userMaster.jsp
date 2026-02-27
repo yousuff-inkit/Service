@@ -8,9 +8,185 @@
 <title>GatewayERP(i)</title>
 <jsp:include page="../../../../includes.jsp"></jsp:include>
 <style type="text/css">
-form label.error {
-color:red;
-  font-weight:bold;
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    font-family: 'Segoe UI', sans-serif;
+    background: #eef1f5;
+    color: #2d3748;
+}
+
+/* Thin modern scrollbar */
+body::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+#mainBG {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 18px 25px 25px 25px; /* Reduced top padding */
+    margin: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+}
+
+/* Remove unwanted gap after header include */
+#mainBG > br {
+    display: none;
+}
+
+.page-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 10px 0 15px 0; /* Reduced spacing */
+    color: #2d3748;
+}
+
+
+.toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.toolbar button {
+    background: #f1f3f6;
+    border: none;
+    padding: 7px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.toolbar button:hover {
+    background: #e2e6ea;
+}
+
+
+.section-card {
+    background: #f5f7fa;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    padding-left: 10px;
+    border-left: 4px solid #1e88e5;
+    color: #2d3748;
+}
+
+.two-column {
+    display: flex;
+    gap: 20px;
+}
+
+.section-half {
+    flex: 1;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 140px 1fr;
+    gap: 15px;
+    margin-bottom: 14px;
+    align-items: center;
+}
+
+.form-row.single {
+    grid-template-columns: 140px 1fr;
+}
+
+
+input[type="text"],
+select {
+    height: 34px;
+    border: 1px solid #d8dee9;
+    border-radius: 8px;
+    padding: 6px 12px;
+    background: #ffffff;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: 0.2s ease;
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: #1e88e5;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(30,136,229,0.15);
+}
+
+label {
+    font-weight: 600;
+    font-size: 13px;
+    color: #4a5568;
+}
+
+.table-section {
+    margin-top: 25px;
+}
+
+.table-title {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.cr-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px #e3e8ef;
+}
+
+.cr-table th {
+    background: #f1f3f6;
+    padding: 10px;
+    font-size: 13px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.cr-table td {
+    padding: 10px;
+    border-bottom: 1px solid #edf2f7;
+    font-size: 13px;
+}
+
+.cr-table tr:last-child td {
+    border-bottom: none;
+}
+
+
+input[type="checkbox"] {
+    transform: scale(1.05);
+    margin-right: 6px;
+}
+
+@media (max-width: 1024px) {
+
+    .two-column {
+        flex-direction: column;
+    }
+
+    .form-row {
+        grid-template-columns: 140px 1fr;
+    }
 
 }
 </style>
@@ -429,106 +605,199 @@ color:red;
   </script>
 </head>
 <body onload="setValues();getLang();">
-<div id="mainBG" class="homeContent" data-type="background">
-<form id="frmUserMaster" action="saveUserMaster" autocomplete="off">
-<jsp:include page="../../../../header.jsp"></jsp:include>
-<fieldset><legend>User Master Info</legend>
-<table width="100%" >
-  <tr>
-    <td width="6%" align="right">Date</td>
-    <td colspan="4"><div id='jqxUserMasterDate' name='jqxUserMasterDate' value='<s:property value="jqxUserMasterDate"/>'></div>
-                   <input type="hidden" id="hidjqxUserMasterDate" name="hidjqxUserMasterDate" value='<s:property value="hidjqxUserMasterDate"/>'/></td>
-    <td width="16%" align="right"></td>
-    
-    <td width="44%" align="center" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    Doc No <input type="text" id="docno" name="docno" style="width:23%;"  tabindex=-1; value='<s:property value="docno"/>'/></td>
-  </tr>
-  <tr>
-    <td align="right">User ID</td>  
-    <td width="16%"><input type="text" id="txtuser" name="txtuser" style="width:50%;" placeholder="Enter user ID" value='<s:property value="txtuser"/>' onblur="checkUserid()"/></td>
-    <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    User Name &nbsp;<input type="text" id="txtusername" name="txtusername" placeholder="Enter user Name" style="width:60%;" value='<s:property value="txtusername"/>' onblur="checkUsername()"/>
-  </td>
-<!--     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-    <%--  <td>&nbsp;Discount Level&nbsp;<select id="levels" name="levels" style="width:25%;" value='<s:property value="levels"/>' >    
-     <option value="" >--Select--</option> 
-      <option value=1>Level 1</option>
-       <option value=2>Level 2 </option>
-        <option value=3>Level 3</option>
-        
-       </select>
-    
-    </td>  --%>  
-  </tr>
-  <tr>
-    <td align="right">Role</td>
-          <td colspan="4"><input type="text" id="txtbrole" name="txtbrole"  style="width:58%;" placeholder="Press F3 to Search" value='<s:property value="txtbrole"/>' placeholder="Press F3 to Search"  onkeydown="getURole(event);" />
-         <input type="hidden" id="txtroleid" name="txtroleid" value='<s:property value="txtroleid"/>'/></td>
-    <td align="right">&nbsp;</td>
-    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Language&nbsp;<select id="cmblanguage" name="cmblanguage" style="width:25%;" value='<s:property value="cmblanguage"/>' >    
-     <%--  <option value="-1">--Select--</option> --%></select>
-      <input type="hidden" id="hidcmblanguage" name="hidcmblanguage" value='<s:property value="hidcmblanguage"/>'/></td>
-  </tr>
-  <tr>
-    <td align="right">Email</td> 
-    <td colspan="4"><input type="email" id="txtusermail" name="txtusermail"  style="width:58%;" placeholder="Email" value='<s:property value="txtusermail"/>' />&nbsp;&nbsp;
-  <%--   <span STYLE="font-weight: bold" id='message1'></span> --%>
-     <td align="right">&nbsp;</td>
-     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Permission&nbsp;<select id="cmpermission" name="cmpermission" style="width:25%;" value='<s:property value="cmpermission"/>' onchange="fungriddis()">    
-      <option value="0">All Branch</option>
-       <option value="1">Selected Branch  </option></select>
-      <input type="hidden" id="hidcmpermission" name="hidcmpermission" value='<s:property value="hidcmpermission"/>'/>  
-    </td>    
-  </tr>
-  <tr>
-  <td align="right">E-mail Password</td> 
-    <td colspan="4"><input type="password" id="txtmailpswd" name="txtmailpswd"  style="width:58%;" placeholder="Email Password" value='<s:property value="txtmailpswd"/>' />&nbsp;&nbsp;
-  <%--   <span STYLE="font-weight: bold" id='message1'></span> --%>
-     <td align="right">&nbsp;</td>
-     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signature&nbsp;<input type="text" id="txtmailsign" placeholder="Email Signature" name="txtmailsign" style="width:55%;" value='<s:property value="txtmailsign"/>' >    
-            <input type="hidden" id="hidcmpermission" name="hidcmpermission" value='<s:property value="hidcmpermission"/>'/>  
-    </td>
-  </tr> 
-  <tr>
-  <td align="right">E-mail Host</td> 
-    <td colspan="4"><input type="text" id="txtmailhost" name="txtmailhost"  style="width:58%;" placeholder="Email Host" value='<s:property value="txtmailhost"/>' />&nbsp;&nbsp;
-  <%--   <span STYLE="font-weight: bold" id='message1'></span> --%>
-     <td align="right">&nbsp;</td>
-     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E-mail Port&nbsp;<input type="text" id="txtmailport" placeholder="Email Port" name="txtmailport" style="width:32%;" value='<s:property value="txtmailport"/>' >    
-            <input type="hidden" id="hidcmpermission" name="hidcmpermission" value='<s:property value="hidcmpermission"/>'/>  
-    </td>
-  </tr>  
-  <tr>
-    <td align="right">Password</td> 
-    <td colspan="4"><input type="password" id="txtuserpassword" name="txtuserpassword" style="width:40%;font-size:10px;height:122%;" placeholder="Enter Password" value='<s:property value="txtuserpassword"/>'/></td>  
-    <td align="right">&nbsp;</td>
-    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Confirm&nbsp;<input type="password" id="txtpasswordconfirm" name="txtpasswordconfirm" style="width:32%;font-size:10px;height:122%;" placeholder="Enter Confirm Password" value='<s:property value="txtpasswordconfirm"/>'/>&nbsp;&nbsp;
-    <span STYLE="font-weight: bold" id='message'></span>
-    </td>  
-  </tr>
-</table><br/>
-</fieldset><br/>
-<div id="userMasterDiv" align="center"><jsp:include page="userMasterGrid.jsp"></jsp:include></div>
 
+<div id="mainBG" class="homeContent" data-type="background">
+
+<form id="frmUserMaster" action="saveUserMaster" autocomplete="off">
+
+<jsp:include page="../../../../header.jsp"></jsp:include>
+
+<div class="section-card">
+
+    <!-- Title + Doc No -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+        <div class="section-title" style="margin:0;">User Master Info</div>
+
+        <div style="display:flex; align-items:center; gap:10px;">
+            <label style="margin:0;">Doc No</label>
+            <input type="text"
+                   id="docno"
+                   name="docno"
+                   value='<s:property value="docno"/>'
+                   tabindex="-1"
+                   style="width:120px;">
+        </div>
+    </div>
+
+    <!-- Date -->
+    <div class="form-row single">
+        <label>Date</label>
+        <div>
+            <div id='jqxUserMasterDate'
+                 name='jqxUserMasterDate'
+                 value='<s:property value="jqxUserMasterDate"/>'></div>
+            <input type="hidden"
+                   id="hidjqxUserMasterDate"
+                   name="hidjqxUserMasterDate"
+                   value='<s:property value="hidjqxUserMasterDate"/>'/>
+        </div>
+    </div>
+
+    <!-- User ID + Name -->
+    <div class="form-row">
+        <label>User ID</label>
+        <input type="text"
+               id="txtuser"
+               name="txtuser"
+               placeholder="Enter user ID"
+               value='<s:property value="txtuser"/>'
+               onblur="checkUserid()">
+
+        <label>User Name</label>
+        <input type="text"
+               id="txtusername"
+               name="txtusername"
+               placeholder="Enter user Name"
+               value='<s:property value="txtusername"/>'
+               onblur="checkUsername()">
+    </div>
+
+    <!-- Role + Language -->
+    <div class="form-row">
+        <label>Role</label>
+        <div>
+            <input type="text"
+                   id="txtbrole"
+                   name="txtbrole"
+                   placeholder="Press F3 to Search"
+                   value='<s:property value="txtbrole"/>'
+                   onkeydown="getURole(event);"
+                   style="width:220px;">
+            <input type="hidden"
+                   id="txtroleid"
+                   name="txtroleid"
+                   value='<s:property value="txtroleid"/>'/>
+        </div>
+
+        <label>Language</label>
+        <div>
+            <select id="cmblanguage"
+                    name="cmblanguage"
+                    style="width:160px;">
+            </select>
+            <input type="hidden"
+                   id="hidcmblanguage"
+                   name="hidcmblanguage"
+                   value='<s:property value="hidcmblanguage"/>'/>
+        </div>
+    </div>
+
+    <!-- Email + Permission -->
+    <div class="form-row">
+        <label>Email</label>
+        <input type="text"
+               id="txtusermail"
+               name="txtusermail"
+               placeholder="Email"
+               value='<s:property value="txtusermail"/>'>
+
+        <label>Permission</label>
+        <div>
+            <select id="text"
+                    name="cmpermission"
+                    onchange="fungriddis()"
+                    style="width:160px;">
+                <option value="0">All Branch</option>
+                <option value="1">Selected Branch</option>
+            </select>
+            <input type="hidden"
+                   id="hidcmpermission"
+                   name="hidcmpermission"
+                   value='<s:property value="hidcmpermission"/>'/>
+        </div>
+    </div>
+
+    <!-- Mail Settings -->
+    <div class="form-row">
+        <label>E-mail Password</label>
+        <input type="text"
+               id="txtmailpswd"
+               name="txtmailpswd"
+               placeholder="Email Password"
+               value='<s:property value="txtmailpswd"/>'>
+
+        <label>Signature</label>
+        <input type="text"
+               id="txtmailsign"
+               name="txtmailsign"
+               placeholder="Email Signature"
+               value='<s:property value="txtmailsign"/>'>
+    </div>
+
+    <div class="form-row">
+        <label>E-mail Host</label>
+        <input type="text"
+               id="txtmailhost"
+               name="txtmailhost"
+               placeholder="Email Host"
+               value='<s:property value="txtmailhost"/>'>
+
+        <label>E-mail Port</label>
+        <input type="text"
+               id="txtmailport"
+               name="txtmailport"
+               placeholder="Email Port"
+               value='<s:property value="txtmailport"/>'>
+    </div>
+
+    <!-- Password -->
+    <div class="form-row">
+        <label>Password</label>
+        <input type="text"
+               id="txtuserpassword"
+               name="txtuserpassword"
+               placeholder="Enter Password"
+               value='<s:property value="txtuserpassword"/>'>
+
+        <label>Confirm</label>
+        <div>
+            <input type="text"
+                   id="txtpasswordconfirm"
+                   name="txtpasswordconfirm"
+                   placeholder="Enter Confirm Password"
+                   value='<s:property value="txtpasswordconfirm"/>'
+                   style="width:180px;">
+            <span style="font-weight:bold;" id="message"></span>
+        </div>
+    </div>
+
+</div>
+
+<!-- GRID -->
+<div class="section-card">
+    <div id="userMasterDiv">
+        <jsp:include page="userMasterGrid.jsp"></jsp:include>
+    </div>
+</div>
+
+<!-- Hidden Fields -->
 <input type="hidden" id="mode" name="mode" value='<s:property value="mode"/>'/>
 <input type="hidden" name="deleted" id="deleted" value='<s:property value="deleted"/>'/>
-<input type="hidden" id="msg" name="msg"  value='<s:property value="msg"/>'/>
+<input type="hidden" id="msg" name="msg" value='<s:property value="msg"/>'/>
+<input type="hidden" id="useridchk" name="useridchk" value='<s:property value="useridchk"/>'/>
+<input type="hidden" id="usernamechk" name="usernamechk" value='<s:property value="usernamechk"/>'/>
+<input type="hidden" id="langval" name="langval" value='<s:property value="langval"/>'/>
+<input type="hidden" id="levels" name="levels" value='<s:property value="levels"/>'/>
+<input type="hidden" id="permissionval" name="permissionval" value='<s:property value="permissionval"/>'/>
+<input type="hidden" id="existusermaster" name="existusermaster" value='<s:property value="existusermaster"/>'/>
+<input type="hidden" id="hidelevels" name="hidelevels" value='<s:property value="hidelevels"/>'/>
 
-<input type="hidden" id="useridchk" name="useridchk"  value='<s:property value="useridchk"/>'/>
-<input type="hidden" id="usernamechk" name="usernamechk"  value='<s:property value="usernamechk"/>'/>
-
-
-<input type="hidden" id="langval" name="langval"  value='<s:property value="langval"/>'/>
-<input type="hidden" id="levels" name="levels"  value='<s:property value="levels"/>'/>
-<input type="hidden" id="permissionval" name="permissionval"  value='<s:property value="permissionval"/>'/> 
-
-
- <input type="hidden" id="existusermaster" name="existusermaster" value='<s:property value="existusermaster"/>'/>
-  <input type="hidden" id="hidelevels" name="hidelevels" value='<s:property value="hidelevels"/>'/>
 </form>
+
 <div id="roleDetailsWindow">
  <div></div>
 </div>
+
 </div>
 </body>
 </html>
