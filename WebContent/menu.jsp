@@ -13,7 +13,7 @@
 <title>Gateway ERP(Integrated) Copyright &#169; 2017 GW INNOVATIONS PVT. LTD.</title>
 <jsp:include page="includes.jsp"></jsp:include>
 <link href='http://fonts.googleapis.com/css?family=Mr+Dafoe' rel='stylesheet' type='text/css'> 
-
+<link href="<%=contextPath%>/css/modern-theme.css" rel="stylesheet" type="text/css" />
 <script type = "text/javascript">
 		$(document).ready(function () {
 			 $("body").prepend('<div id="overlay2" class="ui-widget-overlay" style="z-index: 1; display: none;"></div>');
