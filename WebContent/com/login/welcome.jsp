@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Gateway ERP - Control &amp; Grow Your Business</title>
+        <title>INK IT Business Solutions</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Tightframes,Tightframes Entertainment,Tightframes Kochi"/>
         <meta name="keywords" content="Tightframes,Kochi,Web designing,Photography"/>
@@ -11,7 +11,7 @@
         <meta property="og:url" content="http://tightframes.in"/>
         <meta property="og:description" content="Tightframes,Tightframes Entertainment,Tightframes Kochi"/>
         <meta property="og:image" content="http://tightframes.in/images/tightbanner.jpg"/>
-        <link href="images/gatelogo.ico" rel="icon" type="image/png">
+        <link href="icons/ink_new_logo_2025.png" rel="icon" type="image/png">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         
