@@ -1,9 +1,4 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<% String contextPath=request.getContextPath();
-
-
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,65 +6,171 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GatewayERP(i)</title>
+<jsp:include page="../../../../includes.jsp"></jsp:include>
+<% String contextPath=request.getContextPath(); %>
 
 <style>
-form label.error {
-color:red;
-  font-weight:bold;
+/* =========================================================
+SCOPED UI: Modern Layout (Matches Client Master)
+========================================================= */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 24px 0;
+    box-sizing: border-box;
+    overflow-y: auto !important;
+}
 
+#mainBG {
+    background: #fff;
+    border-radius: 16px;
+    padding: 15px;
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
 }
+
+.modern-ui {
+    font-family: Arial, sans-serif; 
+    color: #333;
+    font-size: 12px; 
+    padding: 5px 15px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Master Input Heights - Forced to 24px */
+.modern-ui input[type="text"],
+.modern-ui select { 
+    height: 24px !important; 
+    border: 1px solid #b8c6d8; 
+    border-radius: 3px; 
+    padding: 2px 6px;
+    font-size: 12px;
+    box-sizing: border-box; 
+    background-color: #fff; 
+    color: #333;
+    width: 100%;
+}
+
+.modern-ui input[type="text"]:focus,
+.modern-ui select:focus { 
+    border-color: #007bff; 
+    outline: none;
+}
+
+.modern-ui input[readonly],
+.modern-ui input:disabled,
+.modern-ui select:disabled { 
+    background-color: #f8f9fa; 
+    color: #6b7280;
+}
+
+/* Layout Utilities */
+.modern-ui .field-row { 
+    display: flex;
+    align-items: center; 
+    gap: 8px;
+    margin-bottom: 10px; 
+    flex-wrap: wrap;
+}
+
+.modern-ui .lbl-right { 
+    text-align: right; 
+    color: #444;
+    font-size: 12px; 
+    font-weight: bold;
+    white-space: nowrap; 
+    padding-right: 5px;
+}
+
+/* Middle Section Panels */
+.modern-ui .middle-panel {
+    border: 1px solid #c5d3e0; 
+    padding: 20px 10px 10px 10px; 
+    background: #ffffff; 
+    position: relative; 
+    border-radius: 4px; 
+    margin-bottom: 15px;
+    margin-top: 12px;
+}
+
+.modern-ui .middle-panel-title { 
+    position: absolute; 
+    top: -12px;
+    left: 10px; 
+    background: #ffffff; 
+    padding: 0 8px; 
+    color: #0056b3;
+    font-weight: bold; 
+    font-size: 14px; 
+    border-left: 3px solid #0056b3;
+    z-index: 2; 
+    line-height: normal; 
+}
+
+/* Custom UI Buttons matching 24px height */
+.modern-ui .myButton {
+    height: 24px !important;
+    line-height: 22px !important;
+    padding: 0 12px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    text-shadow: none;
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    border: none;
+    background: linear-gradient(135deg, #0b45a2 0%, #2563eb 100%);
+    color: #ffffff;
+    white-space: nowrap;
+}
+.modern-ui .myButton:hover { background: linear-gradient(135deg, #083a8a 0%, #1d4ed8 100%); }
+
+/* Search Icon Wrapper */
+.modern-ui .input-search-container {
+    position: relative;
+    display: flex;
+}
+.modern-ui .input-search-container input {
+    padding-right: 25px !important;
+}
+.modern-ui .magnifier-icon {
+    position: absolute;
+    right: 6px; 
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #64748b; 
+    z-index: 10;
+}
+.modern-ui .magnifier-icon:hover { color: #2563eb; }
+
+/* Grid Wrappers */
+.modern-ui .grid-container {
+    border: 1px solid #c5d3e0;
+    border-radius: 4px;
+    background: #fff;
+    overflow: hidden;
+}
+
+/* Scrollbar Logic */
 .hidden-scrollbar {
-    overflow: auto;
-    height: 550px;
+    overflow-y: auto;
+    height: calc(100vh - 120px);
+    padding-right: 5px;
 }
-.myButtonses {
- background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #599bb3), color-stop(1, #408c99));
- background:-moz-linear-gradient(top, #599bb3 5%, #408c99 100%);
- background:-webkit-linear-gradient(top, #599bb3 5%, #408c99 100%);
- background:-o-linear-gradient(top, #599bb3 5%, #408c99 100%);
- background:-ms-linear-gradient(top, #599bb3 5%, #408c99 100%);
- background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
- filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bb3', endColorstr='#408c99',GradientType=0);
- background-color:#599bb3;
- -moz-border-radius:4px;
- -webkit-border-radius:4px;
- border-radius:4px;
- display:inline-block;
- cursor:pointer;
- color:#ffffff;
- font-family:Verdana;
- font-size:10px;
- padding:4px 8px;
- text-decoration:none;
-}
-.myButtonses:hover {
- background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #408c99), color-stop(1, #599bb3));
- background:-moz-linear-gradient(top, #408c99 5%, #599bb3 100%);
- background:-webkit-linear-gradient(top, #408c99 5%, #599bb3 100%);
- background:-o-linear-gradient(top, #408c99 5%, #599bb3 100%);
- background:-ms-linear-gradient(top, #408c99 5%, #599bb3 100%);
- background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
- filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#408c99', endColorstr='#599bb3',GradientType=0);
- background-color:#408c99;
-}
-.myButtonses:active {
- position:relative;
- top:1px;
-}
-.textbox {
-    border: 0;
-    height: 25px;
-    width: 20%;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    box-shadow: 1px 1px 0 0 #FFE4E1, 5px 5px 40px 2px #FFE4E1 inset;
-    -moz-box-shadow: 1px 1px 0 0 #FFE4E1, 5px 5px 40px 2px #FFE4E1 inset;
-    -webkit-box-shadow: 1px 1px 0 0 #FFE4E1, 5px 5px 40px 2px #FFE4E1 inset;
-    -webkit-background-clip: padding-box;
-    outline: 0;
-}
+.hidden-scrollbar::-webkit-scrollbar { width: 6px; }
+.hidden-scrollbar::-webkit-scrollbar-thumb { background: #c5d3e0; border-radius: 3px; }
+
+form label.error { color:red; font-weight:bold; }
+#errormsg { color:red; font-weight:bold; text-align:center; margin-bottom: 10px; }
 </style>
+
 <%
 String modes =request.getParameter("modes")==null?"0":request.getParameter("modes").toString();
 String surdocno =request.getParameter("surdocno")==null?"0":request.getParameter("surdocno").toString();
@@ -84,50 +185,62 @@ String clientdet=request.getParameter("clientdet")==null?"0":request.getParamete
 String cpersonid=request.getParameter("cpersonid")==null?"0":request.getParameter("cpersonid").toString();
 String cperson=request.getParameter("cperson")==null?"0":request.getParameter("cperson").toString();
 String cpersondet=request.getParameter("cpersondet")==null?"0":request.getParameter("cpersondet").toString();
-
-
 %>
-<jsp:include page="../../../../includes.jsp"></jsp:include>
+
 <script type="text/javascript">
 var modes='<%=modes%>';
 var masterdocno1='<%=surdocno%>';
 var mod1='<%=mod%>';
 
 	$(document).ready(function() {
-  	  $("#date").jqxDateTimeInput({ width : '125px', height : '15px', formatString : "dd.MM.yyyy" });
+        /* Formatted jqxDateTimeInput heights to match modern UI 24px */
+  	    $("#date").jqxDateTimeInput({ width : '125px', height : 24, formatString : "dd.MM.yyyy", theme: 'energyblue' });
+        
+        /* force internal alignment AFTER render */
+        setTimeout(function () {
+            $("#date").find("input").css({
+                "margin-top": "0px",
+                "line-height": "24px",
+                "font-size": "12px", 
+                "font-family": "Arial, sans-serif", 
+                "padding": "0 6px", 
+                "box-sizing":"border-box"
+            });
+            $("#date").find(".jqx-action-button").css({
+                "top": "0px",
+                "height": "24px"
+            });
+        }, 0);
   	  
-  	$('#enquirywindow').jqxWindow({ width: '60%', height: '50%',  maxHeight: '85%' ,maxWidth: '80%' ,title: ' Enquiry Search' , position: { x: 250, y: 60 }, keyboardCloseKey: 27});
+  	$('#enquirywindow').jqxWindow({ width: '60%', height: '50%',  maxHeight: '85%' ,maxWidth: '80%' ,title: ' Enquiry Search' , position: { x: 250, y: 60 }, theme: 'energyblue', keyboardCloseKey: 27});
 	$('#enquirywindow').jqxWindow('close');
 	
-	$('#sertypesearchwindow').jqxWindow({ width: '35%', height: '45%',  maxHeight: '75%' ,maxWidth: '50%' , title: ' Search' ,position: { x: 300, y: 87 }, keyboardCloseKey: 27});
+	$('#sertypesearchwindow').jqxWindow({ width: '35%', height: '45%',  maxHeight: '75%' ,maxWidth: '50%' , title: ' Search' ,position: { x: 300, y: 87 }, theme: 'energyblue', keyboardCloseKey: 27});
 	$('#sertypesearchwindow').jqxWindow('close'); 
 	    
 	$('#employeeDetailsWindow').jqxWindow({width: '51%', height: '58%',  maxHeight: '70%' ,maxWidth: '51%' , title: 'Employee Search',position: { x: 300, y: 87 } , theme: 'energyblue', showCloseButton: true, keyboardCloseKey: 27});
     $('#employeeDetailsWindow').jqxWindow('close');
     
-    $('#areainfowindow').jqxWindow({ width: '25%', height: '70%',  maxHeight: '85%' ,maxWidth: '80%' ,title: ' Area Search' , position: { x: 250, y: 60 }, keyboardCloseKey: 27});
+    $('#areainfowindow').jqxWindow({ width: '25%', height: '70%',  maxHeight: '85%' ,maxWidth: '80%' ,title: ' Area Search' , position: { x: 250, y: 60 }, theme: 'energyblue', keyboardCloseKey: 27});
 	$('#areainfowindow').jqxWindow('close');
 	
-	$('#serviceinfowindow').jqxWindow({ width: '25%', height: '70%',  maxHeight: '85%' ,maxWidth: '80%' ,title: ' Service Search' , position: { x: 250, y: 60 }, keyboardCloseKey: 27});
+	$('#serviceinfowindow').jqxWindow({ width: '25%', height: '70%',  maxHeight: '85%' ,maxWidth: '80%' ,title: ' Service Search' , position: { x: 250, y: 60 }, theme: 'energyblue', keyboardCloseKey: 27});
 	 $('#serviceinfowindow').jqxWindow('close');
 	 
 	 
 	$('#txtenquiry').dblclick(function(){
-		/*  $('#enquirywindow').jqxWindow('open'); */
 		 changeContent('enqMastersearch.jsp');  
-		  });
+	});
 	
 	$('#txtsertype').dblclick(function(){
-		
 		 $('#sertypesearchwindow').jqxWindow('open');
 	 	  refsearchContent('sertypeSearch.jsp');
-	 	  
-		  });
+	});
 	
 	$('#surveyedby').dblclick(function(){
 		$('#employeeDetailsWindow').jqxWindow('open');
 	   	 employeeSearchContent('employeeDetailsSearch.jsp');
-		  });
+	});
 	
 	});
 	function funReadOnly() {
@@ -182,7 +295,6 @@ var mod1='<%=mod%>';
 			$("#sertypeGrid").jqxGrid('addrow', null, {});
 						
 			$("#servtypeDetailsGridID").jqxGrid('clear');
-			//$("#servtypeDetailsGridID").jqxGrid('addrow', null, {});
 		 }
 		 if(mod1=="A")
 			{
@@ -250,7 +362,6 @@ var mod1='<%=mod%>';
 		
 		var docno=$('#masterdoc_no').val();
 		var sid=$('#sertypeids').val();
-		//alert(document.getElementById("hidsuredit").value);
 		if(document.getElementById("hidsuredit").value=="1"){
 		    $('#btnEdit').attr('disabled', true );
 	  } else {
@@ -258,7 +369,6 @@ var mod1='<%=mod%>';
 	  } 
 		if(docno>0){
 			$("#servtypeDetailsDiv").load("servtypeDetailsGrid.jsp?trno="+docno);
-			/* $("#sertypeDiv").load("ServiceTypeGrid.jsp?docno="+docno+"&sid="+sid); */
 			 $("#sitediv").load("siteGrid.jsp?docno="+docno);
 			 $("#servicediv").load("serviceGrid.jsp?docno="+docno);
 		}
@@ -275,10 +385,6 @@ var mod1='<%=mod%>';
    	  $('#employeeDetailsWindow').jqxWindow('open');
    	 employeeSearchContent('employeeDetailsSearch.jsp'); 
           	 }
-	 	 else{
-	 		 
-	 	
-	 	 }
 	}
 
 	
@@ -308,9 +414,7 @@ var mod1='<%=mod%>';
 		 		 changeContent('enqMastersearch.jsp');  
 			
 		    	 }
-		 	 else{
-		 		 }
-		 	 }
+	}
 		    	 
 		function enquirySearchContent(url) {
 			 $.get(url).done(function (data) {
@@ -363,8 +467,6 @@ var mod1='<%=mod%>';
 				
 		   for(var i=0 ; i < rows3.length ; i++){
 			   
-	
-				
 			    newTextBox = $(document.createElement("input"))
 			       .attr("type", "dil")
 			       .attr("id", "site"+i)
@@ -396,15 +498,11 @@ var mod1='<%=mod%>';
 	     function getareas(rowBoundIndex){
 	     	 
 	    	  $('#areainfowindow').jqxWindow('open');
-	    
-	       // $('#accountWindow').jqxWindow('focus');
 	              areaSearchContent('area.jsp?rowBoundIndex='+rowBoundIndex);
 	           	 }
 	           	 
 	   function areaSearchContent(url) {
-	    //alert(url);
 	    	 $.get(url).done(function (data) {
-	   		 //alert(data);
 	   $('#areainfowindow').jqxWindow('setContent', data);
 
 	                  	}); 
@@ -413,15 +511,11 @@ var mod1='<%=mod%>';
 	   function getservice(rowBoundIndex){
 	     	 
 	    	  $('#serviceinfowindow').jqxWindow('open');
-	    
-	       // $('#accountWindow').jqxWindow('focus');
 	              serviceSearchContent('service.jsp?rowBoundIndex='+rowBoundIndex);
 	           	 }
 	           	 
 	   function serviceSearchContent(url) {
-	    //alert(url);
 	    	 $.get(url).done(function (data) {
-	   		 //alert(data);
 	   $('#serviceinfowindow').jqxWindow('setContent', data);
 
 	                  	}); 
@@ -436,8 +530,6 @@ var mod1='<%=mod%>';
 		 	  $('#sertypesearchwindow').jqxWindow('open');
 		 	
 		 	  refsearchContent('sertypeSearch.jsp');  }
-		 	 else{
-		 		 }
 	}  
 		 	
 		 	  function refsearchContent(url) {
@@ -475,7 +567,6 @@ var mod1='<%=mod%>';
 				     	      
 			 		       }
 			 		       	}
-			 		   //sid=sid.replace(/,(?=[^,]*$)/, '');
 			 		  document.getElementById("sertypeids").value=sid;
 			 		 $("#sertypeDiv").load("ServiceTypeGrid.jsp?sid="+sid+"&gridload=1");
 			 	  }
@@ -492,7 +583,6 @@ var mod1='<%=mod%>';
 				     	     
 			 		       }
 			 		       	}
-			 		   //sid=sid.replace(/,(?=[^,]*$)/, '');
 			 		  document.getElementById("sertypeids").value=sid;
 			 		  if(typeof(sid) != "undefined" && typeof(sid) != "NaN" && sid != ""){
 			 			 var docno=$("#masterdoc_no").val();
@@ -506,9 +596,6 @@ var mod1='<%=mod%>';
 			 	 
 			 	 
 				  function funPrintBtn() {
-						
-				
-				  		
 						if (($("#mode").val() == "view") && $("#docno").val()!="") {
 
 							 $("#docno").prop("disabled", false);
@@ -532,136 +619,138 @@ var mod1='<%=mod%>';
 						}
 			    }			 	 
 			 	 
-		 	  
-
 </script>
  </head>
 <body onLoad="setValues();">
-	
-	<br/> 
-	<div id="mainBG" class="homeContent" data-type="background"> 
-	
-	  <form id="frmSurveydetails" action="saveSurveydetails" method="post" autocomplete="off">
-		<jsp:include page="../../../../header.jsp" />
-		<div class='hidden-scrollbar'>
-   <table width="100%">
-  <tr>
-    <td width="11%" align="right">Date</td>
-    <td width="18%"><div id="date" name="date" value='<s:property value="date" />'></div></td>
-    <td width="10%" align="right">Enquiry No</td>
-    <td width="30%"><input type="text" onKeyDown="getEnquiry(event);" name="txtenquiry" placeholder="press F3 for Search" value='<s:property value="txtenquiry" />' id="txtenquiry"></td>
-    <td width="8%" align="right">Doc No</td>
-    <td width="23%"><input type="text" name="docno" value='<s:property value="docno" />' id="docno" tabindex="-1" readonly></td>
-  </tr>
-  <tr>
-   <td align="right">Client</td>
-    <td><input type="text" name="txtclient" id="txtclient" style="width:95%;" value='<s:property value="txtclient" />'></td>
-    <td colspan="2" align="left"><input type="text" name="txtclientdet" id="txtclientdet" style="width:90%;" value='<s:property value="txtclientdet" />'></td>
-     <td align="right">Existing Contractor</td>
-    <td><input type="text" name="txtcontractr" id="txtcontractr" style="width:65%;"  value='<s:property value="txtcontractr" />'></td>
-  </tr>
-  <tr>
-    <td align="right">Contact Person</td>
-    <td><input type="text" name="txtcontact" id="txtcontact" value='<s:property value="txtcontact" />'></td>
-    <td align="right">Contact Number</td>
-    <td><input type="text" name="contactnumber" id="contactnumber" value='<s:property value="contactnumber" />'></td>
-    <td align="right">Surveyed By</td>
-    <td><input type="text" name="surveyedby" id="surveyedby" onKeyDown="getemployee(event);" placeholder="press F3 for Search" value='<s:property value="surveyedby" />'></td>
-  </tr>
-  <tr>
-    <td align="right">Description</td>
-    <td colspan="5"><input type="text" name="txtdesc" id="txtdesc"  value='<s:property value="txtdesc" />' style="width:95%;"></td>
-  </tr>
-</table>
-<table width="100%">
-  <tr>
-    <td><fieldset><legend>Site Details</legend>
-    <div id="sitediv"><jsp:include page="siteGrid.jsp"></jsp:include></div>
-    </fieldset></td>
-   
-    <td>
-    <fieldset><legend>Service Details</legend>
-    <div id="servicediv"><jsp:include page="serviceGrid.jsp"></jsp:include></div>
-    </fieldset></td>
-   
-  </tr>
-</table>
+<div id="mainBG" class="homeContent" data-type="background"> 
+    <form id="frmSurveydetails" action="saveSurveydetails" method="post" autocomplete="off">
+        <jsp:include page="../../../../header.jsp" />
+        
+        <div class="modern-ui hidden-scrollbar">
+            <div id="errormsg"></div>
 
-    <fieldset><legend>Service Type Details</legend>
-    <table width="100%" >
-  <tr >
-    <td width="23%">
-<fieldset style="background-color: #DCD0CD;">
-<table width="100%">
- 	 <tr><td colspan="2">&nbsp;</td></tr>
-   <tr>
-    <td width="20%"  align="right">Service Type</td>
-    <td width="80%"><input type="text" id="txtsertype" name="txtsertype" style="width:80%;" placeholder="Press F3 to Search" value='<s:property value="txtsertype"/>'  onkeydown="getsertype(event);"/>
-    <input type="hidden" id="txtsertypeid" name="txtsertypeid" value='<s:property value="txtsertypeid"/>'/></td> 
-  </tr> 
-  <tr><td colspan="2">&nbsp;</td></tr> 
-   <tr><td colspan="2"><div id="servtypeDetailsDiv"><jsp:include page="servtypeDetailsGrid.jsp"></jsp:include></div></td></tr> 
-  <tr><td colspan="2">&nbsp;</td></tr> 
-  <tr><td colspan="2" align="center"><input type="button" class="myButtonses" name="btnLoad" id="btnLoad"  value="Submit" onclick="loadSubmit();"></td></tr> 
-    <tr><td colspan="2">&nbsp;</td></tr>
-  <tr>
-</tr> 
-</table>
-</fieldset>
-</td>
+            <div class="middle-panel">
+                <span class="middle-panel-title">Survey Details</span>
+                
+                <div class="field-row">
+                    <label class="lbl-right" style="width:100px;">Date</label>
+                    <div style="width: 125px;">
+                        <div id="date" name="date" value='<s:property value="date" />'></div>
+                    </div>
+                    
+                    <label class="lbl-right" style="width:100px; margin-left:15px;">Enquiry No</label>
+                    <div class="input-search-container" style="width: 125px;">
+                        <input type="text" onKeyDown="getEnquiry(event);" name="txtenquiry" placeholder="Press F3" value='<s:property value="txtenquiry" />' id="txtenquiry">
+                        <svg class="magnifier-icon" onclick="$('#txtenquiry').dblclick();" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                    
+                    <label class="lbl-right" style="width:100px; margin-left:auto;">Doc No</label>
+                    <input type="text" name="docno" value='<s:property value="docno" />' id="docno" style="width:125px;" tabindex="-1" readonly>
+                </div>
+                
+                <div class="field-row">
+                    <label class="lbl-right" style="width:100px;">Client</label>
+                    <input type="text" name="txtclient" id="txtclient" style="width:125px;" value='<s:property value="txtclient" />'>
+                    
+                    <input type="text" name="txtclientdet" id="txtclientdet" style="flex:1; margin-left:15px;" value='<s:property value="txtclientdet" />'>
+                    
+                    <label class="lbl-right" style="width:120px; margin-left:15px;">Existing Contractor</label>
+                    <input type="text" name="txtcontractr" id="txtcontractr" style="width:125px;" value='<s:property value="txtcontractr" />'>
+                </div>
+                
+                <div class="field-row">
+                    <label class="lbl-right" style="width:100px;">Contact Person</label>
+                    <input type="text" name="txtcontact" id="txtcontact" style="width:125px;" value='<s:property value="txtcontact" />'>
+                    
+                    <label class="lbl-right" style="width:100px; margin-left:15px;">Contact Number</label>
+                    <input type="text" name="contactnumber" id="contactnumber" style="flex:1;" value='<s:property value="contactnumber" />'>
+                    
+                    <label class="lbl-right" style="width:100px; margin-left:15px;">Surveyed By</label>
+                    <div class="input-search-container" style="width: 125px;">
+                        <input type="text" name="surveyedby" id="surveyedby" onKeyDown="getemployee(event);" placeholder="Press F3" value='<s:property value="surveyedby" />'>
+                        <svg class="magnifier-icon" onclick="$('#surveyedby').dblclick();" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                </div>
+                
+                <div class="field-row" style="margin-bottom:0;">
+                    <label class="lbl-right" style="width:100px;">Description</label>
+                    <input type="text" name="txtdesc" id="txtdesc" value='<s:property value="txtdesc" />' style="flex:1;">
+                </div>
+            </div>
 
-<td width="85%">
+            <div style="display: flex; gap: 15px; align-items: flex-start;">
+                <div class="middle-panel" style="flex: 1; margin-bottom: 0;">
+                    <span class="middle-panel-title">Site Details</span>
+                    <div id="sitediv" class="grid-container" style="border:none;">
+                        <jsp:include page="siteGrid.jsp"></jsp:include>
+                    </div>
+                </div>
+                <div class="middle-panel" style="flex: 1; margin-bottom: 0;">
+                    <span class="middle-panel-title">Service Details</span>
+                    <div id="servicediv" class="grid-container" style="border:none;">
+                        <jsp:include page="serviceGrid.jsp"></jsp:include>
+                    </div>
+                </div>
+            </div>
 
-<table width="100%">
+            <div style="display: flex; gap: 15px; align-items: flex-start; margin-top:15px;">
+                <div class="middle-panel" style="flex: 1; margin-bottom: 0;">
+                    <span class="middle-panel-title">Service Type Details</span>
+                    
+                    <div class="field-row">
+                        <label class="lbl-right" style="width:80px;">Service Type</label>
+                        <div class="input-search-container" style="flex:1;">
+                            <input type="text" id="txtsertype" name="txtsertype" placeholder="Press F3" value='<s:property value="txtsertype"/>' onkeydown="getsertype(event);"/>
+                            <svg class="magnifier-icon" onclick="$('#txtsertype').dblclick();" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </div>
+                        <input type="hidden" id="txtsertypeid" name="txtsertypeid" value='<s:property value="txtsertypeid"/>'/>
+                    </div>
+                    
+                    <div id="servtypeDetailsDiv" class="grid-container" style="border:none; margin-top:10px;">
+                        <jsp:include page="servtypeDetailsGrid.jsp"></jsp:include>
+                    </div>
+                    
+                    <div class="field-row" style="justify-content: center; margin-top:10px; margin-bottom:0;">
+                        <input type="button" class="myButton" name="btnLoad" id="btnLoad" value="Submit" onclick="loadSubmit();">
+                    </div>
+                </div>
 
-  <tr>
-    <td>
-    <div id="sertypeDiv"><jsp:include page="ServiceTypeGrid.jsp"></jsp:include></div>
-    </td>
-  </tr> 
-   <tr><td colspan="2">&nbsp;</td></tr>
-</table>
- 
-</td>
-</tr>
-<tr><td>
-    <input type="hidden" id="hiddate" name="hiddate"  value='<s:property value="hiddate"/>'/>
-    <input type="hidden" id="mode" name="mode"  value='<s:property value="mode"/>'/>
-    <input type="hidden" id="msg" name="msg"  value='<s:property value="msg"/>'/>
-    <input type="hidden" id="deleted" name="deleted"  value='<s:property value="deleted"/>'/>
-    <input type="hidden" id="clientid" name="clientid"  value='<s:property value="clientid"/>'/>
-    <input type="hidden" id="cpersonid" name="cpersonid"  value='<s:property value="cpersonid"/>'/>
-    <input type="hidden" id="sertypeids" name="sertypeids"  value='<s:property value="sertypeids"/>'/>
-    <input type="hidden" id="masterdoc_no" name="masterdoc_no"  value='<s:property value="masterdoc_no"/>'/>
-    <input type="hidden" id="enqdoc_no" name="enqdoc_no"  value='<s:property value="enqdoc_no"/>'/>
-    <input type="hidden" id="empid" name="empid"  value='<s:property value="empid"/>'/>
-    <input type="hidden" id="sertypegridlen" name="sertypegridlen"  value='<s:property value="sertypegridlen"/>'/>
-    <input type="hidden" id="servtypdetgridlen" name="servtypdetgridlen"  value='<s:property value="servtypdetgridlen"/>'/>
-    <input type="hidden" id="servlen" name="servlen"  value='<s:property value="servlen"/>'/>
-    <input type="hidden" id="sitelen" name="sitelen"  value='<s:property value="sitelen"/>'/>
-     <input type="hidden" id="hidsuredit" name="hidsuredit"  value='<s:property value="hidsuredit"/>'/>
-    </td></tr>
-</table>
-  </fieldset>       
-   </div>
-   
-      
-<div id="enquirywindow">
-   <div ></div>
-</div>
-<div id="employeeDetailsWindow">
-   <div></div>
-</div>
-<div id="areainfowindow">
-   <div ></div>
-   </div>
-   <div id="serviceinfowindow">
-   <div ></div>
-   </div> 
-   <div id="sertypesearchwindow">
-	<div></div>
-</div>     
-</form>
+                <div class="middle-panel" style="flex: 3; margin-bottom: 0; min-height: 250px;">
+                    <span class="middle-panel-title">Service Type Grid</span>
+                    <div id="sertypeDiv" class="grid-container" style="border:none; height: 100%;">
+                        <jsp:include page="ServiceTypeGrid.jsp"></jsp:include>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden Logic Fields -->
+            <div style="display:none;">
+                <input type="hidden" id="hiddate" name="hiddate" value='<s:property value="hiddate"/>'/>
+                <input type="hidden" id="mode" name="mode" value='<s:property value="mode"/>'/>
+                <input type="hidden" id="msg" name="msg" value='<s:property value="msg"/>'/>
+                <input type="hidden" id="deleted" name="deleted" value='<s:property value="deleted"/>'/>
+                <input type="hidden" id="clientid" name="clientid" value='<s:property value="clientid"/>'/>
+                <input type="hidden" id="cpersonid" name="cpersonid" value='<s:property value="cpersonid"/>'/>
+                <input type="hidden" id="sertypeids" name="sertypeids" value='<s:property value="sertypeids"/>'/>
+                <input type="hidden" id="masterdoc_no" name="masterdoc_no" value='<s:property value="masterdoc_no"/>'/>
+                <input type="hidden" id="enqdoc_no" name="enqdoc_no" value='<s:property value="enqdoc_no"/>'/>
+                <input type="hidden" id="empid" name="empid" value='<s:property value="empid"/>'/>
+                <input type="hidden" id="sertypegridlen" name="sertypegridlen" value='<s:property value="sertypegridlen"/>'/>
+                <input type="hidden" id="servtypdetgridlen" name="servtypdetgridlen" value='<s:property value="servtypdetgridlen"/>'/>
+                <input type="hidden" id="servlen" name="servlen" value='<s:property value="servlen"/>'/>
+                <input type="hidden" id="sitelen" name="sitelen" value='<s:property value="sitelen"/>'/>
+                <input type="hidden" id="hidsuredit" name="hidsuredit" value='<s:property value="hidsuredit"/>'/>
+            </div>
+            
+        </div>
+    </form>
+
+    <!-- Search Windows Outside of Form Content to prevent scrolling issues -->
+    <div id="enquirywindow"><div></div><div></div></div>
+    <div id="employeeDetailsWindow"><div></div><div></div></div>
+    <div id="areainfowindow"><div></div><div></div></div>
+    <div id="serviceinfowindow"><div></div><div></div></div> 
+    <div id="sertypesearchwindow"><div></div><div></div></div>     
 </div>
 </body>
 </html>
