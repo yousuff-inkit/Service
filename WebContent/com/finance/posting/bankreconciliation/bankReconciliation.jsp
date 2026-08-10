@@ -263,78 +263,313 @@
 </script>
 
 <style>
-.hidden-scrollbar {
-  overflow: auto;
-  height: 530px;
+/* =========================================================
+   SCOPED UI: Modern Layout Adapted for Table Structure
+========================================================= */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 24px 0;
+    box-sizing: border-box;
+    overflow-y: auto !important;
 }
+
+#mainBG {
+    background: #fff;
+    border-radius: 16px;
+    padding: 15px;
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+#frmBankReconciliation input[type="text"],
+#frmBankReconciliation select,
+.textbox {
+    height: 24px !important;
+    border: 1px solid #b8c6d8;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #333;
+    box-shadow: none !important;
+    outline: none;
+    width: 100%;
+}
+
+#frmBankReconciliation input[type="text"]:focus,
+#frmBankReconciliation select:focus,
+.textbox:focus {
+    border-color: #007bff;
+}
+
+#frmBankReconciliation input[readonly],
+#frmBankReconciliation input:disabled,
+#frmBankReconciliation select:disabled,
+.textbox[readonly] {
+    background-color: #f8f9fa;
+    color: #6b7280;
+}
+
+form label.error {
+    color: red;
+    font-weight: bold;
+    font-size: 11px;
+    font-family: Arial, sans-serif;
+}
+
+#errormsg {
+    color: #e53e3e;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 0;
+}
+
+.myButton, .btn {
+    height: 24px !important;
+    line-height: 22px !important;
+    padding: 0 12px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    text-shadow: none;
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    border: none;
+    background: linear-gradient(135deg, #0b45a2 0%, #2563eb 100%);
+    color: #ffffff;
+    white-space: nowrap;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.myButton:hover, .btn:hover {
+    background: linear-gradient(135deg, #083a8a 0%, #1d4ed8 100%);
+}
+
+.hidden-scrollbar {
+    overflow-y: auto;
+    height: calc(100vh - 100px);
+    padding-right: 5px;
+    overflow-x: hidden;
+}
+.hidden-scrollbar::-webkit-scrollbar { width: 6px; }
+.hidden-scrollbar::-webkit-scrollbar-thumb { background: #c5d3e0; border-radius: 3px; }
+
+/* Grid Containers */
+.grid-container {
+    border: 1px solid #c5d3e0;
+    border-radius: 4px;
+    background: #fff;
+    overflow: hidden;
+}
+
+/* JQX Widget Overrides for 24px Alignment */
+.jqx-datetimeinput-input {
+    height: 24px !important;
+    line-height: 24px !important;
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+    box-sizing: border-box !important;
+    font-size: 12px !important;
+}
+.jqx-action-button {
+    height: 24px !important;
+}
+
+/* Middle Section Panels */
+.modern-ui .middle-panel {
+    border: 1px solid #c5d3e0;
+    padding: 20px 10px 10px 10px;
+    background: #ffffff;
+    position: relative;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    margin-top: 12px;
+}
+
+.modern-ui .middle-panel-title {
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    background: #ffffff;
+    padding: 0 8px;
+    color: #0056b3;
+    font-weight: bold;
+    font-size: 14px;
+    border-left: 3px solid #0056b3;
+    z-index: 2;
+    line-height: normal;
+}
+
+.modern-ui .field-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: nowrap;
+}
+
+.modern-ui .lbl-right {
+    text-align: right;
+    color: #444;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+    padding-right: 5px;
+    flex-shrink: 0;
+}
+
+.modern-ui .summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+}
+
+.modern-ui .summary-item label {
+    color: #444;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.modern-ui .input-search-container {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+}
+.modern-ui .input-search-container input {
+    padding-right: 25px !important;
+    width: 100%;
+    box-sizing: border-box;
+}
+.modern-ui .magnifier-icon {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #64748b;
+    z-index: 10;
+}
+.modern-ui .magnifier-icon:hover { color: #2563eb; }
 </style>
 
 </head>
 <body onload="setValues();">
-<div id="mainBG" class="homeContent" data-type="background" >
+
+<div id="mainBG" class="homeContent" data-type="background">
 <form id="frmBankReconciliation" action="saveBankReconciliation" method="post" autocomplete="off">
-<jsp:include page="../../../../header.jsp"></jsp:include><br/>
+    <jsp:include page="../../../../header.jsp"></jsp:include>
 
-<div  class='hidden-scrollbar'>
-<table width="100%">
-  <tr>
-    <td width="5%" align="right">Date</td>
-    <td width="13%"><div id="jqxBankReconciliationDate" name="jqxBankReconciliationDate" onchange="datechange();" value='<s:property value="jqxBankReconciliationDate"/>'></div>
-    <input type="hidden" id="hidjqxBankReconciliationDate" name="hidjqxBankReconciliationDate" value='<s:property value="hidjqxBankReconciliationDate"/>'/></td>
-    <td width="10%" align="right">Branch</td>
-    <td width="20%"><select id="cmbbranch" name="cmbbranch" style="width:50%;" value='<s:property value="cmbbranch"/>'>
-    <option></option></select>
-    <input type="hidden" id="hidcmbbranch" name="hidcmbbranch" value='<s:property value="hidcmbbranch"/>'/></td>
-    <td width="12%" align="right">Currency</td>
-    <td width="14%"><select id="cmbcurrency" name="cmbcurrency" style="width:50%;" value='<s:property value="cmbcurrency"/>' onload="getRatevalue(this.value);">
-      <option></option></select>
-      <input type="hidden" id="hidcmbcurrency" name="hidcmbcurrency" value='<s:property value="hidcmbcurrency"/>'/>
-      <input type="hidden" id="hidcurrencytype" name="hidcurrencytype" value='<s:property value="hidcurrencytype"/>'/>
-      <input type="hidden" id="txtrate" name="txtrate" value='<s:property value="txtrate"/>'/></td>
-    <td width="14%" align="right">Doc No</td>
-    <td width="12%"><input type="text" id="docno" name="txtbankreconciliationdocno" style="width:70%;" value='<s:property value="txtbankreconciliationdocno"/>' tabindex="-1"/></td>
-  </tr>
-  <tr>
-    <td align="right">Account</td>
-    <td><input type="text" id="txtaccid" name="txtaccid" style="width:80%;" placeholder="Press F3 to Search" value='<s:property value="txtaccid"/>' onkeydown="getAcc(event);"/></td>
-    <td colspan="2"><input type="text" id="txtaccname" name="txtaccname" style="width:90%;" value='<s:property value="txtaccname"/>'/>
-    <input type="hidden" id="txtdocno" name="txtdocno" value='<s:property value="txtdocno"/>'/></td>
-    <td align="right">Description</td>
-    <td colspan="2"><input type="text" id="txtdescription" name="txtdescription" style="width:90%;" value='<s:property value="txtdescription"/>'/></td>
-    <td align="center"><button class="myButton" type="button" id="btnSubmit" name="btnSubmit" onclick="getLastReconcileDate($('#jqxBankReconciliationDate').val(),$('#txtdocno').val());">Submit</button></td>
-  </tr>
-</table>
-<fieldset><legend>Applying</legend>
-<div id="jqxBankReconciliationGrid"><jsp:include page="bankReconciliationGrid.jsp"></jsp:include></div></fieldset><br/>
-<table width="100%">
-  <tr>
-    <td align="right">Book Balance</td>
-    <td><input type="text" id="txtbookbalance" name="txtbookbalance" style="text-align: right;" value='<s:property value="txtbookbalance"/>' tabindex="-1"/></td>
-    <td align="right">Uncleared Payments(+ve)</td>
-    <td><input type="text" id="txtunclrpayments" name="txtunclrpayments" style="text-align: right;" value='<s:property value="txtunclrpayments"/>' tabindex="-1"/></td>
-    <td align="right">Uncleared Receipts(-ve)</td>
-    <td><input type="text" id="txtunclrreceipts" name="txtunclrreceipts" style="text-align: right;" value='<s:property value="txtunclrreceipts"/>' tabindex="-1"/></td>
-    <td align="right">Bank St. Balance</td>
-    <td><input type="text" id="txtbankbalance" name="txtbankbalance" style="text-align: right;" value='<s:property value="txtbankbalance"/>' tabindex="-1"/></td>
-  </tr>
-</table>
+    <div class='modern-ui hidden-scrollbar'>
 
-<input type="hidden" id="mode" name="mode"/>
-<input type="hidden" id="deleted" name="deleted" value='<s:property value="deleted"/>'/>
-<input type="hidden" id="msg" name="msg"  value='<s:property value="msg"/>'/>
-<input type="hidden" id="txttrno" name="txttrno"  value='<s:property value="txttrno"/>'/>
-<input type="hidden" name="txtforsearch" id="txtforsearch" value='<s:property value="txtforsearch"/>'>
-<div hidden="true" id="maindate" name="maindate" value='<s:property value="maindate"/>'></div>
-<input type="hidden" id="hidmaindate" name="hidmaindate" value='<s:property value="hidmaindate"/>'/>
-<input type="hidden" id="gridlength" name="gridlength"/>
-<input type="hidden" name="txtchkgridload" id="txtchkgridload" value='<s:property value="txtchkgridload"/>'>
+        <!-- General Info -->
+        <div class="middle-panel">
+            <span class="middle-panel-title">General Info</span>
 
-</div>
+            <div class="field-row">
+                <label class="lbl-right" style="width:60px; flex-shrink:0;">Date</label>
+                <div style="width: 125px; flex-shrink:0;">
+                    <div id="jqxBankReconciliationDate" name="jqxBankReconciliationDate" onchange="datechange();" value='<s:property value="jqxBankReconciliationDate"/>'></div>
+                    <input type="hidden" id="hidjqxBankReconciliationDate" name="hidjqxBankReconciliationDate" value='<s:property value="hidjqxBankReconciliationDate"/>'/>
+                </div>
+
+                <label class="lbl-right" style="width:60px; flex-shrink:0; margin-left: 10px;">Branch</label>
+                <select id="cmbbranch" name="cmbbranch" value='<s:property value="cmbbranch"/>' style="width:150px; flex-shrink:0;">
+                    <option></option>
+                </select>
+                <input type="hidden" id="hidcmbbranch" name="hidcmbbranch" value='<s:property value="hidcmbbranch"/>'/>
+
+                <label class="lbl-right" style="width:60px; flex-shrink:0; margin-left: 10px;">Currency</label>
+                <select id="cmbcurrency" name="cmbcurrency" value='<s:property value="cmbcurrency"/>' onload="getRatevalue(this.value);" style="width:110px; flex-shrink:0;">
+                    <option></option>
+                </select>
+                <input type="hidden" id="hidcmbcurrency" name="hidcmbcurrency" value='<s:property value="hidcmbcurrency"/>'/>
+                <input type="hidden" id="hidcurrencytype" name="hidcurrencytype" value='<s:property value="hidcurrencytype"/>'/>
+                <input type="hidden" id="txtrate" name="txtrate" value='<s:property value="txtrate"/>'/>
+
+                <label class="lbl-right" style="width:60px; flex-shrink:0; margin-left: auto;">Doc No</label>
+                <input type="text" id="docno" name="txtbankreconciliationdocno" value='<s:property value="txtbankreconciliationdocno"/>' tabindex="-1" style="width:120px; flex-shrink:0;"/>
+            </div>
+
+            <div class="field-row" style="margin-bottom:0;">
+                <label class="lbl-right" style="width:60px; flex-shrink:0;">Account</label>
+                <div class="input-search-container" style="width:150px; flex-shrink:0;">
+                    <input type="text" id="txtaccid" name="txtaccid" placeholder="Press F3" value='<s:property value="txtaccid"/>' onkeydown="getAcc(event);"/>
+                    <svg class="magnifier-icon" onclick="var date = $('#jqxBankReconciliationDate').jqxDateTimeInput('getDate'); $('#maindate').jqxDateTimeInput('val', date); accountSearchContent('<%=contextPath%>/com/finance/accountsDetailsSearch.jsp?date='+date); $('#txtforsearch').val(3);" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+
+                <input type="text" id="txtaccname" name="txtaccname" value='<s:property value="txtaccname"/>' style="flex:1; min-width:0; margin-left: 8px;"/>
+                <input type="hidden" id="txtdocno" name="txtdocno" value='<s:property value="txtdocno"/>'/>
+
+                <label class="lbl-right" style="width:80px; flex-shrink:0; margin-left: 15px;">Description</label>
+                <input type="text" id="txtdescription" name="txtdescription" value='<s:property value="txtdescription"/>' style="flex:1; min-width:0;"/>
+
+                <button class="myButton" type="button" id="btnSubmit" name="btnSubmit" onclick="getLastReconcileDate($('#jqxBankReconciliationDate').val(),$('#txtdocno').val());" style="margin-left: 10px;">Submit</button>
+            </div>
+        </div>
+
+        <!-- Applying Grid -->
+        <div class="middle-panel">
+            <span class="middle-panel-title">Applying</span>
+            <div class="grid-container">
+                <div id="jqxBankReconciliationGrid">
+                    <jsp:include page="bankReconciliationGrid.jsp"></jsp:include>
+                </div>
+            </div>
+        </div>
+
+        <!-- Balance Summary -->
+        <div class="middle-panel">
+            <span class="middle-panel-title">Balance Summary</span>
+
+            <div class="field-row" style="margin-bottom:0;">
+                <div class="summary-item">
+                    <label>Book Balance</label>
+                    <input type="text" id="txtbookbalance" name="txtbookbalance" style="text-align: right;" value='<s:property value="txtbookbalance"/>' tabindex="-1"/>
+                </div>
+                <div class="summary-item">
+                    <label>Uncleared Payments(+ve)</label>
+                    <input type="text" id="txtunclrpayments" name="txtunclrpayments" style="text-align: right;" value='<s:property value="txtunclrpayments"/>' tabindex="-1"/>
+                </div>
+                <div class="summary-item">
+                    <label>Uncleared Receipts(-ve)</label>
+                    <input type="text" id="txtunclrreceipts" name="txtunclrreceipts" style="text-align: right;" value='<s:property value="txtunclrreceipts"/>' tabindex="-1"/>
+                </div>
+                <div class="summary-item">
+                    <label>Bank St. Balance</label>
+                    <input type="text" id="txtbankbalance" name="txtbankbalance" style="text-align: right;" value='<s:property value="txtbankbalance"/>' tabindex="-1"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden Inputs -->
+        <div style="display:none;">
+            <input type="hidden" id="mode" name="mode"/>
+            <input type="hidden" id="deleted" name="deleted" value='<s:property value="deleted"/>'/>
+            <input type="hidden" id="msg" name="msg" value='<s:property value="msg"/>'/>
+            <input type="hidden" id="txttrno" name="txttrno" value='<s:property value="txttrno"/>'/>
+            <input type="hidden" name="txtforsearch" id="txtforsearch" value='<s:property value="txtforsearch"/>'/>
+            <div hidden="true" id="maindate" name="maindate" value='<s:property value="maindate"/>'></div>
+            <input type="hidden" id="hidmaindate" name="hidmaindate" value='<s:property value="hidmaindate"/>'/>
+            <input type="hidden" id="gridlength" name="gridlength"/>
+            <input type="hidden" name="txtchkgridload" id="txtchkgridload" value='<s:property value="txtchkgridload"/>'/>
+        </div>
+
+    </div>
 </form>
-	
-<div id="accountDetailsFromWindow">
-	<div></div><div></div>
-</div>  
+
+<div id="accountDetailsFromWindow"><div></div><div></div></div>
 
 </div>
 </body>

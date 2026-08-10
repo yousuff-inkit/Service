@@ -343,106 +343,353 @@
 	  
 </script>
 <style>
+/* =========================================================
+   SCOPED UI: Modern Layout Adapted for Table Structure
+========================================================= */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 24px 0;
+    box-sizing: border-box;
+    overflow-y: auto !important;
+}
 
+#mainBG {
+    background: #fff;
+    border-radius: 16px;
+    padding: 15px;
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+#frmPDCPostingPayment input[type="text"],
+#frmPDCPostingPayment select,
+.textbox {
+    height: 24px !important;
+    border: 1px solid #b8c6d8;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #333;
+    box-shadow: none !important;
+    outline: none;
+    width: 100%;
+}
+
+#frmPDCPostingPayment input[type="text"]:focus,
+#frmPDCPostingPayment select:focus,
+.textbox:focus {
+    border-color: #007bff;
+}
+
+#frmPDCPostingPayment input[readonly],
+#frmPDCPostingPayment input:disabled,
+#frmPDCPostingPayment select:disabled,
+.textbox[readonly] {
+    background-color: #f8f9fa;
+    color: #6b7280;
+}
+
+form label.error {
+    color: red;
+    font-weight: bold;
+    font-size: 11px;
+    font-family: Arial, sans-serif;
+}
+
+#errormsg {
+    color: #e53e3e;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 0;
+}
+
+.myButton, .btn {
+    height: 24px !important;
+    line-height: 22px !important;
+    padding: 0 12px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    text-shadow: none;
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    border: none;
+    background: linear-gradient(135deg, #0b45a2 0%, #2563eb 100%);
+    color: #ffffff;
+    white-space: nowrap;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.myButton:hover, .btn:hover {
+    background: linear-gradient(135deg, #083a8a 0%, #1d4ed8 100%);
+}
+
+/* Icon buttons (View / Save Changes) */
 .icon {
-	width: 2.5em;
-	height: 2em;
-	border: none;
-	background-color: #E0ECF8;
+    width: 30px;
+    height: 24px !important;
+    border: 1px solid #b8c6d8;
+    border-radius: 3px;
+    background-color: #E0ECF8;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background 0.2s;
 }
+.icon:hover {
+    background-color: #cfe0f5;
+}
+
+button[id="btnview"] {
+    cursor: pointer;
+}
+
 .hidden-scrollbar {
-  overflow: auto;
-  height: 530px;
+    overflow-y: auto;
+    height: calc(100vh - 100px);
+    padding-right: 5px;
+    overflow-x: hidden;
 }
+.hidden-scrollbar::-webkit-scrollbar { width: 6px; }
+.hidden-scrollbar::-webkit-scrollbar-thumb { background: #c5d3e0; border-radius: 3px; }
+
+/* Grid Containers */
+.grid-container {
+    border: 1px solid #c5d3e0;
+    border-radius: 4px;
+    background: #fff;
+    overflow: hidden;
+}
+
+/* JQX Widget Overrides for 24px Alignment */
+.jqx-datetimeinput-input {
+    height: 24px !important;
+    line-height: 24px !important;
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+    box-sizing: border-box !important;
+    font-size: 12px !important;
+}
+.jqx-action-button {
+    height: 24px !important;
+}
+
+/* Middle Section Panels */
+.modern-ui .middle-panel {
+    border: 1px solid #c5d3e0;
+    padding: 20px 10px 10px 10px;
+    background: #ffffff;
+    position: relative;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    margin-top: 12px;
+}
+
+.modern-ui .middle-panel-title {
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    background: #ffffff;
+    padding: 0 8px;
+    color: #0056b3;
+    font-weight: bold;
+    font-size: 14px;
+    border-left: 3px solid #0056b3;
+    z-index: 2;
+    line-height: normal;
+}
+
+.modern-ui .field-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.modern-ui .lbl-right {
+    text-align: right;
+    color: #444;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+    padding-right: 5px;
+    flex-shrink: 0;
+}
+
+.modern-ui .input-search-container {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+}
+.modern-ui .input-search-container input {
+    padding-right: 25px !important;
+    width: 100%;
+    box-sizing: border-box;
+}
+.modern-ui .magnifier-icon {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #64748b;
+    z-index: 10;
+}
+.modern-ui .magnifier-icon:hover { color: #2563eb; }
 </style>
 
 </head>
 <body onload="setValues();">
-<div id="mainBG" class="homeContent" data-type="background" >
-<form id="frmPDCPostingPayment" action="savePDCPostingPayment" method="post" autocomplete="off">
-<jsp:include page="../../../../header.jsp"></jsp:include><br/>
 
-<div  class='hidden-scrollbar'>
-<fieldset>
-<table width="100%">
-  <tr>
-    <td width="3%" align="right">Criteria</td>
-    <td width="23%"><select id="cmbcriteria" name="cmbcriteria" style="width:97%;" value='<s:property value="cmbcriteria"/>' onchange="dateDisable();getPDCAccounts();clearClientInfo();">
-    <option value="">--Select--</option><option value="1">PDC to be Posted</option><option value="2">PDC to be Returned</option><option value="3">Posted PDC to be Dishonoured</option>
-    <option value="4">PDC to be Postponed</option><option value="5">Retuned PDC to be Reversed</option><option value="6">Dishourned PDC to be Reversed</option>
-    <option value="7">CDC to be Dishourned</option></select>
-    <input type="hidden" id="hidcmbcriteria" name="hidcmbcriteria" value='<s:property value="hidcmbcriteria"/>'/></td>
-    <td width="3%" align="right">From</td>
-    <td width="3%"><div id="jqxFromDate" name="jqxFromDate" value='<s:property value="jqxFromDate"/>'></div>
-    <input type="hidden" id="hidjqxFromDate" name="hidjqxFromDate" value='<s:property value="hidjqxFromDate"/>'/></td>
-    <td width="2%" align="right">To</td>
-    <td width="3%"><div id="jqxToDate" name="jqxToDate" value='<s:property value="jqxToDate"/>'></div>
-    <input type="hidden" id="hidjqxToDate" name="hidjqxToDate" value='<s:property value="hidjqxToDate"/>'/></td>
-    <td width="4%" align="right">Account</td>
-    <td width="9%"><select id="cmbacctype" name="cmbacctype" style="width:90%;" onchange="clearClientInfo();" value='<s:property value="cmbacctype"/>'>
-    <option value="0">--Select--</option><option value="BANK">Bank</option><option value="AP">AP</option><option value="AR">AR</option></select>
-    <input type="hidden" id="hidcmbacctype" name="hidcmbacctype" value='<s:property value="hidcmbacctype"/>'/></td>
-    <td width="12%"><input type="text" id="txtaccid" readonly name="txtaccid" style="width:85%;" placeholder="Press F3 to Search" value='<s:property value="txtaccid"/>' onkeydown="getAcc(event);"/></td>
-    <td width="24%"><input type="text" id="txtaccname" readonly name="txtaccname" style="width:97%;" value='<s:property value="txtaccname"/>'/>
-    <input type="hidden" id="txtdocno" name="txtdocno" value='<s:property value="txtdocno"/>'/></td>
-    <td width="3%" align="right">Posting</td>
-    <td width="4%"><div id="jqxDate" name="jqxDate" onchange="datechange();" value='<s:property value="jqxDate"/>'></div>
-	<input type="hidden" id="hidjqxDate" name="hidjqxDate" value='<s:property value="hidjqxDate"/>'/></td>
-    <td width="8%" align="center"><button type="button" id="btnview" name="btnview" title="View"  style="border:none;background:none;" onclick="funloadgrid();"><img alt="View" src="<%=contextPath%>/icons/process2.png" width="16" height="16"></button>&nbsp;
-    <button type="button" class="icon" id="btnUpdate" name="btnUpdate" title="Save Changes" onclick="funUpdateChanges();"><img alt="saveChanges" src="<%=contextPath%>/icons/save_new.png"></button></td>
-  </tr>
-  </table>
-  
-  </fieldset><br/>
- <div id="jqxJournalVoucherGrid"><jsp:include page="journalVoucherGrid.jsp"></jsp:include></div><br/>
- <div id="jqxJournalVoucherApplyingGrid"><jsp:include page="journalVoucherApplyingGrid.jsp"></jsp:include></div>
- <div id="pdcPostponedDiv" hidden="true">
- <fieldset style="background: #ECF8E0;">
- <table width="100%">
-  <tr>
-    <td width="7%" align="right">Bank</td>
-    <td width="14%"><input type="text" id="txtbankaccid" name="txtbankaccid" readonly style="width:80%;" value='<s:property value="txtbankaccid"/>'/></td>
-    <td colspan="2"><input type="text" id="txtbankaccname" name="txtbankaccname" readonly style="width:40%;" value='<s:property value="txtbankaccname"/>'/>
-    <input type="hidden" id="txtbankdocno" name="txtbankdocno" value='<s:property value="txtbankdocno"/>'/></td>
-  </tr>
-  <tr>
-    <td align="right">Cheque No.</td>
-    <td><input type="text" id="txtchequeno" name="txtchequeno" style="width:80%;" value='<s:property value="txtchequeno"/>'/></td>
-    <td width="8%" align="right">Cheque Date</td>
-    <td width="71%"><div id="chequedate" name="chequedate" onchange="checkChequeDate();" value='<s:property value="chequedate"/>'></div>
-	<input type="hidden" id="hidchequedate" name="hidchequedate" value='<s:property value="hidchequedate"/>'/>
-	<div hidden="true" id="checkchequedate" name="checkchequedate" value='<s:property value="checkchequedate"/>'></div></td>
-  </tr>
-</table>
-</fieldset>
- </div>
- 
-<input type="hidden" id="mode" name="mode"/>
-<input type="hidden" id="deleted" name="deleted" value='<s:property value="deleted"/>'/>
-<input type="hidden" id="msg" name="msg"  value='<s:property value="msg"/>'/>
-<input type="hidden" id="txtpdcdocno" name="txtpdcdocno"  value='<s:property value="txtpdcdocno"/>'/>
-<input type="hidden" id="txtpdcaccid" name="txtpdcaccid"  value='<s:property value="txtpdcaccid"/>'/>
-<input type="hidden" id="txtpdcaccname" name="txtpdcaccname"  value='<s:property value="txtpdcaccname"/>'/>
-<input type="hidden" id="txtpdcatype" name="txtpdcatype"  value='<s:property value="txtpdcatype"/>'/>
-<input type="hidden" id="txtpdccurid" name="txtpdccurid"  value='<s:property value="txtpdccurid"/>'/>
-<input type="hidden" id="txtpdcrate" name="txtpdcrate"  value='<s:property value="txtpdcrate"/>'/>
-<input type="hidden" id="txtpdctype" name="txtpdctype"  value='<s:property value="txtpdctype"/>'/>
-<input type="hidden" id="txtchqno" name="txtchqno" value='<s:property value="txtchqno"/>'/>
-<input type="hidden" id="txtgriddocno" name="txtgriddocno" value='<s:property value="txtgriddocno"/>'/>
-<input type="hidden" id="txtrowno" name="txtrowno" value='<s:property value="txtrowno"/>'/>
-<input type="hidden" id="txttrno" name="txttrno" value='<s:property value="txttrno"/>'/>
-<input type="hidden" id="txtposttrno" name="txtposttrno"  value='<s:property value="txtposttrno"/>'/>
-<input type="hidden" id="txtdtype" name="txtdtype" value='<s:property value="txtdtype"/>'/>
-<input type="hidden" id="txtibbranch" name="txtibbranch" value='<s:property value="txtibbranch"/>'/>
-<input type="hidden" id="typevalue" name="typevalue"  value='<s:property value="typevalue"/>'/>
-<input type="hidden" id="txtchequevalidation" name="txtchequevalidation"  value='<s:property value="txtchequevalidation"/>'/>
-<input type="hidden" id="gridlength" name="gridlength"/>
-</div>
+<div id="mainBG" class="homeContent" data-type="background">
+<form id="frmPDCPostingPayment" action="savePDCPostingPayment" method="post" autocomplete="off">
+    <jsp:include page="../../../../header.jsp"></jsp:include>
+
+    <div class='modern-ui hidden-scrollbar'>
+
+        <!-- Criteria / Filter Panel -->
+        <div class="middle-panel">
+            <span class="middle-panel-title">Criteria</span>
+
+            <div class="field-row">
+                <label class="lbl-right" style="width:60px; flex-shrink:0;">Criteria</label>
+                <select id="cmbcriteria" name="cmbcriteria" value='<s:property value="cmbcriteria"/>' onchange="dateDisable();getPDCAccounts();clearClientInfo();" style="width:220px; flex-shrink:0;">
+                    <option value="">--Select--</option>
+                    <option value="1">PDC to be Posted</option>
+                    <option value="2">PDC to be Returned</option>
+                    <option value="3">Posted PDC to be Dishonoured</option>
+                    <option value="4">PDC to be Postponed</option>
+                    <option value="5">Retuned PDC to be Reversed</option>
+                    <option value="6">Dishourned PDC to be Reversed</option>
+                    <option value="7">CDC to be Dishourned</option>
+                </select>
+                <input type="hidden" id="hidcmbcriteria" name="hidcmbcriteria" value='<s:property value="hidcmbcriteria"/>'/>
+
+                <label class="lbl-right" style="width:40px; flex-shrink:0; margin-left: 10px;">From</label>
+                <div style="width: 125px; flex-shrink:0;">
+                    <div id="jqxFromDate" name="jqxFromDate" value='<s:property value="jqxFromDate"/>'></div>
+                    <input type="hidden" id="hidjqxFromDate" name="hidjqxFromDate" value='<s:property value="hidjqxFromDate"/>'/>
+                </div>
+
+                <label class="lbl-right" style="width:25px; flex-shrink:0;">To</label>
+                <div style="width: 125px; flex-shrink:0;">
+                    <div id="jqxToDate" name="jqxToDate" value='<s:property value="jqxToDate"/>'></div>
+                    <input type="hidden" id="hidjqxToDate" name="hidjqxToDate" value='<s:property value="hidjqxToDate"/>'/>
+                </div>
+
+                <label class="lbl-right" style="width:55px; flex-shrink:0;">Posting</label>
+                <div style="width: 125px; flex-shrink:0;">
+                    <div id="jqxDate" name="jqxDate" onchange="datechange();" value='<s:property value="jqxDate"/>'></div>
+                    <input type="hidden" id="hidjqxDate" name="hidjqxDate" value='<s:property value="hidjqxDate"/>'/>
+                </div>
+            </div>
+
+            <div class="field-row" style="margin-bottom:0;">
+                <label class="lbl-right" style="width:60px; flex-shrink:0;">Account</label>
+                <select id="cmbacctype" name="cmbacctype" onchange="clearClientInfo();" value='<s:property value="cmbacctype"/>' style="width:110px; flex-shrink:0;">
+                    <option value="0">--Select--</option>
+                    <option value="BANK">Bank</option>
+                    <option value="AP">AP</option>
+                    <option value="AR">AR</option>
+                </select>
+                <input type="hidden" id="hidcmbacctype" name="hidcmbacctype" value='<s:property value="hidcmbacctype"/>'/>
+
+                <div class="input-search-container" style="width:150px; flex-shrink:0;">
+                    <input type="text" id="txtaccid" readonly name="txtaccid" placeholder="Press F3 to Search" value='<s:property value="txtaccid"/>' onkeydown="getAcc(event);"/>
+                    <svg class="magnifier-icon" onclick="accountSearchContent('clientAccountDetailsSearch.jsp?atype='+$('#cmbacctype').val());" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+
+                <input type="text" id="txtaccname" readonly name="txtaccname" value='<s:property value="txtaccname"/>' style="flex:1; min-width:150px;"/>
+                <input type="hidden" id="txtdocno" name="txtdocno" value='<s:property value="txtdocno"/>'/>
+
+                <button type="button" id="btnview" name="btnview" title="View" class="icon" onclick="funloadgrid();" style="margin-left: 10px;"><img alt="View" src="<%=contextPath%>/icons/process2.png" width="16" height="16"></button>
+                <button type="button" class="icon" id="btnUpdate" name="btnUpdate" title="Save Changes" onclick="funUpdateChanges();"><img alt="saveChanges" src="<%=contextPath%>/icons/save_new.png"></button>
+            </div>
+        </div>
+
+        <!-- Journal Voucher Grid -->
+        <div class="grid-container" style="margin-bottom: 10px;">
+            <div id="jqxJournalVoucherGrid">
+                <jsp:include page="journalVoucherGrid.jsp"></jsp:include>
+            </div>
+        </div>
+
+        <!-- Journal Voucher Applying Grid -->
+        <div class="grid-container" style="margin-bottom: 15px;">
+            <div id="jqxJournalVoucherApplyingGrid">
+                <jsp:include page="journalVoucherApplyingGrid.jsp"></jsp:include>
+            </div>
+        </div>
+
+        <!-- PDC Postponed Panel -->
+        <div id="pdcPostponedDiv" hidden="true">
+            <div class="middle-panel" style="background: #ECF8E0;">
+                <span class="middle-panel-title">PDC Postponed</span>
+
+                <div class="field-row">
+                    <label class="lbl-right" style="width:50px; flex-shrink:0;">Bank</label>
+                    <input type="text" id="txtbankaccid" name="txtbankaccid" readonly value='<s:property value="txtbankaccid"/>' style="width:150px; flex-shrink:0;"/>
+
+                    <input type="text" id="txtbankaccname" name="txtbankaccname" readonly value='<s:property value="txtbankaccname"/>' style="flex:1; min-width:0; margin-left: 8px;"/>
+                    <input type="hidden" id="txtbankdocno" name="txtbankdocno" value='<s:property value="txtbankdocno"/>'/>
+                </div>
+
+                <div class="field-row" style="margin-bottom:0;">
+                    <label class="lbl-right" style="width:80px; flex-shrink:0;">Cheque No.</label>
+                    <input type="text" id="txtchequeno" name="txtchequeno" value='<s:property value="txtchequeno"/>' style="width:150px; flex-shrink:0;"/>
+
+                    <label class="lbl-right" style="width:80px; flex-shrink:0; margin-left: 15px;">Cheque Date</label>
+                    <div style="width: 125px; flex-shrink:0;">
+                        <div id="chequedate" name="chequedate" onchange="checkChequeDate();" value='<s:property value="chequedate"/>'></div>
+                        <input type="hidden" id="hidchequedate" name="hidchequedate" value='<s:property value="hidchequedate"/>'/>
+                        <div hidden="true" id="checkchequedate" name="checkchequedate" value='<s:property value="checkchequedate"/>'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden Inputs -->
+        <div style="display:none;">
+            <input type="hidden" id="mode" name="mode"/>
+            <input type="hidden" id="deleted" name="deleted" value='<s:property value="deleted"/>'/>
+            <input type="hidden" id="msg" name="msg" value='<s:property value="msg"/>'/>
+            <input type="hidden" id="txtpdcdocno" name="txtpdcdocno" value='<s:property value="txtpdcdocno"/>'/>
+            <input type="hidden" id="txtpdcaccid" name="txtpdcaccid" value='<s:property value="txtpdcaccid"/>'/>
+            <input type="hidden" id="txtpdcaccname" name="txtpdcaccname" value='<s:property value="txtpdcaccname"/>'/>
+            <input type="hidden" id="txtpdcatype" name="txtpdcatype" value='<s:property value="txtpdcatype"/>'/>
+            <input type="hidden" id="txtpdccurid" name="txtpdccurid" value='<s:property value="txtpdccurid"/>'/>
+            <input type="hidden" id="txtpdcrate" name="txtpdcrate" value='<s:property value="txtpdcrate"/>'/>
+            <input type="hidden" id="txtpdctype" name="txtpdctype" value='<s:property value="txtpdctype"/>'/>
+            <input type="hidden" id="txtchqno" name="txtchqno" value='<s:property value="txtchqno"/>'/>
+            <input type="hidden" id="txtgriddocno" name="txtgriddocno" value='<s:property value="txtgriddocno"/>'/>
+            <input type="hidden" id="txtrowno" name="txtrowno" value='<s:property value="txtrowno"/>'/>
+            <input type="hidden" id="txttrno" name="txttrno" value='<s:property value="txttrno"/>'/>
+            <input type="hidden" id="txtposttrno" name="txtposttrno" value='<s:property value="txtposttrno"/>'/>
+            <input type="hidden" id="txtdtype" name="txtdtype" value='<s:property value="txtdtype"/>'/>
+            <input type="hidden" id="txtibbranch" name="txtibbranch" value='<s:property value="txtibbranch"/>'/>
+            <input type="hidden" id="typevalue" name="typevalue" value='<s:property value="typevalue"/>'/>
+            <input type="hidden" id="txtchequevalidation" name="txtchequevalidation" value='<s:property value="txtchequevalidation"/>'/>
+            <input type="hidden" id="gridlength" name="gridlength"/>
+        </div>
+
+    </div>
 </form>
-<div id="accountDetailsWindow">
-	<div></div><div></div>
-</div>  
-	
+<div id="accountDetailsWindow"><div></div><div></div></div>
+
 </div>
 </body>
 </html>

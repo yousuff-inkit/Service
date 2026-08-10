@@ -603,7 +603,7 @@
 <td width="40%" > 
 			<table width="100%" >
 			<tr><td>&nbsp;</td></tr>
-			    <tr><td colspan="2"><center><img src="../../icons/gw.png" onclick="location.reload ();" style="width:50%;height:30px;"></center></td></tr>  
+			    <tr><td colspan="2"><center><img src="../../icons/ink_new_logo_2025" onclick="location.reload ();" style="width:50%;height:30px;"></center></td></tr>  
 			 	 <tr>
 			 	 	<td width="50%" align="center" ><div><jsp:include page="dashboardGridMaster.jsp"></jsp:include></div></td>
 			  		<td width="50%" align="center" >

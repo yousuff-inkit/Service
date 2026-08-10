@@ -241,73 +241,256 @@
 	  
 </script>
 
+
+</head>
 <style>
+/* =========================================================
+   SCOPED UI: Modern Layout Adapted for Table Structure
+========================================================= */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 24px 0;
+    box-sizing: border-box;
+    overflow-y: auto !important;
+}
+
+#mainBG {
+    background: #fff;
+    border-radius: 16px;
+    padding: 15px;
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+#frmUnclearedChequeProcessing input[type="text"],
+#frmUnclearedChequeProcessing select,
+.textbox { 
+    height: 24px !important; 
+    border: 1px solid #b8c6d8; 
+    border-radius: 3px; 
+    padding: 2px 6px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box; 
+    background-color: #fff; 
+    color: #333;
+    box-shadow: none !important;
+    outline: none;
+    width: 100%;
+}
+
+#frmUnclearedChequeProcessing input[type="text"]:focus,
+#frmUnclearedChequeProcessing select:focus,
+.textbox:focus { 
+    border-color: #007bff; 
+}
+
+#frmUnclearedChequeProcessing input[readonly],
+#frmUnclearedChequeProcessing input:disabled,
+#frmUnclearedChequeProcessing select:disabled,
+.textbox[readonly] { 
+    background-color: #f8f9fa; 
+    color: #6b7280;
+}
+
+form label.error {
+    color: red;
+    font-weight: bold;
+    font-size: 11px;
+    font-family: Arial, sans-serif;
+}
+
+.myButton, .btn {
+    height: 24px !important;
+    line-height: 22px !important;
+    padding: 0 12px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    text-shadow: none;
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    border: none;
+    background: linear-gradient(135deg, #0b45a2 0%, #2563eb 100%);
+    color: #ffffff;
+    white-space: nowrap;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.myButton:hover, .btn:hover { 
+    background: linear-gradient(135deg, #083a8a 0%, #1d4ed8 100%); 
+}
+
+.icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+.icon:hover {
+    transform: scale(1.1);
+}
+
 .hidden-scrollbar {
-  overflow: auto;
-  height: 530px;
+    overflow-y: auto;
+    height: calc(100vh - 100px);
+    padding-right: 5px;
+    overflow-x: hidden;
+}
+.hidden-scrollbar::-webkit-scrollbar { width: 6px; }
+.hidden-scrollbar::-webkit-scrollbar-thumb { background: #c5d3e0; border-radius: 3px; }
+
+/* Grid Containers */
+.grid-container {
+    border: 1px solid #c5d3e0;
+    border-radius: 4px;
+    background: #fff;
+    overflow: hidden;
+}
+
+/* Middle Section Panels */
+.modern-ui .middle-panel {
+    border: 1px solid #c5d3e0; 
+    padding: 20px 10px 10px 10px; 
+    background: #ffffff; 
+    position: relative; 
+    border-radius: 4px; 
+    margin-bottom: 15px;
+    margin-top: 12px;
+}
+
+.modern-ui .middle-panel-title { 
+    position: absolute; 
+    top: -12px;
+    left: 10px; 
+    background: #ffffff; 
+    padding: 0 8px; 
+    color: #0056b3;
+    font-weight: bold; 
+    font-size: 14px; 
+    border-left: 3px solid #0056b3;
+    z-index: 2; 
+    line-height: normal; 
+}
+
+.modern-ui .field-row { 
+    display: flex;
+    align-items: center; 
+    gap: 8px;
+    margin-bottom: 10px; 
+    flex-wrap: nowrap; /* Prevent wrapping */
+}
+
+.modern-ui .lbl-right { 
+    text-align: right; 
+    color: #444;
+    font-size: 12px; 
+    font-weight: bold;
+    white-space: nowrap; 
+    padding-right: 5px;
+    flex-shrink: 0; /* Keep labels from squishing */
 }
 </style>
 
-</head>
 <body onload="setValues();headerbtndisable();">
 <div id="mainBG" class="homeContent" data-type="background" >
 <form id="frmUnclearedChequeProcessing" action="saveUnclearedChequeProcessing" method="post" autocomplete="off">
-<jsp:include page="../../../../header.jsp"></jsp:include><br/>
+<jsp:include page="../../../../header.jsp"></jsp:include>
 
-<div  class='hidden-scrollbar'>
+<div class='modern-ui hidden-scrollbar'>
 
-<fieldset>
-<table width="100%">
-  <tr>
-    <td width="3%" align="right">Date</td>
-    <td width="12%"><div id="jqxUnclearedChequeProcessingDate" name="jqxUnclearedChequeProcessingDate" value='<s:property value="jqxUnclearedChequeProcessingDate"/>'></div>
-    <input type="hidden" id="hidjqxUnclearedChequeProcessingDate" name="hidjqxUnclearedChequeProcessingDate" value='<s:property value="hidjqxUnclearedChequeProcessingDate"/>'/></td>
-    <td width="14%" align="right">Uncleared P.D.C From</td>
-    <td width="8%"><div id="jqxUnclearedChequeProcessFromDate" name="jqxUnclearedChequeProcessFromDate" value='<s:property value="jqxUnclearedChequeProcessFromDate"/>'></div>
-    <input type="hidden" id="hidjqxUnclearedChequeProcessFromDate" name="hidjqxUnclearedChequeProcessFromDate" value='<s:property value="hidjqxUnclearedChequeProcessFromDate"/>'/></td>
-    <td width="7%" align="right">P.D.C. Upto</td>
-    <td width="9%"><div id="jqxUnclearedChequeProcessToDate" name="jqxUnclearedChequeProcessToDate" value='<s:property value="jqxUnclearedChequeProcessToDate"/>'></div>
-    <input type="hidden" id="hidjqxUnclearedChequeProcessToDate" name="hidjqxUnclearedChequeProcessToDate" value='<s:property value="hidjqxUnclearedChequeProcessToDate"/>'/></td>
-    <td width="3%" align="right">Type</td>
-    <td width="9%"><select id="cmbtype" name="cmbtype" style="width:80%;" value='<s:property value="cmbtype"/>'>
-    <option value="">--Select--</option><option value="UCP">Payment</option><option value="UCR">Receipt</option></select>
-    <input type="hidden" id="hidcmbtype" name="hidcmbtype" value='<s:property value="hidcmbtype"/>'/></td>
-    <td width="6%" align="right">Posting</td>
-    <td width="13%"><div id="postingDate" name="postingDate" onchange="datechange();" value='<s:property value="postingDate"/>'></div>
-    <input type="hidden" id="hidpostingDate" name="hidpostingDate" value='<s:property value="hidpostingDate"/>'/></td>
-    <td width="16%" align="left"><button class="myButton" type="button" id="btnUnclearedChequeSearch" name="btnUnclearedChequeSearch" onclick="funloadgrid();">View</button></td>
-  </tr>
-</table>
-</fieldset><br/>
+    <!-- Search/Filter Panel -->
+    <div class="middle-panel" style="background: #fdfdfd;">
+        <span class="middle-panel-title">Filters</span>
+        
+        <div class="field-row">
+            <label class="lbl-right" style="width:60px; flex-shrink:0;">Date</label>
+            <div style="width: 125px; flex-shrink:0;">
+                <div id="jqxUnclearedChequeProcessingDate" name="jqxUnclearedChequeProcessingDate" value='<s:property value="jqxUnclearedChequeProcessingDate"/>'></div>
+                <input type="hidden" id="hidjqxUnclearedChequeProcessingDate" name="hidjqxUnclearedChequeProcessingDate" value='<s:property value="hidjqxUnclearedChequeProcessingDate"/>'/>
+            </div>
+            
+            <label class="lbl-right" style="width:140px; flex-shrink:0; margin-left: 15px;">Uncleared P.D.C From</label>
+            <div style="width: 125px; flex-shrink:0;">
+                <div id="jqxUnclearedChequeProcessFromDate" name="jqxUnclearedChequeProcessFromDate" value='<s:property value="jqxUnclearedChequeProcessFromDate"/>'></div>
+                <input type="hidden" id="hidjqxUnclearedChequeProcessFromDate" name="hidjqxUnclearedChequeProcessFromDate" value='<s:property value="hidjqxUnclearedChequeProcessFromDate"/>'/>
+            </div>
+            
+            <label class="lbl-right" style="width:80px; flex-shrink:0; margin-left: 15px;">P.D.C. Upto</label>
+            <div style="width: 125px; flex-shrink:0;">
+                <div id="jqxUnclearedChequeProcessToDate" name="jqxUnclearedChequeProcessToDate" value='<s:property value="jqxUnclearedChequeProcessToDate"/>'></div>
+                <input type="hidden" id="hidjqxUnclearedChequeProcessToDate" name="hidjqxUnclearedChequeProcessToDate" value='<s:property value="hidjqxUnclearedChequeProcessToDate"/>'/>
+            </div>
+        </div>
+        
+        <div class="field-row" style="margin-bottom:0;">
+            <label class="lbl-right" style="width:60px; flex-shrink:0;">Type</label>
+            <select id="cmbtype" name="cmbtype" style="width:125px; flex-shrink:0;" value='<s:property value="cmbtype"/>'>
+                <option value="">--Select--</option>
+                <option value="UCP">Payment</option>
+                <option value="UCR">Receipt</option>
+            </select>
+            <input type="hidden" id="hidcmbtype" name="hidcmbtype" value='<s:property value="hidcmbtype"/>'/>
+            
+            <label class="lbl-right" style="width:140px; flex-shrink:0; margin-left: 15px;">Posting</label>
+            <div style="width: 125px; flex-shrink:0;">
+                <div id="postingDate" name="postingDate" onchange="datechange();" value='<s:property value="postingDate"/>'></div>
+                <input type="hidden" id="hidpostingDate" name="hidpostingDate" value='<s:property value="hidpostingDate"/>'/>
+            </div>
+            
+            <button class="myButton" type="button" id="btnUnclearedChequeSearch" name="btnUnclearedChequeSearch" onclick="funloadgrid();" style="margin-left: 15px; flex-shrink:0;">View</button>
+        </div>
+    </div>
 
-<div id="unclearedChequeProcessingDiv"><center><jsp:include page="unclearedChequeProcessingGrid.jsp"></jsp:include></center></div><br/>
+    <!-- Data Grids Panel -->
+    <div class="middle-panel" style="padding: 10px;">
+        <div id="unclearedChequeProcessingDiv" class="grid-container" style="margin-bottom: 15px;">
+            <jsp:include page="unclearedChequeProcessingGrid.jsp"></jsp:include>
+        </div>
 
-<div id="bankPaymentDiv"><center><jsp:include page="bankPaymentGrid.jsp"></jsp:include></center></div><br/>
+        <div id="bankPaymentDiv" class="grid-container">
+            <jsp:include page="bankPaymentGrid.jsp"></jsp:include>
+        </div>
+        
+        <div class="field-row" style="justify-content: flex-end; margin-bottom: 0; margin-top: 10px;">
+            <label class="lbl-right" style="width:60px; flex-shrink:0;">Dr. Total</label>
+            <input type="text" id="txtdrtotal" name="txtdrtotal" value='<s:property value="txtdrtotal"/>' style="width:120px; flex-shrink:0; text-align: right;"/>
+            
+            <label class="lbl-right" style="width:60px; flex-shrink:0; margin-left: 15px;">Cr. Total</label>
+            <input type="text" id="txtcrtotal" name="txtcrtotal" value='<s:property value="txtcrtotal"/>' tabindex="-1" style="width:120px; flex-shrink:0; text-align: right;"/>
+        </div>
+    </div>
 
-<table width="100%">
-  <tr>
-    <td width="7%" align="right">Dr. Total</td>
-    <td width="68%"><input type="text" id="txtdrtotal" name="txtdrtotal" style="width:15%;text-align: right;" value='<s:property value="txtdrtotal"/>'/></td>
-    <td width="6%" align="right">Cr. Total</td>
-    <td width="19%"><input type="text" id="txtcrtotal" name="txtcrtotal" style="width:50%;text-align: right;" value='<s:property value="txtcrtotal"/>' tabindex="-1"/></td>
-  </tr>
-</table>
+    <!-- Hidden Inputs -->
+    <div style="display:none;">
+        <input type="hidden" id="mode" name="mode"/>
+        <input type="hidden" id="deleted" name="deleted" value='<s:property value="deleted"/>'/>
+        <input type="hidden" id="msg" name="msg" value='<s:property value="msg"/>'/>
+        <input type="hidden" id="txtchqno" name="txtchqno" value='<s:property value="txtchqno"/>'/>
+        <input type="hidden" id="txtchqdt" name="txtchqdt" value='<s:property value="txtchqdt"/>'/>
+        <input type="hidden" id="txtchqname" name="txtchqname" value='<s:property value="txtchqname"/>'/>
+        <input type="hidden" id="chckpdc" name="chckpdc" value='<s:property value="chckpdc"/>'/>
+        <input type="hidden" id="txtfromrate" name="txtfromrate" value='<s:property value="txtfromrate"/>'/>
+        <input type="hidden" id="txttrno" name="txttrno" value='<s:property value="txttrno"/>'/>
+        <input type="hidden" id="txtdocno" name="txtdocno" value='<s:property value="txtdocno"/>'/>
+        <input type="hidden" id="txtgriddtype" name="txtgriddtype" value='<s:property value="txtgriddtype"/>'/>
+        <input type="hidden" id="gridlength" name="gridlength"/>
+    </div>
 
-<input type="hidden" id="mode" name="mode"/>
-<input type="hidden" id="deleted" name="deleted" value='<s:property value="deleted"/>'/>
-<input type="hidden" id="msg" name="msg"  value='<s:property value="msg"/>'/>
-<input type="hidden" id="txtchqno" name="txtchqno" value='<s:property value="txtchqno"/>'/>
-<input type="hidden" id="txtchqdt" name="txtchqdt" value='<s:property value="txtchqdt"/>'/>
-<input type="hidden" id="txtchqname" name="txtchqname" value='<s:property value="txtchqname"/>'/>
-<input type="hidden" id="chckpdc" name="chckpdc" value='<s:property value="chckpdc"/>'/>
-<input type="hidden" id="txtfromrate" name="txtfromrate" value='<s:property value="txtfromrate"/>'/>
-<input type="hidden" id="txttrno" name="txttrno" value='<s:property value="txttrno"/>'/>
-<input type="hidden" id="txtdocno" name="txtdocno" value='<s:property value="txtdocno"/>'/>
-<input type="hidden" id="txtgriddtype" name="txtgriddtype" value='<s:property value="txtgriddtype"/>'/>
-<input type="hidden" id="gridlength" name="gridlength"/>
 </div>
 </form>
-	
+    
 </div>
 </body>
 </html>

@@ -155,73 +155,289 @@
 </script>
 
 <style>
-.hidden-scrollbar {
-  overflow: auto;
-  height: 530px;
+/* =========================================================
+   SCOPED UI: Modern Layout Adapted for Table Structure
+========================================================= */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 24px 0;
+    box-sizing: border-box;
+    overflow-y: auto !important;
 }
-</style>
 
+#mainBG {
+    background: #fff;
+    border-radius: 16px;
+    padding: 15px;
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+#frmManualApplying input[type="text"],
+#frmManualApplying select,
+.textbox {
+    height: 24px !important;
+    border: 1px solid #b8c6d8;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #333;
+    box-shadow: none !important;
+    outline: none;
+    width: 100%;
+}
+
+#frmManualApplying input[type="text"]:focus,
+#frmManualApplying select:focus,
+.textbox:focus {
+    border-color: #007bff;
+}
+
+#frmManualApplying input[readonly],
+#frmManualApplying input:disabled,
+#frmManualApplying select:disabled,
+.textbox[readonly] {
+    background-color: #f8f9fa;
+    color: #6b7280;
+}
+
+form label.error {
+    color: red;
+    font-weight: bold;
+    font-size: 11px;
+    font-family: Arial, sans-serif;
+}
+
+#errormsg {
+    color: #e53e3e;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 0;
+}
+
+.myButton, .btn {
+    height: 24px !important;
+    line-height: 22px !important;
+    padding: 0 12px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    text-shadow: none;
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    border: none;
+    background: linear-gradient(135deg, #0b45a2 0%, #2563eb 100%);
+    color: #ffffff;
+    white-space: nowrap;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.myButton:hover, .btn:hover {
+    background: linear-gradient(135deg, #083a8a 0%, #1d4ed8 100%);
+}
+
+.hidden-scrollbar {
+    overflow-y: auto;
+    height: calc(100vh - 100px);
+    padding-right: 5px;
+    overflow-x: hidden;
+}
+.hidden-scrollbar::-webkit-scrollbar { width: 6px; }
+.hidden-scrollbar::-webkit-scrollbar-thumb { background: #c5d3e0; border-radius: 3px; }
+
+/* Grid Containers */
+.grid-container {
+    border: 1px solid #c5d3e0;
+    border-radius: 4px;
+    background: #fff;
+    overflow: hidden;
+}
+
+/* JQX Widget Overrides for 24px Alignment */
+.jqx-datetimeinput-input {
+    height: 24px !important;
+    line-height: 24px !important;
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+    box-sizing: border-box !important;
+    font-size: 12px !important;
+}
+.jqx-action-button {
+    height: 24px !important;
+}
+
+/* Middle Section Panels */
+.modern-ui .middle-panel {
+    border: 1px solid #c5d3e0;
+    padding: 20px 10px 10px 10px;
+    background: #ffffff;
+    position: relative;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    margin-top: 12px;
+}
+
+.modern-ui .middle-panel-title {
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    background: #ffffff;
+    padding: 0 8px;
+    color: #0056b3;
+    font-weight: bold;
+    font-size: 14px;
+    border-left: 3px solid #0056b3;
+    z-index: 2;
+    line-height: normal;
+}
+
+.modern-ui .field-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: nowrap;
+}
+
+.modern-ui .lbl-right {
+    text-align: right;
+    color: #444;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+    padding-right: 5px;
+    flex-shrink: 0;
+}
+
+.modern-ui .input-search-container {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+}
+.modern-ui .input-search-container input {
+    padding-right: 25px !important;
+    width: 100%;
+    box-sizing: border-box;
+}
+.modern-ui .magnifier-icon {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #64748b;
+    z-index: 10;
+}
+.modern-ui .magnifier-icon:hover { color: #2563eb; }
+</style>
 </head>
 <body onload="setValues();">
-<div id="mainBG" class="homeContent" data-type="background" >
+
+<div id="mainBG" class="homeContent" data-type="background">
 <form id="frmManualApplying" action="saveManualApplying" method="post" autocomplete="off">
-<jsp:include page="../../../../header.jsp"></jsp:include><br/>
+    <jsp:include page="../../../../header.jsp"></jsp:include>
 
-<div  class='hidden-scrollbar'>
-<table width="100%">
-  <tr>
-    <td width="5%" align="right">Account</td>
-    <td width="6%"><select id="cmbacctype" name="cmbacctype" style="width:70%;" onchange="clearAccountInfo();" value='<s:property value="cmbacctype"/>'>
-    <option value="AP">AP</option><option value="AR">AR</option></select>
-    <input type="hidden" id="hidcmbacctype" name="hidcmbacctype" value='<s:property value="hidcmbacctype"/>'/></td>
-    <td width="14%"><input type="text" id="txtaccid" name="txtaccid" style="width:80%;" placeholder="Press F3 to Search" readonly value='<s:property value="txtaccid"/>' onkeydown="getAcc(event);"/></td>
-    <td width="30%"><input type="text" id="txtaccname" name="txtaccname" style="width:90%;" readonly value='<s:property value="txtaccname"/>'/>
-    <input type="hidden" id="txtdocno" name="txtdocno" value='<s:property value="txtdocno"/>'/></td>
-    <td width="45%" align="center"><button class="myButton" type="button" id="btnSubmit" name="btnSubmit" onclick="funloadappliedgrid();">Submit</button></td>
-  </tr>
-</table>
-<fieldset><legend>Unapplied</legend>
-<div id="jqxManualAppliedGrid"><jsp:include page="appliedInvoicingGrid.jsp"></jsp:include></div></fieldset>
-<fieldset><legend>Outstanding</legend>
-<div id="jqxManualApplingGrid"><jsp:include page="applyInvoicingGrid.jsp"></jsp:include></div></fieldset><br/>
- <table width="100%">
-  <tr>
-    <td width="3%" align="right">Doc No</td>
-    <td width="6%"><input type="text" id="txtgriddocno" name="txtgriddocno" style="width:70%;" readonly value='<s:property value="txtgriddocno"/>' tabindex="-1"/></td>
-    <td width="3%" align="right">Doc Type</td>
-    <td width="6%"><input type="text" id="txtdoctype" name="txtdoctype" style="width:60%;" readonly value='<s:property value="txtdoctype"/>' tabindex="-1"/></td>
-    <td width="5%" align="right">Amount</td>
-    <td width="6%"><input type="text" id="txtapplyinvoiceamt" name="txtapplyinvoiceamt" style="width:70%;text-align: right;" readonly value='<s:property value="txtapplyinvoiceamt"/>' tabindex="-1"/>
-    <input type="hidden" id="txtvalidation" name="txtvalidation" value='<s:property value="txtvalidation"/>'/></td>
-    <td width="5%" align="right">Applying</td>
-    <td width="6%"><input type="text" id="txtapplyinvoiceapply" name="txtapplyinvoiceapply" style="width:70%;text-align: right;" readonly value='<s:property value="txtapplyinvoiceapply"/>' tabindex="-1"/></td>
-    <td width="3%" align="right">Balance</td>
-    <td width="6%"><input type="text" id="txtapplyinvoicebalance" name="txtapplyinvoicebalance" style="width:70%;text-align: right;" readonly value='<s:property value="txtapplyinvoicebalance"/>' tabindex="-1"/></td>
-    <td width="7%" align="center"><button class="myButton" type="button" id="btnUpdate" name="btnUpdate" onkeydown="funUpdateChanges();" onclick="funUpdateChanges();">Update</button></td>
-  </tr>
-</table>
+    <div class='modern-ui hidden-scrollbar'>
 
-<input type="hidden" id="mode" name="mode"/>
-<input type="hidden" id="deleted" name="deleted" value='<s:property value="deleted"/>'/>
-<input type="hidden" id="msg" name="msg"  value='<s:property value="msg"/>'/>
-<input type="hidden" name="txtforsearch" id="txtforsearch" value='<s:property value="txtforsearch"/>'>
-<input type="hidden" id="txttranid" name="txttranid" value='<s:property value="txttranid"/>'/>
-<input type="hidden" id="txttrno" name="txttrno" value='<s:property value="txttrno"/>'/>
-<input type="hidden" id="txtoutamount" name="txtoutamount" value='<s:property value="txtoutamount"/>'/>
-<input type="hidden" id="txtacno" name="txtacno" value='<s:property value="txtacno"/>'/>
-<input type="hidden" id="gridlength" name="gridlength"/>
-<div hidden="true" id="maindate" name="maindate" value='<s:property value="maindate"/>'></div>
-</div>
+        <!-- General Info -->
+        <div class="middle-panel">
+            <span class="middle-panel-title">General Info</span>
+
+            <div class="field-row" style="margin-bottom:0;">
+                <label class="lbl-right" style="width:60px; flex-shrink:0;">Account</label>
+                <select id="cmbacctype" name="cmbacctype" onchange="clearAccountInfo();" value='<s:property value="cmbacctype"/>' style="width:80px; flex-shrink:0;">
+                    <option value="AP">AP</option>
+                    <option value="AR">AR</option>
+                </select>
+                <input type="hidden" id="hidcmbacctype" name="hidcmbacctype" value='<s:property value="hidcmbacctype"/>'/>
+
+                <div class="input-search-container" style="width:150px; flex-shrink:0;">
+                    <input type="text" id="txtaccid" name="txtaccid" placeholder="Press F3 to Search" readonly value='<s:property value="txtaccid"/>' onkeydown="getAcc(event);"/>
+                    <svg class="magnifier-icon" onclick="var date = $('#maindate').jqxDateTimeInput('getDate'); accountSearchContent('<%=contextPath%>/com/finance/clientAccountDetailsSearch.jsp?atype='+$('#cmbacctype').val()+'&date='+date); $('#txtforsearch').val(3);" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+
+                <input type="text" id="txtaccname" name="txtaccname" readonly value='<s:property value="txtaccname"/>' style="flex:1; min-width:0; margin-left: 8px;"/>
+                <input type="hidden" id="txtdocno" name="txtdocno" value='<s:property value="txtdocno"/>'/>
+
+                <button class="myButton" type="button" id="btnSubmit" name="btnSubmit" onclick="funloadappliedgrid();" style="margin-left: 10px;">Submit</button>
+            </div>
+        </div>
+
+        <!-- Unapplied Grid -->
+        <div class="middle-panel">
+            <span class="middle-panel-title">Unapplied</span>
+            <div class="grid-container">
+                <div id="jqxManualAppliedGrid">
+                    <jsp:include page="appliedInvoicingGrid.jsp"></jsp:include>
+                </div>
+            </div>
+        </div>
+
+        <!-- Outstanding Grid -->
+        <div class="middle-panel">
+            <span class="middle-panel-title">Outstanding</span>
+            <div class="grid-container">
+                <div id="jqxManualApplingGrid">
+                    <jsp:include page="applyInvoicingGrid.jsp"></jsp:include>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Row -->
+        <div class="middle-panel">
+            <span class="middle-panel-title">Summary</span>
+
+            <div class="field-row" style="margin-bottom:0;">
+                <label class="lbl-right" style="width:55px; flex-shrink:0;">Doc No</label>
+                <input type="text" id="txtgriddocno" name="txtgriddocno" readonly value='<s:property value="txtgriddocno"/>' tabindex="-1" style="width:100px; flex-shrink:0;"/>
+
+                <label class="lbl-right" style="width:60px; flex-shrink:0;">Doc Type</label>
+                <input type="text" id="txtdoctype" name="txtdoctype" readonly value='<s:property value="txtdoctype"/>' tabindex="-1" style="width:90px; flex-shrink:0;"/>
+
+                <label class="lbl-right" style="width:55px; flex-shrink:0;">Amount</label>
+                <input type="text" id="txtapplyinvoiceamt" name="txtapplyinvoiceamt" readonly value='<s:property value="txtapplyinvoiceamt"/>' tabindex="-1" style="width:100px; flex-shrink:0; text-align: right;"/>
+                <input type="hidden" id="txtvalidation" name="txtvalidation" value='<s:property value="txtvalidation"/>'/>
+
+                <label class="lbl-right" style="width:55px; flex-shrink:0;">Applying</label>
+                <input type="text" id="txtapplyinvoiceapply" name="txtapplyinvoiceapply" readonly value='<s:property value="txtapplyinvoiceapply"/>' tabindex="-1" style="width:100px; flex-shrink:0; text-align: right;"/>
+
+                <label class="lbl-right" style="width:55px; flex-shrink:0;">Balance</label>
+                <input type="text" id="txtapplyinvoicebalance" name="txtapplyinvoicebalance" readonly value='<s:property value="txtapplyinvoicebalance"/>' tabindex="-1" style="width:100px; flex-shrink:0; text-align: right;"/>
+
+                <button class="myButton" type="button" id="btnUpdate" name="btnUpdate" onkeydown="funUpdateChanges();" onclick="funUpdateChanges();" style="margin-left: 10px;">Update</button>
+            </div>
+        </div>
+
+        <!-- Hidden Inputs -->
+        <div style="display:none;">
+            <input type="hidden" id="mode" name="mode"/>
+            <input type="hidden" id="deleted" name="deleted" value='<s:property value="deleted"/>'/>
+            <input type="hidden" id="msg" name="msg" value='<s:property value="msg"/>'/>
+            <input type="hidden" name="txtforsearch" id="txtforsearch" value='<s:property value="txtforsearch"/>'/>
+            <input type="hidden" id="txttranid" name="txttranid" value='<s:property value="txttranid"/>'/>
+            <input type="hidden" id="txttrno" name="txttrno" value='<s:property value="txttrno"/>'/>
+            <input type="hidden" id="txtoutamount" name="txtoutamount" value='<s:property value="txtoutamount"/>'/>
+            <input type="hidden" id="txtacno" name="txtacno" value='<s:property value="txtacno"/>'/>
+            <input type="hidden" id="gridlength" name="gridlength"/>
+            <div hidden="true" id="maindate" name="maindate" value='<s:property value="maindate"/>'></div>
+        </div>
+
+    </div>
 </form>
-	
-<div id="cashPaymentGridWindow">
-	<div></div><div></div>
-</div>  
-				
-<div id="accountDetailsToWindow">
-	<div></div><div></div>
-</div>  
-	
+
+<div id="cashPaymentGridWindow"><div></div><div></div></div>
+<div id="accountDetailsToWindow"><div></div><div></div></div>
+
 </div>
 </body>
 </html>
