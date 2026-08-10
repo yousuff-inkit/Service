@@ -7,366 +7,288 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <jsp:include page="../../../../includes.jsp"></jsp:include>
 <title>GatewayERP(i)</title>
-<style type="text/css">
-html, body {
-    height: 100%;
+
+<style>
+/* =========================================================
+SCOPED UI: Modern Layout (Matches Client Master)
+========================================================= */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    color: #222;
     margin: 0;
-    padding: 0;
-    overflow-y: auto;
-    font-family: 'Segoe UI', sans-serif;
-    background: #eef1f5;
-    color: #2d3748;
-}
-
-/* Thin modern scrollbar */
-body::-webkit-scrollbar {
-    width: 8px;
-}
-
-body::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 10px;
-}
-
-body::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
-}
-#mainBG {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 18px 25px 25px 25px; /* Reduced top padding */
-    margin: 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-}
-
-/* Remove unwanted gap after header include */
-#mainBG > br {
-    display: none;
-}
-
-.page-title {
-    font-size: 22px;
-    font-weight: 600;
-    margin: 10px 0 15px 0; /* Reduced spacing */
-    color: #2d3748;
-}
-
-
-.toolbar {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 18px;
-}
-
-.toolbar button {
-    background: #f1f3f6;
-    border: none;
-    padding: 7px 16px;
-    border-radius: 20px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
-.toolbar button:hover {
-    background: #e2e6ea;
-}
-
-
-.section-card {
-    background: #f5f7fa;
-    border-radius: 14px;
-    padding: 18px;
-    margin-bottom: 20px;
-}
-
-.section-title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 18px;
-    padding-left: 10px;
-    border-left: 4px solid #1e88e5;
-    color: #2d3748;
-}
-
-.two-column {
-    display: flex;
-    gap: 20px;
-}
-
-.section-half {
-    flex: 1;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 140px 1fr 140px 1fr;
-    gap: 15px;
-    margin-bottom: 14px;
-    align-items: center;
-}
-
-.form-row.single {
-    grid-template-columns: 140px 1fr;
-}
-
-
-input[type="text"],
-select {
-    height: 34px;
-    border: 1px solid #d8dee9;
-    border-radius: 8px;
-    padding: 6px 12px;
-    background: #ffffff;
-    font-size: 14px;
+    padding: 24px 0;
     box-sizing: border-box;
-    transition: 0.2s ease;
+    overflow-y: auto !important;
 }
 
-input[type="text"]:focus,
-select:focus {
-    border-color: #1e88e5;
+#mainBG {
+    background: #fff;
+    border-radius: 16px;
+    padding: 15px;
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+.modern-ui {
+    font-family: Arial, sans-serif; 
+    color: #333;
+    font-size: 12px; 
+    padding: 5px 15px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Master Input Heights - Forced to 24px */
+.modern-ui input[type="text"],
+.modern-ui input[type="email"],
+.modern-ui select { 
+    height: 24px !important; 
+    border: 1px solid #b8c6d8; 
+    border-radius: 3px; 
+    padding: 2px 6px;
+    font-size: 12px;
+    box-sizing: border-box; 
+    background-color: #fff; 
+    color: #333;
+    width: 100%;
+}
+
+.modern-ui input[type="text"]:focus,
+.modern-ui input[type="email"]:focus,
+.modern-ui select:focus { 
+    border-color: #007bff; 
     outline: none;
-    box-shadow: 0 0 0 2px rgba(30,136,229,0.15);
 }
 
-label {
-    font-weight: 600;
-    font-size: 13px;
-    color: #4a5568;
+.modern-ui input[readonly],
+.modern-ui input:disabled,
+.modern-ui select:disabled { 
+    background-color: #f8f9fa; 
+    color: #6b7280;
 }
 
-.table-section {
-    margin-top: 25px;
+/* Layout Utilities */
+.modern-ui .field-row { 
+    display: flex;
+    align-items: center; 
+    gap: 8px;
+    margin-bottom: 10px; 
+    flex-wrap: wrap;
 }
 
-.table-title {
-    font-weight: 600;
-    margin-bottom: 10px;
+.modern-ui .lbl-right { 
+    text-align: right; 
+    color: #444;
+    font-size: 12px; 
+    font-weight: bold;
+    white-space: nowrap; 
+    padding-right: 5px;
 }
 
-.cr-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #ffffff;
-    border-radius: 10px;
+/* Middle Section Panels */
+.modern-ui .middle-panel {
+    border: 1px solid #c5d3e0; 
+    padding: 20px 10px 10px 10px; 
+    background: #ffffff; 
+    position: relative; 
+    border-radius: 4px; 
+    margin-bottom: 15px;
+    margin-top: 12px;
+}
+
+.modern-ui .middle-panel-title { 
+    position: absolute; 
+    top: -12px;
+    left: 10px; 
+    background: #ffffff; 
+    padding: 0 8px; 
+    color: #0056b3;
+    font-weight: bold; 
+    font-size: 14px; 
+    border-left: 3px solid #0056b3;
+    z-index: 2; 
+    line-height: normal; 
+}
+
+/* Custom UI Buttons matching 24px height */
+.modern-ui .myButton {
+    height: 24px !important;
+    line-height: 22px !important;
+    padding: 0 12px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    text-shadow: none;
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    border: none;
+    background: linear-gradient(135deg, #0b45a2 0%, #2563eb 100%);
+    color: #ffffff;
+    white-space: nowrap;
+}
+.modern-ui .myButton:hover { background: linear-gradient(135deg, #083a8a 0%, #1d4ed8 100%); }
+
+/* Search Icon Wrapper */
+.modern-ui .input-search-container {
+    position: relative;
+    display: flex;
+}
+.modern-ui .input-search-container input {
+    padding-right: 25px !important;
+}
+.modern-ui .magnifier-icon {
+    position: absolute;
+    right: 6px; 
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #64748b; 
+    z-index: 10;
+}
+.modern-ui .magnifier-icon:hover { color: #2563eb; }
+
+/* Grid Wrappers */
+.modern-ui .grid-container {
+    border: 1px solid #c5d3e0;
+    border-radius: 4px;
+    background: #fff;
     overflow: hidden;
-    box-shadow: 0 0 0 1px #e3e8ef;
+    margin: 0;
 }
 
-.cr-table th {
-    background: #f1f3f6;
-    padding: 10px;
-    font-size: 13px;
-    text-align: left;
-    font-weight: 600;
+/* Scrollbar Logic */
+.hidden-scrollbar {
+    overflow-y: auto;
+    height: calc(100vh - 120px);
+    padding-right: 5px;
 }
+.hidden-scrollbar::-webkit-scrollbar { width: 6px; }
+.hidden-scrollbar::-webkit-scrollbar-thumb { background: #c5d3e0; border-radius: 3px; }
 
-.cr-table td {
-    padding: 10px;
-    border-bottom: 1px solid #edf2f7;
-    font-size: 13px;
-}
-
-.cr-table tr:last-child td {
-    border-bottom: none;
-}
-
-
-input[type="checkbox"] {
-    transform: scale(1.05);
-    margin-right: 6px;
-}
-
-@media (max-width: 1024px) {
-
-    .two-column {
-        flex-direction: column;
-    }
-
-    .form-row {
-        grid-template-columns: 140px 1fr;
-    }
-
-}
-/* Compact layout for User Role */
-.compact-row {
-    grid-template-columns: 100px 220px 100px 240px;
-    gap: 12px;
-}
-
-/* Grid styling */
-#userRoleDiv table {
-    border-collapse: collapse;
-    width: 100%;
-    font-size: 13px;
-}
-
-#userRoleDiv th {
-    background: #f1f3f6;
-    padding: 10px;
-    text-align: left;
-    font-weight: 600;
-}
-
-#userRoleDiv td {
-    padding: 10px;
-    border-bottom: 1px solid #e5e9f2;
-}
-
-#userRoleDiv tr:hover {
-    background: #f8fafc;
-}
+form label.error { color:red; font-weight:bold; }
+#errormsg { color:red; font-weight:bold; text-align:center; margin-bottom: 10px; }
 </style>
+
 <script type="text/javascript">
+    $(document).ready(function() {});
+    
+    function funReadOnly(){
+        $('#frmUserRoleMaster input').attr('readonly', true );
+        $("#jqxUserRole").jqxGrid({ disabled: true});
+    }
+    
+    function funRemoveReadOnly(){
+        $('#frmUserRoleMaster input').attr('readonly', false );
+        $('#docno').attr('readonly', true);
+        $("#jqxUserRole").jqxGrid({ disabled: false});
+        
+        if ($("#mode").val() == "A") {
+            $("#userRoleDiv").load("userRoleGrid.jsp");  
+        }
+        if ($("#mode").val() == "E") {
+            $('#txtrolename').attr('readonly', true);  
+        }
+    }
+    
+    function funSearchLoad(){
+         changeContent('rleMainSearch.jsp');  
+    }
+        
+    function funChkButton() {
+            /* funReset(); */
+    }
+     
+    function funFocus(){
+        document.getElementById("txtrolename").focus();             
+    }
+    
+    function funNotify(){   
+        /* User Role Grid Saving */
+        var rows = $("#jqxUserRole").jqxGrid('getrows');
+        var length=0;
+        for(var i=0 ; i < rows.length ; i++){
+            var chk=rows[i].mno;
+            if(typeof(chk) != "undefined" && typeof(chk) != "NaN" && chk != ""){
+                newTextBox = $(document.createElement("input"))
+                .attr("type", "dil")
+                .attr("id", "test"+length)
+                .attr("name", "test"+length)
+                .attr("hidden", "true");
+                length=length+1;
+                
+                newTextBox.val(rows[i].mno+"::"+rows[i].menu_name+":: "+rows[i].add1+":: "+rows[i].edit+":: "+rows[i].del+":: "+rows[i].print+":: "+rows[i].attach+":: "+rows[i].excel+":: "+rows[i].email+":: "+rows[i].costing+":: "+rows[i].terms);
+                newTextBox.appendTo('form');
+            }
+        }
+        $('#gridlength').val(length);
+        /* User Role Grid Saving Ends*/ 
+        
+        return 1;
+    } 
       
-		$(document).ready(function() {});
-		
-		function funReadOnly(){
-			$('#frmUserRoleMaster input').attr('readonly', true );
-			$("#jqxUserRole").jqxGrid({ disabled: true});
-		}
-		
-		function funRemoveReadOnly(){
-			$('#frmUserRoleMaster input').attr('readonly', false );
-			$('#docno').attr('readonly', true);
-			$("#jqxUserRole").jqxGrid({ disabled: false});
-			
-		    if ($("#mode").val() == "A") {
-				$("#userRoleDiv").load("userRoleGrid.jsp");  
-		    }
-		    if ($("#mode").val() == "E") {
-		    	$('#txtrolename').attr('readonly', true);  
-		    }
-		}
-		
-		function funSearchLoad(){
-			 changeContent('rleMainSearch.jsp');  
-		 }
-			
-		function funChkButton() {
-				/* funReset(); */
-		}
-		 
-		function funFocus(){
-			document.getElementById("txtrolename").focus(); 	    		
-		}
-		
-		function funNotify(){	
-			/* User Role Grid Saving */
-  	 		var rows = $("#jqxUserRole").jqxGrid('getrows');
-  			 var length=0;
-  			 for(var i=0 ; i < rows.length ; i++){
-  				var chk=rows[i].mno;
-  				if(typeof(chk) != "undefined" && typeof(chk) != "NaN" && chk != ""){
-  					newTextBox = $(document.createElement("input"))
-  				    .attr("type", "dil")
-  				    .attr("id", "test"+length)
-  				    .attr("name", "test"+length)
-  					.attr("hidden", "true");
-  					length=length+1;
-  					
-  				newTextBox.val(rows[i].mno+"::"+rows[i].menu_name+":: "+rows[i].add1+":: "+rows[i].edit+":: "+rows[i].del+":: "+rows[i].print+":: "+rows[i].attach+":: "+rows[i].excel+":: "+rows[i].email+":: "+rows[i].costing+":: "+rows[i].terms);
-  				newTextBox.appendTo('form');
-  				}
-  			  }
-  			$('#gridlength').val(length);
-  			 /* User Role Grid Saving Ends*/ 
-		    		
-  			 return 1;
-			} 
-		  
-		  function setValues(){
-			  
-			  if($('#msg').val()!=""){
-				   $.messager.alert('Message',$('#msg').val());
-				  }
-			  
-			  document.getElementById("formdet").innerText=$('#formdetail').val()+" ("+$('#formdetailcode').val().trim()+")";
-			  funSetlabel();
-			  
-			  var indexVal = document.getElementById("docno").value;
-			  if(indexVal>0){
-	          $("#userRoleDiv").load("userRoleGrid.jsp?roleid="+indexVal);
-			  }
-			  
-			}
-		
-  </script>
+    function setValues(){
+        if($('#msg').val()!=""){
+            $.messager.alert('Message',$('#msg').val());
+        }
+        
+        document.getElementById("formdet").innerText=$('#formdetail').val()+" ("+$('#formdetailcode').val().trim()+")";
+        funSetlabel();
+        
+        var indexVal = document.getElementById("docno").value;
+        if(indexVal>0){
+            $("#userRoleDiv").load("userRoleGrid.jsp?roleid="+indexVal);
+        }
+    }
+</script>
 </head>
 <body onload="setValues();">
 
 <div id="mainBG" class="homeContent" data-type="background">
 
-<form id="frmUserRoleMaster"
-      action="saveUserRoleMaster"
-      method="post"
-      autocomplete="off">
+<form id="frmUserRoleMaster" action="saveUserRoleMaster" method="post" autocomplete="off">
 
 <jsp:include page="../../../../header.jsp"></jsp:include>
 
-<div class="content-wrapper">
+<div class="modern-ui hidden-scrollbar">
+    <div id="errormsg"></div>
 
-<!-- ================= USER ROLE CARD ================= -->
-<div class="section-card">
+    <!-- User Role Info Panel -->
+    <div class="middle-panel">
+        <span class="middle-panel-title">User Role Info</span>
 
-    <!-- Title + Doc No -->
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-
-        <div class="section-title" style="margin:0;">
-            User Role Info
+        <div class="field-row" style="margin-bottom:0;">
+            <label class="lbl-right" style="width:80px;">Role</label>
+            <input type="text" id="txtrolename" name="txtrolename" value='<s:property value="txtrolename"/>' style="width:200px;">
+            
+            <label class="lbl-right" style="width:80px;">Email</label>
+            <input type="email" id="txtemail" name="txtemail" placeholder="someone@example.com" value='<s:property value="txtemail"/>' style="flex:1;">
+            
+            <label class="lbl-right" style="width:80px; margin-left:auto;">Doc No</label>
+            <input type="text" id="docno" name="txtuserroledocno" value='<s:property value="txtuserroledocno"/>' tabindex="-1" style="width:125px;" readonly>
         </div>
+    </div>
 
-        <div style="display:flex; align-items:center; gap:10px;">
-            <label style="margin:0;">Doc No</label>
-            <input type="text"
-                   id="docno"
-                   name="txtuserroledocno"
-                   value='<s:property value="txtuserroledocno"/>'
-                   tabindex="-1"
-                   style="width:120px;">
+    <!-- Grid Data Panel -->
+    <div class="middle-panel" style="padding-bottom:10px;">
+        <span class="middle-panel-title">Role Permissions</span>
+        <div id="userRoleDiv" class="grid-container" style="border:none; margin:0;">
+            <jsp:include page="userRoleGrid.jsp"></jsp:include>
         </div>
-
     </div>
 
-    <!-- Compact Role + Email -->
-    <div class="form-row compact-row">
-
-        <label>Role</label>
-        <input type="text"
-               id="txtrolename"
-               name="txtrolename"
-               value='<s:property value="txtrolename"/>'
-               style="width:200px;">
-
-        <label>Email</label>
-        <input type="text"
-               id="txtemail"
-               name="txtemail"
-               placeholder="someone@example.com"
-               value='<s:property value="txtemail"/>'
-               style="width:220px;">
-
+    <!-- Hidden Fields -->
+    <div style="display:none;">
+        <input type="hidden" id="mode" name="mode"/>
+        <input type="hidden" id="deleted" name="deleted" value='<s:property value="deleted"/>'/>
+        <input type="hidden" id="msg" name="msg" value='<s:property value="msg"/>'/>
+        <input type="hidden" id="gridlength" name="gridlength"/>
     </div>
 
 </div>
-
-<!-- ================= GRID SECTION ================= -->
-<div class="section-card">
-
-    <div id="userRoleDiv">
-        <jsp:include page="userRoleGrid.jsp"></jsp:include>
-    </div>
-
-</div>
-
-</div>
-
-<!-- Hidden Fields -->
-<input type="hidden" id="mode" name="mode"/>
-<input type="hidden" id="deleted" name="deleted" value='<s:property value="deleted"/>'/>
-<input type="hidden" id="msg" name="msg" value='<s:property value="msg"/>'/>
-<input type="hidden" id="gridlength" name="gridlength"/>
 
 </form>
 
