@@ -1,1082 +1,757 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
-<% String contextPath=request.getContextPath();%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GatewayERP(i)</title>
-<jsp:include page="../../../../includes.jsp"></jsp:include>
-<script type="text/javascript" src="<%=contextPath%>/js/ajaxfileupload.js"></script> 
-<style type="text/css">
 
-.myButtonses {
- background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #599bb3), color-stop(1, #408c99));
- background:-moz-linear-gradient(top, #599bb3 5%, #408c99 100%);
- background:-webkit-linear-gradient(top, #599bb3 5%, #408c99 100%);
- background:-o-linear-gradient(top, #599bb3 5%, #408c99 100%);
- background:-ms-linear-gradient(top, #599bb3 5%, #408c99 100%);
- background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
- filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bb3', endColorstr='#408c99',GradientType=0);
- background-color:#599bb3;
- -moz-border-radius:4px;
- -webkit-border-radius:4px;
- border-radius:4px;
- display:inline-block;
- cursor:pointer;
- color:#ffffff;
- font-family:Verdana;
- font-size:10px;
- padding:4px 8px;
- text-decoration:none;
+<jsp:include page="../../../../includes.jsp"></jsp:include>
+<% String contextPath=request.getContextPath(); %>
+
+<style>
+/* =========================================================
+SCOPED UI: Modern Layout (Matches Client Master)
+========================================================= */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 24px 0;
+    box-sizing: border-box;
+    overflow-y: auto !important;
 }
-.myButtonses:hover {
- background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #408c99), color-stop(1, #599bb3));
- background:-moz-linear-gradient(top, #408c99 5%, #599bb3 100%);
- background:-webkit-linear-gradient(top, #408c99 5%, #599bb3 100%);
- background:-o-linear-gradient(top, #408c99 5%, #599bb3 100%);
- background:-ms-linear-gradient(top, #408c99 5%, #599bb3 100%);
- background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
- filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#408c99', endColorstr='#599bb3',GradientType=0);
- background-color:#408c99;
+
+#mainBG {
+    background: #fff;
+    border-radius: 16px;
+    padding: 15px;
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
 }
-.myButtonses:active {
- position:relative;
- top:1px;
+
+.modern-ui {
+    font-family: Arial, sans-serif; 
+    color: #333;
+    font-size: 12px; 
+    padding: 5px 15px;
+    box-sizing: border-box;
+    width: 100%;
 }
-.textbox {
-    border: 0;
-    height: 25px;
-    width: 20%;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    box-shadow: 1px 1px 0 0 #E0ECF8, 5px 5px 40px 2px #E0ECF8 inset;
-    -moz-box-shadow: 1px 1px 0 0 #E0ECF8, 5px 5px 40px 2px #E0ECF8 inset;
-    -webkit-box-shadow: 1px 1px 0 0 #E0ECF8, 5px 5px 40px 2px #E0ECF8 inset;
-    -webkit-background-clip: padding-box;
-    outline: 0;
+
+/* Master Input Heights - Forced to 24px */
+.modern-ui input[type="text"],
+.modern-ui select { 
+    height: 24px !important; 
+    border: 1px solid #b8c6d8; 
+    border-radius: 3px; 
+    padding: 2px 6px;
+    font-size: 12px;
+    box-sizing: border-box; 
+    background-color: #fff; 
+    color: #333;
+    width: 100%;
 }
+
+.modern-ui input[type="text"]:focus,
+.modern-ui select:focus { 
+    border-color: #007bff; 
+    outline: none;
+}
+
+.modern-ui input[readonly],
+.modern-ui input:disabled,
+.modern-ui select:disabled { 
+    background-color: #f8f9fa; 
+    color: #6b7280;
+}
+
+/* Layout Utilities */
+.modern-ui .field-row { 
+    display: flex;
+    align-items: center; 
+    gap: 8px;
+    margin-bottom: 10px; 
+    flex-wrap: wrap;
+}
+
+.modern-ui .lbl-right { 
+    text-align: right; 
+    color: #444;
+    font-size: 12px; 
+    font-weight: bold;
+    white-space: nowrap; 
+    padding-right: 5px;
+}
+
+/* Middle Section Panels */
+.modern-ui .middle-panel {
+    border: 1px solid #c5d3e0; 
+    padding: 20px 10px 10px 10px; 
+    background: #ffffff; 
+    position: relative; 
+    border-radius: 4px; 
+    margin-bottom: 15px;
+    margin-top: 12px;
+}
+
+.modern-ui .middle-panel-title { 
+    position: absolute; 
+    top: -12px;
+    left: 10px; 
+    background: #ffffff; 
+    padding: 0 8px; 
+    color: #0056b3;
+    font-weight: bold; 
+    font-size: 14px; 
+    border-left: 3px solid #0056b3;
+    z-index: 2; 
+    line-height: normal; 
+}
+
+/* Custom UI Buttons matching 24px height */
+.modern-ui .myButton {
+    height: 24px !important;
+    line-height: 22px !important;
+    padding: 0 12px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    text-shadow: none;
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    border: none;
+    background: linear-gradient(135deg, #0b45a2 0%, #2563eb 100%);
+    color: #ffffff;
+    white-space: nowrap;
+}
+.modern-ui .myButton:hover { background: linear-gradient(135deg, #083a8a 0%, #1d4ed8 100%); }
+
+/* Search Icon Wrapper */
+.modern-ui .input-search-container {
+    position: relative;
+    display: flex;
+}
+.modern-ui .input-search-container input {
+    padding-right: 25px !important;
+}
+.modern-ui .magnifier-icon {
+    position: absolute;
+    right: 6px; 
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #64748b; 
+    z-index: 10;
+}
+.modern-ui .magnifier-icon:hover { color: #2563eb; }
+
+/* Grid Wrappers */
+.modern-ui .grid-container {
+    border: 1px solid #c5d3e0;
+    border-radius: 4px;
+    background: #fff;
+    overflow: hidden;
+}
+
+/* Scrollbar Logic */
+.hidden-scrollbar {
+    overflow-y: auto;
+    height: calc(100vh - 120px);
+    padding-right: 5px;
+}
+.hidden-scrollbar::-webkit-scrollbar { width: 6px; }
+.hidden-scrollbar::-webkit-scrollbar-thumb { background: #c5d3e0; border-radius: 3px; }
+
+form label.error { color:red; font-weight:bold; }
+#errormsg { color:red; font-weight:bold; text-align:center; margin-bottom: 10px; }
 </style>
+
 <%
 String modes =request.getParameter("modes")==null?"0":request.getParameter("modes").toString();
-String mod =request.getParameter("mod")==null?"view":request.getParameter("mod").toString();
-String mastertrno =request.getParameter("mastertrno")==null?"0":request.getParameter("mastertrno").toString();
-String isassign =request.getParameter("isassign")==null?"0":request.getParameter("isassign").toString();
-String docno= request.getParameter("mastertrno")==null?"0":request.getParameter("mastertrno").toString();
-String reviseno=request.getParameter("reviseno")==null?"0":request.getParameter("reviseno").toString();
-String date=request.getParameter("date")==null?"0":request.getParameter("date").toString();
+String surdocno =request.getParameter("surdocno")==null?"0":request.getParameter("surdocno").toString();
+
+String mod = request.getParameter("mod") == null ? "view" : request.getParameter("mod").toString();
 String client=request.getParameter("client")==null?"0":request.getParameter("client").toString();
 String cldocno=request.getParameter("cldocno")==null?"0":request.getParameter("cldocno").toString();
 String ref_type=request.getParameter("ref_type")==null?"0":request.getParameter("ref_type").toString();
 String refdocno=request.getParameter("refdocno")==null?"0":request.getParameter("refdocno").toString();
 String reftrno=request.getParameter("reftrno")==null?"0":request.getParameter("reftrno").toString();
-String address=request.getParameter("address")==null?"0":request.getParameter("address").toString();
-String material=request.getParameter("material")==null?"0":request.getParameter("material").toString();
-String labour=request.getParameter("labour")==null?"0":request.getParameter("labour").toString();
-String machine=request.getParameter("machine")==null?"0":request.getParameter("machine").toString();
-String nettotal=request.getParameter("nettotal")==null?"0":request.getParameter("nettotal").toString();
-String surtrno=request.getParameter("surtrno")==null?"0":request.getParameter("surtrno").toString();
+String clientdet=request.getParameter("clientdet")==null?"0":request.getParameter("clientdet").toString();
+String cpersonid=request.getParameter("cpersonid")==null?"0":request.getParameter("cpersonid").toString();
+String cperson=request.getParameter("cperson")==null?"0":request.getParameter("cperson").toString();
+String cpersondet=request.getParameter("cpersondet")==null?"0":request.getParameter("cpersondet").toString();
 %>
+
 <script type="text/javascript">
-var mod1='<%=mod%>';
 var modes='<%=modes%>';
-var mastertrno='<%=mastertrno%>';
-      $(document).ready(function () {
-    	  
-    	  $("#date").jqxDateTimeInput({ width: '125px', height: '15px', formatString:"dd.MM.yyyy"});
-    	  
-    	  /* Searching Window */
-     	$('#clientsearch1').jqxWindow({ width: '50%', height: '55%',  maxHeight: '85%' ,maxWidth: '80%' ,title: 'Client Search' , position: { x: 250, y: 120 }, keyboardCloseKey: 27});
-	    $('#clientsearch1').jqxWindow('close');
-  		$('#activitysearchwindow').jqxWindow({ width: '50%', height: '60%',  maxHeight: '75%' ,maxWidth: '50%' , title: ' Search' ,position: { x: 500, y: 60 }, keyboardCloseKey: 27});
- 	    $('#activitysearchwindow').jqxWindow('close'); 
- 	    $('#lchargeinfowindow').jqxWindow({ width: '25%', height: '70%',  maxHeight: '85%' ,maxWidth: '80%' ,title: 'Labour Charge Search' , position: { x: 250, y: 60 }, keyboardCloseKey: 27});
-		$('#lchargeinfowindow').jqxWindow('close');
-		$('#echargeinfowindow').jqxWindow({ width: '25%', height: '70%',  maxHeight: '85%' ,maxWidth: '80%' ,title: 'Equipment Charge Search' , position: { x: 250, y: 60 }, keyboardCloseKey: 27});
-		$('#echargeinfowindow').jqxWindow('close');
-		$('#sidesearchwndow').jqxWindow({ width: '70%', height: '80%',  maxHeight: '90%' ,maxWidth: '80%' ,title: 'Search ' , position: { x: 400, y: 0 }, keyboardCloseKey: 27});
-		$('#sidesearchwndow').jqxWindow('close');
-		$('#enquirywindow').jqxWindow({ width: '60%', height: '50%',  maxHeight: '85%' ,maxWidth: '80%' ,title: ' Enquiry Search' , position: { x: 250, y: 60 }, keyboardCloseKey: 27});
-		$('#enquirywindow').jqxWindow('close');
-		
-		 $('#servicetypewindow').jqxWindow({ width: '25%', height: '70%',  maxHeight: '85%' ,maxWidth: '80%' ,title: ' Service Type Search' , position: { x: 250, y: 60 }, keyboardCloseKey: 27});
-		  $('#servicetypewindow').jqxWindow('close'); 
-		  
-		  $('#sitewindow').jqxWindow({ width: '25%', height: '60%',  maxHeight: '60%' ,maxWidth: '80%' ,title: ' Site Search' , position: { x: 250, y: 60 }, keyboardCloseKey: 27});
-		  $('#sitewindow').jqxWindow('close');
-		  
-		  $('#scopesearchwindow').jqxWindow({ width: '25%', height: '60%',  maxHeight: '60%' ,maxWidth: '80%' ,title: ' Scope Search' , position: { x: 250, y: 60 }, keyboardCloseKey: 27});
-		  $('#scopesearchwindow').jqxWindow('close');
-		  
-		  $('#templatesearchwindow').jqxWindow({ width: '50%', height: '60%',  maxHeight: '75%' ,maxWidth: '50%' , title: ' Template Search' ,position: { x: 500, y: 60 }, keyboardCloseKey: 27});
-	 	  $('#templatesearchwindow').jqxWindow('close'); 
-	 	    
-		  $('#unitsearchwindow').jqxWindow({
-				width : '25%',
-				height : '58%',
-				maxHeight : '70%',
-				maxWidth : '45%',
-				title : 'Unit Search',
-				position : {
-					x : 420,
-					y : 87
-				},
-				theme : 'energyblue',
-				showCloseButton : true,
-				keyboardCloseKey : 27
-			});
-			$('#unitsearchwindow').jqxWindow('close');
-		 
-		 refChange();getPreSalesScopeAllowed();
- 	  $('#txtclient').dblclick(function(){
-		   
-		   	if($('#mode').val()!= "view")
-		   		{
-		   	 $('#clientsearch1').jqxWindow('open');
-			 clientSearchContent('clientINgridsearch.jsp?', $('#clientsearch1'));
-		   		}
-		 });
- 	  
- 	 $('#txtenquiry').dblclick(function(){
- 		 
-		var clientid=document.getElementById("clientid").value;
-		var reftype=$('#cmbreftype').val();
-	 	if(clientid>0){
-	 		
-	 		document.getElementById("errormsg").innerText="";
-	 		
-	 	}
-	 	else{
-	 		document.getElementById("errormsg").innerText="Select a client";
-	 		
-	 		return 0;
-	 	} 
- 		 
- 		if($('#mode').val()!= "view")
-   		{
- 		 changeContent('enqMastersearch.jsp?reftype='+reftype); 
-   		}
- 		  });
- 	 
- 	$('#txtsite').dblclick(function(){
- 		 
- 		if($('#mode').val()!= "view")
-   		{
- 			if(document.getElementById("cmbreftype").value!="DIR"){
-	 			$('#sitewindow').jqxWindow('open');
-				  var reftype=$('#cmbreftype').val();
-				  var srvedocno=$('#txtenquiry').val();
-				  var surtrno=$('#hidsurtrno').val();
-				  var enqtrno=$('#hidenqtrno').val();
-		    	  var id=0;
-		    	  
-		    	  if(surtrno>0){
- 		    		 id=4;
-			      	 siteSearchContent("sitesearch.jsp?reftrno="+surtrno+"&id="+id+"&reftype="+reftype+"&srvedocno="+srvedocno+"&gridtextbox=1"); 
-		    	  } else {
-		    		  id=3;
-				      siteSearchContent("sitesearch.jsp?reftrno="+enqtrno+"&id="+id+"&reftype="+reftype+"&srvedocno="+srvedocno+"&gridtextbox=1");
-		    	  }
- 			} else {
- 				$('#txtsite').attr('readonly', false );
- 				$('#txtsite').val('');$('#txtsiteid').val('');
- 			}
-   		}
- 	});
- 	
- 	$('#txttemplatecode').dblclick(function(){
-		 
- 		if($('#mode').val()!= "view")
-   		{
- 			 $('#templatesearchwindow').jqxWindow('open');
- 			templateSearchContent('templatesDetailsSearch.jsp?', $('#templatesearchwindow'));    	
-   		}
- 	});
- 	
- 		 
-      });
-      
-      function unitSearchContent(url) {
-  		$('#unitsearchwindow').jqxWindow('open');
-  		$.get(url).done(function(data) {
-  			$('#unitsearchwindow').jqxWindow('setContent', data);
-  			$('#unitsearchwindow').jqxWindow('bringToFront');
-  		});
-  	}
-      
-      function templateSearchContent(url) {
-    		$('#templatesearchwindow').jqxWindow('open');
-    		$.get(url).done(function(data) {
-    			$('#templatesearchwindow').jqxWindow('setContent', data);
-    			$('#templatesearchwindow').jqxWindow('bringToFront');
-    		});
-    	}
-      
-      function scopeSearchContent(url) {
-    		$('#scopesearchwindow').jqxWindow('open');
-    		$.get(url).done(function(data) {
-    			$('#scopesearchwindow').jqxWindow('setContent', data);
-    			$('#scopesearchwindow').jqxWindow('bringToFront');
-    		});
-    	}
-      
-      function getScopeGroup() {
-  		var x = new XMLHttpRequest();
-  		x.onreadystatechange = function() {
-  			if (x.readyState == 4 && x.status == 200) {
-  				var items = x.responseText;
-  				items = items.split('####');
-  				var scopeGroupItems = items[0].split(",");
-  				var scopeGroupIdItems = items[1].split(",");
-  				var optionsscopegroup = '<option value="">--Select--</option>';
-  				for (var i = 0; i < scopeGroupItems.length; i++) {
-  					optionsscopegroup += '<option value="' + scopeGroupIdItems[i] + '">'
-  							+ scopeGroupItems[i] + '</option>';
-  				}
-  				$("select#cmbscopegroup").html(optionsscopegroup);
-  				if ($('#hidcmbscopegroup').val() != null) {
-  					$('#cmbscopegroup').val($('#hidcmbscopegroup').val());
-  				}
-  			} else {
-  			}
-  		}
-  		x.open("GET", "getScopeGroup.jsp?contrmode="+$('#txtcontrmode').val(), true);
-  		x.send();
-  	}
-      
-      function getScopeAMCDetails(){
-	  		var x = new XMLHttpRequest();
-	  		x.onreadystatechange = function() {
-	  			if (x.readyState == 4 && x.status == 200) {
-	  				var items = x.responseText;
-	  				items = items.split('####');
-	  				
-	  				if ($("#mode").val() == "A") {
-	  					
-	  					 $('#materialGrid').jqxGrid('setcellvalue', 0, "scope" ,items[0]);
-   		    		     $('#materialGrid').jqxGrid('setcellvalue', 0, "scopeid" ,items[1]);
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "product" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "productid" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "brand" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "brandname" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "unit" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "scopeamount" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "amount" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "unittotal" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "total" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "nettotal" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "margin" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "proname" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "prodoc" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "unitdocno" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "psrno" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "proid" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "specid" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "brandid" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "stdprice" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "marginper" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "lbrchg" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "scopestdcost" ,"");
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "scopeproduct" ,items[2]);
-	   		    		 $('#materialGrid').jqxGrid('setcellvalue', 0, "qty" ,"");
-   		    		 
-	  				}
-	  			    
-	  		}
-	  		}
-	  		x.open("GET", "getScopeAMCDetails.jsp?scopegroup="+$('#cmbscopegroup').val(), true);
-	  		x.send();
-	 }
-      
-      function getPreSalesScopeAllowed(){
-  		var x = new XMLHttpRequest();
-  		x.onreadystatechange = function() {
-  			if (x.readyState == 4 && x.status == 200) {
-  				var items = x.responseText;
-  			    $('#presalesscopeallowed').val(items);
-  			    
-  			  if(parseInt(items)==1){
-  					$('#tblpresalesscope').show();
-  					$('#cmbscopegroup').show();
-  					document.getElementById("lblscopegroup").style.display = 'inline-block';
-          			$('#materialGrid').jqxGrid('showcolumn', 'scope');
-					$('#materialGrid').jqxGrid('showcolumn', 'scopeamount');
-					$('#materialGrid').jqxGrid('showcolumn', 'unittotal');
-  			    } else {
-  			    	$('#tblpresalesscope').hide();
-  			    	$('#cmbscopegroup').hide();
-  			    	document.getElementById("lblscopegroup").style.display = 'none';
-  			    	$('#materialGrid').jqxGrid('hidecolumn', 'scope');
-					$('#materialGrid').jqxGrid('hidecolumn', 'scopeamount');
-					$('#materialGrid').jqxGrid('hidecolumn', 'unittotal');
-  			    }
-  		}
-  		}
-  		x.open("GET", "getPreSalesScopeAllowed.jsp", true);
-  		x.send();
-  }
-      
-      function getTemplateDetailsADD(docno,site,siteid){
-    		var x = new XMLHttpRequest();
-    		x.onreadystatechange = function() {
-    			if (x.readyState == 4 && x.status == 200) {
-    				var items = x.responseText.trim().split('##');
-    			    
-     			   // var splt=items.split(",");
-     			   // alert("items===="+items.length);
-     		    	 for(var i=0;i<items.length;i++)
-     		    	 {
-     		    		 var data=items[i].split("::");
-    		    	//alert(splt[i]);	 
-    		    		 var desc1=data[0].trim()=="undefined" || data[0].trim()=="NaN" || data[0].trim()==""|| data[0].trim()==null?"0":data[0].trim().replace( "20%", " ");
-    		    		 var scope=data[1]=="undefined" || data[1]=="NaN" || data[1]==""|| data[1]==null?"0":data[1].trim();
-    		    		 var scopeid=data[2]=="undefined" || data[2]=="NaN" || data[2]==""|| data[2]==null?"0":data[2].trim();
-    		    		 var product=data[3].trim()=="undefined" || data[3].trim()=="NaN" || data[3].trim()==""|| data[3].trim()==null?"0":data[3].trim().replace( "20%", " ");
-    		    		 var productid=data[4]=="undefined" || data[4]=="NaN" || data[4]==""|| data[4]==null?"0":data[4].trim();
-    		    		 var activity=data[5]=="undefined" || data[5]=="NaN" || data[5]==""|| data[5]==null?"0":data[5].trim();
-    		    		 var activityid=data[6]=="undefined" || data[6]=="NaN" || data[6]==""|| data[6]==null?"0":data[6].trim();
-    		    		 var brandname=data[7]=="undefined" || data[7]=="NaN" || data[7]==""|| data[7]==null?"0":data[7].trim();
-    		    		 var unit=data[8]=="undefined" || data[8]=="NaN" || data[8]==""|| data[8]==null?"0":data[8].trim();
-    		    		 var scopeamount=data[9]=="undefined" || data[9]=="NaN" || data[9]==""|| data[9]==null?"0":data[9].trim();
-    		    		 var amount=data[10]=="undefined" || data[10]=="NaN" || data[10]==""|| data[10]==null?"0":data[10].trim();
-    		    		 var total=data[11]=="undefined" || data[11]=="NaN" || data[11]==""|| data[11]==null?"0":data[11].trim();
-    		    		 var nettotal=data[12]=="undefined" || data[12]=="NaN" || data[12]==""|| data[12]==null?"0":data[12].trim();
-    		    		 var margin=data[13].trim()=="undefined" || data[13].trim()=="NaN" || data[13].trim()==""|| data[13]==null?"0":data[13].trim();
-    		    		 var invoiced=data[14].trim()=="undefined" || data[14].trim()=="NaN" || data[14].trim()==""|| data[14]==null?"0":data[14].trim();
-    		    		 var proname=data[15].trim()=="undefined" || data[15].trim()=="NaN" || data[15].trim()==""|| data[15]==null?"0":data[15].trim().replace( "20%", " ");
-    		    		 var prodoc=data[16].trim()=="undefined" || data[16].trim()=="NaN" || data[16].trim()==""|| data[16]==null?"0":data[16].trim();
-    		    		 var unitdocno=data[17].trim()=="undefined" || data[17].trim()=="NaN" || data[17].trim()==""|| data[17]==null?"0":data[17].trim();
-    		    		 var psrno=data[18].trim()=="undefined" || data[18].trim()=="NaN" || data[18].trim()==""|| data[18]==null?"0":data[18].trim();
-    		    		 var proid=data[19].trim()=="undefined" || data[19].trim()=="NaN" || data[19].trim()==""|| data[19]==null?"0":data[19].trim();
-    		    		 var specid=data[20].trim()=="undefined" || data[20].trim()=="NaN" || data[20].trim()==""|| data[20]==null?"0":data[20].trim();
-    		    		 var stypeid=data[21].trim()=="undefined" || data[21].trim()=="NaN" || data[21].trim()==""|| data[21]==null?"0":data[21].trim();
-    		    		 var site=data[22].trim()=="undefined" || data[22].trim()=="NaN" || data[22].trim()==""|| data[22]==null?"0":data[22].trim().replace( "20%", " ");
-    		    		 var sertype=data[23].trim()=="undefined" || data[23].trim()=="NaN" || data[23].trim()==""|| data[23]==null?"0":data[23].trim();
-    		    		 var brandid=data[24].trim()=="undefined" || data[24].trim()=="NaN" || data[24].trim()==""|| data[24]==null?"0":data[24].trim();
-    		    		 var sitesrno=data[25].trim()=="undefined" || data[25].trim()=="NaN" || data[25].trim()==""|| data[25]==null?"0":data[25].trim();
-    		    		 var stdprice=data[26].trim()=="undefined" || data[26].trim()=="NaN" || data[26].trim()==""|| data[26]==null?"0":data[26].trim();
-    		    		 var marginper=data[27].trim()=="undefined" || data[27].trim()=="NaN" || data[27].trim()==""|| data[27]==null?"0":data[27].trim();
-    		    		 var lbrchg=data[28].trim()=="undefined" || data[28].trim()=="NaN" || data[28].trim()==""|| data[28]==null?"0":data[28].trim();
-    		    		 var scopestdcost=data[29].trim()=="undefined" || data[29].trim()=="NaN" || data[29].trim()==""|| data[29]==null?"0":data[29].trim();
-    		    		 var qty=data[30].trim()=="undefined" || data[30].trim()=="NaN" || data[30].trim()==""|| data[30]==null?"0":data[30].trim();
-    		          	 
-    		    		 var rows = $("#materialGrid").jqxGrid('getrows');
-    		    		 
-    		    		 var rowindex=((rows.length)-1);
-    		    		 
-    		    		 $('#materialGrid').jqxGrid('setcellvalue',rowindex , "desc1" ,desc1);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "scope" ,scope);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "scopeid" ,scopeid);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "product" ,product);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "productid" ,productid);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "brand" ,brandname);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "brandname" ,brandname);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "unit" ,unit);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "scopeamount" ,scopeamount);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "amount" ,amount);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "total" ,total);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "nettotal" ,nettotal);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "margin" ,margin);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "proname" ,proname);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "prodoc" ,prodoc);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "unitdocno" ,unitdocno);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "psrno" ,psrno);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "proid" ,proid);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "specid" ,specid);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "site" ,site);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "brandid" ,brandid);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "sitesrno" ,sitesrno);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "stdprice" ,stdprice);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "marginper" ,marginper);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "lbrchg" ,lbrchg);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "scopestdcost" ,scopestdcost);
-    		    		 //$('#materialGrid').jqxGrid('setcellvalue', rowindex, "activity" ,activity);
-    		    		 //$('#materialGrid').jqxGrid('setcellvalue', rowindex, "activityid" ,activityid);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "stypeid" ,stypeid);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "sertype" ,sertype);
-    		    		 $('#materialGrid').jqxGrid('setcellvalue', rowindex, "qty" ,qty);
-    		    	 }
-    		    	 
-    			    $("#overlay, #PleaseWait").hide();
-    			  
-    		}
-    		}
-    		x.open("GET", "getTemplateDetails.jsp?docno="+docno+"&sitename="+site+"&siteid="+siteid, true);
-    		x.send();
-    }
-      
-      function getclinfo(event){
-    		 var x= event.keyCode;
-    		 if(x==114){
-    		  $('#clientsearch1').jqxWindow('open');
-    		 clientSearchContent('clientINgridsearch.jsp?', $('#clientsearch1'));    }
-    		 else{
-    			 }
-    		 } 
-      
-      function getTemplate(event){
- 		 var x= event.keyCode;
- 		 if(x==114){
- 			$('#templatesearchwindow').jqxWindow('open');
- 			templateSearchContent('templatesDetailsSearch.jsp?', $('#templatesearchwindow'));
- 		 }
- 		 else{
- 			 }
- 		 }
-    	      function clientSearchContent(url) {
-    	            
-    	                $.get(url).done(function (data) {
-    	   
-    		           $('#clientsearch1').jqxWindow('setContent', data);
+var masterdocno1='<%=surdocno%>';
+var mod1='<%=mod%>';
 
-    	     	}); 
-    	          	}
-	function funReadOnly(){
-		
-		$('#frmEstimation input').attr('readonly', true );
-		$('#frmEstimation select').attr('disabled', true);
-		$('#date').jqxDateTimeInput({disabled: true});
-		$('#btnSummary').attr('disabled', true );
-		$('#btntemplateadd').attr('disabled', true );
-		$("#materialGrid").jqxGrid({ disabled: true});
-		
-		if(modes=="view")
-		{
-		
-		document.getElementById("formdet").innerText=window.parent.formName.value+" ("+window.parent.formCode.value.trim()+")";
-		document.getElementById("formdetail").value=window.parent.formName.value;
-		document.getElementById("formdetailcode").value=window.parent.formCode.value.trim();
-		  $('#doc_no').attr('disabled', false);
-	 		 $('#masterdoc_no').attr('disabled', false);
-	 		 $('#mode').attr('disabled', false);
-	 		 $('#cmbreftype').attr('disabled', false);
-	    	 $('#date').jqxDateTimeInput({ disabled: false}); 
-		
-		document.getElementById("masterdoc_no").value=mastertrno;
-		document.getElementById("mode").value=modes;
-		var loadid=2;
-		var docno=mastertrno;
-
-		  document.getElementById("docno").value= '<%=docno%>';
-	         document.getElementById("txtreviseno").value='<%=reviseno%>';
-	         $('#date').jqxDateTimeInput('val','<%=date%>');
-	         $('#hiddate').jqxDateTimeInput('val','<%=date%>');
-	         document.getElementById("txtclient").value='<%=client%>';
-	         document.getElementById("clientid").value='<%=cldocno%>';
-	         document.getElementById("cmbreftype").value='<%=ref_type%>';
-	         document.getElementById("hidcmbreftype").value='<%=ref_type%>';
-	         document.getElementById("txtenquiry").value='<%=refdocno%>';
-	         document.getElementById("enquiryid").value='<%=reftrno%>';
-	         document.getElementById("txtmatotal").value='<%=material%>';
-	        
-	         document.getElementById("txtnettotal").value='<%=nettotal%>';
-	         document.getElementById("txtnettotalshow").value='<%=nettotal%>';
-	         document.getElementById("txtclientdet").value='<%=address%>';
-	         $('#cmbscopegroup').attr('disabled', false);
-	         var cmbreftype=$('#cmbreftype').val();
-	         if(cmbreftype!='DIR'){
-	        	 $('#cmbreftype').attr('disabled', false);
-	         }
-	         refChange();
-		 $("#materialDiv").load("materialDetailsGrid.jsp?trno="+docno+"&loadid="+loadid);
-		
-		
-		   $('#docno').attr('disabled', false);
-			 $('#mode').attr('disabled', false);
-		   
-		}
-		 if(document.getElementById("status").value.trim()=="0" )
+	$(document).ready(function() {
+        /* Formatted jqxDateTimeInput heights to match modern UI 24px */
+  	    $("#date").jqxDateTimeInput({ width : '125px', height : 24, formatString : "dd.MM.yyyy", theme: 'energyblue' });
+        
+        /* force internal alignment AFTER render */
+        setTimeout(function () {
+            $("#date").find("input").css({
+                "margin-top": "0px",
+                "line-height": "24px",
+                "font-size": "12px", 
+                "font-family": "Arial, sans-serif", 
+                "padding": "0 6px", 
+                "box-sizing":"border-box"
+            });
+            $("#date").find(".jqx-action-button").css({
+                "top": "0px",
+                "height": "24px"
+            });
+        }, 0);
+  	  
+  	$('#enquirywindow').jqxWindow({ width: '60%', height: '50%',  maxHeight: '85%' ,maxWidth: '80%' ,title: ' Enquiry Search' , position: { x: 250, y: 60 }, theme: 'energyblue', keyboardCloseKey: 27});
+	$('#enquirywindow').jqxWindow('close');
+	
+	$('#sertypesearchwindow').jqxWindow({ width: '35%', height: '45%',  maxHeight: '75%' ,maxWidth: '50%' , title: ' Search' ,position: { x: 300, y: 87 }, theme: 'energyblue', keyboardCloseKey: 27});
+	$('#sertypesearchwindow').jqxWindow('close'); 
+	    
+	$('#employeeDetailsWindow').jqxWindow({width: '51%', height: '58%',  maxHeight: '70%' ,maxWidth: '51%' , title: 'Employee Search',position: { x: 300, y: 87 } , theme: 'energyblue', showCloseButton: true, keyboardCloseKey: 27});
+    $('#employeeDetailsWindow').jqxWindow('close');
+    
+    $('#areainfowindow').jqxWindow({ width: '25%', height: '70%',  maxHeight: '85%' ,maxWidth: '80%' ,title: ' Area Search' , position: { x: 250, y: 60 }, theme: 'energyblue', keyboardCloseKey: 27});
+	$('#areainfowindow').jqxWindow('close');
+	
+	$('#serviceinfowindow').jqxWindow({ width: '25%', height: '70%',  maxHeight: '85%' ,maxWidth: '80%' ,title: ' Service Search' , position: { x: 250, y: 60 }, theme: 'energyblue', keyboardCloseKey: 27});
+	 $('#serviceinfowindow').jqxWindow('close');
+	 
+	 
+	$('#txtenquiry').dblclick(function(){
+		 changeContent('enqMastersearch.jsp');  
+	});
+	
+	$('#txtsertype').dblclick(function(){
+		 $('#sertypesearchwindow').jqxWindow('open');
+	 	  refsearchContent('sertypeSearch.jsp');
+	});
+	
+	$('#surveyedby').dblclick(function(){
+		$('#employeeDetailsWindow').jqxWindow('open');
+	   	 employeeSearchContent('employeeDetailsSearch.jsp');
+	});
+	
+	});
+	function funReadOnly() {
+		$('#frmSurveydet input').attr('readonly', true);
+		 $('#frmSurveydet input').attr('disabled', true);
+		 $('#frmSurveydet select').attr('disabled', true);
+		 $('#txtsertype').attr('readonly', true);
+		 $('#date').jqxDateTimeInput({ disabled: true}); 
+		 $("#serviceGrid").jqxGrid({ disabled: true});
+		 $("#siteGrid").jqxGrid({ disabled: true});
+		 $("#sertypeGrid").jqxGrid({ disabled: true});
+		 if(modes=="view")
 			{
-			mod1="view";
+			  document.getElementById("formdet").innerText=window.parent.formName.value+" ("+window.parent.formCode.value.trim()+")";
+				document.getElementById("formdetail").value=window.parent.formName.value;
+				document.getElementById("formdetailcode").value=window.parent.formCode.value.trim(); 
+				Setviewmode(masterdocno1);
 			}
-			
 		 if(mod1=="A")
 			{
-			
-		    document.getElementById("formdet").innerText=window.parent.formName.value+" ("+window.parent.formCode.value.trim()+")";
-			document.getElementById("formdetail").value=window.parent.formName.value;
-			document.getElementById("formdetailcode").value=window.parent.formCode.value.trim(); 
-			funCreateBtn();
-			
-			}
-	} 
-	
-	function funRemoveReadOnly(){
-		getPreSalesScopeAllowed();
-		getScopeGroup();
-		
-		$('#frmEstimation input').attr('readonly', false );
-		$('#frmEstimation select').attr('disabled', false);
-		$('#date').jqxDateTimeInput({disabled: false});
-		$('#btnSummary').attr('disabled', false );
-		$('#btntemplateadd').attr('disabled', false );
+			 document.getElementById("formdet").innerText=window.parent.formName.value+" ("+window.parent.formCode.value.trim()+")";
+			 document.getElementById("formdetail").value=window.parent.formName.value;
+			 document.getElementById("formdetailcode").value=window.parent.formCode.value.trim(); 
+			 funCreateBtn();
+			}   
+	}
+	function funRemoveReadOnly() {
+		$('#frmSurveydet input').attr('readonly', false);
+		$('#frmSurveydet select').attr('disabled', false);
+		$('#frmSurveydet input').attr('disabled', false);
 		$('#docno').attr('readonly', true);
-		$('#txtactivityname').attr('readonly', true );
-		$('#txtclient').attr('readonly', true );
-		$('#txtclientdet').attr('readonly', true );
-		$('#txtreftype').attr('readonly', true );
-		$('#txttemplatecode').attr('readonly', true );
-		$('#txttemplatename').attr('readonly', true );
-		$('#txtnettotalshow').attr('readonly', true );
-		$("#materialGrid").jqxGrid({ disabled: false});
+		$('#txtenquiry').attr('readonly', true);
+		$('#txtcontact').attr('readonly', false);
+		$('#contactnumber').attr('readonly', true);
+		$('#surveyedby').attr('readonly', true);
+		$('#txtsertype').attr('readonly', true);
 		
-		if ($("#mode").val() == "E") {
-			    //refChange();
-			    $('#txtenquiry').attr('disabled', false );
-			    $('#enquiryid').attr('disabled', false );
-			    $('#clientid').attr('disabled', false );
-			    $('#cmbreftype').attr('disabled', false );
-			    $('#cmbscopegroup').attr('disabled', false);
-				$('#frmEstimation input').attr('readonly', true );
-			    $("#materialGrid").jqxGrid('addrow', null, {"scopeproduct": "1"});
-			    
-				$('#gridtext').attr('readonly', false );
-				$('#gridtext1').attr('readonly', false );
-				
-			    
-			    
-			    
-		  }
-		
-		if ($("#mode").val() == "A") {
-			$("#activitiesid").val("0");
-			$("#txtreviseno").val("0");
-			$('#date').val(new Date());
-			$("#materialGrid").jqxGrid('clear');
-			$("#materialGrid").jqxGrid('addrow', null, {"scopeproduct": "1"});
-			
-		}
-		if(mod1=="A")
-		{
-			
-			 document.getElementById("txtclient").value='<%=client%>';
-	         document.getElementById("clientid").value='<%=cldocno%>';
-	         document.getElementById("txtclientdet").value='<%=address%>';
-	         document.getElementById("cmbreftype").value='<%=ref_type%>';
-	         document.getElementById("hidcmbreftype").value='<%=ref_type%>';
-	         document.getElementById("txtenquiry").value='<%=refdocno%>';
-	         document.getElementById("enquiryid").value='<%=reftrno%>';
-	         document.getElementById("hidenqtrno").value='<%=reftrno%>';
-	         document.getElementById("hidsurtrno").value='<%=surtrno%>';
-	         var cmbreftype=$('#cmbreftype').val();
-	         
-	         if(cmbreftype!='DIR'){
-	        	 $('#cmbreftype').attr('disabled', false);
-	         }
-	         $('#cmbscopegroup').attr('disabled', false);
-	         refChange();
-	         if(cmbreftype=='ENQ'){
-	        	 $("#materialDiv").load("materialDetailsGrid.jsp?enqtrno="+'<%=reftrno%>'+"&loadid=3");
-	         }
-	       
-		}
-		
-		chkproductconfig();
-	
-	}
-	
-	/* function getlcharge(rowBoundIndex){
+		 $('#date').jqxDateTimeInput({ disabled: false}); 
+		 $("#serviceGrid").jqxGrid({ disabled: false});
+		 $("#siteGrid").jqxGrid({ disabled: false});
+		 $("#sertypeGrid").jqxGrid({ disabled: false});
 		 
-		  $('#lchargeinfowindow').jqxWindow('open');
-
-	 // $('#accountWindow').jqxWindow('focus');
-	        lchargeSearchContent('chargeSearch.jsp?rowBoundIndex='+rowBoundIndex);
-	     	 }
-	
-	function lchargeSearchContent(url) {
-		//alert(url);
-			 $.get(url).done(function (data) {
-				 //alert(data);
-		$('#lchargeinfowindow').jqxWindow('setContent', data);
-
-		            }); 
-		  	}
-	  	
-	
-	function getecharge(rowBoundIndex){
-		 
-		  $('#echargeinfowindow').jqxWindow('open');
-
-	 // $('#accountWindow').jqxWindow('focus');
-	        echargeSearchContent('equipchargeSearch.jsp?rowBoundIndex='+rowBoundIndex);
-	     	 }
-	
-	function echargeSearchContent(url) {
-		//alert(url);
-			 $.get(url).done(function (data) {
-				 //alert(data);
-		$('#echargeinfowindow').jqxWindow('setContent', data);
-
-		            }); 
-		  	} */
-	  	
-function funExcelBtn(){
-				    if(parseInt(window.parent.chkexportdata.value)=="1") {
-				      JSONToCSVCon(materialexcel,$("#docno").val()+'/'+$("#txtclient").val(), true);
-				    } else {
-				    }
-				   }
-			  
-
-
-	 function productSearchContent(url) {
-      	 //alert(url);
-      		 $.get(url).done(function (data) {
-      			 
-      			 $('#sidesearchwndow').jqxWindow('open');
-      		$('#sidesearchwndow').jqxWindow('setContent', data);
-      
-      	}); 
-      } 
-	
-	 function funSearchLoad(){
-		 changeContent('Mastersearch.jsp'); 
-	}
-		
-	 function funChkButton() {
-			/* funReset(); */
-		}
-	 
-	
-	 
-	function getservicetype(rowBoundIndex){
-		 
-		  $('#servicetypewindow').jqxWindow('open');
-
-	 // $('#accountWindow').jqxWindow('focus');
-	        serviceSearchContent('servicesearch.jsp?rowBoundIndex='+rowBoundIndex);
-	     	 }
-	     	 
-	function serviceSearchContent(url) {
-	//alert(url);
-		 $.get(url).done(function (data) {
-			 //alert(data);
-	$('#servicetypewindow').jqxWindow('setContent', data);
-
-	            	}); 
-	  	}
-	
-	
-	function getsite(rowBoundIndex,reftrno,id){
-		 
-		  $('#sitewindow').jqxWindow('open');
-		  var reftype=$('#cmbreftype').val();
-		  var srvedocno=document.getElementById("txtenquiry").value;
-	 // $('#accountWindow').jqxWindow('focus');
-	        siteSearchContent("sitesearch.jsp?rowBoundIndex="+rowBoundIndex+"&reftrno="+reftrno+"&id="+id+"&reftype="+reftype+"&srvedocno="+srvedocno+"&gridtextbox=2");
-	     	 }
-	   
-	function getsites(event){
-		 var x= event.keyCode;
-		 if(x==114){
+		 if($('#mode').val()=='A'){
 			 
-		 		if($('#mode').val()!= "view")
-		   		{
-		 			if(document.getElementById("cmbreftype").value!="DIR"){
-			 			$('#sitewindow').jqxWindow('open');
-						  var reftype=$('#cmbreftype').val();
-						  var srvedocno=$('#txtenquiry').val();
-						  var surtrno=$('#hidsurtrno').val();
-						  var enqtrno=$('#hidenqtrno').val();
-				    	  var id=0;
-				    	  
-				    	  if(surtrno>0){
-		 		    		 id=4;
-					      	 siteSearchContent("sitesearch.jsp?reftrno="+surtrno+"&id="+id+"&reftype="+reftype+"&srvedocno="+srvedocno+"&gridtextbox=1"); 
-				    	  } else {
-				    		  id=3;
-						      siteSearchContent("sitesearch.jsp?reftrno="+enqtrno+"&id="+id+"&reftype="+reftype+"&srvedocno="+srvedocno+"&gridtextbox=1");
-				    	  }
-		 			} else {
-		 				$('#txtsite').attr('readonly', false );
-		 				$('#txtsite').val('');$('#txtsiteid').val('');
-		 			}
-		   		}   
+			$("#serviceGrid").jqxGrid('clear');
+			$("#serviceGrid").jqxGrid('addrow', null, {});
+				
+			$("#siteGrid").jqxGrid('clear');
+			$("#siteGrid").jqxGrid('addrow', null, {});
+					
+		    $("#sertypeGrid").jqxGrid('clear');
+			$("#sertypeGrid").jqxGrid('addrow', null, {});
+						
+			$("#servtypeDetailsGridID").jqxGrid('clear');
 		 }
-		 else{ }
-		 }
-	
-	function siteSearchContent(url) {
-	//alert(url);
-		 $.get(url).done(function (data) {
-			 //alert(data);
-	$('#sitewindow').jqxWindow('setContent', data);
-
-	            	}); 
-	  	}
-	
-	
-	
-	
-	 function funNotify(){
-     	if($('#clientid').val()=="")
-     	{
-     	document.getElementById("errormsg").innerText="select a Client";
-     	return 0;
-     	}
-     
-     	 var rows1 = $("#materialGrid").jqxGrid('getrows');
-     	document.getElementById("errormsg").innerText="";
-     	//alert(rows1.length);
-
-	 	var griddesc="";
-     	 var errorstatus=0;
-     	if(rows1.length=="0"){
-    		$.messager.alert('Message','Enter Proper Details','warning');
-    		   	errorstatus=1;
-    			return 0;
-    		 }
-    		 else{
-			     	 for(var i=0;i<rows1.length;i++){   
-			     		 if(rows1[i].prodoc>0)
-			     			 {
-			     			 if(parseFloat(rows1[i].amount)>0 && parseFloat(rows1[i].stdprice)>=parseFloat(rows1[i].amount)){
-			     				document.getElementById("errormsg").innerText="Amount Should Be Greater than Standard Price ("+rows1[i].stdprice+")";
-			     				return 0;
-			     				errorstatus=1;
-			     			 }
-			     			 }
-			     		 else{
-			     			document.getElementById("errormsg").innerText="";
-			     			 errorstatus=0;
-			     		 }
-			     	 }
-    		 }    
-     	 
-     	 if(errorstatus==1){  
-     		 return 0;
-     	 }
-  
-     	 var reftype=$("#cmbreftype").val();
-     	 var srno=0, gridlen=0, val1=0;    
-     	 var amount=0.0;
-     	 for(var i=0 ; i < rows1.length ; i++){
-     		if(!(rows1[i].desc1=="undefined" || typeof(rows1[i].desc1)=="undefined" || rows1[i].desc1==null || rows1[i].desc1=="") ||
-     				!(rows1[i].stypeid=="undefined" || typeof(rows1[i].stypeid)=="undefined" || rows1[i].stypeid==null || rows1[i].stypeid=="") ||
-     				!(rows1[i].prodoc=="undefined" || typeof(rows1[i].prodoc)=="undefined" || rows1[i].prodoc==null || rows1[i].prodoc=="")){   
-     		     
-     			newTextBox = $(document.createElement("input"))
-     		       .attr("type", "dil")
-     		       .attr("id", "mate"+i)
-     		       .attr("name", "mate"+i)
-     		       .attr("hidden", "true"); 
-     		     
-     		     if(reftype=="DIR"){
-     		 		srno=srno+1;
-     		     }else{
-     		    	 srno=rows1[i].sitesrno;   
-     		     }
-     		    
-     		     if(rows1[i].nettotal!="undefined" && typeof(rows1[i].nettotal)!="undefined" && rows1[i].nettotal!=null && rows1[i].nettotal!=""){
-     		    	amount += rows1[i].nettotal;    
-     		     }
-     		    
-     		     newTextBox.val(rows1[i].desc1+" :: "+rows1[i].prodoc+" :: "+rows1[i].psrno+" :: "+rows1[i].unitdocno+" :: "+rows1[i].qty+" :: "+rows1[i].amount+" :: "+rows1[i].total+" :: "+rows1[i].margin+" :: "+rows1[i].nettotal+" :: "+rows1[i].activityid+" :: "+rows1[i].site+" :: "+rows1[i].stypeid+" :: "+srno+" :: "+rows1[i].marginper+" :: "+rows1[i].scopeid+" :: "+rows1[i].scopeamount+" :: "+rows1[i].stdprice+" :: "+rows1[i].lbrchg+" :: "+rows1[i].scopestdcost+" :: " );
-     		     newTextBox.appendTo('form');
-     		     gridlen++; 
-     		     val1++;
-     		}
-     	  }	
-     	 
-     	 if(val1 == 0){         
-     		$.messager.alert('Message','Enter Proper Details','warning');    
-     		return 0;
-     	  }
-     	
-     	 var netamount = $("#txtnettotal").val();
-     	 if(parseFloat(netamount)!=parseFloat(amount)){         
-     		$.messager.alert('Message','Totals are not matching!!!','warning');        
-     		return 0;
-     	  }
-     	 
-     	  $('#matgridlen').val(gridlen);    
-		  $('#cmbscopegroup').attr('disabled', false);   
-     	  return 1;  
-     } 
-	 
-	 function funFocus(){
-		    document.getElementById("txtclient").focus();
-	    }
-
-			
-			  function funPrintBtn(){
-			 	   if (($("#mode").val() == "view") && $("#masterdoc_no").val()!="") {
-			 	  
-			 	   var url=document.URL;
-
-			        var reurl=url.split("saveEstimationnew");
-			        
-			        $("#docno").prop("disabled", false);                
-			        var brhid=<%= session.getAttribute("BRANCHID").toString()%>
-				     var dtype=$('#formdetailcode').val();
-				  
-							 var win= window.open(reurl[0]+"printestimation?docno="+document.getElementById("masterdoc_no").value+"&brhid="+brhid+"&dtype="+dtype,"_blank","top=250,left=310,Width=800,Height=800,location=no,scrollbars=no,toolbar=yes");
-			  
-						/* var win= window.open(reurl[0]+"printpurchaseorder?docno="+document.getElementById("masterdoc_no").value,"_blank","top=250,left=310,Width=800,Height=800,location=no,scrollbars=no,toolbar=yes");
-						   */   
-						win.focus();
-			 	  } 
-			 	  
-			 	   else {
-				    	      $.messager.alert('Message','Select a Document....!','warning');
-				    	      return false;
-				    	     } 
-				    	
-			 	}
-
-			  
-	 
-	 function setValues(){
+		 if(mod1=="A")
+			{
+				   document.getElementById("clientid").value= '<%=cldocno%>';
+	               document.getElementById("txtclient").value='<%=client%>';
+	               document.getElementById("txtclientdet").value='<%=clientdet%>';
+				   document.getElementById("txtenquiry").value='<%=refdocno%>';
+		           document.getElementById("enqdoc_no").value='<%=reftrno%>';
+				   document.getElementById("cpersonid").value='<%=cpersonid%>';
+		           document.getElementById("txtcontact").value='<%=cperson%>';
+		           document.getElementById("contactnumber").value='<%=cpersondet%>'; 
+		           var trno='<%=reftrno%>';   
+		           $("#sitediv").load("siteGrid.jsp?trno="+trno+"&gridload=1");
+				   
+	        }
 		 
-		 $('#cmbscopegroup').attr('disabled', false);
-		 getScopeGroup();
-		 if($('#mode').val()== "view") {
-		 	$('#cmbscopegroup').attr('disabled', true);
-	   	 }
-		  var docno=$("#masterdoc_no").val();
+	}
+	function Setviewmode(masterdoc){
 		
-		  var loadid=2;
-		  if($('#hiddate').val()){
-				 $("#date").jqxDateTimeInput('val', $('#hiddate').val());
-			  }
-		  if($('#hidcmbreftype').val()!=""){
-				 $("#cmbreftype").val($('#hidcmbreftype').val());
-			  }
-		  
-		  if($('#msg').val()!=""){
+			var x=new XMLHttpRequest();
+			x.onreadystatechange=function(){
+			if (x.readyState==4 && x.status==200)
+				{
+				 	var items= x.responseText;
+				 	 items=items.split('###');
+				 	 
+				 	 $('#date').jqxDateTimeInput({ disabled: false}); 
+				 	 $('#date').jqxDateTimeInput('val',items[0]);
+			         document.getElementById("hiddate").value=items[0];
+			         document.getElementById("masterdoc_no").value=items[1];
+			         document.getElementById("docno").value=items[2];
+			         document.getElementById("enqdoc_no").value=items[3];
+			         document.getElementById("txtenquiry").value=items[4]; 
+			         document.getElementById("txtclient").value=items[5];
+			         document.getElementById("clientid").value=items[6];
+			         document.getElementById("txtclientdet").value=items[7];
+			         document.getElementById("txtcontact").value=items[8];
+			         document.getElementById("cpersonid").value=items[9];
+			         document.getElementById("contactnumber").value= items[10];
+			         document.getElementById("surveyedby").value=items[11]; 
+			         document.getElementById("empid").value=items[12];
+			         document.getElementById("txtdesc").value=items[13];
+			         document.getElementById("txtcontractr").value=items[14];
+			         
+			         var docno=$('#masterdoc_no').val();
+			    	if(docno>0){
+			 			$("#servtypeDetailsDiv").load("servtypeDetailsGrid.jsp?trno="+docno);
+			 			 $("#sitediv").load("siteGrid.jsp?docno="+docno);
+			 			 $("#servicediv").load("serviceGrid.jsp?docno="+docno);
+			  			
+			 		}
+					
+				 	 
+					}
+			       else
+				  {}
+		     }
+		      x.open("GET","setViewMode.jsp?masterdoc="+masterdoc,true);
+		     x.send();
+		    
+		   }
+	function setValues() {
+		document.getElementById("formdet").innerText=$('#formdetail').val()+" ("+$('#formdetailcode').val().trim()+")";
+		
+		
+		var docno=$('#masterdoc_no').val();
+		var sid=$('#sertypeids').val();
+		if(document.getElementById("hidsuredit").value=="1"){
+		    $('#btnEdit').attr('disabled', true );
+	  } else {
+		    $('#btnEdit').attr('disabled', false );
+	  } 
+		if(docno>0){
+			$("#servtypeDetailsDiv").load("servtypeDetailsGrid.jsp?trno="+docno);
+			 $("#sitediv").load("siteGrid.jsp?docno="+docno);
+			 $("#servicediv").load("serviceGrid.jsp?docno="+docno);
+		}
+		
+		 if($('#msg').val()!=""){
 			   $.messager.alert('Message',$('#msg').val());
 			  }
-		
-		  document.getElementById("formdet").innerText=$('#formdetail').val()+" ("+$('#formdetailcode').val().trim()+")";
-		  funSetlabel();
-		  
-		  if(document.getElementById("hidestedit").value=="1"){
-			    $('#btnEdit').attr('disabled', true );$('#btnDelete').attr('disabled', true );
-		  } else {
-			    $('#btnEdit').attr('disabled', false );$('#btnDelete').attr('disabled', false );
-		  }
-		  if(docno>0){
-			     
-				 $("#materialDiv").load("materialDetailsGrid.jsp?trno="+docno+"&loadid="+loadid);
-				 
-			}
-	 }
-	 	  
-	 	 function getEnquiry(event){
-	 		 
-	 		var clientid=document.getElementById("clientid").value;
-		 	
-		 	if(clientid>0){
-		 		
-		 		document.getElementById("errormsg").innerText="";
-		 		
-		 	}
-		 	else{
-		 		document.getElementById("errormsg").innerText="Select a client";
-		 		
-		 		return 0;
-		 	} 
+	}
+	
+	function getemployee(event){
+		var x= event.keyCode;
+	 	 if(x==114){
+		   
+   	  $('#employeeDetailsWindow').jqxWindow('open');
+   	 employeeSearchContent('employeeDetailsSearch.jsp'); 
+          	 }
+	}
 
-				var x= event.keyCode;
-			 	 if(x==114){
-				   
-			 		 changeContent('enqMastersearch.jsp?reftype='+reftype);  
-				
-			    	 }
-			 	 else{
-			 		 }
-			 	 }
-			    	 
-			function enquirySearchContent(url) {
-				 $.get(url).done(function (data) {
-				$('#enquirywindow').jqxWindow('setContent', data);
-			           	}); 
-			 	}
+	
+	function employeeSearchContent(url) {
+	 	$('#employeeDetailsWindow').jqxWindow('open');
+		$.get(url).done(function (data) {
+		$('#employeeDetailsWindow').jqxWindow('setContent', data);
+		$('#employeeDetailsWindow').jqxWindow('bringToFront');
+	}); 
+	}
+
+	 function funFocus()
+	    {
+	    	document.getElementById("txtenquiry").focus();
+	    		
+	    }
 	 
-			function refChange(){
-				 var reftype=$('#cmbreftype').val();
+	  function funSearchLoad(){
+		 changeContent('Mastersearch.jsp'); 
+	} 
+	    
+	 function getEnquiry(event){
 
-				 if(reftype=='DIR'){
-					  $('#txtenquiry').attr('disabled', true);
-					  $('#txtsite').attr('readonly', false);
-					  $('#txtsite').val('');$('#txtsiteid').val('');
-				 }
-				 else{
-					  
-					  $('#txtenquiry').attr('disabled', false);
-					  $('#txtenquiry').attr('readonly', true);
-					  $('#txtsite').attr('readonly', true);
-					  $('#txtsite').val('');$('#txtsiteid').val('');
-					  if (document.getElementById("txtsiteid").value == "") {
-					        $('#txtsite').attr('placeholder', 'Press F3 to Search'); 
-					  }
-				 }
-				 
-				}
+			var x= event.keyCode;
+		 	 if(x==114){
+			   
+		 		 changeContent('enqMastersearch.jsp');  
 			
-			function funTemplateLoadAdd(){
-				var siteid=$('#txtsiteid').val();
-				var templateid=$('#txttemplateid').val();
-				var site=$('#txtsite').val();
-				
-				 if(site==''){
-					  document.getElementById("errormsg").innerText="Site is Mandatory.";
-				 	  return 0;
-				 }
-				 
-				 if(templateid==''){
-					  document.getElementById("errormsg").innerText="Template is Mandatory.";
-				 	  return 0;
-				 }
-				 document.getElementById("errormsg").innerText="";
-				 
-				 $("#overlay, #PleaseWait").show();
-		         getTemplateDetailsADD(templateid,site,siteid);
-		         
+		    	 }
+	}
+		    	 
+		function enquirySearchContent(url) {
+			 $.get(url).done(function (data) {
+			$('#enquirywindow').jqxWindow('setContent', data);
+		           	}); 
+		 	}
+	 
+	     	     
+	    function funNotify(){
+    	 
+    	 
+    	 var rows = $("#sertypeGrid").jqxGrid('getrows');
+    	 var rows2 = $("#servtypeDetailsGridID").jqxGrid('selectedrowindexes');
+		 var rows3 = $("#siteGrid").jqxGrid('getrows');
+		 var rows4 = $("#serviceGrid").jqxGrid('getrows');
+		
+		 $('#sertypegridlen').val(rows.length);
+		 $('#servtypdetgridlen').val(rows2.length);
+		 $('#sitelen').val(rows3.length);
+		 $('#servlen').val(rows4.length);
+		 
+		 
+		   for(var i=0 ; i < rows.length ; i++){
+					 
+		    newTextBox = $(document.createElement("input"))
+		       .attr("type", "dil")
+		       .attr("id", "test"+i)
+		       .attr("name", "test"+i)
+		       .attr("hidden", "true"); 
+
+		   newTextBox.val(rows[i].specid+" :: "+rows[i].details+" :: "+rows[i].desc1+" :: "+rows[i].servtypeid+" :: ");
+					
+		   newTextBox.appendTo('form');
+		  
 			}
-	        
+		   
+		   for(var i=0 ; i < rows2.length ; i++){
+			   
+			   var row = $("#servtypeDetailsGridID").jqxGrid('getrowdata', rows2[i]);
+				
+			    newTextBox = $(document.createElement("input"))
+			       .attr("type", "dil")
+			       .attr("id", "sertyp"+i)
+			       .attr("name", "sertyp"+i)
+			       .attr("hidden", "true"); 
+			   newTextBox.val(row.doc_no+" :: ");
+			   newTextBox.appendTo('form');
+			  
+					}
+				
+		   for(var i=0 ; i < rows3.length ; i++){
+			   
+			    newTextBox = $(document.createElement("input"))
+			       .attr("type", "dil")
+			       .attr("id", "site"+i)
+			       .attr("name", "site"+i)
+			       .attr("hidden", "true"); 
+			 
+			   newTextBox.val(rows3[i].site+" :: "+rows3[i].areaid+" :: ");
+			   newTextBox.appendTo('form');
+			  
+					}
+			
+				
+		   for(var i=0 ; i < rows4.length ; i++){
+				
+			    newTextBox = $(document.createElement("input"))
+			       .attr("type", "dil")
+			       .attr("id", "serv"+i)
+			       .attr("name", "serv"+i)
+			       .attr("hidden", "true"); 
+			   newTextBox.val(rows4[i].serid+" :: ");
+			   newTextBox.appendTo('form');
+			  
+					}
+		
+    		return 1;
+     } 
+	     
+	     
+	     function getareas(rowBoundIndex){
+	     	 
+	    	  $('#areainfowindow').jqxWindow('open');
+	              areaSearchContent('area.jsp?rowBoundIndex='+rowBoundIndex);
+	           	 }
+	           	 
+	   function areaSearchContent(url) {
+	    	 $.get(url).done(function (data) {
+	   $('#areainfowindow').jqxWindow('setContent', data);
 
+	                  	}); 
+	        	}
+	   
+	   function getservice(rowBoundIndex){
+	     	 
+	    	  $('#serviceinfowindow').jqxWindow('open');
+	              serviceSearchContent('service.jsp?rowBoundIndex='+rowBoundIndex);
+	           	 }
+	           	 
+	   function serviceSearchContent(url) {
+	    	 $.get(url).done(function (data) {
+	   $('#serviceinfowindow').jqxWindow('setContent', data);
+
+	                  	}); 
+	        	}
+	   
+	   
+	   function getsertype(event)
+		 {
+		  
+		 	 var x= event.keyCode;
+		 	 if(x==114){
+		 	  $('#sertypesearchwindow').jqxWindow('open');
+		 	
+		 	  refsearchContent('sertypeSearch.jsp');  }
+	}  
+		 	
+		 	  function refsearchContent(url) {
+		    
+		       $.get(url).done(function (data) {
+		
+		     $('#sertypesearchwindow').jqxWindow('setContent', data);
+
+		 	}); 
+		 	}
+		 	  
+		 	  function loadSubmit(){
+		 		  
+			 		 var docno=$("#masterdoc_no").val();
+			 		 
+			 		 if(docno>0){
+			 			
+			 			loadgridReload();
+			 		 }
+			 		 else{
+			 			loadgrid();
+			 		 }
+			 		  
+			 	  }
+		 	  
+		 	  function loadgrid(){
+		 		  
+			 		 var rows = $("#servtypeDetailsGridID").jqxGrid('selectedrowindexes');
+			 		   var sid=0;
+			 		    var loadid=1;
+			 		    for (var m = 0; m < rows.length; m++) {
+			 		        var row = $("#servtypeDetailsGridID").jqxGrid('getrowdata', rows[m]);
+			 		       if(typeof(row.doc_no) != "undefined" && typeof(row.doc_no) != "NaN" && row.doc_no != ""){
+				     	       sid=sid+row.doc_no+",";
+				     	      
+			 		       }
+			 		       	}
+			 		  document.getElementById("sertypeids").value=sid;
+			 		 $("#sertypeDiv").load("ServiceTypeGrid.jsp?sid="+sid+"&gridload=1");
+			 	  }
+			 	  
+			 	 function loadgridReload(){
+			 		  
+			 		 var rows = $("#servtypeDetailsGridID").jqxGrid('selectedrowindexes');
+			 		   var sid=0;
+			 		    var loadid=2;
+			 		    for (var m = 0; m < rows.length; m++) {
+			 		        var row = $("#servtypeDetailsGridID").jqxGrid('getrowdata', rows[m]);
+			 		       if(typeof(row.doc_no) != "undefined" && typeof(row.doc_no) != "NaN" && row.doc_no != ""){
+				     	       sid=sid+row.doc_no+",";
+				     	     
+			 		       }
+			 		       	}
+			 		  document.getElementById("sertypeids").value=sid;
+			 		  if(typeof(sid) != "undefined" && typeof(sid) != "NaN" && sid != ""){
+			 			 var docno=$("#masterdoc_no").val();
+			 		   
+			 			$("#sertypeDiv").load("ServiceTypeGrid.jsp?docno="+docno+"&sid="+sid);	 
+			 		
+			 		  }
+			 		  
+			 	  }
+			 	 
+			 	 
+			 	 
+				  function funPrintBtn() {
+						if (($("#mode").val() == "view") && $("#docno").val()!="") {
+
+							 $("#docno").prop("disabled", false);
+							 $("#masterdoc_no").prop("disabled", false);
+							 $("#formdetailcode").prop("disabled", false);
+							 
+							var docno=$('#docno').val();
+					  		var trno=$('#masterdoc_no').val();
+					  		var dtype=$('#formdetailcode').val();
+					  		var sertypeids=$('#sertypeids').val();
+					  	  var brhid=document.getElementById("brchName").value
+					  		
+					  		var url=document.URL;
+					  		var reurl=url.split("com/"); 
+					     
+					  		 var win= window.open(reurl[0]+"printSurvey?docno="+docno+"&brhid="+brhid+"&trno="+trno+"&dtype="+dtype+"&sertypeids="+sertypeids+"&header=1","_blank","top=250,left=310,Width=800,Height=800,location=no,scrollbars=no,toolbar=yes");
+					     }
+					    else {
+							$.messager.alert('Message','Select a Document....!','warning');
+							return;
+						}
+			    }			 	 
+			 	 
 </script>
+ </head>
+<body onLoad="setValues();">
+<div id="mainBG" class="homeContent" data-type="background"> 
+    <form id="frmSurveydetails" action="saveSurveydetails" method="post" autocomplete="off">
+        <jsp:include page="../../../../header.jsp" />
+        
+        <div class="modern-ui hidden-scrollbar">
+            <div id="errormsg"></div>
 
-<style>
-.hidden-scrollbar {
-  overflow: auto;
-  height: 530px;
-}
-</style>
+            <div class="middle-panel">
+                <span class="middle-panel-title">Survey Details</span>
+                
+                <div class="field-row">
+                    <label class="lbl-right" style="width:100px;">Date</label>
+                    <div style="width: 125px;">
+                        <div id="date" name="date" value='<s:property value="date" />'></div>
+                    </div>
+                    
+                    <label class="lbl-right" style="width:100px; margin-left:15px;">Enquiry No</label>
+                    <div class="input-search-container" style="width: 125px;">
+                        <input type="text" onKeyDown="getEnquiry(event);" name="txtenquiry" placeholder="Press F3" value='<s:property value="txtenquiry" />' id="txtenquiry">
+                        <svg class="magnifier-icon" onclick="$('#txtenquiry').dblclick();" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                    
+                    <label class="lbl-right" style="width:100px; margin-left:auto;">Doc No</label>
+                    <input type="text" name="docno" value='<s:property value="docno" />' id="docno" style="width:125px;" tabindex="-1" readonly>
+                </div>
+                
+                <div class="field-row">
+                    <label class="lbl-right" style="width:100px;">Client</label>
+                    <input type="text" name="txtclient" id="txtclient" style="width:125px;" value='<s:property value="txtclient" />'>
+                    
+                    <input type="text" name="txtclientdet" id="txtclientdet" style="flex:1; margin-left:15px;" value='<s:property value="txtclientdet" />'>
+                    
+                    <label class="lbl-right" style="width:120px; margin-left:15px;">Existing Contractor</label>
+                    <input type="text" name="txtcontractr" id="txtcontractr" style="width:125px;" value='<s:property value="txtcontractr" />'>
+                </div>
+                
+                <div class="field-row">
+                    <label class="lbl-right" style="width:100px;">Contact Person</label>
+                    <input type="text" name="txtcontact" id="txtcontact" style="width:125px;" value='<s:property value="txtcontact" />'>
+                    
+                    <label class="lbl-right" style="width:100px; margin-left:15px;">Contact Number</label>
+                    <input type="text" name="contactnumber" id="contactnumber" style="flex:1;" value='<s:property value="contactnumber" />'>
+                    
+                    <label class="lbl-right" style="width:100px; margin-left:15px;">Surveyed By</label>
+                    <div class="input-search-container" style="width: 125px;">
+                        <input type="text" name="surveyedby" id="surveyedby" onKeyDown="getemployee(event);" placeholder="Press F3" value='<s:property value="surveyedby" />'>
+                        <svg class="magnifier-icon" onclick="$('#surveyedby').dblclick();" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                </div>
+                
+                <div class="field-row" style="margin-bottom:0;">
+                    <label class="lbl-right" style="width:100px;">Description</label>
+                    <input type="text" name="txtdesc" id="txtdesc" value='<s:property value="txtdesc" />' style="flex:1;">
+                </div>
+            </div>
 
-</head>
-<body onload="setValues();">
-<div id="mainBG" class="homeContent" data-type="background">
-<form id="frmEstimation" action="saveEstimationnew" method="post" autocomplete="off">
-<jsp:include page="../../../../header.jsp"></jsp:include><br/>   
+            <div style="display: flex; gap: 15px; align-items: flex-start;">
+                <div class="middle-panel" style="flex: 1; margin-bottom: 0;">
+                    <span class="middle-panel-title">Site Details</span>
+                    <div id="sitediv" class="grid-container" style="border:none;">
+                        <jsp:include page="siteGrid.jsp"></jsp:include>
+                    </div>
+                </div>
+                <div class="middle-panel" style="flex: 1; margin-bottom: 0;">
+                    <span class="middle-panel-title">Service Details</span>
+                    <div id="servicediv" class="grid-container" style="border:none;">
+                        <jsp:include page="serviceGrid.jsp"></jsp:include>
+                    </div>
+                </div>
+            </div>
 
-<div class='hidden-scrollbar'>
+            <div style="display: flex; gap: 15px; align-items: flex-start; margin-top:15px;">
+                <div class="middle-panel" style="flex: 1; margin-bottom: 0;">
+                    <span class="middle-panel-title">Service Type Details</span>
+                    
+                    <div class="field-row">
+                        <label class="lbl-right" style="width:80px;">Service Type</label>
+                        <div class="input-search-container" style="flex:1;">
+                            <input type="text" id="txtsertype" name="txtsertype" placeholder="Press F3" value='<s:property value="txtsertype"/>' onkeydown="getsertype(event);"/>
+                            <svg class="magnifier-icon" onclick="$('#txtsertype').dblclick();" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </div>
+                        <input type="hidden" id="txtsertypeid" name="txtsertypeid" value='<s:property value="txtsertypeid"/>'/>
+                    </div>
+                    
+                    <div id="servtypeDetailsDiv" class="grid-container" style="border:none; margin-top:10px;">
+                        <jsp:include page="servtypeDetailsGrid.jsp"></jsp:include>
+                    </div>
+                    
+                    <div class="field-row" style="justify-content: center; margin-top:10px; margin-bottom:0;">
+                        <input type="button" class="myButton" name="btnLoad" id="btnLoad" value="Submit" onclick="loadSubmit();">
+                    </div>
+                </div>
 
-<table width="100%">
+                <div class="middle-panel" style="flex: 3; margin-bottom: 0; min-height: 250px;">
+                    <span class="middle-panel-title">Service Type Grid</span>
+                    <div id="sertypeDiv" class="grid-container" style="border:none; height: 100%;">
+                        <jsp:include page="ServiceTypeGrid.jsp"></jsp:include>
+                    </div>
+                </div>
+            </div>
 
-  <tr>
-    <td width="3%" height="42" align="right">Date</td>
-    <td width="11%"><div id="date" name="date" value='<s:property value="date"/>'></div>
-    <input type="hidden" id="hiddate" name="hiddate" value='<s:property value="hiddate"/>'/></td>
-    <td width="15%" align="left">&nbsp;</td>
-    <td width="10%" align="right">Revise No.</td>
-    <td width="28%"><input type="text" id="txtreviseno" name="txtreviseno" style="width:50%;" value='<s:property value="txtreviseno"/>'/></td>
-    <td width="8%" align="right">Doc No.</td>
-    <td width="25%"><input type="text" id="docno" name="docno" style="width:70%;" value='<s:property value="docno"/>' tabindex="-1"/></td>
-  </tr>
-</table>
+            <!-- Hidden Logic Fields -->
+            <div style="display:none;">
+                <input type="hidden" id="hiddate" name="hiddate" value='<s:property value="hiddate"/>'/>
+                <input type="hidden" id="mode" name="mode" value='<s:property value="mode"/>'/>
+                <input type="hidden" id="msg" name="msg" value='<s:property value="msg"/>'/>
+                <input type="hidden" id="deleted" name="deleted" value='<s:property value="deleted"/>'/>
+                <input type="hidden" id="clientid" name="clientid" value='<s:property value="clientid"/>'/>
+                <input type="hidden" id="cpersonid" name="cpersonid" value='<s:property value="cpersonid"/>'/>
+                <input type="hidden" id="sertypeids" name="sertypeids" value='<s:property value="sertypeids"/>'/>
+                <input type="hidden" id="masterdoc_no" name="masterdoc_no" value='<s:property value="masterdoc_no"/>'/>
+                <input type="hidden" id="enqdoc_no" name="enqdoc_no" value='<s:property value="enqdoc_no"/>'/>
+                <input type="hidden" id="empid" name="empid" value='<s:property value="empid"/>'/>
+                <input type="hidden" id="sertypegridlen" name="sertypegridlen" value='<s:property value="sertypegridlen"/>'/>
+                <input type="hidden" id="servtypdetgridlen" name="servtypdetgridlen" value='<s:property value="servtypdetgridlen"/>'/>
+                <input type="hidden" id="servlen" name="servlen" value='<s:property value="servlen"/>'/>
+                <input type="hidden" id="sitelen" name="sitelen" value='<s:property value="sitelen"/>'/>
+                <input type="hidden" id="hidsuredit" name="hidsuredit" value='<s:property value="hidsuredit"/>'/>
+            </div>
+            
+        </div>
+    </form>
 
-<fieldset>
-<table width="100%">
-  <tr>
-    <td width="6%" align="right">Customer</td>
-    <td width="14%"><input type="text" id="txtclient" name="txtclient" style="width:97%;" placeholder="Press F3 to Search" value='<s:property value="txtclient"/>'  onKeyDown="getclinfo(event);"/></td>
-    <td width="25%"><input type="text" id="txtclientdet" name="txtclientdet" style="width:95%;" value='<s:property value="txtclientdet"/>' tabindex="-1"/></td>
-    <td width="6%" align="right">Ref. Type</td>
-    <td width="12%"><select id="cmbreftype" name="cmbreftype" style="width:97%;" onchange="refChange();" value='<s:property value="cmbreftype"/>'>
-      <option value="DIR">DIR</option>
-      <option value="ENQ">ENQ</option>
-      <option value="SRVE">SRVE</option>
-      </select>
-      <input type="hidden" id="hidcmbreftype" name="hidcmbreftype" value='<s:property value="hidcmbreftype"/>'/></td>
-    <td width="21%"><input type="text" id="txtenquiry" name="txtenquiry" style="width:98%;"  placeholder="Press F3 to Search" value='<s:property value="txtenquiry"/>'  onKeyDown="getEnquiry(event);"/>
-    <input type="hidden" id="txtcontrmode" name="txtcontrmode" value='<s:property value="txtcontrmode"/>'/></td>
-    <td width="7%" align="right"><label id="lblscopegroup">Scope Group</label></td>
-    <td width="9%" align="right"><select id="cmbscopegroup" name="cmbscopegroup" style="width:97%;" onchange="getScopeAMCDetails();" value='<s:property value="cmbscopegroup"/>'>
-    <option value="">--Select--</option>
-    </select>
-    <input type="hidden" id="hidcmbscopegroup" name="hidcmbscopegroup" value='<s:property value="hidcmbscopegroup"/>'/></td>
-  </tr>
-  </table>
-<table id="tblpresalesscope" width="100%">
-   <tr>
-    <td width="7%" align="right">Site</td>
-    <td width="26%"><input type="text" id="txtsite" name="txtsite" style="width:97%;" value='<s:property value="txtsite"/>'  onKeyDown="getsites(event);"/>
-    <input type="hidden" id="txtsiteid" name="txtsiteid" value='<s:property value="txtsiteid"/>'/></td>
-    <td width="10%" align="right">Template</td>
-    <td width="16%"><input type="text" id="txttemplatecode" name="txttemplatecode" style="width:97%;" placeholder="Press F3 to Search" value='<s:property value="txttemplatecode"/>'  onKeyDown="getTemplate(event);"/>
-    <input type="hidden" id="txttemplateid" name="txttemplateid" value='<s:property value="txttemplateid"/>'/></td>
-    <td colspan="2"><input type="text" id="txttemplatename" name="txttemplatename" style="width:97%;" tabindex="-1" value='<s:property value="txttemplatename"/>'/></td>
-    <td width="9%" align="center"><button class="myButton" type="button" id="btntemplateadd" name="btntemplateadd" onclick="funTemplateLoadAdd();">ADD</button></td>
-  </tr>
-</table></fieldset>
-
-<fieldset><legend>Material Details</legend>
-<p style="float: right;display:inline;font-weight:bold;color:#000000;position: absolute;z-index: 800;right:200px;margin-top:-9px;">Total&nbsp;&nbsp;</p>
-<input type="hidden" id="txtnettotal" name="txtnettotal" style="width:94%;float: right;text-align: right;" value='<s:property value="txtnettotal"/>'/>
-<input type="text" id="txtnettotalshow" name="txtnettotalshow" style="width:10%;float: right;text-align: right;font-weight:bold;color:#000000;background-color:#F2F4F4;position: absolute;z-index: 800;right:60px;margin-top:-12px;" readonly tabindex="-1" value='<s:property value="txtnettotal"/>'/>
-
-<input type="text" name="gridtext" id="gridtext" style="width:0%;height:0%;"  class="textbox"  value='<s:property value="gridtext"/>'  />   
-<input type="text" name="gridtext1" id="gridtext1" style="width:0%;height:0%;"  class="textbox"  value='<s:property value="gridtext1"/>' /> 
-<div id="materialDiv"><jsp:include page="materialDetailsGrid.jsp"></jsp:include></div>
-</fieldset>
-
-<input type="hidden" id="clientid" name="clientid"  value='<s:property value="clientid"/>'/>
-<input type="hidden" id="enquiryid" name="enquiryid"  value='<s:property value="enquiryid"/>'/>
-<input type="hidden" id="activitiesid" name="activitiesid"  value='<s:property value="activitiesid"/>'/>
-<input type="hidden" id="masterdoc_no" name="masterdoc_no"  value='<s:property value="masterdoc_no"/>'/>
-<input type="hidden" id="mode" name="mode"  value='<s:property value="mode"/>'/>
-<input type="hidden" name="deleted" id="deleted" value='<s:property value="deleted"/>'/>
-<input type="hidden" id="msg" name="msg"  value='<s:property value="msg"/>'/>
-<input type="hidden" id="presalesscopeallowed" name="presalesscopeallowed"  value='<s:property value="presalesscopeallowed"/>'/>
-<input type="hidden" id="txtmatotal" name="txtmatotal"  value='<s:property value="txtmatotal"/>'/>
-<input type="hidden" id="txtlabtotal" name="txtlabtotal"  value='<s:property value="txtlabtotal"/>'/>
-<input type="hidden" id="txteqptotal" name="txteqptotal"  value='<s:property value="txteqptotal"/>'/>
-<input type="hidden" id="matgridlen" name="matgridlen"  value='<s:property value="matgridlen"/>'/>
-<input type="hidden" id="labgridlen" name="labgridlen"  value='<s:property value="labgridlen"/>'/>
-<input type="hidden" id="eqgridlen" name="eqgridlen"  value='<s:property value="eqgridlen"/>'/>
-<input type="hidden" id="actgridlen" name="actgridlen"  value='<s:property value="actgridlen"/>'/>
-<input type="hidden" id="hidestedit" name="hidestedit"  value='<s:property value="hidestedit"/>'/>
-<input type="hidden" id="hidsurtrno" name="hidsurtrno" value='<s:property value="hidsurtrno"/>' />
-<input type="hidden" id="hidenqtrno" name="hidenqtrno" value='<s:property value="hidenqtrno"/>' />
-<input type="hidden" id="productchk" name="productchk"  value='<s:property value="productchk"/>' />
-<input type="hidden" id="txtgridservicetypeid" name="txtgridservicetypeid"  value='<s:property value="txtgridservicetypeid"/>' />  
-<input type="hidden" id="txtgridscopeid" name="txtgridscopeid"  value='<s:property value="txtgridscopeid"/>' />    
-<input type="hidden" name="txtgridscopeproduct" id="txtgridscopeproduct" style="width:80%" value='<s:property value="txtgridscopeproduct"/>'>
-
-</div>
-</form>
-
-<div id="customerDetailsWindow">
-   <div></div>
-</div>
-<div id="activitysearchwindow">
-	<div></div>
-</div>
-<div id="clientsearch1">
-   <div ></div>
-</div>
-<div id="sidesearchwndow">
-   <div ></div> 
-</div>
-<div id="lchargeinfowindow">
-   <div ></div>
-</div>
-<div id="echargeinfowindow">
-   <div ></div>
-</div>
-<div id="enquirywindow">
-   <div ></div>
-</div>
-
-<div id="servicetypewindow">
-   <div ></div>
-</div>
-<div id="sitewindow">
-   <div ></div>
-</div>
-<div id="unitsearchwindow">
-   <div ></div>
-   </div>
-<div id="templatesearchwindow">
-	<div ></div>
-</div>
-<div id="scopesearchwindow">
-	<div ></div>
-</div>
+    <!-- Search Windows Outside of Form Content to prevent scrolling issues -->
+    <div id="enquirywindow"><div></div><div></div></div>
+    <div id="employeeDetailsWindow"><div></div><div></div></div>
+    <div id="areainfowindow"><div></div><div></div></div>
+    <div id="serviceinfowindow"><div></div><div></div></div> 
+    <div id="sertypesearchwindow"><div></div><div></div></div>     
 </div>
 </body>
 </html>

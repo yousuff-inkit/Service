@@ -11,15 +11,171 @@ String dtype=  session.getAttribute("Code").toString();
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>GatewayERP(i)</title>
- <jsp:include page="../../../../includes.jsp"></jsp:include> 
-<style>
-form label.error {
-color:red;
-  font-weight:bold;
+<title>GatewayERP(i)</title>
+<jsp:include page="../../../../includes.jsp"></jsp:include> 
 
+<style>
+/* =========================================================
+SCOPED UI: Modern Layout (Matches Client Master)
+========================================================= */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 24px 0;
+    box-sizing: border-box;
+    overflow-y: auto !important;
 }
+
+#mainBG {
+    background: #fff;
+    border-radius: 16px;
+    padding: 15px;
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+.modern-ui {
+    font-family: Arial, sans-serif; 
+    color: #333;
+    font-size: 12px; 
+    padding: 5px 15px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Master Input Heights - Forced to 24px */
+.modern-ui input[type="text"],
+.modern-ui select { 
+    height: 24px !important; 
+    border: 1px solid #b8c6d8; 
+    border-radius: 3px; 
+    padding: 2px 6px;
+    font-size: 12px;
+    box-sizing: border-box; 
+    background-color: #fff; 
+    color: #333;
+    width: 100%;
+}
+
+.modern-ui input[type="text"]:focus,
+.modern-ui select:focus { 
+    border-color: #007bff; 
+    outline: none;
+}
+
+.modern-ui input[readonly],
+.modern-ui input:disabled,
+.modern-ui select:disabled { 
+    background-color: #f8f9fa; 
+    color: #6b7280;
+}
+
+/* Layout Utilities */
+.modern-ui .field-row { 
+    display: flex;
+    align-items: center; 
+    gap: 8px;
+    margin-bottom: 10px; 
+    flex-wrap: wrap;
+}
+
+.modern-ui .lbl-right { 
+    text-align: right; 
+    color: #444;
+    font-size: 12px; 
+    font-weight: bold;
+    white-space: nowrap; 
+    padding-right: 5px;
+}
+
+/* Middle Section Panels */
+.modern-ui .middle-panel {
+    border: 1px solid #c5d3e0; 
+    padding: 20px 10px 10px 10px; 
+    background: #ffffff; 
+    position: relative; 
+    border-radius: 4px; 
+    margin-bottom: 15px;
+    margin-top: 12px;
+}
+
+.modern-ui .middle-panel-title { 
+    position: absolute; 
+    top: -12px;
+    left: 10px; 
+    background: #ffffff; 
+    padding: 0 8px; 
+    color: #0056b3;
+    font-weight: bold; 
+    font-size: 14px; 
+    border-left: 3px solid #0056b3;
+    z-index: 2; 
+    line-height: normal; 
+}
+
+/* Custom UI Buttons matching 24px height */
+.modern-ui .myButton {
+    height: 24px !important;
+    line-height: 22px !important;
+    padding: 0 12px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    text-shadow: none;
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    border: none;
+    background: linear-gradient(135deg, #0b45a2 0%, #2563eb 100%);
+    color: #ffffff;
+    white-space: nowrap;
+}
+.modern-ui .myButton:hover { background: linear-gradient(135deg, #083a8a 0%, #1d4ed8 100%); }
+
+/* Search Icon Wrapper */
+.modern-ui .input-search-container {
+    position: relative;
+    display: flex;
+}
+.modern-ui .input-search-container input {
+    padding-right: 25px !important;
+}
+.modern-ui .magnifier-icon {
+    position: absolute;
+    right: 6px; 
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #64748b; 
+    z-index: 10;
+}
+.modern-ui .magnifier-icon:hover { color: #2563eb; }
+
+/* Grid Wrappers */
+.modern-ui .grid-container {
+    border: 1px solid #c5d3e0;
+    border-radius: 4px;
+    background: #fff;
+    overflow: hidden;
+}
+
+/* Scrollbar Logic */
+.hidden-scrollbar {
+    overflow-y: auto;
+    height: calc(100vh - 120px);
+    padding-right: 5px;
+}
+.hidden-scrollbar::-webkit-scrollbar { width: 6px; }
+.hidden-scrollbar::-webkit-scrollbar-thumb { background: #c5d3e0; border-radius: 3px; }
+
+form label.error { color:red; font-weight:bold; }
+#errormsg { color:red; font-weight:bold; text-align:center; margin-bottom: 10px; }
 </style>
+
 <%
 String mod =request.getParameter("mod")==null?"0":request.getParameter("mod").toString();
 System.out.println("mod====="+mod);
@@ -67,23 +223,41 @@ var enqdocno='<%=enqdocno%>';
 var brhid='<%=brhid%>';
  $(document).ready(function () {
 	
-   	 $("#EnquiryDate").jqxDateTimeInput({ width: '125px', height: '15px', formatString:"dd.MM.yyyy"});    
-   	 $('#brandsearchwndow').jqxWindow({ width: '40%', height: '55%',  maxHeight: '62%' ,maxWidth: '60%' , title: 'Brand Search' ,position: { x: 200, y: 120 }, keyboardCloseKey: 27});
+     /* Formatted jqxDateTimeInput heights to match modern UI 24px */
+   	 $("#EnquiryDate").jqxDateTimeInput({ width: '125px', height: 24, formatString:"dd.MM.yyyy", theme: 'energyblue'});    
+     
+     /* force internal alignment AFTER render */
+     setTimeout(function () {
+         $("#EnquiryDate").find("input").css({
+             "margin-top": "0px",
+             "line-height": "24px",
+             "font-size": "12px", 
+             "font-family": "Arial, sans-serif", 
+             "padding": "0 6px", 
+             "box-sizing":"border-box"
+         });
+         $("#EnquiryDate").find(".jqx-action-button").css({
+             "top": "0px",
+             "height": "24px"
+         });
+     }, 0);
+
+   	 $('#brandsearchwndow').jqxWindow({ width: '40%', height: '55%',  maxHeight: '62%' ,maxWidth: '60%' , title: 'Brand Search' ,position: { x: 200, y: 120 }, theme: 'energyblue', keyboardCloseKey: 27});
      $('#brandsearchwndow').jqxWindow('close'); 
-     $('#clientsearch1').jqxWindow({ width: '50%', height: '55%',  maxHeight: '85%' ,maxWidth: '80%' ,title: 'Client Search' , position: { x: 250, y: 120 }, keyboardCloseKey: 27});
+     $('#clientsearch1').jqxWindow({ width: '50%', height: '55%',  maxHeight: '85%' ,maxWidth: '80%' ,title: 'Client Search' , position: { x: 250, y: 120 }, theme: 'energyblue', keyboardCloseKey: 27});
      $('#clientsearch1').jqxWindow('close');
      $('#salesManDetailsWindow').jqxWindow({width: '51%', height: '58%',  maxHeight: '70%' ,maxWidth: '51%' , title: 'Salesman Search',position: { x: 300, y: 87 } , theme: 'energyblue', showCloseButton: true, keyboardCloseKey: 27});
 	 $('#salesManDetailsWindow').jqxWindow('close');
-     $('#modelsearchwndow').jqxWindow({ width: '40%', height: '55%',  maxHeight: '62%' ,maxWidth: '60%' , title: 'Model Search' ,position: { x: 250, y: 120 }, keyboardCloseKey: 27});
+     $('#modelsearchwndow').jqxWindow({ width: '40%', height: '55%',  maxHeight: '62%' ,maxWidth: '60%' , title: 'Model Search' ,position: { x: 250, y: 120 }, theme: 'energyblue', keyboardCloseKey: 27});
      $('#modelsearchwndow').jqxWindow('close');
-     $('#sourcesearchwndow').jqxWindow({ width: '20%', height: '55%',  maxHeight: '62%' ,maxWidth: '60%' , title: 'Source Search' ,position: { x: 500, y: 120 }, keyboardCloseKey: 27});
+     $('#sourcesearchwndow').jqxWindow({ width: '20%', height: '55%',  maxHeight: '62%' ,maxWidth: '60%' , title: 'Source Search' ,position: { x: 500, y: 120 }, theme: 'energyblue', keyboardCloseKey: 27});
      $('#sourcesearchwndow').jqxWindow('close');
-     $('#cpinfowindow').jqxWindow({ width: '35%', height: '55%',  maxHeight: '85%' ,maxWidth: '80%' ,title: 'Contact Person Search' , position: { x: 250, y: 60 }, keyboardCloseKey: 27});
+     $('#cpinfowindow').jqxWindow({ width: '35%', height: '55%',  maxHeight: '85%' ,maxWidth: '80%' ,title: 'Contact Person Search' , position: { x: 250, y: 60 }, theme: 'energyblue', keyboardCloseKey: 27});
      $('#cpinfowindow').jqxWindow('close');
-     $('#areainfowindow').jqxWindow({ width: '25%', height: '70%',  maxHeight: '85%' ,maxWidth: '80%' ,title: ' Area Search' , position: { x: 250, y: 60 }, keyboardCloseKey: 27});
+     $('#areainfowindow').jqxWindow({ width: '25%', height: '70%',  maxHeight: '85%' ,maxWidth: '80%' ,title: ' Area Search' , position: { x: 250, y: 60 }, theme: 'energyblue', keyboardCloseKey: 27});
  	$('#areainfowindow').jqxWindow('close');
  	
-  	$('#surveytypewindow').jqxWindow({ width: '35%', height: '45%',  maxHeight: '75%' ,maxWidth: '50%' , title: ' Search' ,position: { x: 300, y: 87 }, keyboardCloseKey: 27});
+  	$('#surveytypewindow').jqxWindow({ width: '35%', height: '45%',  maxHeight: '75%' ,maxWidth: '50%' , title: ' Search' ,position: { x: 300, y: 87 }, theme: 'energyblue', keyboardCloseKey: 27});
 	$('#surveytypewindow').jqxWindow('close'); 
     $('#cmbclient').dblclick(function(){
 	  	    $('#clientsearch1').jqxWindow('open');
@@ -129,30 +303,6 @@ var brhid='<%=brhid%>';
 	   }
    
 	
-	  
-   
- 		/* $("#r1").click(function() {
- 			
-			document.getElementById("r2").checked = false;
-			
-			$('#cmbclient').attr('readonly', false );
-			$('#txtclientname').attr('readonly', false );
-			$('#txtaddress').attr('readonly', false );
-			$('#txtmobile').attr('readonly', false );
-			$('#txtemail').attr('readonly', false );
-			$('#txtRemarks').attr('readonly', false );
-		
-			 document.getElementById("errormsg").innerText=""; 
-			 document.getElementById("txtradio").value="1";
-			 
-			$("#btnnewclient").hide();
-			$("#cmbclient").hide();
- 			
- 			
-		});
-		$("#r2").click(function() { */
-			
-		//	document.getElementById("r1").checked = false;
 			$('#cmbclient').attr('readonly', true );
 			$('#txtsalesman').attr('readonly', true );
 			$('#txtclientname').attr('readonly', true );
@@ -169,8 +319,6 @@ var brhid='<%=brhid%>';
 			   document.getElementById("errormsg").innerText="";
 			$("#btnnewclient").show();
 			
-	//	}); 
-    
 	});
  
  
@@ -192,9 +340,7 @@ var brhid='<%=brhid%>';
 		 }
 	        	 
 	function cpSearchContent(url) {
-		 //alert(url);
 	 	 $.get(url).done(function (data) {
-				 //alert(data);
 		$('#cpinfowindow').jqxWindow('setContent', data);
 
 	               	}); 
@@ -203,7 +349,6 @@ var brhid='<%=brhid%>';
 
  
           function brandinfoSearchContent(url) {
-      	 //alert(url);
       		 $.get(url).done(function (data) {
       			 
       			 $('#brandsearchwndow').jqxWindow('open');
@@ -212,7 +357,6 @@ var brhid='<%=brhid%>';
       	}); 
       	} 
           function modelinfoSearchContent(url) {
-           	 //alert(url);
            		 $.get(url).done(function (data) {
            			 
            			 $('#modelsearchwndow').jqxWindow('open');
@@ -221,7 +365,6 @@ var brhid='<%=brhid%>';
            	}); 
            	} 
           function sourceinfoSearchContent(url) {
-            	 //alert(url);
             		 $.get(url).done(function (data) {
             			 
             			 $('#sourcesearchwndow').jqxWindow('open');
@@ -261,57 +404,6 @@ var brhid='<%=brhid%>';
 		document.getElementById("formdetail").value=window.parent.formName.value;
 		document.getElementById("formdetailcode").value=window.parent.formCode.value.trim();
 		Setviewmode(enqdocno,brhid);
-		 <%--  $('#docno').attr('disabled', false);
-	 		 $('#masterdoc_no').attr('disabled', false);
-	 		 $('#mode').attr('disabled', false);
-	 		 $('#EnquiryDate').jqxDateTimeInput({ disabled: false}); 
-		
-		document.getElementById("masterdoc_no").value=masterdoc;
-		document.getElementById("mode").value=modes;
-		
-		  document.getElementById("docno").value= '<%=vocno%>';
-		  $('#EnquiryDate').jqxDateTimeInput('val','<%=date%>');
-		  document.getElementById("txtaddress").value='<%=address%>'; 
-          
-          document.getElementById("cmbclient").value='<%=cldocno%>';
-                   
-          document.getElementById("txtclientname").value='<%=client%>';
-          document.getElementById("hidradio").value='<%=contrmode%>';
-          document.getElementById("txtemail").value='<%=mail%>';
-          document.getElementById("txtmobile").value='<%=mob%>';
-          document.getElementById("txtRemarks").value='<%=remarks%>';
-          document.getElementById("txttelno").value='<%=telno%>';
-          document.getElementById("txtsource").value='<%=source%>';
-          document.getElementById("sourceid").value='<%=sourceid%>';
-          document.getElementById("txtcontact").value='<%=cperson%>';
-          document.getElementById("cpersonid").value='<%=cpersonid%>';
-          document.getElementById("cmbprocess").value='<%=sjobtype%>';
-          
-          var rdo=document.getElementById("hidradio").value;
-          var sjobtype='<%=sjobtype%>';
-         
-  		if(rdo=='AMC'){
-  			document.getElementById("c1").checked=true;
-  			
-  		}
-  		
-  		if(rdo=='SJOB'){
-  			document.getElementById("c2").checked=true;
-  			if(sjobtype>0){
-     			 document.getElementById("hidcmbprocess").value=sjobtype;
-     			}
-  		}
-          
-          document.getElementById("gridval").value=1;		
-     
-      	$('#EnquiryDate').jqxDateTimeInput({ disabled: false});
-      	
-          document.getElementById("frmEnquiry").submit();
-		// $("#activityDetailsDiv").load("activityDetailsGrid.jsp?trno="+docno);
-		
-		  $('#masterdoc_no').attr('disabled', false);
-		   $('#docno').attr('disabled', false);
-			 $('#mode').attr('disabled', false); --%>
 		   
 		}
 		if(mod1=="A")
@@ -333,8 +425,6 @@ var brhid='<%=brhid%>';
 		$('#frmEnquiry select').attr('disabled', false);
 		$('#btnnewclient').attr('disabled', false);
 		$('#txtsource').attr('readonly', true);
-	//	$('#r1').attr('disabled', false);
-	//	$('#r2').attr('disabled', false);
 	 $("#siteGrid").jqxGrid({ disabled: false});
 		$('#EnquiryDate').jqxDateTimeInput({ disabled: false});
 		$('#cmbprocess').attr('disabled', false);
@@ -367,15 +457,6 @@ var brhid='<%=brhid%>';
 		
 		if ($("#mode").val() == "E") {
 			 $("#jqxEnquiry").jqxGrid('addrow', null, {});
-			/* if(document.getElementById("txtradio").value==1)
-				{
-					
-					$('#r2').attr('disabled', true);	
-				}
-				else
-					{
-					$('#r1').attr('disabled', true);
-					} */
 			
 		}
 	
@@ -388,14 +469,11 @@ var brhid='<%=brhid%>';
     	 
   	  $('#areainfowindow').jqxWindow('open');
   
-     // $('#accountWindow').jqxWindow('focus');
             areaSearchContent('area.jsp?rowBoundIndex='+rowBoundIndex);
          	 }
          	 
  function areaSearchContent(url) {
-  //alert(url);
   	 $.get(url).done(function (data) {
- 		 //alert(data);
  $('#areainfowindow').jqxWindow('setContent', data);
 
                 	}); 
@@ -661,73 +739,19 @@ var brhid='<%=brhid%>';
 		
 	function funFocus(){
 		 
-	   /* 	$('#EnquiryDate').jqxDateTimeInput('focus');  */
-	   
-	   
-/* 	   
-		document.getElementById("r1").checked=1; */
-	//	document.getElementById("r1").focus();
-	   
-	   
 	}
 	function reqdata()
 	{
- 		 /* if((document.getElementById("r1").checked=="")&&(document.getElementById("r2").checked==""))
- 				 
-         	
-    		{ 
-     	  
-     	       document.getElementById("errormsg").innerText=" Select One Option";
-     	      $('#frmEnquiry input').attr('readonly', true );
-     			$('#frmEnquiry textarea').attr('readonly', true );
-     			
-     		
-     	        return false;			            	              		          	  
-   		}  
-		 else 
-	         	
- 		{ 
-			 document.getElementById("errormsg").innerText="";	
-			 
-			 $('#frmEnquiry input').attr('readonly', false );
-				$('#frmEnquiry textarea').attr('readonly', false );
-		}     */
-}
+	}
 	
 	
 	function chkChange()
     {
-		/* if($('#txtradio').val()!="")
-			{
-  	  if(document.getElementById("txtradio").value==2)
-  		  {
-  		document.getElementById("r2").checked = true;
-  		document.getElementById("r1").checked = false;  */
   	 	$("#cmbclient").show();
   		$("#btnnewclient").show(); 
   	    $('#frmEnquiry input').attr('readonly', true );
 		$('#frmEnquiry textarea').attr('readonly', true );
         $('#docno').attr('readonly', true);
-		
-		/* 
-		
-  		  }
-  	  else 
-  		  {
-  	
-  		  document.getElementById("r1").checked = true;
-  		 document.getElementById("r2").checked = false;
-  		  $('#frmEnquiry input').attr('readonly', true );
-			$('#frmEnquiry textarea').attr('readonly', true );
-			$('#docno').attr('readonly', true);
-			
-			
-  		  }
-			}
-		else{}
- 
-    
-	     */
     } 
 	
 	
@@ -735,8 +759,6 @@ var brhid='<%=brhid%>';
 	 {
 		 $('#docno').attr('readonly', true);
 		 $('#cmbclient').attr('readonly', true );
-		/*  if( document.getElementById("r2").checked == true)
-			 { */
 				$('#txtclientname').attr('readonly', true );
 		    	$('#txtaddress').attr('readonly', true );
 		    	$('#txtmobile').attr('readonly', true );
@@ -745,7 +767,6 @@ var brhid='<%=brhid%>';
 		    	$('#txtcontact').attr('readonly', true );
 		    	$('#txtsalesman').attr('readonly', true );
 		    	
-		//	 }
 			if ($("#mode").val() == "view") {
 	    	$('#txtclientname').attr('readonly', true );
 	    	$('#txtaddress').attr('readonly', true );
@@ -861,16 +882,13 @@ win.focus();
     		{
     		
     		 document.getElementById("hidradio").value="AMC";
-    		//$('#cmbprocess').val('');
     		
     		 document.getElementById("hidcmbprocess").value=0;
-    		//$('#cmbprocess').attr('disabled', true);
     		
     		}
     	else
     		{
     		 document.getElementById("hidradio").value="SJOB";
-    		//$('#cmbprocess').attr('disabled', false);
     		}
     }
 	
@@ -878,159 +896,173 @@ win.focus();
 </head>
 <body onload="setValues();getsjobtype();">
 <div id="mainBG" class="homeContent" data-type="background">
-<form id="frmEnquiry" action="saveEnquirynew" autocomplete="OFF" method="POST">   
+    <form id="frmEnquiry" action="saveEnquirynew" autocomplete="OFF" method="POST">   
+        <jsp:include page="../../../../header.jsp"></jsp:include>
+        
+        <div class="modern-ui hidden-scrollbar">
+            <div id="errormsg"></div>
 
-<jsp:include page="../../../../header.jsp"></jsp:include><br/>
+            <div class="middle-panel">
+                <span class="middle-panel-title">Customer Enquiry</span>
+                
+                <div class="field-row">
+                    <label class="lbl-right" style="width:100px;">Date</label>
+                    <div style="width: 125px;">
+                        <div id='EnquiryDate' name='EnquiryDate' value='<s:property value="EnquiryDate"/>'></div>
+                    </div>
+                    <input type="hidden" id="hidEnquiryDate" name="hidEnquiryDate" value='<s:property value="hidEnquiryDate"/>'/>
+                    
+                    <label class="lbl-right" style="width:100px; margin-left:15px;">User Name</label>
+                    <input type="text" style="width:150px; background-color:#f8f9fa;" value="<%=session.getAttribute("USERNAME")%>" tabindex="-1" readonly/>
+                    
+                    <label class="lbl-right" style="width:80px; margin-left:auto;">Doc No</label>
+                    <input type="text" id="docno" name="docno" style="width:125px;" tabindex="-1" value='<s:property value="docno"/>' onfocus="disfields();"/>
+                </div>
+                
+                <div class="field-row">
+                    <label class="lbl-right" style="width:100px;">Client</label>
+                    <div class="input-search-container" style="width: 125px;">
+                        <input type="text" id="cmbclient" name="cmbclient" placeholder="Press F3" value='<s:property value="cmbclient"/>' onKeyDown="getclinfo(event);" onfocus="disfields();">
+                        <svg class="magnifier-icon" onclick="$('#cmbclient').dblclick();" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                    <input type="text" id="txtclientname" name="txtclientname" style="flex:1; margin-left:8px;" value='<s:property value="txtclientname"/>' onfocus="reqdata();disfields();">
+                    <button type="button" id="btnnewclient" class="myButton" onclick="text();" style="margin-left: 15px;">Create new Client</button>
+                </div>
+                
+                <div class="field-row">
+                    <label class="lbl-right" style="width:100px;">Contact person</label>
+                    <div class="input-search-container" style="width: 125px;">
+                        <input type="text" id="txtcontact" name="txtcontact" placeholder="Press F3" value='<s:property value="txtcontact"/>' onKeyDown="getcontact(event);">
+                        <svg class="magnifier-icon" onclick="$('#txtcontact').dblclick();" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                    
+                    <label class="lbl-right" style="width:100px; margin-left:15px;">Salesman</label>
+                    <div class="input-search-container" style="flex:1;">
+                        <input type="text" id="txtsalesman" name="sal_name" placeholder="Press F3" value='<s:property value="sal_name"/>' onKeyDown="getsalinfo(event);" onfocus="disfields();">
+                        <svg class="magnifier-icon" onclick="$('#txtsalesman').dblclick();" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                    <input type="hidden" id="txtsalesmandocno" name="sal_id" value='<s:property value="sal_id"/>'>
+                </div>
+                
+                <div class="field-row">
+                    <label class="lbl-right" style="width:100px;">Address</label>
+                    <input type="text" id="txtaddress" name="txtaddress" style="flex:1;" value='<s:property value="txtaddress"/>' onfocus="reqdata();disfields();">
+                </div>
+                
+                <div class="field-row" style="margin-bottom:0;">
+                    <label class="lbl-right" style="width:100px;">MOB</label>
+                    <input type="text" id="txtmobile" name="txtmobile" style="width:125px;" value='<s:property value="txtmobile"/>' onfocus="reqdata();disfields();">
+                    
+                    <label class="lbl-right" style="width:60px; margin-left:15px;">Tel</label>
+                    <input type="text" id="txttelno" name="txttelno" style="width:125px;" value='<s:property value="txttelno"/>' onfocus="reqdata();disfields();">
+                    
+                    <label class="lbl-right" style="width:60px; margin-left:15px;">Email</label>
+                    <input type="email" id="txtemail" name="txtemail" style="flex:1;" value='<s:property value="txtemail"/>' onfocus="reqdata();disfields();">
+                </div>
+            </div>
 
-<fieldset>
-<legend>Customer Enquiry</legend>          <!-- EnquiryDate, docno,cmbclientb,txtclientname,txtaddress -->
-<table width="100%" >                        
-  <tr>
-    <td width="11%" align="right">Date</td>
-    <td colspan="2"><div id='EnquiryDate' name='EnquiryDate' value='<s:property value="EnquiryDate"/>'></div>
-                     <input type="hidden" id="hidEnquiryDate" name="hidEnquiryDate" value='<s:property value="hidEnquiryDate"/>'/></td>
-    <!--  <td width="32%" align="right">User Name</td> -->
-    <%-- <td width="33%"><input type="text" id="enquserName" name="enquserName" tabindex="-1" value="<%=session.getAttribute("USERNAME")%>"/></td> --%>
-    <td width="36%" align="right">User Name : <label ><font size="2PX"><%=session.getAttribute("USERNAME")%></font></label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    </td>
-    <td width="33%">Doc No&nbsp;<input type="text" id="docno" name="docno" tabindex="-1" value='<s:property value="docno"/>' onfoucs="disfields();"/></td>
-  </tr>
-  <%--  <tr>
-    <td align="right">&nbsp;</td>
-    <td colspan="2"><input type="radio" id="r1" name="genaral" value='<s:property value="0"/>'  >General</td>
-    <td colspan="2"><input type="radio" id="r2" name="client" value='<s:property value="1"/>' >Client</td>
-  </tr>  --%>
-       
-  <tr>
-    <td align="right">Client</td>     
-    <td colspan="3"><input type="text" id="cmbclient" name="cmbclient" placeholder="Press F3 To Search" value='<s:property value="cmbclient"/>' onKeyDown="getclinfo(event);" onfocus="disfields();">
-		<input type="text" id="txtclientname" name="txtclientname" style="width: 40%;" value='<s:property value="txtclientname"/>' onfocus="reqdata();disfields();"></td>
-     <td><button type="button" id="btnnewclient"  class="myButton" onclick="text();">Create new Client</button></td>
-  </tr>
- 
-</table>
-  <table width="100%" >
-  <tr>
-  <td width="10.8%" align="right">Contact person</td>
-    <td><input type="text" id="txtcontact" name="txtcontact" style="width:25%;" value='<s:property value="txtcontact"/>' onKeyDown="getcontact(event);"></td>
-   <td width="1%" align="right">Salesman</td>
-   <td colspan="3"><input type="text" id="txtsalesman" name="sal_name" style="width:45%;" placeholder="Press F3 To Search" value='<s:property value="sal_name"/>' onKeyDown="getsalinfo(event);" onfocus="disfields();">
-   <input type="hidden" id="txtsalesmandocno" name="sal_id" value='<s:property value="sal_id"/>'></td>
-		
-    
-  </tr>
-   <tr>
-    <td width="10.8%" align="right">Address</td>
-    <td><input type="text" id="txtaddress" name="txtaddress" style="width:76.7%;" value='<s:property value="txtaddress"/>' onfocus="reqdata();disfields();"></td>
-  </tr>
-  </table>
-<table  width="100%">
-  <tr>
-    <td align="right" width="10.8%">MOB</td>
-    <td width="20%" ><input type="text" id="txtmobile" name="txtmobile" style="width:60%;" value='<s:property value="txtmobile"/>' onfocus="reqdata();disfields();"></td>
-        <td align="right" width="3%" >Tel</td>
-    <td width="20%"> <input type="text" id="txttelno" name="txttelno" style="width: 60%;" value='<s:property value="txttelno"/>' onfocus="reqdata();disfields();"></td>
-    <td align="right" width="3%" >Email</td>
-    <td > <input type="email" id="txtemail" name="txtemail" style="width: 51.5%;" value='<s:property value="txtemail"/>' onfocus="reqdata();disfields();"></td>
-  </tr>
-  
-  <tr>
-    <td align="right" width="150">Contract Type</td>
-    <td width="148"><input type="radio" id="c1" name="cnt" value="AMC" onchange="getsjobtype();" onClick="getsjobtype();jobChange();">AMC
-     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <input type="radio" id="c2" name="cnt" value="SJOB" onchange="getsjobtype();" onClick="getsjobtype();jobChange();" >
-    SJOB</td>
-    <td align="right">Type</td>
-	  <td align="left"><select name="cmbprocess" id="cmbprocess" style="width:62%;" name="cmbprocess" onchange="funtxtenable(value);"  value='<s:property value="cmbprocess"/>'></select>
-	  <input type="hidden" name="hidcmbprocess" id="hidcmbprocess" value='<s:property value="hidcmbprocess"/>' /> 
-	  </td>
-	  
-    <td align="right" >Source</td>
-  <td align="left" width="20%"><input type="text" id="txtsource" name="txtsource" style="width:50%;" readonly placeholder="Press F3 To Search" onKeyDown="getSource(event);" value='<s:property value="txtsource"/>'></td>
-	<td>  <input type="checkbox" name="chksurvey" id="chksurvey" value="chksurvey"  value='<s:property value="chksurvey"/>' onclick="$(this).attr('value', this.checked ? 1 : 0);">Surveyed</td>
-    
-  </tr>
-  </table>
-  <table  width="100%" >
-  <tr>
-  <td align="right" width="10.8%">Remarks</td> 
-    <td colspan="3">
-    <input type="text" id="txtRemarks" name="txtRemarks" style="width:76.6%;" value='<s:property value="txtRemarks"/>'onfocus="reqdata();disfields();"></td>
+            <div class="middle-panel">
+                <span class="middle-panel-title">Classification & Remarks</span>
+                
+                <div class="field-row">
+                    <label class="lbl-right" style="width:100px;">Contract Type</label>
+                    <div style="display:flex; align-items:center; gap: 15px; width:125px;">
+                        <label style="display:flex; align-items:center; gap:4px; font-size:12px;">
+                            <input type="radio" id="c1" name="cnt" value="AMC" onchange="getsjobtype();" onClick="getsjobtype();jobChange();" style="margin:0;"> AMC
+                        </label>
+                        <label style="display:flex; align-items:center; gap:4px; font-size:12px;">
+                            <input type="radio" id="c2" name="cnt" value="SJOB" onchange="getsjobtype();" onClick="getsjobtype();jobChange();" style="margin:0;"> SJOB
+                        </label>
+                    </div>
+                    
+                    <label class="lbl-right" style="width:60px; margin-left:15px;">Type</label>
+                    <select name="cmbprocess" id="cmbprocess" style="width:150px;" onchange="funtxtenable(value);" value='<s:property value="cmbprocess"/>'></select>
+                    <input type="hidden" name="hidcmbprocess" id="hidcmbprocess" value='<s:property value="hidcmbprocess"/>' /> 
+                    
+                    <label class="lbl-right" style="width:60px; margin-left:15px;">Source</label>
+                    <div class="input-search-container" style="flex:1;">
+                        <input type="text" id="txtsource" name="txtsource" readonly placeholder="Press F3" onKeyDown="getSource(event);" value='<s:property value="txtsource"/>'>
+                        <svg class="magnifier-icon" onclick="$('#txtsource').dblclick();" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                    
+                    <label style="display:flex; align-items:center; gap:4px; font-size:12px; margin-left:15px;">
+                        <input type="checkbox" name="chksurvey" id="chksurvey" value='<s:property value="chksurvey"/>' onclick="$(this).attr('value', this.checked ? 1 : 0);" style="margin:0;"> Surveyed
+                    </label>
+                </div>
+                
+                <div class="field-row" style="margin-bottom:0;">
+                    <label class="lbl-right" style="width:100px;">Remarks</label>
+                    <input type="text" id="txtRemarks" name="txtRemarks" style="flex:1;" value='<s:property value="txtRemarks"/>' onfocus="reqdata();disfields();">
+                </div>
+            </div>
 
-  </tr>
-</table> 
-</fieldset>
+            <div class="middle-panel">
+                <span class="middle-panel-title">Site Details</span>
+                <div id="sitediv" class="grid-container" style="border: none;">
+                    <jsp:include page="siteGrid.jsp"></jsp:include>
+                </div>
+            </div>
 
-<table width="100%">
-  <tr>
-    <td><fieldset><legend>Site Details</legend>
-    <div id="sitediv"><jsp:include page="siteGrid.jsp"></jsp:include></div>
-    </fieldset></td>
-   
-  </tr>
-</table>
-<fieldset>
-<div id="enqdiv">
-<jsp:include page="enquiryDetails.jsp"></jsp:include></div>
-</fieldset>
+            <div class="middle-panel">
+                <span class="middle-panel-title">Enquiry Details</span>
+                <div id="enqdiv" class="grid-container" style="border: none;">
+                    <jsp:include page="enquiryDetails.jsp"></jsp:include>
+                </div>
+            </div>
 
-<input type="hidden" id="masterdoc_no" name="masterdoc_no" value='<s:property value="masterdoc_no"/>' />
+            <!-- Hidden Logic Fields -->
+            <div style="display:none;">
+                <input type="hidden" id="masterdoc_no" name="masterdoc_no" value='<s:property value="masterdoc_no"/>' />
+                <input type="hidden" id="mode" name="mode" value='<s:property value="mode"/>' />
+                <input type="hidden" name="deleted" id="deleted" value='<s:property value="deleted"/>' />
+                <input type="hidden" name="enqdtype" id="enqdtype" value='<s:property value="enqdtype"/>' />
+                <input type="hidden" id="enqgridlenght" name="enqgridlenght" />
+                <input type="hidden" id="siteGridlength" name="siteGridlength" /> 
+                <input type="hidden" name="gridval" id="gridval" value='<s:property value="gridval"/>' />
+                <input type="hidden" name="forradiochk" id="forradiochk" value='<s:property value="forradiochk"/>' />  
+                <input type="hidden" name="brandval" id="brandval" value='<s:property value="brandval"/>' />  
+                <input type="hidden" name="sourceid" id="sourceid" value='<s:property value="sourceid"/>'/>
+                <input type="hidden" name="cpersonid" id="cpersonid" value='<s:property value="cpersonid"/>'/>
+                <input type="hidden" name="fromdatesval" id="fromdatesval" value='<s:property value="fromdatesval"/>' />  
+                <input type="hidden" name="todateval" id="todateval" value='<s:property value="todateval"/>' /> 
+                <input type="hidden" id="sertypeids" name="sertypeids"  value='<s:property value="sertypeids"/>'/> 
+                <input type="hidden" id="hidradio" name="hidradio"  value='<s:property value="hidradio"/>'/>
+                <input type="hidden" id="hidsurvey" name="hidsurvey"  value='<s:property value="hidsurvey"/>'/>
+                <input type="hidden" name="txtradio" id="txtradio" value='<s:property value="txtradio"/>' /> 
+                <input type="hidden" name="proname" id="proname" value='<s:property value="proname"/>' />
+                <input type="hidden" id="msg" name="msg"  value='<s:property value="msg"/>'/> 
+                <input type="hidden" id="hidenqedit" name="hidenqedit"  value='<s:property value="hidenqedit"/>'/> 
+                <input type="hidden" id="hidtrno" name="hidtrno"  value='<s:property value="hidtrno"/>'/> 
+            </div>
 
-<input type="hidden" id="mode" name="mode" value='<s:property value="mode"/>' />
-<input type="hidden" name="deleted" id="deleted" value='<s:property value="deleted"/>' />
-<input type="hidden" name="enqdtype" id="enqdtype" value='<s:property value="enqdtype"/>' />
-<input type="hidden" id="enqgridlenght" name="enqgridlenght" />
-<input type="hidden" id="siteGridlength" name="siteGridlength" /> 
-<input type="hidden" name="gridval" id="gridval" value='<s:property value="gridval"/>' />
-<input type="hidden" name="forradiochk" id="forradiochk" value='<s:property value="forradiochk"/>' />  
-<input type="hidden" name="brandval" id="brandval" value='<s:property value="brandval"/>' />  
-<input type="hidden" name="sourceid" id="sourceid" value='<s:property value="sourceid"/>'/>
-<input type="hidden" name="cpersonid" id="cpersonid" value='<s:property value="cpersonid"/>'/>
-<input type="hidden" name="fromdatesval" id="fromdatesval" value='<s:property value="fromdatesval"/>' />  
-<input type="hidden" name="todateval" id="todateval" value='<s:property value="todateval"/>' /> 
-<input type="hidden" id="sertypeids" name="sertypeids"  value='<s:property value="sertypeids"/>'/> 
+        </div>
+    </form>
 
-
-<input type="hidden" id="hidradio" name="hidradio"  value='<s:property value="hidradio"/>'/>
-<input type="hidden" id="hidsurvey" name="hidsurvey"  value='<s:property value="hidsurvey"/>'/>
-<input type="hidden" name="txtradio" id="txtradio" value='<s:property value="txtradio"/>' /> 
-<input type="hidden" name="proname" id="proname" value='<s:property value="proname"/>' />
-
-  <input type="hidden" id="msg" name="msg"  value='<s:property value="msg"/>'/> 
-  <input type="hidden" id="hidenqedit" name="hidenqedit"  value='<s:property value="hidenqedit"/>'/> 
-  <input type="hidden" id="hidtrno" name="hidtrno"  value='<s:property value="hidtrno"/>'/> 
-
-
-</form>
-
-
-<div id="sourcesearchwndow">
-   <div ></div>
- </div>
-<div id="modelsearchwndow">
-   <div ></div>
-</div>
-<div id="brandsearchwndow">
-   <div ></div>
-</div>
-<div id="clientsearch1">
-   <div ></div>
-</div>
-<div id="salesManDetailsWindow">
-   <div ></div>
-</div>
-<div id="cpinfowindow">
-   <div ></div>
-   </div>
-   <div id="areainfowindow">
-   <div ></div>
-   </div>
+    <!-- Search Windows Outside of Form Content to prevent scrolling issues -->
+    <div id="sourcesearchwndow">
+       <div></div><div></div>
+    </div>
+    <div id="modelsearchwndow">
+       <div></div><div></div>
+    </div>
+    <div id="brandsearchwndow">
+       <div></div><div></div>
+    </div>
+    <div id="clientsearch1">
+       <div></div><div></div>
+    </div>
+    <div id="salesManDetailsWindow">
+       <div></div><div></div>
+    </div>
+    <div id="cpinfowindow">
+       <div></div><div></div>
+    </div>
+    <div id="areainfowindow">
+       <div></div><div></div>
+    </div>
     <div id="surveytypewindow">
-   <div ></div>
-   </div>
+       <div></div><div></div>
+    </div>
 </div>  
 </body>
 </html>
