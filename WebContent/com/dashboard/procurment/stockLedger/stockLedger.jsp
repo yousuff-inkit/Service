@@ -12,44 +12,116 @@
 	String contextPath=request.getContextPath();
  %>
  <style type="text/css">
-.myButtons {
-	display: inline-block;
-	margin-right:4px;
-	margin-left:4px; 
-  margin-bottom: 0;
-  font-weight: normal;
-  line-height: 1.3;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -ms-touch-action: manipulation;
-      touch-action: manipulation;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  color: #fff;
-  background-color: grey;
+
+/* ===== MASTER LAYOUT ===== */
+.master-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f4f7f9;
 }
-.myButtons:hover {
-	  color: #fff;
-  background-color: #31b0d5;
-  
+
+/* Sidebar */
+.sidebar-filters {
+    width: 330px;
+    flex: 0 0 330px;
+    background: #fff;
+    border-right: 1px solid #e1e8ed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-shadow: 2px 0 8px rgba(0,0,0,.05);
 }
-.myButtons:active {
-  color: #fff;
-  background-color: #31b0d5;
-  
+
+.sidebar-fixed-top {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f4f8;
 }
-.myButtons:focus {
-  color: #fff;
-  background-color: grey;
+
+.sidebar-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 20px 25px;
 }
+
+/* Cards */
+.filter-card {
+    background: #f8fafc;
+    border: 1px solid #e3e8ee;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+/* Tables */
+.filter-table {
+    width: 100%;
+    border-spacing: 0 10px;
+}
+
+.label-cell {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4e5e71;
+    width: 90px;
+}
+
+/* Inputs */
+input[type="text"], select {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+/* Buttons */
+.btn-submit {
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1d4ed8;
+}
+
+/* Page height fix */
+html, body, #mainBG, .hidden-scrollbar {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+td[width="80%"] {
+    height: 100vh;
+    vertical-align: top;
+    background: #fff;
+}
+input[type="text"],
+select {
+    width: 100%;
+    height: 28px !important;   /* Slightly smaller */
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
 </style>
+
 
 
 <script type="text/javascript">
@@ -566,142 +638,219 @@
 </script>
 </head>
 <body onload="getBranch();">
+
 <div id="mainBG" class="homeContent" data-type="background"> 
-<div class='hidden-scrollbar'>
-<table width="100%" >
+<div class="hidden-scrollbar">
+
+<table width="100%">
 <tr>
-<td width="20%" >
-    <fieldset style="background: #ECF8E0;">
-	<table width="100%"  >
-	<jsp:include page="../../heading.jsp"></jsp:include>
-		
-	 <tr><td colspan="2" align="center"><input type="radio" id="rsumm" name="stkled" onchange="fundisable();" value="rsumm"><label for="rsumm" class="branch">Summary</label>&nbsp;&nbsp;
-	 <input type="radio" id="rdet" name="stkled" onchange="fundisable();" value="rdet"><label for="rdet" class="branch">Detail</label></td></tr>
-	 <tr>
-	 <td align="right"><label class="branch">Period</label></td>
-     <td align="left"><div id="fromdate" name="fromdate" value='<s:property value="fromdate"/>' ></div></td></tr> 
-	<tr>
-	<td align="right"><label class="branch">To</label></td>
-    <td align="left"><div id="todate" name="todate" value='<s:property value="todate"/>'></div></td>
-	</tr>  
-	
-	  <tr >
-	  <td colspan="2">
-	  	  
-	  <div id="detial" >   
-	  <table width="100%">
-	    <tr>  <td align="right"><label class="branch">Product</label></td> <td  align="left"  ><input type="text" id="name" style="width: 100%;height:20PX;"  style="width: 40%;"  placeholder="Press F3 for Search" readonly="readonly" onKeyDown="getname(event);" name="name"  value='<s:property value="name"/>'> </td></tr>
-       <tr >
-	  <td colspan="2"
-      align="right" ><textarea id="searchdetails1" name="searchdetails1" style="resize:none;font: 10px Tahoma;width:100%;" rows="18"  readonly></textarea></td>
-	  </tr>
-	  </table>
-	  </div>
-	  
-	  <div id="summs">
-	  <table width="100%">
-	  <tr>
-	  <td align="right"><label class="branch">Product</label></td>
-	  <td  align="left"><select name="prodsearchby" id="prodsearchby" style="width:52%;">
-<option value="">--Select--</option>
-    <option value="ptype">TYPE</option>
-    <option value="pbrand">BRAND</option>
-    <option value="pdept">DEPARTMENT</option>
-    <option value="pcategory">CATEGORY</option>
-    <option value="psubcategory">SUB CATEGORY</option>
-    <option value="product">PRODUCT</option>
-    </select>&nbsp;&nbsp;<button type="button" name="btnadditem" id="additem" class="myButtons" onClick="setprodSearch();">+</button>&nbsp;&nbsp;<button  type="button" name="btnremoveitem" id="btnremoveitem" class="myButtons" onclick="setRemove();">-</button></td>
-	  
-	</tr> 
-	<tr >
-	  <td colspan="2"
-      align="right" ><textarea id="searchdetails" name="searchdetails" style="resize:none;font: 10px Tahoma;width:100%;" rows="18"  readonly></textarea></td>
-	  </tr>
-	  <tr >
-	  
-	   </tr></table>
-	 </div>
-	  </td>
-	  </tr>
-	  <tr>
-	  
-	<td style="border-top:2px solid #DCDDDE;"><center><input type="button" name="btnclear" id="btnclear" value="Clear" class="myButtons" onclick="funClearData();"></center>
-    </td>
-    <td  style="border-top:2px solid #DCDDDE;"><center><input type="button" name="btnclear" id="btnclear" value="Mismatch" class="myButtons" onclick="funprintbtn();"></center>
-    </td>
-	</tr>
-	<tr><td colspan="2">&nbsp;</td></tr> 
-	<!--<tr><td colspan="2">&nbsp;</td></tr> 
-	<tr><td colspan="2">&nbsp;</td></tr> 
-	<tr><td colspan="2">&nbsp;</td></tr>	
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr> -->
-			<tr><td>
-			 <input type="hidden" name="hidbrandid" id="hidbrandid">
-			  <input type="hidden" name="hidtypeid" id="hidtypeid">
-			  <input type="hidden" name="hideptid" id="hideptid">
-			  <input type="hidden" name="hidcatid" id="hidcatid">
-			  <input type="hidden" name="hidsubcatid" id="hidsubcatid">
-			  <input type="hidden" name="hidproductid" id="hidproductid">
-			  
-			  <input type="hidden" name="hidbrand" id="hidbrand">
-			  <input type="hidden" name="hidept" id="hidept">
-			  <input type="hidden" name="hidtype" id="hidtype">
-			  <input type="hidden" name="hidcat" id="hidcat">
-			  <input type="hidden" name="hidsubcat" id="hidsubcat">
-			  <input type="hidden" name="hidproduct" id="hidproduct"></td></tr>
-			  
-			   <input type="hidden" name="psrno" id="psrno">
-			  
-			  
-	
-	</table>
-	</fieldset>
+
+<!-- ================= LEFT SIDEBAR ================= -->
+<td width="20%">
+    <div class="master-container">
+        <div class="sidebar-filters">
+
+            <!-- Fixed Heading -->
+            <div class="sidebar-fixed-top">
+                <div class="filter-card">
+                    <jsp:include page="../../heading.jsp"></jsp:include>
+                </div>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="sidebar-scroll-content">
+
+                <div class="filter-card">
+                    <table class="filter-table">
+
+                        <!-- Summary / Detail Radio -->
+                        <tr>
+                            <td colspan="2" style="text-align:center;">
+                                <input type="radio" id="rsumm" name="stkled"
+                                       onchange="fundisable();" value="rsumm">
+                                <label for="rsumm">Summary</label>
+
+                                &nbsp;&nbsp;
+
+                                <input type="radio" id="rdet" name="stkled"
+                                       onchange="fundisable();" value="rdet">
+                                <label for="rdet">Detail</label>
+                            </td>
+                        </tr>
+
+                        <!-- From Date -->
+                        <tr>
+                            <td class="label-cell">Period</td>
+                            <td>
+                                <div id="fromdate"
+                                     value='<s:property value="fromdate"/>'>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- To Date -->
+                        <tr>
+                            <td class="label-cell">To</td>
+                            <td>
+                                <div id="todate"
+                                     value='<s:property value="todate"/>'>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+
+                <!-- ================= DETAIL SECTION ================= -->
+                <div id="detial" class="filter-card">
+
+                    <table class="filter-table">
+
+                        <tr>
+                            <td class="label-cell">Product</td>
+                            <td>
+                                <input type="text"
+                                       id="name"
+                                       placeholder="Press F3 for Search"
+                                       readonly
+                                       onkeydown="getname(event);"
+                                       value='<s:property value="name"/>'>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <textarea id="searchdetails1"
+                                          rows="12"
+                                          readonly
+                                          style="width:100%;resize:none;"></textarea>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+
+                <!-- ================= SUMMARY SECTION ================= -->
+                <div id="summs" class="filter-card">
+
+                    <table class="filter-table">
+
+                        <tr>
+                            <td class="label-cell">Product</td>
+                            <td>
+                                <select name="prodsearchby" id="prodsearchby">
+                                    <option value="">--Select--</option>
+                                    <option value="ptype">TYPE</option>
+                                    <option value="pbrand">BRAND</option>
+                                    <option value="pdept">DEPARTMENT</option>
+                                    <option value="pcategory">CATEGORY</option>
+                                    <option value="psubcategory">SUB CATEGORY</option>
+                                    <option value="product">PRODUCT</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2" style="text-align:center;">
+                                <button type="button"
+                                        class="btn-submit"
+                                        onclick="setprodSearch();">Add</button>
+
+                                <button type="button"
+                                        class="btn-submit"
+                                        onclick="setRemove();">Remove</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <textarea id="searchdetails"
+                                          rows="12"
+                                          readonly
+                                          style="width:100%;resize:none;"></textarea>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+
+                <!-- Buttons -->
+                <button class="btn-submit"
+                        type="button"
+                        onclick="funClearData();">
+                    Clear
+                </button>
+
+                <button class="btn-submit"
+                        type="button"
+                        onclick="funprintbtn();">
+                    Mismatch
+                </button>
+
+
+                <!-- Hidden Fields -->
+                <input type="hidden" name="hidbrandid" id="hidbrandid">
+                <input type="hidden" name="hidtypeid" id="hidtypeid">
+                <input type="hidden" name="hideptid" id="hideptid">
+                <input type="hidden" name="hidcatid" id="hidcatid">
+                <input type="hidden" name="hidsubcatid" id="hidsubcatid">
+                <input type="hidden" name="hidproductid" id="hidproductid">
+
+                <input type="hidden" name="hidbrand" id="hidbrand">
+                <input type="hidden" name="hidept" id="hidept">
+                <input type="hidden" name="hidtype" id="hidtype">
+                <input type="hidden" name="hidcat" id="hidcat">
+                <input type="hidden" name="hidsubcat" id="hidsubcat">
+                <input type="hidden" name="hidproduct" id="hidproduct">
+                <input type="hidden" name="psrno" id="psrno">
+
+            </div>
+        </div>
+    </div>
 </td>
+
+
+<!-- ================= RIGHT GRID AREA ================= -->
 <td width="80%">
-	<table width="100%">
-		<tr>
-			 <td><div id="stockLedgerDiv"><jsp:include page="stockLedgerGridSummary.jsp"></jsp:include></div></td>
-		</tr>
-		    <tr><td><div id="stockLedgerDetDiv">
-				 <jsp:include page="stockLedgerGridDetail.jsp"></jsp:include> 
-				</div></td></tr> 
-	</table>
+    <table width="100%">
+        <tr>
+            <td>
+                <div id="stockLedgerDiv">
+                    <jsp:include page="stockLedgerGridSummary.jsp"></jsp:include>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div id="stockLedgerDetDiv">
+                    <jsp:include page="stockLedgerGridDetail.jsp"></jsp:include>
+                </div>
+            </td>
+        </tr>
+    </table>
+</td>
+
 </tr>
 </table>
-<div id="ptypewindow">
-<div></div>
-</div>
-<div id="brandwindow">
-<div></div>
-</div>
-<div id="modelwindow">
-<div></div>
-</div>
-<div id="submodelwindow">
-<div></div>
-</div>
-<div id="productwindow">
-<div></div>
-</div>
-<div id="pcategorywindow">
-<div></div>
-</div>
-<div id="pdeptwindow">
-<div></div>
-</div>
-<div id="psubcategorywindow">
-<div></div>
-</div>
-<div id="productwindow1">
-<div></div>
-</div>
-<div id="productDetailsWindow">
-<div></div>
-</div>
+
+
+<!-- Windows -->
+<div id="ptypewindow"><div></div></div>
+<div id="brandwindow"><div></div></div>
+<div id="modelwindow"><div></div></div>
+<div id="submodelwindow"><div></div></div>
+<div id="productwindow"><div></div></div>
+<div id="pcategorywindow"><div></div></div>
+<div id="pdeptwindow"><div></div></div>
+<div id="psubcategorywindow"><div></div></div>
+<div id="productwindow1"><div></div></div>
+<div id="productDetailsWindow"><div></div></div>
 
 </div>
 </div>

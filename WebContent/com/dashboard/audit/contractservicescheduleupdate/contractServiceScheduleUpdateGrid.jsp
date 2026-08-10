@@ -73,7 +73,7 @@
             );
             $("#contractServiceScheduleUpdateGridID").jqxGrid(
             {
-            	width: '98%',
+            	width: '100%',
     	        height: 360,
                 source: dataAdapter,
                 columnsresize: true,

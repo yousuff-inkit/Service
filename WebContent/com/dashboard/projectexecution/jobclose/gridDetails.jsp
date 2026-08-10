@@ -1,4 +1,4 @@
-    <%-- <jsp:include page="../../includes.jsp"></jsp:include>  --%> 
+<%-- <jsp:include page="../../includes.jsp"></jsp:include>  --%> 
     
   <%@page import="com.dashboard.projectexecution.jobclose.jobCloseDAO" %>
 <%
@@ -78,8 +78,8 @@ jobCloseDAO sd=new jobCloseDAO();
             );
             $("#jqxjobclosegrid").jqxGrid(
             {
-                width: '99%',
-                height: 530,
+                width: '100%',
+                height: 730,
                 source: dataAdapter,
                 columnsresize: true,
                 //pageable: true,

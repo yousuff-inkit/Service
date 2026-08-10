@@ -108,8 +108,8 @@ $(document).ready(function () {
     
     $("#retunlist").jqxGrid(
     {
-        width: '98%',
-        height: 500,
+        width: '100%',
+        height: 700,
         source: dataAdapter,
         showaggregates:true,
         enableAnimations: true,

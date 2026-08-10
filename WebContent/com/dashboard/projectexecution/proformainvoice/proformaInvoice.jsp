@@ -16,52 +16,104 @@
 <%-- <script type="text/javascript" src="../../js/dashboard.js"></script> --%> 
 
 <style type="text/css">
- 
-.myButtons {
-	-moz-box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	-webkit-box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87), color-stop(1, #6c7c7c));
-	background:-moz-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-webkit-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-o-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-ms-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#768d87', endColorstr='#6c7c7c',GradientType=0);
-	background-color:#768d87;
-	border:1px solid #566963;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	
-	font-size:8pt;
-	
-	padding:3px 17px;
-	text-decoration:none;
-	text-shadow:0px -1px 0px #2b665e;
+.master-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f4f7f9;
 }
-.myButtons:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6c7c7c), color-stop(1, #768d87));
-	background:-moz-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-webkit-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-o-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-ms-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#768d87',GradientType=0);
-	background-color:#6c7c7c;
-}
-.myButtons:active {
-	position:relative;
-	top:1px;
+.sidebar-filters {
+    width: 330px;
+    flex: 0 0 330px;
+    background: #fff;
+    border-right: 1px solid #e1e8ed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-shadow: 2px 0 8px rgba(0,0,0,.05);
 }
 
-.bicon {
-    background-color: #ECF8E0;
-	width: 1em;
-	height: 1em;
-	border: none;
+.sidebar-fixed-top {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f4f8;
 }
 
+.sidebar-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 20px 25px;
+}
+
+
+.filter-card {
+    background: #f8fafc;
+    border: 1px solid #e3e8ee;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+
+.filter-table {
+    width: 100%;
+    border-spacing: 0 10px;
+}
+
+.label-cell {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4e5e71;
+    width: 90px;
+}
+input[type="text"], select {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1d4ed8;
+}
+html, body, #mainBG, .hidden-scrollbar {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+td[width="80%"] {
+    height: 100vh;
+    vertical-align: top;
+    background: #fff;
+}
+input[type="text"],
+select {
+    width: 100%;
+    height: 28px !important;   /* Slightly smaller */
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
 </style>
 
 <script type="text/javascript">
@@ -236,81 +288,143 @@ function funNotify(){
 </script>
 </head>
 <body onload="getBranch();setValues();">
-<form id="frmprofinvoice" action=saveproformaInvoice method="post">
+
+<form id="frmprofinvoice" action="saveproformaInvoice" method="post">
+
 <div id="mainBG" class="homeContent" data-type="background"> 
-<div class='hidden-scrollbar'>
+<div class="hidden-scrollbar">
 
-<table width="100%" >
+<table width="100%">
 <tr>
-<td width="20%" >
-    <fieldset style="background: #ECF8E0;">
-		<table width="100%"  >
-	<jsp:include page="../../heading.jsp"></jsp:include>
-		
-	<!--  <tr><td colspan="2">&nbsp;</td></tr> -->
-	  <tr><td width="27%"  align="right" ><label class="branch">Upto Date</label></td><td width="73%" align="left"><div id='todate' name='todate' value='<s:property value="todate"/>'></div>
-                    </td></tr>
-                    
-	    <tr>
-	      <td align="right"><label class="branch">Client</label></td>
-	      <td ><input style="height:19px;" type="text" name="txtclient" id="txtclient" value='<s:property value="txtclient"/>' onKeyDown="getclinfo(event);" readonly placeholder="Press F3 to Search">
-      <input type="hidden" id="clientid" name="clientid" value='<s:property value="clientid"/>'>
-      <button type="button" class="bicon" id="clear" title="clear" onclick="funClear()"> 
-							<img alt="clear" src="<%=contextPath%>/icons/clear.png">
-						</button></td>
-	      </tr>
-	
-	</table>
-	<table width="100%">
-	<!-- <tr><td colspan="2">&nbsp;</td></tr> -->
-	 <tr><td width="27%"  align="right" ><label class="branch">Inv Date</label></td><td width="73%" align="left">
-	 <div id='invdate' name='invdate' value='<s:property value="invdate"/>'></div>
-                    </td></tr>
- <tr>
-	      <td align="right"><label class="branch">Description</label></td>
-	      <td ><input style="height:19px;width:200px" type="text" name="txtdesc" id="txtdesc" value='<s:property value="txtdesc"/>'>
-						</td>
-	      </tr>
-      <tr>
-	<td colspan="2"><center><input type="button" name="btninvoicesave" id="btninvoicesave" class="myButton" value="Generate" onclick="funNotify();"></center></td>
-	</tr>              
-	<!-- <tr><td colspan="2">&nbsp;</td></tr> -->
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
 
-	</table>
+<!-- ================= LEFT SIDEBAR ================= -->
+<td width="20%" valign="top">
 
- </fieldset>
+<div class="master-container">
+<div class="sidebar-filters">
+
+<!-- ===== Fixed Header ===== -->
+<div class="sidebar-fixed-top">
+    <div class="filter-card">
+        <jsp:include page="../../heading.jsp"></jsp:include>
+    </div>
+</div>
+
+<!-- ===== Scrollable Filters ===== -->
+<div class="sidebar-scroll-content">
+
+    <div class="filter-card">
+        <table class="filter-table">
+
+            <tr>
+                <td class="label-cell">Upto Date</td>
+                <td>
+                    <div id="todate"
+                         value='<s:property value="todate"/>'></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label-cell">Client</td>
+                <td style="display:flex; gap:5px;">
+                    <input type="text"
+                           id="txtclient"
+                           name="txtclient"
+                           class="filter-input"
+                           value='<s:property value="txtclient"/>'
+                           onkeydown="getclinfo(event);"
+                           readonly
+                           placeholder="Press F3 to Search">
+
+                    <button type="button"
+                            class="bicon"
+                            title="Clear"
+                            onclick="funClear();">
+                        <img alt="clear"
+                             src="<%=contextPath%>/icons/clear.png">
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label-cell">Inv Date</td>
+                <td>
+                    <div id="invdate"
+                         value='<s:property value="invdate"/>'></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label-cell">Description</td>
+                <td>
+                    <input type="text"
+                           id="txtdesc"
+                           name="txtdesc"
+                           class="filter-input"
+                           value='<s:property value="txtdesc"/>'>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+    <!-- ===== Button Section ===== -->
+    <div class="button-group">
+        <button type="button"
+                class="btn-submit"
+                id="btninvoicesave"
+                onclick="funNotify();">
+            Generate
+        </button>
+    </div>
+
+    <!-- Hidden Field -->
+    <input type="hidden" id="clientid"
+           name="clientid"
+           value='<s:property value="clientid"/>'/>
+
+</div>
+</div>
+</div>
+
 </td>
-<td width="40">
 
-	<table width="100%">
-		<tr><div id="profinvdiv">
-				<jsp:include page="proformaInvoiceGrid.jsp"></jsp:include> 
-			
-			  <%-- <input type="hidden" name="formcodes" id="formcodes" value='<s:property value="formcodes"/>'> --%>
-			</div></tr>
-		
-	</table>
+<!-- ================= RIGHT SIDE ================= -->
+<td width="80%" valign="top">
+
+<div class="grid-container">
+    <div class="filter-card">
+        <div id="profinvdiv">
+            <jsp:include page="proformaInvoiceGrid.jsp"></jsp:include>
+        </div>
+    </div>
+</div>
+
+</td>
+
 </tr>
 </table>
+
 </div>
+
+<!-- ================= POPUP ================= -->
 <div id="clientsearch1">
-   <div ></div>
+    <div></div>
 </div>
-  <input type="hidden" name="invgridlength" id="invgridlength" value='<s:property value="invgridlength"/>'>
-			  <input type="hidden" name="mode" id="mode" value='<s:property value="mode"/>'>
-			  <input type="hidden" name="msg" id="msg" value='<s:property value="msg"/>'> 
-			  <input type="hidden" name="formcode" id="formcode" value='<s:property value="formcode"/>'>
+
+<!-- Hidden Fields -->
+<input type="hidden" name="invgridlength" id="invgridlength"
+       value='<s:property value="invgridlength"/>'>
+
+<input type="hidden" name="mode" id="mode"
+       value='<s:property value="mode"/>'>
+
+<input type="hidden" name="msg" id="msg"
+       value='<s:property value="msg"/>'>
+
+<input type="hidden" name="formcode" id="formcode"
+       value='<s:property value="formcode"/>'>
+
 </div>
 </form>
 </body>

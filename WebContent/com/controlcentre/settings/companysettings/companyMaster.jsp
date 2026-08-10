@@ -41,6 +41,54 @@ height:98%;
 color:#eeeeee;
 
 }
+.company-container {
+    display: flex;
+    gap: 20px;
+    height: calc(100vh - 140px);
+}
+
+
+.company-sidebar {
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.company-nav-btn {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: none;
+    background: #f1f3f6;
+    color: #2d3748;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.company-nav-btn:hover {
+    background: #e2e8f0;
+}
+
+.company-nav-btn.active {
+    background: #1e88e5;
+    color: #ffffff;
+}
+
+.company-content {
+    flex: 1;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.company-content iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
 </style>
 <script type="text/javascript">
 	
@@ -51,39 +99,73 @@ color:#eeeeee;
 	</script>
 </head>
 <body>
+
 <div id="mainBG" class="homeContent" data-type="background">
-<div id="header">
-<h3>Company Master</h3>
 
-</div>
+<div class="page-title">Company Master</div>
 
-<div id="nav">
-<table >
-<tr><td><input type="button" name="btncompany" class="myButton" value="Company" style="width:90px;outline:none;" onclick='document.getElementById("iframe2").src="<%=contextPath%>/com/controlcentre/settings/companysettings/company.jsp";'></td></tr>
-<tr><td><input type="button" name="btnbranch" class="myButton" value="Branch" style="width:90px;" onclick='document.getElementById("iframe2").src="<%=contextPath%>/com/controlcentre/settings/companysettings/branch.jsp";'></td></tr>
-<tr><td><input type="button" name="btnlocation" class="myButton" value="Location" style="width:90px;" onclick='document.getElementById("iframe2").src="<%=contextPath%>/com/controlcentre/settings/companysettings/location.jsp";'></td></tr>
-<tr><td><input type="button" name="btncurrency" class="myButton" value="Currency" style="width:90px;" onclick='document.getElementById("iframe2").src="<%=contextPath%>/com/controlcentre/settings/companysettings/currency.jsp";'></td></tr>
-<tr><td><input type="button" name="btnprovince" class="myButton" value="Province" style="width:90px;" onclick='document.getElementById("iframe2").src="<%=contextPath%>/com/controlcentre/settings/companysettings/province1.jsp";'></td></tr>
+<div class="company-container">
+
    
-</table>
-<input type="hidden" id="formName" name="formName"  value='000'/>
-<input type="hidden" id="formCode" name="formCode"  value='COM'/>
-<input type="hidden" id="branchid" name="branchid"  value=''/>
-<input type="hidden" id="mode" name="mode"/>
-</div>
-<div id="comiframe">
+    <div class="company-sidebar">
 
-	<iframe width="100%" height="100%" id="iframe2" align="right" frameborder="0" marginwidth="100%" scrolling="no" src="<%=contextPath%>/com/controlcentre/settings/companysettings/company.jsp"></iframe>
+        <button class="company-nav-btn active"
+            onclick='loadPage(this, "<%=contextPath%>/com/controlcentre/settings/companysettings/company.jsp")'>
+            Company
+        </button>
+
+        <button class="company-nav-btn"
+            onclick='loadPage(this, "<%=contextPath%>/com/controlcentre/settings/companysettings/branch.jsp")'>
+            Branch
+        </button>
+
+        <button class="company-nav-btn"
+            onclick='loadPage(this, "<%=contextPath%>/com/controlcentre/settings/companysettings/location.jsp")'>
+            Location
+        </button>
+
+        <button class="company-nav-btn"
+            onclick='loadPage(this, "<%=contextPath%>/com/controlcentre/settings/companysettings/currency.jsp")'>
+            Currency
+        </button>
+
+        <button class="company-nav-btn"
+            onclick='loadPage(this, "<%=contextPath%>/com/controlcentre/settings/companysettings/province1.jsp")'>
+            Province
+        </button>
+
+        <input type="hidden" id="formName" name="formName" value="000"/>
+        <input type="hidden" id="formCode" name="formCode" value="COM"/>
+        <input type="hidden" id="branchid" name="branchid" value=""/>
+        <input type="hidden" id="mode" name="mode"/>
+
+    </div>
+
+ 
+    <div class="company-content">
+        <iframe id="iframe2"
+                src="<%=contextPath%>/com/controlcentre/settings/companysettings/company.jsp"
+                frameborder="0">
+        </iframe>
+    </div>
+
 </div>
+
+</div>
+
 <script>
-function resizeIframeToFitContent(iframe) {
-    // This function resizes an IFrame object
-    // to fit its content.
-    // The IFrame tag must have a unique ID attribute.
-    iframe.height = document.frames[iframe.iframe2]
-                    .document.body.scrollHeight;
+function loadPage(button, url) {
+    document.getElementById("iframe2").src = url;
+
+    const buttons = document.querySelectorAll('.company-nav-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
 }
+
+$(document).ready(function() {
+    $('#branchid').val(window.parent.branchid.value);
+});
 </script>
-</div>
+
 </body>
 </html>

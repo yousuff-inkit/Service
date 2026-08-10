@@ -1,4 +1,3 @@
-
 <jsp:include page="../../../../includes.jsp"></jsp:include>    
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%
@@ -15,51 +14,104 @@
 <link href="../../../../css/dashboard.css" media="screen" rel="stylesheet" type="text/css" />  
 <%-- <script type="text/javascript" src="../../js/dashboard.js"></script> --%> 
 
-<style type="text/css">
- 
-.myButtons {
-	-moz-box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	-webkit-box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87), color-stop(1, #6c7c7c));
-	background:-moz-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-webkit-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-o-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-ms-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#768d87', endColorstr='#6c7c7c',GradientType=0);
-	background-color:#768d87;
-	border:1px solid #566963;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	
-	font-size:8pt;
-	
-	padding:3px 17px;
-	text-decoration:none;
-	text-shadow:0px -1px 0px #2b665e;
+<style>
+.master-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f4f7f9;
 }
-.myButtons:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6c7c7c), color-stop(1, #768d87));
-	background:-moz-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-webkit-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-o-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-ms-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#768d87',GradientType=0);
-	background-color:#6c7c7c;
-}
-.myButtons:active {
-	position:relative;
-	top:1px;
+.sidebar-filters {
+    width: 330px;
+    flex: 0 0 330px;
+    background: #fff;
+    border-right: 1px solid #e1e8ed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-shadow: 2px 0 8px rgba(0,0,0,.05);
 }
 
-.bicon {
-    background-color: #ECF8E0;
-	width: 1em;
-	height: 1em;
-	border: none;
+.sidebar-fixed-top {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f4f8;
+}
+
+.sidebar-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 20px 25px;
+}
+
+
+.filter-card {
+    background: #f8fafc;
+    border: 1px solid #e3e8ee;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+
+.filter-table {
+    width: 100%;
+    border-spacing: 0 10px;
+}
+
+.label-cell {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4e5e71;
+    width: 90px;
+}
+input[type="text"], select {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1d4ed8;
+}
+html, body, #mainBG, .hidden-scrollbar {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+td[width="80%"] {
+    height: 100vh;
+    vertical-align: top;
+    background: #fff;
+}
+input[type="text"],
+select {
+    width: 100%;
+    height: 28px !important;   /* Slightly smaller */
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #ffffff;
 }
 
 </style>
@@ -88,31 +140,21 @@ $(document).ready(function () {
 			
 	     $('#clientsearch1').jqxWindow({ width: '50%', height: '55%',  maxHeight: '85%' ,maxWidth: '80%' ,title: 'Client Search' , position: { x: 250, y: 120 }, keyboardCloseKey: 27});
 		  $('#clientsearch1').jqxWindow('close');
-		  $('#job1').jqxWindow({ width: '50%', height: '55%',  maxHeight: '85%' ,maxWidth: '80%' ,title: 'Job Search' , position: { x: 250, y: 120 }, keyboardCloseKey: 27});
-		  $('#job1').jqxWindow('close');
 		  
-		  $("#fromdate").jqxDateTimeInput({ width: '125px', height: '15px',formatString:"dd.MM.yyyy",enableBrowserBoundsDetection:true});
+		  $("#fromdate").jqxDateTimeInput({ width: '125px', height: '15px',formatString:"dd.MM.yyyy"});
 			
 		  
-	 $("#todate").jqxDateTimeInput({ width: '125px', height: '15px',formatString:"dd.MM.yyyy",enableBrowserBoundsDetection:true});
+	 $("#todate").jqxDateTimeInput({ width: '125px', height: '15px',formatString:"dd.MM.yyyy"});
 	 
-	 $("#adate").jqxDateTimeInput({ width: '100px', height: '15px',formatString:"dd.MM.yyyy",enableBrowserBoundsDetection:true});
-	 $("#atime").jqxDateTimeInput({ width: '45px', height: '15px',formatString:"HH:mm",showCalendarButton: false});
-	 $("#eedate").jqxDateTimeInput({ width: '100px', height: '15px',formatString:"dd.MM.yyyy",enableBrowserBoundsDetection:true});
-	 $("#etime").jqxDateTimeInput({ width: '45px', height: '15px',formatString:"HH:mm",showCalendarButton: false});
-
-	 var todates=new Date($('#fromdate').jqxDateTimeInput('getDate'));
+	 $("#adate").jqxDateTimeInput({ width: '85px', height: '15px',formatString:"dd.MM.yyyy",enableBrowserBoundsDetection:true});
+	 $("#atime").jqxDateTimeInput({ width: '35px', height: '15px',formatString:"HH:mm",showCalendarButton: false});
+	 
+	 var todates=new Date($('#todate').jqxDateTimeInput('getDate'));
 	 var onemounth=new Date(new Date(todates).setMonth(todates.getMonth()-1)); 
-	 var eedates=new Date($('#eedate').jqxDateTimeInput('getDate'));
-	 var onemonth=new Date(new Date(eedates).setMonth(eedates.getMonth()+1)); 
-     $('#fromdate').jqxDateTimeInput('setDate', new Date(onemounth));
-
+	    
      $('#todate').jqxDateTimeInput('setDate', new Date());
      $('#adate').jqxDateTimeInput('setDate', new Date());
      $('#atime').jqxDateTimeInput('setDate', new Date());
-     $('#eedate').jqxDateTimeInput('setDate', new Date(onemonth));
-     $('#etime').jqxDateTimeInput('setDate', new Date());
-
    /*  $('#todate').on('change', function (event) {
 			
 		   var todates=new Date($('#todate').jqxDateTimeInput('getDate'));
@@ -133,21 +175,6 @@ $(document).ready(function () {
 		   
     	 $('#clientsearch1').jqxWindow('open');
     	 clientSearchContent('clientINgridsearch.jsp?', $('#clientsearch1')); 
-		   		
-		 });
-	 $('#jobid').dblclick(function(){
-		   var cdtype=document.getElementById("ctype").value;
-		   var clientid=$('#clientid').val();
-			 var date=$('#todate').val();
-			 var chkfromdate = $('#hidchckfromdate').val();
-			 var chktodate = $('#hidchcktodate').val();
-
-			 var fromdate = $('#fromdate').val();
-			 var barchval = document.getElementById("cmbbranch").value;
-			
-	//	   alert(chkfromdate);
-    	 $('#job1').jqxWindow('open');
-    	 jobSearchContent('jobsearch.jsp?cdtype='+cdtype+'&clientid='+clientid+'&date='+date+'&chkfromdate='+chkfromdate+'&fromdate='+fromdate+"&branchval="+barchval+"&chktodate="+chktodate, $('#job1')); 
 		   		
 		 });
 	 
@@ -292,30 +319,7 @@ function getclinfo(event){
 
     	}); 
          	}
-     function getjob(event){
-    	 var clientid=$('#clientid').val();
-		 var date=$('#todate').val();
-		 var chkfromdate = $('#hidchckfromdate').val();
-		 var fromdate = $('#fromdate').val();
-		 var barchval = document.getElementById("cmbbranch").value;
-		 var chktodate = $('#hidchcktodate').val();
-//alert(chkfromdate);
-    	 var x= event.keyCode;
-    	 if(x==114){
-    	  $('#job1').jqxWindow('open');
-    	 jobSearchContent('jobsearch.jsp?cdtype='+document.getElementById("ctype").value+'&clientid='+clientid+'&date='+date+'&chkfromdate='+chkfromdate+'&fromdate='+fromdate+"&branchval="+barchval+"&chktodate="+chktodate, $('#job1'));    }
-    	 else{
-    		 }
-    	 } 
-         function jobSearchContent(url) {
-               
-                   $.get(url).done(function (data) {
-      
-    	           $('#job1').jqxWindow('setContent', data);
-
-        	}); 
-             	}
-         
+     
      
      function getareas(event){
     	 var x= event.keyCode;
@@ -364,7 +368,6 @@ function funreload()
    
     if(id>0){
     	//$("#serschedulediv").load("serScheduleDetails.jsp?clientid"+clientid+"&date="+date+"&barchval="+barchval+"&dtype="+dtype+"&id="+id+"&isprior="+isprior);
-    	//alert("inside");
     	countload(id);
     }
      
@@ -390,7 +393,6 @@ function pChange(){
 		 var clientid=$('#clientid').val();
 		 var date=$('#todate').val();
 		 var chkfromdate = $('#hidchckfromdate').val();
-		 var chktodate = $('#hidchcktodate').val();
 		 var fromdate = $('#fromdate').val();
 		 var barchval = document.getElementById("cmbbranch").value;
 		 var isprior=document.getElementById("isprior").value;
@@ -399,15 +401,14 @@ function pChange(){
 		 var emp=document.getElementById("grpserempid").value;
 		 var mem=document.getElementById("grpsermemberid").value;
 		 var area=document.getElementById("txtareaid").value;
-		var jobid=document.getElementById("jobid").value;
-		var c_dtype=document.getElementById("txtjob").value;
-
+		
+		 
 		    $("#jqxloaddataGrid").jqxGrid('clear'); 
 			$("#jqxSerCount").jqxGrid('clear');
 			//$("#jqxloaddataGrid").jqxGrid('addrow', null, {});
 			
 		 
-$("#serCountgrid").load("serCountgrid.jsp?barchval="+barchval+"&date="+date+"&clientid="+clientid+"&id="+id+"&isprior="+isprior+"&grp="+grp+"&emp="+emp+"&mem="+mem+"&area="+area+'&chkfromdate='+chkfromdate+'&fromdate='+fromdate+'&jobid='+jobid+'&c_dtype='+c_dtype+"&chktodate="+chktodate);
+$("#serCountgrid").load("serCountgrid.jsp?barchval="+barchval+"&date="+date+"&clientid="+clientid+"&id="+id+"&isprior="+isprior+"&grp="+grp+"&emp="+emp+"&mem="+mem+"&area="+area+'&chkfromdate='+chkfromdate+'&fromdate='+fromdate);
 		
 		
 		 
@@ -520,21 +521,16 @@ $("#serCountgrid").load("serCountgrid.jsp?barchval="+barchval+"&date="+date+"&cl
 			var groupid=document.getElementById("groupid").value;
 		    var grpmemberid=document.getElementById("grpmemberid").value;
 		    var grpempid=document.getElementById("grpempid").value;
-		    var txtgrpmember=document.getElementById("txtgrpmember").value;
 		    var assignid=document.getElementById("assignid").value;
 		    var trno=document.getElementById("trno").value;
 		    var srno=document.getElementById("srno").value;
 		    var clientid=document.getElementById("clientid").value;
 		    var dtype=document.getElementById("dtype").value;
-		    var brchid=document.getElementById("hidbranch").value;
+		    var brchid=document.getElementById("cmbbranch").value;
 		    var desc=document.getElementById("txtdesc").value;
 		    var rowindex=document.getElementById("rowindex").value;
-			 var chkupdateall = document.getElementById("hidchckupdateall").value;
 		    var pdate=$('#adate').val();
 			 var ptime=$('#atime').val();
-			    var eedate=$('#eedate').val();
-				 var etime=$('#etime').val();
-
 			 if($('#rowindex').val()== "")
 				{
 			    	$.messager.alert('Message',"select a document");
@@ -548,9 +544,9 @@ $("#serCountgrid").load("serCountgrid.jsp?barchval="+barchval+"&date="+date+"&cl
 			return 0;
 			}
 			
-			if($('#grpempid').val()== "")
+			if($('#grpmemberid').val()== "")
 			{
-				$.messager.alert('Message',"select Employee");
+				$.messager.alert('Message',"select Group Member");
 			
 			return 0;
 			}
@@ -561,19 +557,7 @@ $("#serCountgrid").load("serCountgrid.jsp?barchval="+barchval+"&date="+date+"&cl
 			//document.getElementById("errormsg").innerText="Select Assign Method";
 			return 0;
 			}
-			$.messager.confirm('Message', 'Job No:'+trno+'<br>Employees:'+txtgrpmember+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Start Date:'+pdate+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;End Date:'+eedate+'.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Do you want to Save?', function(r){
-	        	  
-	 		       
-	        	if(r==false)
-	        	  {
-	    
-	        		 
-	        		 
-	        		return false; 
-	        	  }
-	        	else{
-			 
-	        		
+				
 				var x=new XMLHttpRequest();
 				x.onreadystatechange=function(){
 				if (x.readyState==4 && x.status==200)
@@ -588,12 +572,8 @@ $("#serCountgrid").load("serCountgrid.jsp?barchval="+barchval+"&date="+date+"&cl
 							   var clientid=$('#clientid').val();
 				    			 var date=$('#todate').val();
 				    			 var chkfromdate = $('#hidchckfromdate').val();
-				    			 var chktodate = $('#hidchcktodate').val();
-
 				    			 var fromdate = $('#fromdate').val();
-				    			 var jobid=document.getElementById("jobid").value;
-				    				var c_dtype=document.getElementById("txtjob").value;
-
+				    			
 				    			 var barchval = document.getElementById("cmbbranch").value;
 					             var dtype=document.getElementById("dtype").value;
 					             var rowindex=document.getElementById("rowindex").value;
@@ -614,14 +594,14 @@ $("#serCountgrid").load("serCountgrid.jsp?barchval="+barchval+"&date="+date+"&cl
 					             $("#txtgroup").attr("placeholder", "press F3 for Search");
 					             $("#txtgrpmember").attr("placeholder", "press F3 for Search");
 					             $("#txtassign").attr("placeholder", "press F3 for Search");
+					            /* $('#adate').val("");
+					         	$('#atime').val(""); */
 					         	$('#adate').jqxDateTimeInput('setDate', new Date());
 					            $('#atime').jqxDateTimeInput('setDate', new Date());
-					         	$('#eedate').jqxDateTimeInput('setDate', new Date(onemonth));
-					            $('#etime').jqxDateTimeInput('setDate', new Date());
-
+					         
 					   		 var isprior=document.getElementById("isprior").value;
 					   		 var id=1;
-					   			 $("#serCountgrid").load("serCountgrid.jsp?barchval="+barchval+"&date="+date+"&clientid="+clientid+"&id="+id+"&isprior="+isprior+'&chkfromdate='+chkfromdate+'&fromdate='+fromdate+'&jobid='+jobid+'&c_dtype='+c_dtype+'&chktodate='+chktodate);
+					   			 $("#serCountgrid").load("serCountgrid.jsp?barchval="+barchval+"&date="+date+"&clientid="+clientid+"&id="+id+"&isprior="+isprior+'&chkfromdate='+chkfromdate+'&fromdate='+fromdate);
 					             
 					             
 				    		//$("#serschedulediv").load("serScheduleDetails.jsp?clientid"+clientid+"&date="+date+"&barchval="+barchval+"&dtype="+dtype);
@@ -631,12 +611,14 @@ $("#serCountgrid").load("serCountgrid.jsp?barchval="+barchval+"&date="+date+"&cl
 					 	else{
 					 		$.messager.alert('Message',"Not Updated");
 					 	}
-					}
+					 	 
 						}
+				       else
+					  {}
 			     }
-			      x.open("GET","saveSchedule.jsp?groupid="+groupid+"&grpmemberid="+grpmemberid+"&grpempid="+grpempid+"&assignid="+assignid+"&trno="+trno+"&srno="+srno+"&clientid="+clientid+"&dtype="+dtype+"&brchid="+brchid+"&desc="+desc+"&pdate="+pdate+"&ptime="+ptime+"&eedate="+eedate+"&etime="+etime+"&chkupdateall="+chkupdateall,true);
+			      x.open("GET","saveSchedule.jsp?groupid="+groupid+"&grpmemberid="+grpmemberid+"&grpempid="+grpempid+"&assignid="+assignid+"&trno="+trno+"&srno="+srno+"&clientid="+clientid+"&dtype="+dtype+"&brchid="+brchid+"&desc="+desc+"&pdate="+pdate+"&ptime="+ptime,true);
 			     x.send();
-			});
+			    
 			   }
 	   
 	   
@@ -666,26 +648,6 @@ $("#serCountgrid").load("serCountgrid.jsp?barchval="+barchval+"&date="+date+"&cl
 					 $('#fromdate').jqxDateTimeInput({ disabled: true});
 				 }
 			 }
-		  function todatecheck(){
-				 if(document.getElementById("chcktodate").checked){
-					 document.getElementById("hidchcktodate").value = 1;
-					 $('#todate').jqxDateTimeInput({ disabled: false});
-				 }
-				 else{
-					 document.getElementById("hidchcktodate").value = 0;
-					 $('#todate').jqxDateTimeInput({ disabled: true});
-				 }
-			 }
-		  
-		  function chkupdateall(){
-				 if(document.getElementById("chckupdateall").checked){
-					 document.getElementById("hidchckupdateall").value = 1;
-				 }
-				 else{
-					 document.getElementById("hidchckupdateall").value = 0;
-				 }
-			 }
-		  
 	
 		  function  funPrint()
 		  {
@@ -835,278 +797,249 @@ $("#serCountgrid").load("serCountgrid.jsp?barchval="+barchval+"&date="+date+"&cl
 		  
 </script>
 </head>
-<body onload="getBranch();fromdatecheck();serviceview();printcheck();chkupdateall();todatecheck();">
-<div id="mainBG" class="homeContent" data-type="background"> 
-<div class='hidden-scrollbar'>
+<body onload="getBranch();fromdatecheck();serviceview();printcheck();">
 
-<table width="100%" height="100%" >
+<div id="mainBG" class="homeContent" data-type="background">
+<div class="hidden-scrollbar">
+
+<table width="100%">
 <tr>
-<td width="20%" style=" vertical-align: top;">
-    <fieldset style="background: #ECF8E0;">
-	<table width="100%" >
-	<jsp:include page="../../heading.jsp"></jsp:include>
-		
-<!-- <tr><td colspan="2">&nbsp;</td></tr> -->
-<%--  <tr ><td colspan="2" ><input type="checkbox" id="chckfromdate" name="chckfromdate" value="" onchange="fromdatecheck();" onclick="$(this).attr('value', this.checked ? 1 : 0)" /> 
-                                 <input type="hidden" id="hidchckfromdate" name="hidchckfromdate" value='<s:property value="hidchckfromdate"/>'/></td></tr>
-    --%>
- <tr>  <td align="right">
- <input type="checkbox" id="chckfromdate" name="chckfromdate" value="" onchange="fromdatecheck();" onclick="$(this).attr('value', this.checked ? 1 : 0)" /> 
-                                 <input type="hidden" id="hidchckfromdate" name="hidchckfromdate" value='<s:property value="hidchckfromdate"/>'/>
- 
- <label class="branch">From</label></td>
-     <td align="left"><div id="fromdate" name="fromdate" value='<s:property value="fromdate"/>'></div></td></tr>
-     
-     
-	  <tr><td   align="right" >
-	  <input type="checkbox" id="chcktodate" name="chcktodate" value="" onchange="todatecheck();" onclick="$(this).attr('value', this.checked ? 1 : 0)" /> 
-                                 <input type="hidden" id="hidchcktodate" name="hidchcktodate" value='<s:property value="hidchcktodate"/>'/>
- 
-	  
-	  <label class="branch">Upto</label></td><td width="73%" align="left"><div id='todate' name='todate' value='<s:property value="todate"/>'></div>
-                    </td></tr>
-   <tr>
-	      <td align="right"><label class="branch">Client</label></td>
-	      <td ><input style="height:19px;" type="text" name="txtclient" id="txtclient" value='<s:property value="txtclient"/>' onKeyDown="getclinfo(event);" readonly placeholder="Press F3 to Search">
-      <input type="hidden" id="clientid" name="clientid" value='<s:property value="clientid"/>'>
-      <button type="button" class="bicon" id="clear" title="clear" onclick="funClear()"> 
-							<img alt="clear" src="<%=contextPath%>/icons/clear.png">
-						</button></td>
-	      </tr>
-	       <tr><td align="right"><label class="branch">Type</label></td>
-     <td align="left"><select id="ctype" name="ctype" onclick=""  value='<s:property value="ctype"/>'>
-     <option value="SJOB" selected>SJOB</option><option value="AMS" >AMS</option>
-     </select></td></tr>
-	      <tr >
-	      <td align="right"><label class="branch">Job </label></td>
-	      <td ><input style="height:19px;" type="text" name="jobid" id="jobid" value='<s:property value="jobid"/>' onKeyDown="getjob(event);" readonly placeholder="Press F3 to Search">
-      <input type="hidden" id="txtjob" name="txtjob" value='<s:property value="txtjob"/>'></td>
-	      </tr>
-	     <tr>
-	     <td width="18"></td>
-	     </tr>
-	     <tr>
-	     </tr>
-	     <tr></tr> 
-	 <tr hidden>
-	      <td align="right"><label class="branch">Group Member</label></td>
-	      <td ><input style="height:19px;" type="text" name="txtsergrpemp" id="txtsergrpemp" value='<s:property value="txtsergrpemp"/>' onKeyDown="getteam(event,1);" readonly placeholder="Press F3 to Search">
-      <input type="hidden" id="grpsermemberid" name="grpsermemberid" value='<s:property value="grpsermemberid"/>'>
-      <input type="hidden" id="grpserempid" name="grpserempid" value='<s:property value="grpserempid"/>'>
-      </td>
-	      </tr>  
-	      
-	       <tr hidden>
-	      <td align="right"><label class="branch"> Area</label></td>
-	      <td ><input style="height:19px;" type="text" name="txtassignarea" id="txtassignarea" value='<s:property value="txtassignarea"/>' onKeyDown="getareas(event);" readonly placeholder="Press F3 to Search">
-	      <input type="hidden" id="txtareaid" name="txtareaid" value='<s:property value="txtareaid"/>'>
-	      </td></tr>
-	      <tr>
-	     <td hidden colspan="2"  align="center"><label class="branch">Priority</label>	        
-	     <input type="checkbox" name="priority" id="priority" onchange="pChange();">
-	     <button type="button" class="icon" id="btnPrint" hidden="true" title="Print current Document" onclick="funPrintBtn()">  
-							<img alt="printDocument" src="<%=contextPath%>/icons/print_new.png">
-						</button>
-						</td>
-       
-	      
-	      </tr>
-	     <%--  <tr><td colspan="2" align="center">
-			<button type="button" class="icon" id="btnPrint" title="Print current Document" onclick="funPrintBtn()">  
-							<img alt="printDocument" src="<%=contextPath%>/icons/print_new.png">
-						</button>
-			</td></tr> --%>
-	    <tr>
-	<td colspan="2" ><div id="serCountgrid"><jsp:include page="serCountgrid.jsp"></jsp:include>
-	</div></td>
-	</tr> 
-	 <tr>
-		<td colspan="2" align="center">
-		<!-- <fieldset> -->
-		<label id="test"  class="branch" style="font-family: comic sans ms;font-weight: bold;color:blue;"></label>
-		<!-- </fieldset> -->
-		</td></tr>
-	</table>
-	
-	<table>
-	 
-	<tr>
-	      <td width="32%" align="right"><label class="branch">Assign Group</label></td>
-	      <td colspan="2" ><input style="height:19px;" type="text" name="txtgroup" id="txtgroup" value='<s:property value="txtgroup"/>' onKeyDown="getgrpcode(event,2);" readonly placeholder="Press F3 to Search">
-      <input type="hidden" id="groupid" name="groupid" value='<s:property value="groupid"/>'></td>
-	      </tr>
-	      
-	 <tr>
-	      <td align="right"><label class="branch">Employee</label></td>
-	      <td colspan="2" ><input style="height:19px;" type="text" name="txtgrpmember" id="txtgrpmember"   value='<s:property value="txtgrpmember"/>' onKeyDown="getteam(event,2);" readonly placeholder="Press F3 to Search">
-      <input type="hidden" id="grpmemberid" name="grpmemberid" value='<s:property value="grpmemberid"/>'>
-      <input type="hidden" id="grpempid" name="grpempid" value='<s:property value="grpempid"/>'>
-      </td>
-	      </tr>  
-	      
-	       <tr>
-	      <td align="right"><label class="branch">Assign Method</label></td>
-	      <td colspan="2" ><input style="height:19px;" type="text" name="txtassign" id="txtassign" value='<s:property value="txtassign"/>' onKeyDown="getassign(event);" readonly placeholder="Press F3 to Search">
-      <input type="hidden" id="assignid" name="assignid" value='<s:property value="assignid"/>'>
-      <input type="hidden" id="trno" name="trno" value='<s:property value="trno"/>'>
-      <input type="hidden" id="srno" name="srno" value='<s:property value="srno"/>'>
-      <input type="hidden" id="calld" name="calld" value='<s:property value="calld"/>'>
-      <input type="hidden" id="doccno" name="doccno" value='<s:property value="doccno"/>'>
-      <input type="hidden" id="dtype" name="dtype" value='<s:property value="dtype"/>'>
-      <input type="hidden" id="isprior" name="isprior" value='<s:property value="isprior"/>'>
-      <input type="hidden" id="rowindex" name="rowindex" value='<s:property value="rowindex"/>'>
-       <input type="hidden" id="dtyp" name="dtyp">
-      
-      </td>
-	      </tr>  
-	      
-	      
-	      <tr>
-	      <td align="right"><label class="branch">Description</label></td>
-	      <td colspan="2" ><input style="height:19px;" type="text" name="txtdesc" id="txtdesc" value='<s:property value="txtdesc"/>'>
-         </td>
-	      </tr> 
-	       <tr>
-	      <td></td>
-	      </tr> <tr>
-	      <td></td>
-	      </tr>
-	       <tr>
-	      <td></td>
-	      </tr> <tr>
-	      <td></td>
-	      </tr>
-	       <tr>
-	      <td></td>
-	      </tr> <tr>
-	      <td></td>
-	      </tr>
-	      <tr>
-	      <td></td>
-	      </tr>
-	       <tr>
-	      <td></td>
-	      </tr>
-	       <tr >
-	      <td align="right" ></td>
-	      <td width="37%"  >
-	     
-	      <td width="36%"></div>
-      	  </td></td>
-	      </tr>  
-	     <tr>
-	      <td></td>
-	      </tr>
-	      <tr >
-	      <td align="right" ><label class="branch">Start Date & Time</label></td>
-	      <td width="37%"  >
-	      <div  id='adate' name='adate' value='<s:property value="adate"/>' ></div> 
-	     
-	      <td width="36%"><div id='atime' name='atime' value='<s:property value="atime"/>' ></div>
-	     <input style="height:19px;" type="hidden" name="txtptime" id="txtptime" value='<s:property value="txtptime"/>'  readonly >
-      	  </td></td>
-	      </tr>
-	     
-	       <tr >
-	      <td align="right" ><label class="branch">Expected End Date </label></td>
-	      <td width="37%"  >
-	      <div  id='eedate' name='eedate' value='<s:property value="eedate"/>' ></div> 
-	     
-	     <td width="36%"><div id='etime' name='etime' value='<s:property value="etime"/>' ></div>
-	     <input style="height:19px;" type="hidden" name="txtetime" id="txtetime" value='<s:property value="txtetime"/>'  readonly >
-      	  </td></td>
-	      </tr>
-	      <tr>
-	      
-	      </tr>
-	      
-	       <tr>
-	      <td >
- <input type="checkbox" id="chckupdateall" name="chckupdateall" value="" onchange="chkupdateall();" onclick="$(this).attr('value', this.checked ? 1 : 0)" checked="checked" />
-       <label class="branch" for="chckupdateall">Update All</label>
-   <input type="hidden" id="hidchckupdateall" name="hidchckupdateall" value="" value='<s:property value="hidchckupdateall"/>'/>
- </td>
-	     <td colspan="2" align="left"><input type="button" name="btnsave" class="myButton"
-						value="Save" style="width: 80px;" onclick="save();" />
-	      </td>
-	       <td hidden align="left"><input type="button" name="btnprint" class="myButton"
-						value="print" style="width: 80px;" onclick="configCheck()" />
-	      </td>
-	      
-	      </tr>    
-	
-	
-	<tr>
-	<td width="15%">
-	</td>
-	</tr>
-	
-	</table>
-	
-	<table>
-	
-	       
-	       <tr>
-	      
-	      <td >
-	            <input type="hidden" id="sergroupid" name="sergroupid" value='<s:property value="sergroupid"/>'>
-	            <input type="hidden" id="hidbranch" name="hidbranch" value='<s:property value="hidbranch"/>'>
-	      
-      <input type="hidden" id="assignid" name="assignid" value='<s:property value="assignid"/>'>
-      <input type="hidden" id="trno" name="trno" value='<s:property value="trno"/>'>
-      <input type="hidden" id="srno" name="srno" value='<s:property value="srno"/>'>
-      <input type="hidden" id="dtype" name="dtype" value='<s:property value="dtype"/>'>
-      <input type="hidden" id="isprior" name="isprior" value='<s:property value="isprior"/>'>
-      <input type="hidden" id="rowindex" name="rowindex" value='<s:property value="rowindex"/>'>
-      <input type="hidden" id="bttnview" name="bttnview" value='<s:property value="bttnview"/>'>
-       
-       <input type="hidden" id="confvalue" name="confvalue" value='<s:property value="confvalue"/>'>
-      </td>
-	      </tr>  
-	      
-		
-	<!-- <tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr> -->
-	</table>
-	</fieldset>
 
+<td width="20%" valign="top">
+
+<div class="master-container">
+<div class="sidebar-filters">
+
+<div class="sidebar-fixed-top">
+    <div class="filter-card">
+        <jsp:include page="../../heading.jsp"></jsp:include>
+    </div>
+</div>
+
+<div class="sidebar-scroll-content">
+
+<div class="filter-card">
+<table class="filter-table">
+
+<tr>
+<td class="label-cell">
+<input type="checkbox" id="chckfromdate" name="chckfromdate"
+       onchange="fromdatecheck();"
+       onclick="$(this).attr('value', this.checked ? 1 : 0)">
+<input type="hidden" id="hidchckfromdate" name="hidchckfromdate"
+       value='<s:property value="hidchckfromdate"/>'/>
+From
 </td>
-<td width="80" style=" vertical-align: top;">
-	<table width="100%"  >
-		<tr><td><div id="serschedulediv">
-				<jsp:include page="serScheduleDetails.jsp"></jsp:include> 
-			</div>
-			<br/>
-			</td>
-			</tr>
-<tr><td><div id="assignSubDiv"><jsp:include page="assignSubGrid.jsp"></jsp:include></div></td></tr>
-	</table>
-	</td>
+<td>
+<div id="fromdate" value='<s:property value="fromdate"/>'></div>
+</td>
 </tr>
+
+<tr>
+<td class="label-cell">Upto</td>
+<td>
+<div id="todate" value='<s:property value="todate"/>'></div>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Client</td>
+<td style="display:flex; gap:5px;">
+<input type="text" id="txtclient" name="txtclient"
+       class="filter-input"
+       value='<s:property value="txtclient"/>'
+       onkeydown="getclinfo(event);"
+       readonly placeholder="Press F3 to Search">
+<input type="hidden" id="clientid" name="clientid"
+       value='<s:property value="clientid"/>'>
+<button type="button" class="bicon" onclick="funClear()">
+<img src="<%=contextPath%>/icons/clear.png">
+</button>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Assign Group</td>
+<td>
+<input type="text" id="txtsergroup" name="txtsergroup"
+       class="filter-input"
+       value='<s:property value="txtsergroup"/>'
+       onkeydown="getgrpcode(event,1);"
+       readonly placeholder="Press F3 to Search">
+<input type="hidden" id="sergroupid" name="sergroupid"
+       value='<s:property value="sergroupid"/>'>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Group Member</td>
+<td>
+<input type="text" id="txtsergrpemp" name="txtsergrpemp"
+       class="filter-input"
+       value='<s:property value="txtsergrpemp"/>'
+       onkeydown="getteam(event,1);"
+       readonly placeholder="Press F3 to Search">
+<input type="hidden" id="grpsermemberid" name="grpsermemberid"
+       value='<s:property value="grpsermemberid"/>'>
+<input type="hidden" id="grpserempid" name="grpserempid"
+       value='<s:property value="grpserempid"/>'>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Area</td>
+<td>
+<input type="text" id="txtassignarea" name="txtassignarea"
+       class="filter-input"
+       value='<s:property value="txtassignarea"/>'
+       onkeydown="getareas(event);"
+       readonly placeholder="Press F3 to Search">
+<input type="hidden" id="txtareaid" name="txtareaid"
+       value='<s:property value="txtareaid"/>'>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Priority</td>
+<td>
+<input type="checkbox" id="priority" name="priority"
+       onchange="pChange();">
+<button type="button" class="icon" id="btnPrint"
+        hidden onclick="funPrintBtn()">
+<img src="<%=contextPath%>/icons/print_new.png">
+</button>
+</td>
+</tr>
+
 </table>
 </div>
-<div id="clientsearch1">
-   <div ></div>
+
+<!-- Count Grid -->
+<div class="filter-card">
+<div id="serCountgrid">
+<jsp:include page="serCountgrid.jsp"></jsp:include>
 </div>
-<div id="job1">
-   <div ></div>
-</div> 
-<div id="grpinfowindow">
-   <div ></div>
 </div>
-<div id="teaminfowindow">
-   <div ></div>
+
+<!-- Assignment Section -->
+<div class="filter-card">
+<table class="filter-table">
+
+<tr>
+<td class="label-cell">Assign Group</td>
+<td>
+<input type="text" id="txtgroup" name="txtgroup"
+       class="filter-input"
+       value='<s:property value="txtgroup"/>'
+       onkeydown="getgrpcode(event,2);"
+       readonly placeholder="Press F3 to Search">
+<input type="hidden" id="groupid" name="groupid"
+       value='<s:property value="groupid"/>'>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Group Member</td>
+<td>
+<input type="text" id="txtgrpmember" name="txtgrpmember"
+       class="filter-input"
+       value='<s:property value="txtgrpmember"/>'
+       onkeydown="getteam(event,2);"
+       readonly placeholder="Press F3 to Search">
+<input type="hidden" id="grpmemberid" name="grpmemberid"
+       value='<s:property value="grpmemberid"/>'>
+<input type="hidden" id="grpempid" name="grpempid"
+       value='<s:property value="grpempid"/>'>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Assign Method</td>
+<td>
+<input type="text" id="txtassign" name="txtassign"
+       class="filter-input"
+       value='<s:property value="txtassign"/>'
+       onkeydown="getassign(event);"
+       readonly placeholder="Press F3 to Search">
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Description</td>
+<td>
+<input type="text" id="txtdesc" name="txtdesc"
+       class="filter-input"
+       value='<s:property value="txtdesc"/>'>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Planned Date & Time</td>
+<td style="display:flex; gap:5px;">
+<div id="adate" value='<s:property value="adate"/>'></div>
+<div id="atime" value='<s:property value="atime"/>'></div>
+</td>
+</tr>
+
+</table>
 </div>
-<div id="assigninfowindow">
-   <div ></div>
+
+<!-- Buttons -->
+<div class="button-group">
+<button type="button" class="btn-submit" onclick="save();">Save</button>
+<button type="button" class="btn-submit" onclick="configCheck();">Print</button>
 </div>
-<div id="areainfowindow">
-   <div ></div>
+
+<!-- Hidden Fields -->
+<input type="hidden" id="assignid" name="assignid">
+<input type="hidden" id="trno" name="trno">
+<input type="hidden" id="srno" name="srno">
+<input type="hidden" id="dtype" name="dtype">
+<input type="hidden" id="calld" name="calld">
+<input type="hidden" id="doccno" name="doccno">
+<input type="hidden" id="isprior" name="isprior">
+<input type="hidden" id="rowindex" name="rowindex">
+<input type="hidden" id="dtyp" name="dtyp">
+<input type="hidden" id="bttnview" name="bttnview">
+<input type="hidden" id="confvalue" name="confvalue">
+
 </div>
+</div>
+</div>
+
+</td>
+
+<td width="80%" valign="top">
+
+<div class="grid-container">
+
+<div class="filter-card">
+<div id="serschedulediv">
+<jsp:include page="serScheduleDetails.jsp"></jsp:include>
+</div>
+</div>
+
+<div class="filter-card">
+<div id="assignSubDiv">
+<jsp:include page="assignSubGrid.jsp"></jsp:include>
+</div>
+</div>
+
+</div>
+
+</td>
+
+</tr>
+</table>
+
+</div>
+
+<div id="clientsearch1"><div></div></div>
+<div id="grpinfowindow"><div></div></div>
+<div id="teaminfowindow"><div></div></div>
+<div id="assigninfowindow"><div></div></div>
+<div id="areainfowindow"><div></div></div>
+
 </div>
 </body>
 </html>

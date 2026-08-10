@@ -14,54 +14,108 @@
 <link href="../../../../css/dashboard.css" media="screen" rel="stylesheet" type="text/css" />  
 <%-- <script type="text/javascript" src="../../js/dashboard.js"></script> --%> 
 
-<style type="text/css">
- 
-.myButtons {
-	-moz-box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	-webkit-box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87), color-stop(1, #6c7c7c));
-	background:-moz-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-webkit-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-o-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-ms-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#768d87', endColorstr='#6c7c7c',GradientType=0);
-	background-color:#768d87;
-	border:1px solid #566963;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	
-	font-size:8pt;
-	
-	padding:3px 17px;
-	text-decoration:none;
-	text-shadow:0px -1px 0px #2b665e;
+<style>
+.master-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f4f7f9;
 }
-.myButtons:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6c7c7c), color-stop(1, #768d87));
-	background:-moz-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-webkit-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-o-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-ms-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#768d87',GradientType=0);
-	background-color:#6c7c7c;
-}
-.myButtons:active {
-	position:relative;
-	top:1px;
+.sidebar-filters {
+    width: 330px;
+    flex: 0 0 330px;
+    background: #fff;
+    border-right: 1px solid #e1e8ed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-shadow: 2px 0 8px rgba(0,0,0,.05);
 }
 
-.bicon {
-    background-color: #ECF8E0;
-	width: 1em;
-	height: 1em;
-	border: none;
+.sidebar-fixed-top {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f4f8;
+}
+
+.sidebar-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 20px 25px;
+}
+
+
+.filter-card {
+    background: #f8fafc;
+    border: 1px solid #e3e8ee;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+
+.filter-table {
+    width: 100%;
+    border-spacing: 0 10px;
+}
+
+.label-cell {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4e5e71;
+    width: 90px;
+}
+input[type="text"], select {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1d4ed8;
+}
+html, body, #mainBG, .hidden-scrollbar {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+td[width="80%"] {
+    height: 100vh;
+    vertical-align: top;
+    background: #fff;
+}
+input[type="text"],
+select {
+    width: 100%;
+    height: 28px !important;   /* Slightly smaller */
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #ffffff;
 }
 
 </style>
+
 
 <script type="text/javascript">
 
@@ -506,200 +560,231 @@ var msg12="Saved";
 </script>
 </head>
 <body onload="getBranch();disablebtn();fromdatecheck();serviceview();">
-<div id="mainBG" class="homeContent" data-type="background"> 
-<div class='hidden-scrollbar'>
 
-<table width="100%" height="100%" >
+<div id="mainBG" class="homeContent" data-type="background">
+<div class="hidden-scrollbar">
+
+<table width="100%">
 <tr>
-<td width="20%" style=" vertical-align: top;">
-    <fieldset style="background: #ECF8E0;">
-	<table width="100%" >
-	<jsp:include page="../../heading.jsp"></jsp:include>
-		
-<!-- <tr><td colspan="2">&nbsp;</td></tr> -->
-<%--  <tr ><td colspan="2" ><input type="checkbox" id="chckfromdate" name="chckfromdate" value="" onchange="fromdatecheck();" onclick="$(this).attr('value', this.checked ? 1 : 0)" /> 
-                                 <input type="hidden" id="hidchckfromdate" name="hidchckfromdate" value='<s:property value="hidchckfromdate"/>'/></td></tr>
-    --%>
- <tr>  <td align="right">
- <input type="checkbox" id="chckfromdate" name="chckfromdate" value="" onchange="fromdatecheck();" onclick="$(this).attr('value', this.checked ? 1 : 0)" /> 
-                                 <input type="hidden" id="hidchckfromdate" name="hidchckfromdate" value='<s:property value="hidchckfromdate"/>'/>
- 
- <label class="branch">From</label></td>
-     <td align="left"><div id="fromdate" name="fromdate" value='<s:property value="fromdate"/>'></div></td></tr>
-     
-     
-	  <tr><td width="27%"  align="right" ><label class="branch">Upto</label></td><td width="73%" align="left"><div id='todate' name='todate' value='<s:property value="todate"/>'></div>
-                    </td></tr>
-   <tr>
-	      <td align="right"><label class="branch">Client</label></td>
-	      <td ><input style="height:19px;" type="text" name="txtclient" id="txtclient" value='<s:property value="txtclient"/>' onKeyDown="getclinfo(event);" readonly placeholder="Press F3 to Search">
-      <input type="hidden" id="clientid" name="clientid" value='<s:property value="clientid"/>'>
-      <button type="button" class="bicon" id="clear" title="clear" onclick="funClear()"> 
-							<img alt="clear" src="<%=contextPath%>/icons/clear.png">
-						</button></td>
-	      </tr>
-	      <tr>
-	      <td align="right"><label class="branch">Assign Group</label></td>
-	      <td ><input style="height:19px;" type="text" name="txtsergroup" id="txtsergroup" value='<s:property value="txtsergroup"/>' onKeyDown="getgrpcode(event,1);" readonly placeholder="Press F3 to Search">
-      <input type="hidden" id="sergroupid" name="sergroupid" value='<s:property value="sergroupid"/>'></td>
-	      </tr>
-	      
-	 <tr>
-	      <td align="right"><label class="branch">Group Member</label></td>
-	      <td ><input style="height:19px;" type="text" name="txtsergrpemp" id="txtsergrpemp" value='<s:property value="txtsergrpemp"/>' onKeyDown="getteam(event,1);" readonly placeholder="Press F3 to Search">
-      <input type="hidden" id="grpsermemberid" name="grpsermemberid" value='<s:property value="grpsermemberid"/>'>
-      <input type="hidden" id="grpserempid" name="grpserempid" value='<s:property value="grpserempid"/>'>
-      </td>
-	      </tr>  
-	      
-	       <tr>
-	      <td align="right"><label class="branch"> Area</label></td>
-	      <td ><input style="height:19px;" type="text" name="txtassignarea" id="txtassignarea" value='<s:property value="txtassignarea"/>' onKeyDown="getareas(event);" readonly placeholder="Press F3 to Search">
-	      <input type="hidden" id="txtareaid" name="txtareaid" value='<s:property value="txtareaid"/>'>
-	      </td></tr>
-	      <tr>
-	     <td colspan="2"  align="center"><label class="branch">Priority</label>	        
-	     <input type="checkbox" name="priority" id="priority" onchange="pChange();">
-	     <button type="button" class="icon" id="btnPrint" hidden="true" title="Print current Document" onclick="funPrintBtn()">  
-							<img alt="printDocument" src="<%=contextPath%>/icons/print_new.png">
-						</button>
-						</td>
-       
-	      
-	      </tr>
-	     <%--  <tr><td colspan="2" align="center">
-			<button type="button" class="icon" id="btnPrint" title="Print current Document" onclick="funPrintBtn()">  
-							<img alt="printDocument" src="<%=contextPath%>/icons/print_new.png">
-						</button>
-			</td></tr> --%>
-	    <tr>
-	<td colspan="2" ><div id="serCountgrid"><jsp:include page="serCountgrid.jsp"></jsp:include>
-	</div></td>
-	</tr> 
-	 <tr>
-		<td colspan="2" align="center">
-		<!-- <fieldset> -->
-		<label id="test"  class="branch" style="font-family: comic sans ms;font-weight: bold;color:blue;"></label>
-		<!-- </fieldset> -->
-		</td></tr>
-	</table>
-	
-	<table >
-	 
-	<tr>
-	      <td width="32%" align="right"><label class="branch">Percentage</label></td>
-	      <td colspan="2" ><input style="height:19px;" type="text" name="txtper" id="txtper" value='<s:property value="txtper"/>' >
-     </td>
-	      </tr>
-	      
-	 <tr>
-	      <td align="right"><label class="branch">Rectification</label></td>
-	      <td colspan="2" ><select id="rect" name="rect" onChange="funselect();">
-	      <option value="" selected>--SELECT--</option>
-	      <option value="1">YES</option>
-	      <option value="0">NO</option>
-	      </select>
-      </td>
-	      </tr>  
-	      <tr>
-	      <td align="right"><label class="branch">Description</label></td>
-	      <td colspan="2" ><input style="height:19px;width:180px;" type="text" name="txtdesc" id="txtdesc" value='<s:property value="txtdesc"/>'>
-         </td>
-	      </tr> 
-	       <tr>
-	      <td></td>
-	     <td colspan="2" align="left">&nbsp;&nbsp;&nbsp;<input type="button" name="btnsave" id="btnsave" class="myButton"
-						value="Save" style="width: 80px;" onclick="save(event);" />
-	      </td>
-	      </tr>    
-	      <tr><td colspan="2"></td></tr>
-	       <tr>
-	      <td colspan="3" align="center">
-	      <input type="button" name="btnattach" id="btnattach" class="myButton"
-						value="Attach" style="width: 80px;" onclick="attach();" />
-						&nbsp;
-						<input type="button" name="btnconfirm" id="btnconfirm" class="myButton"
-						value="Confirm" style="width: 80px;" onclick="save(event);" />
-	      </td>
-	    	      
-	      </tr>    
-	
-	</table>
-	
-	<table>
-	
-	       
-	       <tr>
-	      
-	      <td >
-      <input type="hidden" id="assignid" name="assignid" value='<s:property value="assignid"/>'>
-      <input type="hidden" id="trno" name="trno" value='<s:property value="trno"/>'>
-      <input type="hidden" id="srno" name="srno" value='<s:property value="srno"/>'>
-      <input type="hidden" id="dtype" name="dtype" value='<s:property value="dtype"/>'>
-      <input type="hidden" id="isprior" name="isprior" value='<s:property value="isprior"/>'>
-      <input type="hidden" id="rowindex" name="rowindex" value='<s:property value="rowindex"/>'>
-      
-      </td>
-      
-      
-      <td >
-      <input type="hidden" id="srdocno" name="srdocno" value='<s:property value="srdocno"/>'>
-      <input type="hidden" id="srbrhid" name="srbrhid" value='<s:property value="srbrhid"/>'>
-      
-      <input type="hidden" id="txtcustomerdocno" name="txtcustomerdocno" value='<s:property value="txtcustomerdocno"/>'>
-     <input type="hidden" id="txtcustomeracno" name="txtcustomeracno" value='<s:property value="txtcustomeracno"/>'>
-     <input type="hidden" id="cmbcontracttype" name="cmbcontracttype" value='<s:property value="cmbcontracttype"/>'>
-     <input type="hidden" id="txtcontracttrno" name="txtcontracttrno" value='<s:property value="txtcontracttrno"/>'>
-     <input type="hidden" id="txtsiteid" name="txtsiteid" value='<s:property value="txtsiteid"/>'>
-     <input type="hidden" id="txtareaid" name="txtareaid" value='<s:property value="txtareaid"/>'>
-     <input type="hidden" id="txtscheduleno" name="txtscheduleno" value='<s:property value="txtscheduleno"/>'>
-     <input type="hidden" id="servicetype" name="servicetype" value='<s:property value="servicetype"/>'>
-     <input type="hidden" id="txtsrtrno" name="txtsrtrno" value='<s:property value="txtsrtrno"/>'>
-     <input type="hidden" id="txtsrdocno" name="txtsrdocno" value='<s:property value="txtsrdocno"/>'>
-     <input type="hidden" id="bttnview" name="bttnview" value='<s:property value="bttnview"/>'>
-      
-      
-      </td>
-	      </tr>  
-	      
-		
-	<!-- <tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr> -->
-	</table>
-	</fieldset>
 
+<td width="20%" valign="top">
+
+<div class="master-container">
+<div class="sidebar-filters">
+
+<!-- Fixed Heading -->
+<div class="sidebar-fixed-top">
+    <div class="filter-card">
+        <jsp:include page="../../heading.jsp"></jsp:include>
+    </div>
+</div>
+
+<!-- Scrollable Content -->
+<div class="sidebar-scroll-content">
+
+<!-- Filter Section -->
+<div class="filter-card">
+<table class="filter-table">
+
+<tr>
+<td class="label-cell">
+<input type="checkbox" id="chckfromdate" name="chckfromdate"
+       onchange="fromdatecheck();"
+       onclick="$(this).attr('value', this.checked ? 1 : 0)">
+<input type="hidden" id="hidchckfromdate" name="hidchckfromdate"
+       value='<s:property value="hidchckfromdate"/>'/>
+From
 </td>
-<td width="80" style=" vertical-align: top;">
-	<table width="100%"  >
-		<tr><td><div id="serschedulediv">
-				<jsp:include page="serScheduleDetails.jsp"></jsp:include> 
-			</div>
-			<br/>
-			</td>
-			</tr>
-
-	</table>
-	</td>
+<td>
+<div id="fromdate" value='<s:property value="fromdate"/>'></div>
+</td>
 </tr>
+
+<tr>
+<td class="label-cell">Upto</td>
+<td>
+<div id="todate" value='<s:property value="todate"/>'></div>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Client</td>
+<td style="display:flex; gap:5px;">
+<input type="text" id="txtclient" name="txtclient"
+       class="filter-input"
+       value='<s:property value="txtclient"/>'
+       onkeydown="getclinfo(event);"
+       readonly placeholder="Press F3 to Search">
+<input type="hidden" id="clientid" name="clientid"
+       value='<s:property value="clientid"/>'>
+<button type="button" class="bicon" onclick="funClear()">
+<img src="<%=contextPath%>/icons/clear.png">
+</button>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Assign Group</td>
+<td>
+<input type="text" id="txtsergroup" name="txtsergroup"
+       class="filter-input"
+       value='<s:property value="txtsergroup"/>'
+       onkeydown="getgrpcode(event,1);"
+       readonly placeholder="Press F3 to Search">
+<input type="hidden" id="sergroupid" name="sergroupid"
+       value='<s:property value="sergroupid"/>'>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Group Member</td>
+<td>
+<input type="text" id="txtsergrpemp" name="txtsergrpemp"
+       class="filter-input"
+       value='<s:property value="txtsergrpemp"/>'
+       onkeydown="getteam(event,1);"
+       readonly placeholder="Press F3 to Search">
+<input type="hidden" id="grpsermemberid" name="grpsermemberid"
+       value='<s:property value="grpsermemberid"/>'>
+<input type="hidden" id="grpserempid" name="grpserempid"
+       value='<s:property value="grpserempid"/>'>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Area</td>
+<td>
+<input type="text" id="txtassignarea" name="txtassignarea"
+       class="filter-input"
+       value='<s:property value="txtassignarea"/>'
+       onkeydown="getareas(event);"
+       readonly placeholder="Press F3 to Search">
+<input type="hidden" id="txtareaid" name="txtareaid"
+       value='<s:property value="txtareaid"/>'>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Priority</td>
+<td>
+<input type="checkbox" id="priority" name="priority"
+       onchange="pChange();">
+<button type="button" class="icon" id="btnPrint"
+        hidden title="Print current Document"
+        onclick="funPrintBtn()">
+<img src="<%=contextPath%>/icons/print_new.png">
+</button>
+</td>
+</tr>
+
 </table>
 </div>
-<div id="clientsearch1">
-   <div ></div>
-</div> 
-<div id="grpinfowindow">
-   <div ></div>
+
+
+<div class="filter-card">
+<div id="serCountgrid">
+<jsp:include page="serCountgrid.jsp"></jsp:include>
 </div>
-<div id="teaminfowindow">
-   <div ></div>
 </div>
 
-<div id="areainfowindow">
-   <div ></div>
+
+<div class="filter-card">
+<table class="filter-table">
+
+<tr>
+<td class="label-cell">Percentage</td>
+<td>
+<input type="text" id="txtper" name="txtper"
+       class="filter-input"
+       value='<s:property value="txtper"/>'>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Rectification</td>
+<td>
+<select id="rect" name="rect" class="filter-input"
+        onchange="funselect();">
+<option value="">--SELECT--</option>
+<option value="1">YES</option>
+<option value="0">NO</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td class="label-cell">Description</td>
+<td>
+<input type="text" id="txtdesc" name="txtdesc"
+       class="filter-input"
+       value='<s:property value="txtdesc"/>'>
+</td>
+</tr>
+
+</table>
 </div>
+
+
+<div class="button-group">
+<button type="button" class="btn-submit"
+        onclick="save(event);">Save</button>
+
+<button type="button" class="btn-submit"
+        onclick="attach();">Attach</button>
+
+<button type="button" class="btn-submit"
+        onclick="save(event);">Confirm</button>
+</div>
+
+
+<input type="hidden" id="assignid" name="assignid">
+<input type="hidden" id="trno" name="trno">
+<input type="hidden" id="srno" name="srno">
+<input type="hidden" id="dtype" name="dtype">
+<input type="hidden" id="isprior" name="isprior">
+<input type="hidden" id="rowindex" name="rowindex">
+<input type="hidden" id="srdocno" name="srdocno">
+<input type="hidden" id="srbrhid" name="srbrhid">
+<input type="hidden" id="txtcustomerdocno" name="txtcustomerdocno">
+<input type="hidden" id="txtcustomeracno" name="txtcustomeracno">
+<input type="hidden" id="cmbcontracttype" name="cmbcontracttype">
+<input type="hidden" id="txtcontracttrno" name="txtcontracttrno">
+<input type="hidden" id="txtsiteid" name="txtsiteid">
+<input type="hidden" id="txtscheduleno" name="txtscheduleno">
+<input type="hidden" id="servicetype" name="servicetype">
+<input type="hidden" id="txtsrtrno" name="txtsrtrno">
+<input type="hidden" id="txtsrdocno" name="txtsrdocno">
+<input type="hidden" id="bttnview" name="bttnview">
+
+</div>
+</div>
+</div>
+
+</td>
+
+
+<td width="80%" valign="top">
+
+<div class="grid-container">
+<div class="filter-card">
+<div id="serschedulediv">
+<jsp:include page="serScheduleDetails.jsp"></jsp:include>
+</div>
+</div>
+</div>
+
+</td>
+
+</tr>
+</table>
+
+</div>
+
+<div id="clientsearch1"><div></div></div>
+<div id="grpinfowindow"><div></div></div>
+<div id="teaminfowindow"><div></div></div>
+<div id="areainfowindow"><div></div></div>
+
 </div>
 </body>
 </html>

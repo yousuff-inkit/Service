@@ -7,6 +7,154 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="<%=contextPath%>/css/body.css" media="screen" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+
+#search {
+    background-color: #ffffff;
+    padding: 8px;
+}
+
+
+#search table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 15px 12px;
+}
+
+
+#search td[align="right"] {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #222;
+    white-space: nowrap;
+}
+
+
+#search input[type="text"] {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+
+    padding: 6px 10px;
+    height: 34px;
+    width: 100%;
+
+    box-sizing: border-box;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+#search input[type="text"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+
+#search .myButton {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+
+    background-color: #007bff;
+    color: #ffffff;
+
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#search .myButton:hover {
+    background-color: #007bff;
+}
+
+/* Result grid spacing */
+#refreshdiv {
+    margin-top: 10px;
+}
+.search-popup {
+    padding: 14px;
+}
+
+
+.search-form {
+    width: 100%;
+    border-spacing: 18px 12px;
+}
+
+
+.search-form .label {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #222;
+    white-space: nowrap;
+    text-align: right;
+}
+
+
+.search-form .field {
+    width: 28%;
+}
+
+
+.search-form .action {
+    text-align: center;
+    width: 12%;
+}
+
+.search-grid {
+    margin-top: 14px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    background: #ffffff;
+    padding: 6px;
+}
+.myButtons {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    background-color: #007bff;   /* BLUE */
+    color: #ffffff;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+
+.myButtons:hover {
+    background-color: #007bff;
+}
+.blueButton {
+    background: linear-gradient(to bottom, #2196F3, #1976D2);
+    color: #ffffff;
+    border: 1px solid #1565C0;
+    padding: 6px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.blueButton:hover {
+    background: linear-gradient(to bottom, #42A5F5, #1E88E5);
+}
+
+.blueButton:active {
+    background: #1565C0;
+    transform: scale(0.98);
+}
+
+</style>
+
 <title>GatewayERP(i)</title>
 
 	<script type="text/javascript">
@@ -32,30 +180,82 @@
 
 	</script>
 <body>
-<div id=search>
-<table width="100%">
+<div id="search">
+
+<table width="100%" cellspacing="8">
+
+  <!-- ROW 1 -->
   <tr>
-    <td width="12%" align="right"><label style="font:10px Tahoma;">Product-Id</label></td> <!-- partno -->
-    <td colspan="3"><input type="text" name="txtproductsname" id="txtproductsname" style="width:90%" value='<s:property value="txtproductsname"/>'></td>
-    <td width="11%" align="right"><label style="font:10px Tahoma;">Brand</label></td>
-    <td colspan="2"><input type="text" name="txtbrandsname" id="txtbrandsname" style="width:90%" value='<s:property value="txtbrandsname"/>'>
-    <input type="hidden" name="txtcldocnos" id="txtcldocnos" style="width:80%" value='<s:property value="txtcldocnos"/>'>
-    <input type="hidden" name="txtestdates" id="txtestdates" style="width:80%" value='<s:property value="txtestdates"/>'></td>
-    <td width="17%" align="center"><input type="button" name="btnsearch" id="btnsearch" class="myButton" value="Search"  onclick="loadSearch();"></td>
+    <td width="12%" align="right" class="label">Product ID</td>
+    <td width="30%">
+      <input type="text"
+             name="txtproductsname"
+             id="txtproductsname"
+             value='<s:property value="txtproductsname"/>'
+             style="width:100%;">
+    </td>
+
+    <td width="10%" align="right" class="label">Brand</td>
+    <td width="25%">
+      <input type="text"
+             name="txtbrandsname"
+             id="txtbrandsname"
+             value='<s:property value="txtbrandsname"/>'
+             style="width:100%;">
+
+      <input type="hidden"
+             name="txtcldocnos"
+             id="txtcldocnos"
+             value='<s:property value="txtcldocnos"/>'>
+
+      <input type="hidden"
+             name="txtestdates"
+             id="txtestdates"
+             value='<s:property value="txtestdates"/>'>
+    </td>
+
+    <td width="15%" rowspan="2" align="center">
+      <input type="button"
+             name="btnsearch"
+             id="btnsearch"
+             class="myButton"
+             value="Search"
+             onclick="loadSearch();">
+    </td>
   </tr>
-  
+
+  <!-- ROW 2 -->
   <tr>
-  		<td width="18%" align="right"><label style="font:10px Tahoma;">Product Name</label></td>
-    	<td colspan="3"><input type="text" name="txtgridprdname" id="txtgridprdname" style="width:90%" value='<s:property value="txtgridprdname"/>'></td>
-    	<td width="11%" align="right"><label style="font:10px Tahoma;">Unit</label></td>
-    	<td colspan="2"><input type="text" name="txtgridunit" id="txtgridunit" style="width:90%" value='<s:property value="txtgridunit"/>'>
-    
+    <td align="right" class="label">Product Name</td>
+    <td>
+      <input type="text"
+             name="txtgridprdname"
+             id="txtgridprdname"
+             value='<s:property value="txtgridprdname"/>'
+             style="width:100%;">
+    </td>
+
+    <td align="right" class="label">Unit</td>
+    <td>
+      <input type="text"
+             name="txtgridunit"
+             id="txtgridunit"
+             value='<s:property value="txtgridunit"/>'
+             style="width:100%;">
+    </td>
   </tr>
-  
+
+  <!-- GRID -->
   <tr>
-    <td colspan="8"><div id="refreshProductDiv"><jsp:include  page="productSearch.jsp"></jsp:include></div></td>
+    <td colspan="5">
+      <div id="refreshProductDiv">
+        <jsp:include page="productSearch.jsp"></jsp:include>
+      </div>
+    </td>
   </tr>
+
 </table>
-  </div>
+
+</div>
 </body>
 </html>

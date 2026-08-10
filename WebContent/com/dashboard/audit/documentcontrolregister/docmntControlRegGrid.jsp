@@ -1,4 +1,4 @@
-   <%@page import="com.dashboard.audit.documentcontrolregister.ClsDocmntCntrlRegDAO"%>
+<%@page import="com.dashboard.audit.documentcontrolregister.ClsDocmntCntrlRegDAO"%>
      <%ClsDocmntCntrlRegDAO cmd= new ClsDocmntCntrlRegDAO(); %>
  <% String contextPath=request.getContextPath();%>
  
@@ -81,8 +81,8 @@ $(document).ready(function () {
     
     $("#docCntrlRegId").jqxGrid(
     {
-        width: '99%',
-        height: 535,
+        width: '100%',
+        height: 700,
         source: dataAdapter,
         showaggregates:true,
         enableAnimations: true,

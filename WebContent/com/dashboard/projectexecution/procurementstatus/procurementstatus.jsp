@@ -10,44 +10,115 @@
 <link href="../../../../css/dashboard.css" media="screen" rel="stylesheet" type="text/css" />  
 <style type="text/css">
 
-.myButtons {
-	-moz-box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	-webkit-box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	box-shadow:inset 0px -1px 3px 0px #91b8b3;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87), color-stop(1, #6c7c7c));
-	background:-moz-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-webkit-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-o-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:-ms-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
-	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#768d87', endColorstr='#6c7c7c',GradientType=0);
-	background-color:#768d87;
-	border:1px solid #566963;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	
-	font-size:8pt;
-	
-	padding:3px 17px;
-	text-decoration:none;
-	text-shadow:0px -1px 0px #2b665e;
+.master-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f4f7f9;
 }
-.myButtons:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6c7c7c), color-stop(1, #768d87));
-	background:-moz-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-webkit-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-o-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:-ms-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
-	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#768d87',GradientType=0);
-	background-color:#6c7c7c;
+
+
+.sidebar-filters {
+    width: 330px;
+    flex: 0 0 330px;
+    background: #fff;
+    border-right: 1px solid #e1e8ed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-shadow: 2px 0 8px rgba(0,0,0,.05);
 }
-.myButtons:active {
-	position:relative;
-	top:1px;
+
+.sidebar-fixed-top {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f4f8;
 }
+
+.sidebar-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 20px 25px;
+}
+
+
+.filter-card {
+    background: #f8fafc;
+    border: 1px solid #e3e8ee;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+
+.filter-table {
+    width: 100%;
+    border-spacing: 0 10px;
+}
+
+.label-cell {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4e5e71;
+    width: 90px;
+}
+
+
+input[type="text"], select {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+
+.btn-submit {
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1d4ed8;
+}
+
+
+html, body, #mainBG, .hidden-scrollbar {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+td[width="80%"] {
+    height: 100vh;
+    vertical-align: top;
+    background: #fff;
+}
+input[type="text"],
+select {
+    width: 100%;
+    height: 28px !important;   
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #ccd6e0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
 </style>
+
+
 <script type="text/javascript">
 
 	$(document).ready(function () {
@@ -241,104 +312,205 @@ function funcleardata()
 </script>
 </head>
 <body onload="getBranch();">
-<div id="mainBG" class="homeContent" data-type="background"> 
-<div class='hidden-scrollbar'>
-<table width="100%" >
-<tr>
-<td width="20%" >
-    <fieldset style="background: #ECF8E0;">
-	<table width="100%" >
-	<jsp:include page="../../heading.jsp"></jsp:include>
-	<tr><td colspan="2"></td></tr>
-	 <tr><td  align="right" ><label class="branch">From</label></td><td align="left"><div id='fromdate' name='fromdate' value='<s:property value="fromdate"/>'></div>
-                    </td></tr>
-                     <tr><td  align="right" ><label class="branch">To</label></td><td align="left"><div id='todate' name='todate' value='<s:property value="todate"/>'></div>
-                    </td></tr>                 
-	 
-   
-	 <tr><td colspan="2">&nbsp;</td></tr>
-	<tr>
-	      <td align="right" width="26%" ><label class="branch"> Client</label></td>
-	      <td ><input style="width:170px;height:19px;" type="text" name="txtclient" id="txtclient" value='<s:property value="txtclient"/>' onKeyDown="getclient(event);" readonly placeholder="Press F3 to Search">
-	      <input type="hidden" id="txtclientid" name="txtclientid" value='<s:property value="txtclientid"/>'>
-	      </td></tr>
-	      <tr><td colspan="2"></td></tr>
-	<tr>
-	      <td align="right"><label class="branch"> Contract No.</label></td>
-	      <td >
-	    
-	      <input style="width:170px;height:19px;" type="text" name="txtcontract" id="txtcontract" placeholder="Press F3 To Search"  onKeyDown="getcontract(event);" readonly value='<s:property value="txtcontract"/>'>
-	      <input type="hidden" id="txtcontractid" name="txtcontractid" value='<s:property value="txtcontractid"/>'>
-	      </td></tr>
-	      <tr><td colspan="2"></td></tr>
-	 <tr>
-	      <td align="right"><label class="branch"> Product</label></td>
-	      <td ><input style="width:170px;height:19px;" type="text" name="txtproduct" id="txtproduct" value='<s:property value="txtproduct"/>' onKeyDown="getproduct(event);" readonly placeholder="Press F3 to Search">
-	      <input type="hidden" id="txtproductid" name="txtproductid" value='<s:property value="txtproductid"/>'>
-	      </td></tr>
-	
-	<tr><td colspan="2"></td></tr>
-	 <tr>
-	      <td align="right"><label class="branch"> Brand</label></td>
-	      <td ><input style="width:170px;height:19px;" type="text" name="txtbrand" id="txtbrand" value='<s:property value="txtbrand"/>' onKeyDown="getbrand(event);" readonly placeholder="Press F3 to Search">
-	      <input type="hidden" id="txtbrandid" name="txtbrandid" value='<s:property value="txtbrandid"/>'>
-	      </td></tr>
-	      
-	      <tr><td colspan="2"></td></tr>
-	      
-	      
-	 <tr>
-	 <td align="right"><label class="branch"> Details</label></td>
-	 <td><textarea rows="6" cols="21" name="txtareadet" id="txtareadet" readonly></textarea>
 
-</td></tr>
-	<tr><td colspan="2">&nbsp;</td></tr>
-	 
-	    <tr><td colspan="2" align="center"><input type="button" class="myButtons" name="clear" id="clear"  value="Clear" onclick="funcleardata()"></td></tr>
-	 
-	  <tr><td colspan="2">&nbsp;</td></tr>
-	 
-	 
-	
-	 
-	 <tr><td colspan="2">
-	 <input type="hidden" id="txtdocno" name="txtdocno" style="width:100%;height:20px;" value='<s:property value="txtdocno"/>'/>
-     <input type="hidden" id="txtbranch" name="txtbranch" style="width:100%;height:20px;" value='<s:property value="txtbranch"/>'/>
-     <input type="hidden" id="txtsalid" name="txtsalid" style="width:100%;height:20px;" value='<s:property value="txtsalid"/>'/>
-     <input type="hidden" id="txtrdocno" name="txtrdocno" style="width:100%;height:20px;" value='<s:property value="txtrdocno"/>'/>
-     <input type="hidden" id="txtbrchid" name="txtbrchid" style="width:100%;height:20px;" value='<s:property value="txtbrchid"/>'/>
-     <input type="hidden" id="txtuserid" name="txtuserid" style="width:100%;height:20px;" value='<s:property value="txtuserid"/>'/>
-      <input type="hidden" name="subgridlength" id="subgridlength" value='<s:property value="subgridlength"/>'>
-      <input type="hidden" name="contracttrno" id="contracttrno" value='<s:property value="contracttrno"/>'>
-      <input type="hidden" name="contractdocno" id="contractdocno" value='<s:property value="contractdocno"/>'>
-      <input type="hidden" id="puchasechk" name="puchasechk"/> 
-     </td></tr> 
-	 </table>
-	</fieldset>
+<div id="mainBG" class="homeContent" data-type="background"> 
+<div class="hidden-scrollbar">
+
+<table width="100%">
+<tr>
+
+
+<td width="20%">
+    <div class="master-container">
+        <div class="sidebar-filters">
+
+            
+            <div class="sidebar-fixed-top">
+                <div class="filter-card">
+                    <jsp:include page="../../heading.jsp"></jsp:include>
+                </div>
+            </div>
+
+          
+            <div class="sidebar-scroll-content">
+
+              
+                <div class="filter-card">
+                    <table class="filter-table">
+
+                        <tr>
+                            <td class="label-cell">From</td>
+                            <td>
+                                <div id="fromdate"
+                                     value='<s:property value="fromdate"/>'>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">To</td>
+                            <td>
+                                <div id="todate"
+                                     value='<s:property value="todate"/>'>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <!-- Client / Contract / Product Section -->
+                <div class="filter-card">
+                    <table class="filter-table">
+
+                        <tr>
+                            <td class="label-cell">Client</td>
+                            <td>
+                                <input type="text"
+                                       id="txtclient"
+                                       name="txtclient"
+                                       placeholder="Press F3 to Search"
+                                       onkeydown="getclient(event);"
+                                       readonly
+                                       value='<s:property value="txtclient"/>'/>
+
+                                <input type="hidden"
+                                       id="txtclientid"
+                                       name="txtclientid"
+                                       value='<s:property value="txtclientid"/>'/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Contract No.</td>
+                            <td>
+                                <input type="text"
+                                       id="txtcontract"
+                                       name="txtcontract"
+                                       placeholder="Press F3 To Search"
+                                       onkeydown="getcontract(event);"
+                                       readonly
+                                       value='<s:property value="txtcontract"/>'/>
+
+                                <input type="hidden"
+                                       id="txtcontractid"
+                                       name="txtcontractid"
+                                       value='<s:property value="txtcontractid"/>'/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Product</td>
+                            <td>
+                                <input type="text"
+                                       id="txtproduct"
+                                       name="txtproduct"
+                                       placeholder="Press F3 to Search"
+                                       onkeydown="getproduct(event);"
+                                       readonly
+                                       value='<s:property value="txtproduct"/>'/>
+
+                                <input type="hidden"
+                                       id="txtproductid"
+                                       name="txtproductid"
+                                       value='<s:property value="txtproductid"/>'/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Brand</td>
+                            <td>
+                                <input type="text"
+                                       id="txtbrand"
+                                       name="txtbrand"
+                                       placeholder="Press F3 to Search"
+                                       onkeydown="getbrand(event);"
+                                       readonly
+                                       value='<s:property value="txtbrand"/>'/>
+
+                                <input type="hidden"
+                                       id="txtbrandid"
+                                       name="txtbrandid"
+                                       value='<s:property value="txtbrandid"/>'/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label-cell">Details</td>
+                            <td>
+                                <textarea id="txtareadet"
+                                          name="txtareadet"
+                                          rows="5"
+                                          readonly
+                                          style="resize:none;"></textarea>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+               
+                <button class="btn-submit"
+                        type="button"
+                        onclick="funcleardata();">
+                    Clear
+                </button>
+
+                <input type="hidden" id="txtdocno" name="txtdocno"
+                       value='<s:property value="txtdocno"/>'/>
+                <input type="hidden" id="txtbranch" name="txtbranch"
+                       value='<s:property value="txtbranch"/>'/>
+                <input type="hidden" id="txtsalid" name="txtsalid"
+                       value='<s:property value="txtsalid"/>'/>
+                <input type="hidden" id="txtrdocno" name="txtrdocno"
+                       value='<s:property value="txtrdocno"/>'/>
+                <input type="hidden" id="txtbrchid" name="txtbrchid"
+                       value='<s:property value="txtbrchid"/>'/>
+                <input type="hidden" id="txtuserid" name="txtuserid"
+                       value='<s:property value="txtuserid"/>'/>
+
+                <input type="hidden" name="subgridlength" id="subgridlength"
+                       value='<s:property value="subgridlength"/>'/>
+
+                <input type="hidden" name="contracttrno" id="contracttrno"
+                       value='<s:property value="contracttrno"/>'/>
+
+                <input type="hidden" name="contractdocno" id="contractdocno"
+                       value='<s:property value="contractdocno"/>'/>
+
+                <input type="hidden" id="puchasechk" name="puchasechk"/>
+
+            </div>
+        </div>
+    </div>
 </td>
+
+
+
 <td width="80%">
-	<table width="100%" style=" vertical-align: top;">
-		
-		<tr><td><div id="detailDiv"><jsp:include page="procurementStatusGrid.jsp"></jsp:include></div></td></tr>
-	</table>
-	</td>
+    <table width="100%">
+        <tr>
+            <td>
+                <div id="detailDiv">
+                    <jsp:include page="procurementStatusGrid.jsp"></jsp:include>
+                </div>
+            </td>
+        </tr>
+    </table>
+</td>
+
 </tr>
 </table>
+
 </div>
-<div id="productsearchwndow">
-   <div ></div> 
+
+
+<!-- POPUPS -->
+<div id="productsearchwndow"><div></div></div>
+<div id="clientsearch1"><div></div></div>
+<div id="contractwindow"><div></div></div>
+<div id="brandsearch"><div></div></div>
+
 </div>
-<div id="clientsearch1">
-   <div ></div>
-</div>
-<div id="contractwindow">
-   <div ></div>
-</div>
-            	
-		<div id="brandsearch"> 
-   <div ></div>
-</div>
-	
-</div> 
 </body>
 </html>

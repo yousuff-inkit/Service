@@ -176,8 +176,8 @@
             
             $("#timeSheetReviewGridID").jqxGrid(
             {
-                width: '98%',
-                height: 530,
+                width: '100%',
+                height: 730,
                 source: dataAdapter,
                 filtermode:'excel',
                 filterable: true,
@@ -560,4 +560,4 @@
 </script>
 
 <div id="timeSheetReviewGridID"></div>
-<input type="hidden" id="rowindex"/> 
+<input type="hidden" id="rowindex"/>

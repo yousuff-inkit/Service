@@ -46,6 +46,68 @@ height:98%;
 color:#eeeeee;
 
 }
+
+
+.fa-container {
+    display: flex;
+    gap: 20px;
+    height: calc(100vh - 120px);
+}
+
+.fa-sidebar {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.fa-sidebar .myButton {
+    width: 100%;
+}
+
+.fa-content {
+    flex: 1;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.fa-content iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+/* ================= FIXED ASSET SIDEBAR NAV ================= */
+
+.fa-sidebar {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.fa-nav-btn {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: none;
+    background: #f1f3f6;
+    color: #2d3748;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.fa-nav-btn:hover {
+    background: #e2e8f0;
+}
+
+.fa-nav-btn.active {
+    background: #1e88e5;
+    color: #ffffff;
+}
 </style>
 <script type="text/javascript">
 	
@@ -54,39 +116,52 @@ color:#eeeeee;
 		$('#branchid').val(window.parent.branchid.value); 
 	});
 	</script>
+	<script>
+function setActive(button) {
+    const buttons = document.querySelectorAll('.fa-nav-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+}
+</script>
 </head>
 <body>
+
 <div id="mainBG" class="homeContent" data-type="background">
-<h3>Fixed Asset Master</h3>
 
+<h3 class="page-title">Fixed Asset Master</h3>
 
-<div id="nav">
-<table >
-<tr><td><input type="button" name="btnfgm" class="myButton" value="Group Master" style="width:100px;outline:none;" onclick='document.getElementById("iframe2").src="<%=contextPath%>/com/fixedassets/masters/groupMaster.jsp";'></td></tr>
-<tr><td><input type="button" name="btnflm" class="myButton" value="Loc. Master" style="width:100px;" onclick='document.getElementById("iframe2").src="<%=contextPath%>/com/fixedassets/masters/locationMaster.jsp";'></td></tr>
-<%-- <tr><td><input type="button" name="btnrentalagent" class="myButton" value="Rental Agent" style="width:90px;" onclick='document.getElementById("iframe2").src="<%=contextPath%>/com/controlcentre/masters/salesmanmaster/rentalAgent.jsp";'></td></tr>
-<tr><td><input type="button" name="btndriver" class="myButton" value="Driver" style="width:90px;" onclick='document.getElementById("iframe2").src="<%=contextPath%>/com/controlcentre/masters/salesmanmaster/driver.jsp";'></td></tr>
-<tr><td><input type="button" name="btncheckin" class="myButton" value="Check In" style="width:90px;" onclick='document.getElementById("iframe2").src="<%=contextPath%>/com/controlcentre/masters/salesmanmaster/checkin.jsp";'></td></tr>
-<tr><td><input type="button" name="btnstaff" class="myButton" value="Staff" style="width:90px;" onclick='document.getElementById("iframe2").src="<%=contextPath%>/com/controlcentre/masters/salesmanmaster/staff.jsp";'></td></tr>
- --%></table>
-</div>
-<input type="hidden" id="formName" name="formName"  value='000'/>
-<input type="hidden" id="formCode" name="formCode"  value='SAP'/> 
-<input type="hidden" id="branchid" name="branchid"  value=''/>
-<input type="hidden" id="mode" name="mode"  />
-<div id="comiframe">
-	<iframe width="100%" height="100%" id="iframe2" align="right" frameborder="0" marginwidth="100%" scrolling="no" src="<%=contextPath%>/com/fixedassets/masters/groupMaster.jsp"></iframe>
-</div>
-<!-- <script>
-function resizeIframeToFitContent(iframe) {
-    // This function resizes an IFrame object
-    // to fit its content.
-    // The IFrame tag must have a unique ID attribute.
-    iframe.height = document.frames[iframe.iframe2]
-                    .document.body.scrollHeight;
-}
-</script> -->
+<div class="fa-container">
+
+    <!-- LEFT SIDE NAVIGATION -->
+    <div class="fa-sidebar">
+
+    <button class="fa-nav-btn active"
+        onclick='document.getElementById("iframe2").src="<%=contextPath%>/com/fixedassets/masters/groupMaster.jsp"; setActive(this);'>
+        Group Master
+    </button>
+
+    <button class="fa-nav-btn"
+        onclick='document.getElementById("iframe2").src="<%=contextPath%>/com/fixedassets/masters/locationMaster.jsp"; setActive(this);'>
+        Location Master
+    </button>
 
 </div>
+    <!-- RIGHT CONTENT AREA -->
+    <div class="fa-content">
+        <iframe id="iframe2"
+                frameborder="0"
+                src="<%=contextPath%>/com/fixedassets/masters/groupMaster.jsp">
+        </iframe>
+    </div>
+
+</div>
+
+<input type="hidden" id="formName" name="formName" value="000"/>
+<input type="hidden" id="formCode" name="formCode" value="SAP"/>
+<input type="hidden" id="branchid" name="branchid" value=""/>
+<input type="hidden" id="mode" name="mode"/>
+
+</div>
+
 </body>
 </html>
