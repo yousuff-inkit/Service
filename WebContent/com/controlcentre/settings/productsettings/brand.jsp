@@ -149,63 +149,195 @@ color:red;
 </script>  
  
 </head>
-<body onLoad="setValues();" >
-<form id="frmBrand" action="savepbmAction" method="get" autocomplete="off">
-	<jsp:include page="../../../../header.jsp" />
-	<br/> 
-	<fieldset><legend> Product Brand Details</legend>
-	<table width="100%">
-<tr>
-<td>
-<table width="100%">
-		<tr><td width="6%" align="right">Date</td>
-			<td width="31%"  align="left"><div id="date" name="date"></div>
-		  	</td>
-			<td width="46%" align="right">Doc No.</td>
-			<td width="17%">
-					<input type="text" name="docno" id="docno" value='<s:property value="docno"/>' readonly  tabindex="-1">
-			</td>
-		</tr>
-        </table>
-        <table width="100%">
-        <!-- pattern=".{1,3}" required="required" -->
-		<tr><td width="6%" align="right">Brand</td>
-			<td width="31%" align="left" ><input type="text" name="brand" id="brand"  value='<s:property value="brand"/>' ></td>
-			<td width="20%" align="right">Description</td>
-				<td width="65%"><input type="text" id="branddesc" name="branddesc" style="width:50%;" value='<s:property value="branddesc"/>'/></td>
-			</tr>
-	</table>
-    <input
-				type="hidden" name="mode" id="mode"
-				value='<s:property value="mode"/>' /> <input type="hidden"
-				name="deleted" id="deleted" value='<s:property value="deleted"/>' />
-			<input type="hidden" id="msg" name="msg"
-				value='<s:property value="msg"/>' /></td> 
-    </tr>
-    </table>
-	
-	</fieldset>
-    	
-	</form>
-<table width="100%">
-      <tr>
-        <td width="3%">&nbsp;</td>
-        <td width="42%">	 <div id="jqxBrandSearch1"></div>  
-</td>
-        <td width="55%">&nbsp;</td>
-      </tr>
-    </table>
-<br/>
-		<%-- 	<div id="window">
-				<div id="windowHeader" class="windowHead">
-					<span> <img src="../../../../icons/search_new.png" alt="" style="margin-right: 15px" />Search
-					</span>
-				</div>
-				<div id="windowContent" class="windowCont" style="overflow: hidden;">
-					<jsp:include page="brandSearch.jsp"></jsp:include>
-				</div></div>
-	 --%>
-	
+<style>
+/* =========================================================
+   SCOPED UI: Modern Layout Adapted for Table Structure
+========================================================= */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 24px 0;
+    box-sizing: border-box;
+    overflow-y: auto !important;
+}
 
+#mainBG {
+    background: #fff;
+    border-radius: 16px;
+    padding: 15px;
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+#frmBrand input[type="text"],
+#frmBrand select,
+.textbox { 
+    height: 24px !important; 
+    border: 1px solid #b8c6d8; 
+    border-radius: 3px; 
+    padding: 2px 6px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box; 
+    background-color: #fff; 
+    color: #333;
+    box-shadow: none !important;
+    outline: none;
+    width: 100%;
+}
+
+#frmBrand input[type="text"]:focus,
+#frmBrand select:focus,
+.textbox:focus { 
+    border-color: #007bff; 
+}
+
+#frmBrand input[readonly],
+#frmBrand input:disabled,
+#frmBrand select:disabled,
+.textbox[readonly] { 
+    background-color: #f8f9fa; 
+    color: #6b7280;
+}
+
+form label.error {
+    color: red;
+    font-weight: bold;
+    font-size: 11px;
+    font-family: Arial, sans-serif;
+}
+
+.hidden-scrollbar {
+    overflow-y: auto;
+    height: calc(100vh - 100px);
+    padding-right: 5px;
+    overflow-x: hidden;
+}
+.hidden-scrollbar::-webkit-scrollbar { width: 6px; }
+.hidden-scrollbar::-webkit-scrollbar-thumb { background: #c5d3e0; border-radius: 3px; }
+
+/* CSS-only JQX Overrides for Alignment */
+.jqx-datetimeinput-input { 
+    height: 24px !important; 
+    line-height: 24px !important; 
+    margin-top: 0px !important; 
+    padding-top: 0px !important;
+    box-sizing: border-box !important;
+    font-size: 12px !important;
+    font-family: Arial, sans-serif !important;
+    padding: 0 6px !important;
+}
+.jqx-action-button {
+    height: 24px !important;
+    top: 0px !important;
+}
+.jqx-widget-content {
+    box-sizing: border-box !important;
+}
+
+/* Middle Section Panels */
+.modern-ui .middle-panel {
+    border: 1px solid #c5d3e0; 
+    padding: 20px 10px 10px 10px; 
+    background: #ffffff; 
+    position: relative; 
+    border-radius: 4px; 
+    margin-bottom: 15px;
+    margin-top: 12px;
+}
+
+.modern-ui .middle-panel-title { 
+    position: absolute; 
+    top: -12px;
+    left: 10px; 
+    background: #ffffff; 
+    padding: 0 8px; 
+    color: #0056b3;
+    font-weight: bold; 
+    font-size: 14px; 
+    border-left: 3px solid #0056b3;
+    z-index: 2; 
+    line-height: normal; 
+}
+
+.modern-ui .field-row { 
+    display: flex;
+    align-items: center; 
+    gap: 8px;
+    margin-bottom: 10px; 
+    flex-wrap: nowrap;
+}
+
+.modern-ui .lbl-right { 
+    text-align: right; 
+    color: #444;
+    font-size: 12px; 
+    font-weight: bold;
+    white-space: nowrap; 
+    padding-right: 5px;
+    flex-shrink: 0; 
+}
+
+/* Grid Containers */
+.grid-container {
+    border: 1px solid #c5d3e0;
+    border-radius: 4px;
+    background: #fff;
+    overflow: hidden;
+}
+</style>
+
+<body onLoad="setValues();">
+<div id="mainBG" class="homeContent" data-type="background">
+    <jsp:include page="../../../../header.jsp" />
+    <br/> 
+    
+    <div class='modern-ui hidden-scrollbar'>
+        
+        <form id="frmBrand" action="savepbmAction" method="get" autocomplete="off">
+            <div class="middle-panel" style="background: #fdfdfd;">
+                <span class="middle-panel-title">Product Brand Details</span>
+                
+                <div class="field-row">
+                    <label class="lbl-right" style="width:80px; flex-shrink:0;">Date</label>
+                    <div style="width: 125px; flex-shrink:0;">
+                        <div id="date" name="date"></div>
+                    </div>
+                    
+                    <label class="lbl-right" style="width:80px; flex-shrink:0; margin-left: auto;">Doc No.</label>
+                    <input type="text" name="docno" id="docno" value='<s:property value="docno"/>' readonly tabindex="-1" style="width:150px; flex-shrink:0;">
+                </div>
+                
+                <div class="field-row" style="margin-bottom:0;">
+                    <label class="lbl-right" style="width:80px; flex-shrink:0;">Brand</label>
+                    <input type="text" name="brand" id="brand" value='<s:property value="brand"/>' style="width: 250px; flex-shrink:0;">
+                    
+                    <label class="lbl-right" style="width:80px; flex-shrink:0; margin-left: 15px;">Description</label>
+                    <input type="text" id="branddesc" name="branddesc" value='<s:property value="branddesc"/>' style="flex:1; min-width:0;">
+                </div>
+                
+                <!-- Hidden Inputs -->
+                <div style="display:none;">
+                    <input type="hidden" name="mode" id="mode" value='<s:property value="mode"/>' /> 
+                    <input type="hidden" name="deleted" id="deleted" value='<s:property value="deleted"/>' />
+                    <input type="hidden" id="msg" name="msg" value='<s:property value="msg"/>' />
+                    <!-- Hidden field to support the JS val() fetch for 'date' if used dynamically -->
+                    <input type="hidden" id="datehidden" value="<s:property value='datehidden'/>" />
+                </div>
+            </div>
+        </form>
+
+        <div class="middle-panel" style="margin-top: 25px;">
+            <span class="middle-panel-title">Brand Search</span>
+            <div class="grid-container">
+                <div id="jqxBrandSearch1"></div>  
+            </div>
+        </div>
+
+    </div>
+</div>
 </body>
 </html>
