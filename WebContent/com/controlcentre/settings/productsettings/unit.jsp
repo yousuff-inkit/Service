@@ -8,10 +8,104 @@
 <title>GatewayERP(i)</title>
 <jsp:include page="../../../../includes.jsp"></jsp:include>
 <style>
-form label.error {
-color:red;
-  font-weight:bold;
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 24px 0;
+    box-sizing: border-box;
+    overflow-y: auto !important;
+}
 
+#mainBG {
+    background: #fff;
+    border-radius: 16px;
+    padding: 15px;
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+#frmUnit input[type="text"] {
+    height: 24px !important;
+    border: 1px solid #b8c6d8;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #333;
+    box-shadow: none !important;
+    outline: none;
+    width: 100%;
+}
+
+#frmUnit input[type="text"]:focus {
+    border-color: #007bff;
+}
+
+#frmUnit input[readonly],
+#frmUnit input:disabled {
+    background-color: #f8f9fa;
+    color: #6b7280;
+}
+
+form label.error {
+    color: red;
+    font-weight: bold;
+    font-size: 11px;
+    font-family: Arial, sans-serif;
+}
+
+.grid-container {
+    border: 1px solid #c5d3e0;
+    border-radius: 4px;
+    background: #fff;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+.modern-ui .middle-panel {
+    border: 1px solid #c5d3e0;
+    padding: 20px 10px 10px 10px;
+    background: #ffffff;
+    position: relative;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    margin-top: 12px;
+}
+
+.modern-ui .middle-panel-title {
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    background: #ffffff;
+    padding: 0 8px;
+    color: #0056b3;
+    font-weight: bold;
+    font-size: 14px;
+    border-left: 3px solid #0056b3;
+    z-index: 2;
+    line-height: normal;
+}
+
+.modern-ui .field-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0;
+    flex-wrap: nowrap;
+}
+
+.modern-ui .lbl-right {
+    text-align: right;
+    color: #444;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 </style>
 <%@page import="com.controlcentre.settings.productsettings.productmaster.ClsProductMasterDAO"%>
@@ -138,37 +232,39 @@ function funSearchLoad(){
 </head>
 <body onload="setValues();">
 <div id="mainBG" class="homeContent" data-type="background">
-<form id="frmUnit" action="savepumAction"  autocomplete="off">
+<form id="frmUnit" action="savepumAction" autocomplete="off">
 
-<jsp:include page="../../../../header.jsp" /><br/> 
-<fieldset>
-<legend>Unit Details</legend>
-				<table width="100%">
-					<tr>
-						<td width="9%" align="right">Unit</td>
-						<td width="45%" align="left"><input type="text" name="unit"
-							value='<s:property value="unit"/>' id="unit" ></td>
-						<td width="4%" align="right">Doc No</td>
-						<td width="42%" align="left"><input type="text" name="docno"
-							value='<s:property value="docno"/>' id="docno"
-							readonly="readonly" tabindex="-1"></td>
-					</tr>
-					<tr>
-						<td align="right">Description</td>
-						<td align="left"><input type="text" name="unitdesc"
-							 value='<s:property value="unitdesc"/>'
-							id="unitdesc"></td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-					</tr>
-				</table>
-			</fieldset>
-			<input type="hidden" id="msg" name="msg"  value='<s:property value="msg"/>'/>
-<input type="text" name="deleted"  hidden="hidden" id="deleted" value='<s:property value="deleted"/>'/>
-<input type="hidden" id="mode" hidden="hidden" name="mode"/>
+    <jsp:include page="../../../../header.jsp" />
+
+    <div class="modern-ui">
+
+        <!-- Unit Details Panel -->
+        <div class="middle-panel">
+            <span class="middle-panel-title">Unit Details</span>
+
+            <div class="field-row">
+                <label class="lbl-right" style="width:60px;">Unit</label>
+                <input type="text" name="unit" value='<s:property value="unit"/>' id="unit" style="width:180px; flex-shrink:0;">
+
+                <label class="lbl-right" style="width:60px; margin-left:15px;">Doc No</label>
+                <input type="text" name="docno" value='<s:property value="docno"/>' id="docno" readonly="readonly" tabindex="-1" style="width:150px; flex-shrink:0;">
+            </div>
+
+            <div class="field-row">
+                <label class="lbl-right" style="width:80px;">Description</label>
+                <input type="text" name="unitdesc" value='<s:property value="unitdesc"/>' id="unitdesc" style="flex:1; min-width:0;">
+            </div>
+        </div>
+
+    </div>
+
+    <input type="hidden" id="msg" name="msg" value='<s:property value="msg"/>'/>
+    <input type="text" name="deleted" hidden="hidden" id="deleted" value='<s:property value="deleted"/>'/>
+    <input type="hidden" id="mode" hidden="hidden" name="mode"/>
 </form>
 <br/>
-<div id="jqxUnitSearch1"></div>
+<div id="jqxUnitSearch1" class="grid-container"></div>
+
 <%-- <div id="window">
 	<div id="windowHeader" class="windowHead">
 		<span> <img src="../../../../icons/search_new.png" alt="" style="margin-right: 15px" />Search</span>
@@ -176,7 +272,7 @@ function funSearchLoad(){
 	<div id="windowContent" class="windowCont" style="overflow: hidden;">
 		<jsp:include page="unitSearch.jsp"></jsp:include>
 	</div></div> --%>
-	
+
 </div>
 </body>
 </html>

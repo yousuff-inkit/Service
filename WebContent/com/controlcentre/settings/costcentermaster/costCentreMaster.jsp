@@ -10,10 +10,159 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <jsp:include page="../../../../includes.jsp"></jsp:include>
 <style>
-form label.error {
-color:red;
-  font-weight:bold;
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 24px 0;
+    box-sizing: border-box;
+    overflow-y: auto !important;
+}
 
+#mainBG {
+    background: #fff;
+    border-radius: 16px;
+    padding: 15px;
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+#frmCostmaster input[type="text"],
+#frmCostmaster select {
+    height: 24px !important;
+    border: 1px solid #b8c6d8;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #333;
+    box-shadow: none !important;
+    outline: none;
+    width: 100%;
+}
+
+#frmCostmaster input[type="text"]:focus,
+#frmCostmaster select:focus {
+    border-color: #007bff;
+}
+
+#frmCostmaster input[readonly],
+#frmCostmaster input:disabled,
+#frmCostmaster select:disabled {
+    background-color: #f8f9fa;
+    color: #6b7280;
+}
+
+form label.error {
+    color: red;
+    font-weight: bold;
+    font-size: 11px;
+    font-family: Arial, sans-serif;
+}
+
+.jqx-datetimeinput-input {
+    height: 24px !important;
+    line-height: 24px !important;
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+    box-sizing: border-box !important;
+    font-size: 12px !important;
+    font-family: Arial, sans-serif !important;
+    padding: 0 6px !important;
+}
+.jqx-action-button {
+    height: 24px !important;
+    top: 0px !important;
+}
+.jqx-widget-content {
+    box-sizing: border-box !important;
+}
+
+.modern-ui .middle-panel {
+    border: 1px solid #c5d3e0;
+    padding: 20px 10px 10px 10px;
+    background: #ffffff;
+    position: relative;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    margin-top: 12px;
+}
+
+.modern-ui .middle-panel-title {
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    background: #ffffff;
+    padding: 0 8px;
+    color: #0056b3;
+    font-weight: bold;
+    font-size: 14px;
+    border-left: 3px solid #0056b3;
+    z-index: 2;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.modern-ui .middle-panel-title input[type="radio"] {
+    margin: 0;
+    cursor: pointer;
+}
+.modern-ui .middle-panel-title label {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.modern-ui .field-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: nowrap;
+}
+.modern-ui .field-row:last-child {
+    margin-bottom: 0;
+}
+
+.modern-ui .lbl-right {
+    text-align: right;
+    color: #444;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+    flex-shrink: 0;
+    width: 110px;
+}
+
+.modern-ui .category-grid {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.modern-ui .category-grid > .middle-panel {
+    flex: 1;
+    min-width: 260px;
+    margin-top: 12px;
+}
+
+.modern-ui .subgroup-pair {
+    display: flex;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+}
+.modern-ui .subgroup-pair select {
+    flex: 1;
+    min-width: 0;
+}
+.modern-ui .subgroup-pair input[type="text"] {
+    flex: 1;
+    min-width: 0;
 }
 </style>
 <script type="text/javascript">
@@ -686,148 +835,132 @@ function funExcelBtn(){
 
 <div id="mainBG" class="homeContent" data-type="background">
 <jsp:include page="../../../../header.jsp"></jsp:include>
-<br>
-<form  id="frmCostmaster" action="saveCostmaster" method="post" autocomplete="off">
-<fieldset width="80%">
-<table width="100%" >
-<tr>
-<td>
-<!-- <div align="center" hidden="true" id="erroMsg"></div> -->
- <table width="100%" >
- <tr><td width="6%" align="right">Date</td>
- <td width="31%"  align="left"><div id="date_costmaster" name="date_costmaster" value='<s:property value="date_costmaster"/>'></div></td> 
-	<td width="46%" align="right">Doc No.</td><td width="17%"><input type="text" name="docno" id="docno" value='<s:property value="docno"/>' >
-			</td></tr></table>
- <table width="100%"  >
-<tr><td></td>
-<td width="40%">
-<fieldset>
-<table id="main1"><tr><td> <tr><td><input type="radio" id="category1" name="category" value="mainaccount" onchange="fundisable();"><label>Main</label></td>
-</tr></td></tr></table>
 
-<table width="100%" id="main" >
-  <tr>
-    <td width="50%" align="right"><div><label>Cost Group</label></div></td>
-    <td width="%"><select name="mainaccgroup" id="mainaccgroup"  style="width:92%;"  value='<s:property value="mainaccgroup"/>' onchange="funclear1();" >
-      <option value="-1">--Select--</option>
-    </select><%-- <input type="text" id="maindata" name="maindata" value='<s:property value="maindata"/>'> --%></td> 
-    </tr>
-  <tr>
-     <td align="right"><div><label>Cost Code</label></div></td>
-    <td><input type="text" name="mainacccode" id="mainacccode" style="width:90%;" value='<s:property value="mainacccode"/>' onblur="maincheck(this.value)" ></td>
-  </tr>
-  <tr>
-     <td align="right"><div><label>Cost Name</label></div></td>
-    <td><input type="text" name="mainacconame" id="mainacconame" style="width:90%;"  value='<s:property value="mainacconame"/>' onblur="dismassge()">
-  <input type="hidden" name="main_account" id="main_account"  value='<s:property value="main_account"/>' />
-        </td>
-  </tr>
-  </table>
-  </fieldset>
-  
-    </td>                 
-  <td>
-  
-  <fieldset>
-  <table id="sub1"> <tr ><td><input type="radio" id="category2" name="category" value="subaccount" onchange="fundisable();"><label>Sub</label></td>
-</tr></table>
- 
- <table width="100%"  id="sub"> 
-    <tr>
-    <td width="20%" align="right"><div>Main Cost Group</div></td>
-   <td width="62%"><select name="subaccgroup" id="subaccgroup"  style="width:40.5%;"  onChange="getAcgroup(this.value,1);" onfocus="funclear2();" value='<s:property value="subaccgroup"/>' > 
-        <option value="-1">--Select--</option>
-        </select>&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="subaccgpname" name=subaccgpname style="width:40%;" value='<s:property value="subaccgpname"/>'  />
-        
-        
-        </td>
-    </tr>
-  <tr>
-     <td align="right" ><div>Cost Code</div></td>
-    <td ><input type="text" name="subacccode" id="subacccode" style="width:40%;" value='<s:property value="subacccode"/>' onblur="subcheck(this.value)" ></td>
-  </tr>
-  <tr>
-     <td align="right"><div>Cost Name</div></td>
-    <td ><input type="text" name="subaccname" id="subaccname" style="width:40%;" value='<s:property value="subaccname"/>' onblur="dismassge()" />
-      <input type="hidden" name="sub_account" id="sub_account"  value='<s:property value="sub_account"/>' />
-    </td>
-  </tr>
-  </table>
-  </fieldset>
-  
-    </td> </tr>    </table> 
-  
- <table width="100%">
- <tr >
- <td width="60" >
- 
-     <fieldset>
-     <table id="trans1"> <tr align="center"><td><input type="radio" id="category3" name="category" value="transaction" onchange="fundisable();"><label>Transaction</label></td></tr></table>
+<form id="frmCostmaster" action="saveCostmaster" method="post" autocomplete="off">
+<div class="modern-ui">
 
- <table width="100%"  id="trans" >
-    <tr>  <td width="28.5%" align="right"><div>Main Cost Group</div></td>
-   <td ><select id="tansaccgroup" name="tansaccgroup" style="width:35.5%;"  onChange="getAcgroup(this.value,2);"   onfocus="funclear3();" >
-        <option value="-1">--Select--</option>
-        </select>&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="transcaccgpname" id="transcaccgpname" style="width:35%;"  value='<s:property value="transcaccgpname"/>' >
-        </td>   </tr>
-  <tr>
-     <td align="right"><div>Cost Code</div></td>
-    <td ><input type="text" name="transacccode" id="transacccode" style="width:35%;"  value='<s:property value="transacccode"/>' onblur="trancheck(this.value)" ></td>
-  </tr>
-  <tr>
-     <td align="right"><div>Cost Name</div></td>
-    <td ><input type="text" name="transaccname" id="transaccname" style="width:35%;"  value='<s:property value="transaccname"/>' onblur="dismassge()" >
-    
-     <input type="hidden" name="tran_account" id="tran_account"  value='<s:property value="tran_account"/>' />
-    </td>
-  </tr>  <tr>  <td>  </td>  <td>
- 
-    </td>
-         </tr>
+    <!-- Date / Doc No Panel -->
+    <div class="middle-panel">
+        <span class="middle-panel-title">Cost Details</span>
+        <!-- <div align="center" hidden="true" id="erroMsg"></div> -->
+        <div class="field-row">
+            <label class="lbl-right" style="width:60px;">Date</label>
+            <div style="width:150px; flex-shrink:0;">
+                <div id="date_costmaster" name="date_costmaster" value='<s:property value="date_costmaster"/>'></div>
+            </div>
 
-    </table>
-  </fieldset>
-  
-  
-  </td>
-  <td width=30%>
-  <div  hidden="true">
-    <input type="radio" name="data" value="debit" checked>Debit<br>
-    <input type="radio" name="data" value="Credit">Credit
-  
-  </div>
-  
-  </td></tr></table>
-  </td></tr>
-  <tr><td><input type="hidden" id="mode" name="mode" value='<s:property value="mode"/>'></td>
-  	<td><input type="hidden" id="datehidden" name="datehidden" value='<s:property value="datehidden"/>'/>
-  	<input type="hidden" id="deleted" name="deleted" value='<s:property value="deleted"/>'>
-  <input type="hidden" id="radiotick" name="radiotick" value='<s:property value="radiotick"/>'>
-  
-  <input type="hidden" id="checksetval" name="checksetval" value='<s:property value="checksetval"/>'>
-  <input type="hidden" id="subchecksetval" name="subchecksetval" value='<s:property value="subchecksetval"/>'>
-  <input type="hidden" id="tranchecksetval" name="tranchecksetval" value='<s:property value="tranchecksetval"/>'>
-  </td>         
-  <td>
-  
+            <label class="lbl-right" style="width:70px; margin-left:15px;">Doc No.</label>
+            <input type="text" name="docno" id="docno" value='<s:property value="docno"/>' style="width:150px; flex-shrink:0;">
+        </div>
+    </div>
 
-    <input type="hidden" id="otherdis" name="otherdis" value='<s:property value="otherdis"/>'>
-  
-   <input type="hidden" id="maindel" name="maindel" value='<s:property value="maindel"/>'>
-   <input type="hidden" id="radiosaveval" name="radiosaveval" value='<s:property value="radiosaveval"/>'>
-  <input type="hidden" id="msg" name="msg"  value='<s:property value="msg"/>'/>
-  
-    <input type="hidden" id="codeval" name="codeval" value='<s:property value="codeval"/>'>  <!-- foe code VAL -->
-  
- 
-  
-  </td>
-  </tr>          
-  </table>          
-     </fieldset>
-<br>
-  </form>
-  </div>
-  </body>
-  </html>
-  
+    <!-- Main / Sub Panels -->
+    <div class="category-grid">
+
+        <!-- Main Panel -->
+        <div class="middle-panel">
+            <span class="middle-panel-title">
+                <input type="radio" id="category1" name="category" value="mainaccount" onchange="fundisable();">
+                <label for="category1">Main</label>
+            </span>
+
+            <div class="field-row">
+                <label class="lbl-right">Cost Group</label>
+                <select name="mainaccgroup" id="mainaccgroup" value='<s:property value="mainaccgroup"/>' onchange="funclear1();" style="flex:1; min-width:0;">
+                    <option value="-1">--Select--</option>
+                </select>
+                <%-- <input type="text" id="maindata" name="maindata" value='<s:property value="maindata"/>'> --%>
+            </div>
+            <div class="field-row">
+                <label class="lbl-right">Cost Code</label>
+                <input type="text" name="mainacccode" id="mainacccode" value='<s:property value="mainacccode"/>' onblur="maincheck(this.value)" style="flex:1; min-width:0;">
+            </div>
+            <div class="field-row">
+                <label class="lbl-right">Cost Name</label>
+                <input type="text" name="mainacconame" id="mainacconame" value='<s:property value="mainacconame"/>' onblur="dismassge()" style="flex:1; min-width:0;">
+                <input type="hidden" name="main_account" id="main_account" value='<s:property value="main_account"/>'/>
+            </div>
+        </div>
+
+        <!-- Sub Panel -->
+        <div class="middle-panel">
+            <span class="middle-panel-title">
+                <input type="radio" id="category2" name="category" value="subaccount" onchange="fundisable();">
+                <label for="category2">Sub</label>
+            </span>
+
+            <div class="field-row">
+                <label class="lbl-right">Main Cost Group</label>
+                <div class="subgroup-pair">
+                    <select name="subaccgroup" id="subaccgroup" onChange="getAcgroup(this.value,1);" onfocus="funclear2();" value='<s:property value="subaccgroup"/>'>
+                        <option value="-1">--Select--</option>
+                    </select>
+                    <input type="text" id="subaccgpname" name="subaccgpname" value='<s:property value="subaccgpname"/>'/>
+                </div>
+            </div>
+            <div class="field-row">
+                <label class="lbl-right">Cost Code</label>
+                <input type="text" name="subacccode" id="subacccode" value='<s:property value="subacccode"/>' onblur="subcheck(this.value)" style="flex:1; min-width:0;">
+            </div>
+            <div class="field-row">
+                <label class="lbl-right">Cost Name</label>
+                <input type="text" name="subaccname" id="subaccname" value='<s:property value="subaccname"/>' onblur="dismassge()" style="flex:1; min-width:0;">
+                <input type="hidden" name="sub_account" id="sub_account" value='<s:property value="sub_account"/>'/>
+            </div>
+        </div>
+
+        <!-- Transaction Panel -->
+        <div class="middle-panel">
+            <span class="middle-panel-title">
+                <input type="radio" id="category3" name="category" value="transaction" onchange="fundisable();">
+                <label for="category3">Transaction</label>
+            </span>
+
+            <div class="field-row">
+                <label class="lbl-right">Main Cost Group</label>
+                <div class="subgroup-pair">
+                    <select id="tansaccgroup" name="tansaccgroup" onChange="getAcgroup(this.value,2);" onfocus="funclear3();">
+                        <option value="-1">--Select--</option>
+                    </select>
+                    <input type="text" name="transcaccgpname" id="transcaccgpname" value='<s:property value="transcaccgpname"/>'>
+                </div>
+            </div>
+            <div class="field-row">
+                <label class="lbl-right">Cost Code</label>
+                <input type="text" name="transacccode" id="transacccode" value='<s:property value="transacccode"/>' onblur="trancheck(this.value)" style="flex:1; min-width:0;">
+            </div>
+            <div class="field-row">
+                <label class="lbl-right">Cost Name</label>
+                <input type="text" name="transaccname" id="transaccname" value='<s:property value="transaccname"/>' onblur="dismassge()" style="flex:1; min-width:0;">
+                <input type="hidden" name="tran_account" id="tran_account" value='<s:property value="tran_account"/>'/>
+            </div>
+        </div>
+
+    </div>
+
+    <div hidden="true">
+        <input type="radio" name="data" value="debit" checked>Debit
+        <input type="radio" name="data" value="Credit">Credit
+    </div>
+
+    <!-- Hidden Inputs -->
+    <div style="display:none;">
+        <input type="hidden" id="mode" name="mode" value='<s:property value="mode"/>'>
+        <input type="hidden" id="datehidden" name="datehidden" value='<s:property value="datehidden"/>'/>
+        <input type="hidden" id="deleted" name="deleted" value='<s:property value="deleted"/>'>
+        <input type="hidden" id="radiotick" name="radiotick" value='<s:property value="radiotick"/>'>
+        <input type="hidden" id="checksetval" name="checksetval" value='<s:property value="checksetval"/>'>
+        <input type="hidden" id="subchecksetval" name="subchecksetval" value='<s:property value="subchecksetval"/>'>
+        <input type="hidden" id="tranchecksetval" name="tranchecksetval" value='<s:property value="tranchecksetval"/>'>
+        <input type="hidden" id="otherdis" name="otherdis" value='<s:property value="otherdis"/>'>
+        <input type="hidden" id="maindel" name="maindel" value='<s:property value="maindel"/>'>
+        <input type="hidden" id="radiosaveval" name="radiosaveval" value='<s:property value="radiosaveval"/>'>
+        <input type="hidden" id="msg" name="msg" value='<s:property value="msg"/>'/>
+        <input type="hidden" id="codeval" name="codeval" value='<s:property value="codeval"/>'> <!-- foe code VAL -->
+    </div>
+
+</div>
+</form>
+</div>
+</body>
+</html>
