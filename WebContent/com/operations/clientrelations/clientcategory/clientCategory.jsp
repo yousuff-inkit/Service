@@ -11,6 +11,169 @@
 <title>GatewayERP(i)</title>
 <jsp:include page="../../../../includes.jsp"></jsp:include>
 
+<style>
+/* =========================================================
+SCOPED UI: Modern Layout (Matches Client Master)
+========================================================= */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    color: #222;
+    margin: 0;
+    padding: 24px 0;
+    box-sizing: border-box;
+    overflow-y: auto !important;
+}
+
+#mainBG {
+    background: #fff;
+    border-radius: 16px;
+    padding: 15px;
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+.modern-ui {
+    font-family: Arial, sans-serif; 
+    color: #333;
+    font-size: 12px; 
+    padding: 5px 15px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Master Input Heights - Forced to 24px */
+.modern-ui input[type="text"],
+.modern-ui select { 
+    height: 24px !important; 
+    border: 1px solid #b8c6d8; 
+    border-radius: 3px; 
+    padding: 2px 6px;
+    font-size: 12px;
+    box-sizing: border-box; 
+    background-color: #fff; 
+    color: #333;
+    width: 100%;
+}
+
+.modern-ui input[type="text"]:focus,
+.modern-ui select:focus { 
+    border-color: #007bff; 
+    outline: none;
+}
+
+.modern-ui input[readonly],
+.modern-ui input:disabled,
+.modern-ui select:disabled { 
+    background-color: #f8f9fa; 
+    color: #6b7280;
+}
+
+/* Layout Utilities */
+.modern-ui .field-row { 
+    display: flex;
+    align-items: center; 
+    gap: 8px;
+    margin-bottom: 10px; 
+    flex-wrap: wrap;
+}
+
+.modern-ui .lbl-right { 
+    text-align: right; 
+    color: #444;
+    font-size: 12px; 
+    font-weight: bold;
+    white-space: nowrap; 
+    padding-right: 5px;
+}
+
+/* Middle Section Panels */
+.modern-ui .middle-panel {
+    border: 1px solid #c5d3e0; 
+    padding: 20px 10px 10px 10px; 
+    background: #ffffff; 
+    position: relative; 
+    border-radius: 4px; 
+    margin-bottom: 15px;
+    margin-top: 12px;
+}
+
+.modern-ui .middle-panel-title { 
+    position: absolute; 
+    top: -12px;
+    left: 10px; 
+    background: #ffffff; 
+    padding: 0 8px; 
+    color: #0056b3;
+    font-weight: bold; 
+    font-size: 14px; 
+    border-left: 3px solid #0056b3;
+    z-index: 2; 
+    line-height: normal; 
+}
+
+/* Custom UI Buttons matching 24px height */
+.modern-ui .myButton {
+    height: 24px !important;
+    line-height: 22px !important;
+    padding: 0 12px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    text-shadow: none;
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    border: none;
+    background: linear-gradient(135deg, #0b45a2 0%, #2563eb 100%);
+    color: #ffffff;
+    white-space: nowrap;
+}
+.modern-ui .myButton:hover { background: linear-gradient(135deg, #083a8a 0%, #1d4ed8 100%); }
+
+/* Search Icon Wrapper */
+.modern-ui .input-search-container {
+    position: relative;
+    display: flex;
+}
+.modern-ui .input-search-container input {
+    padding-right: 25px !important;
+}
+.modern-ui .magnifier-icon {
+    position: absolute;
+    right: 6px; 
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #64748b; 
+    z-index: 10;
+}
+.modern-ui .magnifier-icon:hover { color: #2563eb; }
+
+/* Grid Wrappers */
+.modern-ui .grid-container {
+    border: 1px solid #c5d3e0;
+    border-radius: 4px;
+    background: #fff;
+    overflow: hidden;
+}
+
+/* Scrollbar Logic */
+.hidden-scrollbar {
+    overflow-y: auto;
+    height: calc(100vh - 120px);
+    padding-right: 5px;
+    overflow-x: hidden;
+}
+.hidden-scrollbar::-webkit-scrollbar { width: 6px; }
+.hidden-scrollbar::-webkit-scrollbar-thumb { background: #c5d3e0; border-radius: 3px; }
+
+form label.error { color:red; font-weight:bold; }
+#errormsg { color:red; font-weight:bold; text-align:center; margin-bottom: 10px; }
+</style>
+
 <script type="text/javascript">
 
 	/* Grid */
@@ -48,9 +211,10 @@
 	     
 	     $("#jqxCategorySearch1").jqxGrid(
 	             {
-	             	 width: '70%',
+	             	 width: '100%',
 	                 height: 375,
 	                 source: dataAdapter,
+	                 theme: 'energyblue',
 	                 showfilterrow: true,
 	                 filterable: true,
 	                 selectionmode: 'singlerow',
@@ -160,87 +324,94 @@
 		   return 1;
 	} 
 	 
-	function funChkButton() {
-		/* funReset(); */
-	}
+	function funChkButton() {}
 	
 	function funSearchLoad(){
 	   changeContent('categoryMainSearchGrid.jsp');  
 	}
 	 
-	function funFocus()
-	 {
+	function funFocus() {
 		document.getElementById("cmbtype").focus();
-	 }
+	}
 	
 	function setValues(){
-		
 		document.getElementById("cmbtype").value=document.getElementById("hidcmbtype").value;
 		
-		 if(document.getElementById("hidchckapproval").value==1){
+		if(document.getElementById("hidchckapproval").value==1){
  			 document.getElementById("chckapproval").checked = true;
- 		 }
- 		 else if(document.getElementById("hidchckapproval").value==0){
+ 		} else if(document.getElementById("hidchckapproval").value==0){
  			document.getElementById("chckapproval").checked = false;
- 		 }
+ 		}
 		
 		if($('#msg').val()!=""){
 			   $.messager.alert('Message',$('#msg').val());
-			  }
+		}
 		  
-		 document.getElementById("formdet").innerText=$('#formdetail').val()+" ("+$('#formdetailcode').val().trim()+")";
-		 funSetlabel();
+		document.getElementById("formdet").innerText=$('#formdetail').val()+" ("+$('#formdetailcode').val().trim()+")";
+		funSetlabel();
 	}
 	 
 </script>
-
-<style>
-.hidden-scrollbar {
-  overflow: auto;
-  height: 530px;
-}
-</style>
-			
 </head>
 <body onload="setValues();">
 <div id="mainBG" class="homeContent" data-type="background">
-<form id="frmClientCategory" action="saveClientCategory" method="post" autocomplete="off">
-<jsp:include page="../../../../header.jsp"></jsp:include><br/>
+    <form id="frmClientCategory" action="saveClientCategory" method="post" autocomplete="off">
+        <jsp:include page="../../../../header.jsp"></jsp:include>
+        
+        <div class="modern-ui hidden-scrollbar">
+            <div id="errormsg"></div>
 
-<div  class='hidden-scrollbar'>
-<fieldset>
-<legend>Category Master</legend>
-<table width="100%">
-  <tr>
-  <td width="5%" align="right">Type</td>
-  <td width="7%"><select id="cmbtype" name="cmbtype" style="width:75%;" onchange="getAccountGroup($('#cmbtype').val());" value='<s:property value="cmbtype"/>'>
-      <option value="">--Select--</option>
-      <option value="CRM">CLIENT</option><option value="VND">VENDOR</option></select>
-      <input type="hidden" id="hidcmbtype" name="hidcmbtype" value='<s:property value="hidcmbtype"/>'/></td>
-    <td width="12%" align="right">Category</td>
-    <td width="20%"><input type="text" id="txtcategory" name="txtcategory" style="width:70%;" value='<s:property value="txtcategory"/>'></td>
-    <td width="7%" align="right">Category Name</td>
-    <td width="49%"><input type="text" id="txtcategoryname" name="txtcategoryname" style="width:37%;" value='<s:property value="txtcategoryname"/>'></td>
-  </tr>
-  <tr>
-    <td colspan="2" align="right">Account Group</td>
-  <td colspan="2"><select id="cmbaccountgroup" name="cmbaccountgroup"  style="width:83%;" value='<s:property value="cmbaccountgroup"/>'>
-      <option value="">--Select--</option></select>
-       <input type="hidden" id="hidcmbaccountgroup" name="hidcmbaccountgroup" value='<s:property value="hidcmbaccountgroup"/>'/></td>
-  <td colspan="3"><input type="checkbox" id="chckapproval" name="chckapproval" value="" onchange="approval();" onclick="$(this).attr('value', this.checked ? 1 : 0)">Approval
-                  <input type="hidden" id="hidchckapproval" name="hidchckapproval" value='<s:property value="hidchckapproval"/>'/></td>
-  </tr>
-  
-</table>
-</fieldset><br/>
-<div id="jqxCategorySearch1"></div>
+            <div class="middle-panel">
+                <span class="middle-panel-title">Category Master</span>
+                
+                <div class="field-row">
+                    <label class="lbl-right" style="width:80px;">Type</label>
+                    <select id="cmbtype" name="cmbtype" style="width:125px;" onchange="getAccountGroup($('#cmbtype').val());" value='<s:property value="cmbtype"/>'>
+                        <option value="">--Select--</option>
+                        <option value="CRM">CLIENT</option>
+                        <option value="VND">VENDOR</option>
+                    </select>
+                    <input type="hidden" id="hidcmbtype" name="hidcmbtype" value='<s:property value="hidcmbtype"/>'/>
+                    
+                    <label class="lbl-right" style="width:80px; margin-left:15px;">Category</label>
+                    <input type="text" id="txtcategory" name="txtcategory" style="width:150px;" value='<s:property value="txtcategory"/>'>
+                    
+                    <label class="lbl-right" style="width:100px; margin-left:15px;">Category Name</label>
+                    <input type="text" id="txtcategoryname" name="txtcategoryname" style="flex:1;" value='<s:property value="txtcategoryname"/>'>
+                </div>
+                
+                <div class="field-row" style="margin-bottom:0;">
+                    <label class="lbl-right" style="width:80px;">Account Group</label>
+                    <select id="cmbaccountgroup" name="cmbaccountgroup" style="flex:1; max-width: 300px;" value='<s:property value="cmbaccountgroup"/>'>
+                        <option value="">--Select--</option>
+                    </select>
+                    <input type="hidden" id="hidcmbaccountgroup" name="hidcmbaccountgroup" value='<s:property value="hidcmbaccountgroup"/>'/>
+                    
+                    <label style="cursor: pointer; display: flex; align-items: center; gap: 5px; margin-left: 15px;">
+                        <input type="checkbox" id="chckapproval" name="chckapproval" value="" onchange="approval();" onclick="$(this).attr('value', this.checked ? 1 : 0)" style="margin:0;">
+                        <span style="font-weight:bold; font-size:12px; color:#444;">Approval</span>
+                    </label>
+                    <input type="hidden" id="hidchckapproval" name="hidchckapproval" value='<s:property value="hidchckapproval"/>'/>
+                </div>
+            </div>
+            
+            <div class="middle-panel">
+                <span class="middle-panel-title">Categories</span>
+                <div class="grid-container" style="border: none;">
+                    <div id="jqxCategorySearch1"></div>
+                </div>
+            </div>
 
-<input type="hidden" id="mode" name="mode"/>
-<input type="hidden" id="deleted" name="deleted" value='<s:property value="deleted"/>'/>
-<input type="hidden" id="msg" name="msg"  value='<s:property value="msg"/>'/>
-<input type="hidden" id="docno" name="hidtxtclientcategorydocno" value='<s:property value="hidtxtclientcategorydocno"/>'/>
-</div>
-</form>
+            <!-- Hidden Logic Fields -->
+            <div style="display:none;">
+                <input type="hidden" id="mode" name="mode"/>
+                <input type="hidden" id="deleted" name="deleted" value='<s:property value="deleted"/>'/>
+                <input type="hidden" id="msg" name="msg" value='<s:property value="msg"/>'/>
+                <input type="hidden" id="docno" name="hidtxtclientcategorydocno" value='<s:property value="hidtxtclientcategorydocno"/>'/>
+            </div>
+            
+        </div>
+    </form>
 </div>
 </body>
 </html>
